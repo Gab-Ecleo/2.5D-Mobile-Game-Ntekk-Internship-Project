@@ -32,7 +32,8 @@ namespace PlayerScripts
         private void Start()
         {
             //initializes the value of the boolean depending on the player gameobject's local scale x value
-            _isFacingRight = gameObject.transform.localScale.x != -1;
+            // _isFacingRight = gameObject.transform.localScale.x != -1;
+            _isFacingRight = gameObject.transform.localEulerAngles != new Vector3(0, 180, 0);
         }
 
         private void Update()
@@ -78,13 +79,36 @@ namespace PlayerScripts
         //flips the player's "facing" direction
         private void Flip()
         {
-            if (_isFacingRight && moveDirection.x < 0f || !_isFacingRight && moveDirection.x > 0f) 
+           
+            // if (_isFacingRight && moveDirection.x < 0f || !_isFacingRight && moveDirection.x > 0f) 
+            // {
+            //     _isFacingRight = !_isFacingRight;
+            //     var localScale = transform.localScale;
+            //     localScale.x *= -1;
+            //     transform.localScale = localScale;
+            // }
+            
+            if (moveDirection.x == 0f) return;
+            switch (moveDirection.x)
             {
-                _isFacingRight = !_isFacingRight;
-                var localScale = transform.localScale;
-                localScale.x *= -1;
-                transform.localScale = localScale;
+                case < 0f:
+                {
+                    var localRotation = transform.localEulerAngles;
+                    localRotation = new Vector3(0, 180, 0);
+                    transform.localEulerAngles = localRotation;
+                    _isFacingRight = false;
+                    break;
+                }
+                case > 0f:
+                {
+                    var localRotation = transform.localEulerAngles;
+                    localRotation = new Vector3(0, 0, 0);
+                    transform.localEulerAngles = localRotation;
+                    _isFacingRight = true;
+                    break;
+                }
             }
+            Debug.Log(moveDirection.x);
         }
     }
 }
