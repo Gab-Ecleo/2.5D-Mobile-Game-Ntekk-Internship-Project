@@ -7,6 +7,8 @@ namespace PlayerScripts
     public class PlayerGrabThrow : MonoBehaviour
     {
         private RaycastHit _hit1, _hit2;
+        
+        [Header("Raycast References")]
         [SerializeField] private LayerMask layerDetected;
         [SerializeField] private Vector3 rayOffset1, rayOffset2;
         [SerializeField] private float rayDistance = 2f;
