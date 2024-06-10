@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,12 +7,21 @@ namespace PlayerScripts
 {
     public class PlayerGrabThrow : MonoBehaviour
     {
-        private RaycastHit _hit1, _hit2;
+        [SerializeField] private bool hasItem; //for testing purposes. Delete after testing
         
         [Header("Raycast References")]
         [SerializeField] private LayerMask layerDetected;
         [SerializeField] private Vector3 rayOffset1, rayOffset2;
         [SerializeField] private float rayDistance = 2f;
+        private RaycastHit _hit1, _hit2;
+
+        private PlayerGrabCooldown _grabCooldown;
+
+        private void Start()
+        {
+            _grabCooldown = GetComponent<PlayerGrabCooldown>();
+        }
+
         private void FixedUpdate()
         {
             //Visually projects how the raycasts below would look like
@@ -22,13 +32,26 @@ namespace PlayerScripts
 
         public void Interact(InputAction.CallbackContext ctx)
         {
+            //if grab is on cooldown, ignore this function. 
+            if (_grabCooldown.GrabCoolDownEnabled()) return;
+            
+            //if player is carrying an item, Throw item, then ignore the rest
+            if (hasItem)
+            {
+                Throw();
+                return;
+            }
+            
+            //detects object in front of player; eyesight level first, then waist level
             if (FirstBlockDetection() != null)
             {
                 Debug.Log($"First Raycast Detected Object name:{_hit1.transform.gameObject.name}");
+                hasItem = true;
             }
             else if (SecondBlockDetection() != null)
             {
                 Debug.Log($"Second Raycast Detected Object name:{_hit2.transform.gameObject.name}");
+                hasItem = true;
             }
             else
             {
@@ -38,6 +61,8 @@ namespace PlayerScripts
         
         private void Throw()
         {
+            _grabCooldown.StartTimer();
+            hasItem = false;
             Debug.Log("Player has Thrown");
         }
 
