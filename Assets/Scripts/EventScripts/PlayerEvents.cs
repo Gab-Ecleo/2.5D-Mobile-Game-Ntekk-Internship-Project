@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Events
+namespace EventScripts
 {
     /// <summary>
     /// game events for player behavior

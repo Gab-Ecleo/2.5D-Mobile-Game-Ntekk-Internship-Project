@@ -1,5 +1,5 @@
 ﻿using System;
-using Events;
+using EventScripts;
 using UnityEngine;
 
 namespace PlayerScripts.PlayerTriggers
