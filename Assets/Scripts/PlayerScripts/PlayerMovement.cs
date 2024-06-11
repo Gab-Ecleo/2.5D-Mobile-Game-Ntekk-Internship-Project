@@ -20,6 +20,22 @@ namespace PlayerScripts
         private float _jumpingPower;
         private float _speed;
         private float _fallOffRate;
+        public bool IsWalking
+        {
+            get
+            {
+                if (_moveDirection.x!=0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+        }
+
 
         [Header("Raycast References")]
         [SerializeField] private Vector3 direction = -Vector3.up;

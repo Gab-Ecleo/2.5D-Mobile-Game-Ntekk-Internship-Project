@@ -39,11 +39,13 @@ namespace AudioScripts.AudioSettings
         
         private void Start()
         {
+            //initialize values from the Audio Setting Data
             _audioData = Resources.Load("AudioSettingData/Audio Settings Data") as AudioSettingsSO;
             bgmSlider.value = _audioData.bgmVolume;
             sfxSlider.value = _audioData.sfxVolume;
         }
-
+        
+        //Everytime a slider changes value, this function gets called to update the UI and the Audio data
         private void OnsliderValueChanged(AudioType type, float value)
         {
             var valToText = (value * 100).ToString("0");
@@ -63,9 +65,11 @@ namespace AudioScripts.AudioSettings
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
         }
-
+        
+        //adds/removes the function above as the listener for the value of the sliders
         private void OnEnable()
         {
+            
             bgmSlider.onValueChanged.AddListener(value =>OnsliderValueChanged(AudioType.BGM,value));
             sfxSlider.onValueChanged.AddListener(value =>OnsliderValueChanged(AudioType.Sfx,value));
         }
