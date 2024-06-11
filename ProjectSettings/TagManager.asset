@@ -13,10 +13,10 @@ TagManager:
   - Ground
   - Water
   - UI
-  - Mask
-  - Behind Mask
-  - Black
   - Blocks
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -43,6 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Top
+  - name: 
     uniqueID: 1474571787
     locked: 0
