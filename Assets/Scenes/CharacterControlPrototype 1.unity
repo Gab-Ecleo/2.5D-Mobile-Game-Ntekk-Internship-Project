@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 34740423}
   - component: {fileID: 34740422}
   - component: {fileID: 34740421}
+  - component: {fileID: 34740427}
   - component: {fileID: 34740420}
   - component: {fileID: 34740426}
   - component: {fileID: 34740425}
@@ -254,13 +255,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasItem: 0
-  layerDetected:
-    serializedVersion: 2
-    m_Bits: 1
-  rayOffset1: {x: 0, y: 0.43, z: 0}
-  rayOffset2: {x: 0, y: -0.43, z: 0}
-  rayDistance: 2
-  grabCooldown: {fileID: 34740426}
 --- !u!114 &34740421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f9a54c229d7ee41974b306a0e209e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 34740424}
   direction: {x: -0, y: -1, z: -0}
   maxDistance: 1.05
   groundLayer:
@@ -372,9 +365,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459afba3b37c48119637b2db3de04e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialCooldownTimer: 3
-  cooldownTimer: 3
+  cooldownTimer: 0.5
   cooldownTimerEnabled: 0
+--- !u!114 &34740427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34740415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66dcdebd52ec45bb889627f45f32cf6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerDetected:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  rayOffset1: {x: 0, y: 0.4, z: 0}
+  rayOffset2: {x: 0, y: -0.4, z: 0}
+  rayDistance: 1.05
 --- !u!1 &70579219
 GameObject:
   m_ObjectHideFlags: 0

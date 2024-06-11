@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Events
 {
@@ -9,14 +10,6 @@ namespace Events
     /// </summary>
     public class PlayerEvents : MonoBehaviour
     {
-        public delegate void PlayerDamage();
-        public static event PlayerDamage OnPlayerDamage;
-        public static void OnPlayerDamageMethod()
-        {
-            if (OnPlayerDamage != null)
-            {
-                OnPlayerDamage();
-            }
-        }
+        public static Action OnPlayerDamage;
     }
 }

@@ -10,7 +10,7 @@ namespace PlayerScripts.PlayerTriggers
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Block")) return;
-            PlayerEvents.OnPlayerDamageMethod();    
+            PlayerEvents.OnPlayerDamage?.Invoke();
             Destroy(other.gameObject); //for testing only. delete after testing. 
         }
     }
