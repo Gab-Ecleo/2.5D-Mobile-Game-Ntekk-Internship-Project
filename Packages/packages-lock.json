@@ -99,8 +99,8 @@
       "source": "registry",
       "dependencies": {
         "com.unity.modules.physics": "1.0.0"
-      },
-
+        }
+    },
     "com.unity.render-pipelines.core": {
       "version": "14.0.9",
       "depth": 1,
