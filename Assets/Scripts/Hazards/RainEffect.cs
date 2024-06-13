@@ -10,6 +10,7 @@ public class RainEffect : MonoBehaviour
     [SerializeField] private float _hazardDuration = 5f;
     [SerializeField] private PlayerMovement _player;
     [SerializeField] private float _currentSpeed;
+    [SerializeField] private float _hazardModifier = 2;
 
     private void Start()
     {
@@ -29,11 +30,11 @@ public class RainEffect : MonoBehaviour
     //Halves the player's speed for [Hazard Duration], then returns to the original value
     IEnumerator rainOn()
     {
-        _currentSpeed /= 2;
+        _currentSpeed /= _hazardModifier;
         _player.Speed = _currentSpeed;
         Debug.Log("Slow down player :<");
         yield return new WaitForSeconds(_hazardDuration);
-        _currentSpeed *= 2;
+        _currentSpeed *= _hazardModifier;
         _player.Speed = _currentSpeed;
         Debug.Log("Speed up Player :>");
     }
