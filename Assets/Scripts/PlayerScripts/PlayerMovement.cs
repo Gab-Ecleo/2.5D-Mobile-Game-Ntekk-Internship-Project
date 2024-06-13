@@ -20,35 +20,20 @@ namespace PlayerScripts
         private float _jumpingPower;
         private float _speed;
         private float _fallOffRate;
-        public bool IsWalking
-        {
-            get
-            {
-                if (_moveDirection.x!=0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-                
-            }
-        }
 
+        [Header("Raycast References")] [SerializeField]
+        private Vector3 direction = -Vector3.up;
 
-        [Header("Raycast References")]
-        [SerializeField] private Vector3 direction = -Vector3.up;
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
 
         private void Start()
         {
             _rb = GetComponent<Rigidbody>();
-            
+
             //initializes the value of the boolean depending on the player gameobject's local scale x value
             _isFacingRight = gameObject.transform.localEulerAngles != new Vector3(0, 180, 0);
-            
+
             //initialize local stats from player data scriptable
             var initialPlayerStats = Resources.Load("PlayerData/PlayerStats") as PlayerStatsSO;
             if (initialPlayerStats == null) return;
@@ -65,14 +50,14 @@ namespace PlayerScripts
         private void FixedUpdate()
         {
             //draws a ray for the groundCheck raycast
-            Debug.DrawRay(transform.position, direction*maxDistance, Color.yellow);
+            Debug.DrawRay(transform.position, direction * maxDistance, Color.yellow);
         }
 
         //takes the Left and Right input value and uses it for the player's movement
         public void ProcessMove(Vector2 input)
         {
             _moveDirection = input;
-            _rb.velocity = new Vector3(_moveDirection.x * _speed, _rb.velocity.y);
+            _rb.velocity = new Vector3(_moveDirection.x * _speed, _rb.velocity.y, 0);
         }
 
         //jump
@@ -90,7 +75,7 @@ namespace PlayerScripts
                 _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y * _fallOffRate);
             }
         }
-        
+
         //returns True if raycast has detected groundLayer.
         private bool IsGrounded()
         {
@@ -119,6 +104,19 @@ namespace PlayerScripts
                     _isFacingRight = true;
                     break;
                 }
+            }
+        }
+        
+        //returns True if the player is walking/running, false if not
+        public bool IsWalking()
+        {
+            if (_rb.velocity.y == 0 && _moveDirection.x != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

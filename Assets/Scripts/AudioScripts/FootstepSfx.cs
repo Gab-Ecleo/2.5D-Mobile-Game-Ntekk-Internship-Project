@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace AudioScripts
 {
+    /// <summary>
+    /// Notice: Change the footstep audio file
+    /// </summary>
     public class FootstepSfx : MonoBehaviour
     {
         private AudioSource _audioSource;
@@ -19,9 +22,9 @@ namespace AudioScripts
         /// </summary>
         private void Update()
         {
-            if (_audioSource.enabled != _playerMotor.IsWalking)
+            if (_audioSource.enabled != _playerMotor.IsWalking())
             {
-                _audioSource.enabled = _playerMotor.IsWalking;
+                _audioSource.enabled = _playerMotor.IsWalking();
             }
         }
     }

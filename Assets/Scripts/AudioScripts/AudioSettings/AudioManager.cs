@@ -8,9 +8,22 @@ namespace AudioScripts.AudioSettings
 {
     public class AudioManager : MonoBehaviour
     {
+        public static AudioManager Instance;
         private AudioSettingsSO _audioData;
         [SerializeField] private AudioSource[] bgmSources;
         [SerializeField] private AudioSource[] sfxSources;
+
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
         private void Start()
         {
@@ -29,7 +42,7 @@ namespace AudioScripts.AudioSettings
                 bgmSource.volume = volume;
             }
         }
-        
+
         //updates the values of all the audio sources in the list
         private void UpdateSfxVolume(float volume)
         {
@@ -38,7 +51,7 @@ namespace AudioScripts.AudioSettings
                 sfxSource.volume = volume;
             }
         }
-        
+
         //fetched by the event that is called by the Audio UI update
         private void UpdateVolume(object rawPayload)
         {
@@ -47,7 +60,7 @@ namespace AudioScripts.AudioSettings
             {
                 return;
             }
-            
+
             switch (settingsPayload.AudioSettingType)
             {
                 case AudioType.BGM:
