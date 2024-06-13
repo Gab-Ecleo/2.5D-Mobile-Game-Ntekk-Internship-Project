@@ -11,12 +11,7 @@ using UnityEngine.Rendering.Universal;
 public class BlackoutEffect : MonoBehaviour
 {
     [SerializeField] private float _hazardDuration = 5f;
-    private Animation anim;
-
-    private void Start()
-    {
-        anim = GetComponent<Animation>();
-    }
+    [SerializeField] private Animation anim;
 
     void Update()
     {
