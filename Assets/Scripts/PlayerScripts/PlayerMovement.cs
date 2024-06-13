@@ -27,6 +27,18 @@ namespace PlayerScripts
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
 
+        public float Speed
+        {
+            get
+            {
+                return _speed;
+            }
+            set
+            {
+                _speed = value;
+            }
+        }
+
         private void Start()
         {
             _rb = GetComponent<Rigidbody>();
