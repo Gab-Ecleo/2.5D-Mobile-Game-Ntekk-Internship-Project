@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,23 +10,29 @@ using UnityEngine.Rendering.Universal;
 
 public class BlackoutEffect : MonoBehaviour
 {
-
-    [SerializeField] private GameObject _blackOut;
     [SerializeField] private float _hazardDuration = 5f;
+    private Animation anim;
+
+    private void Start()
+    {
+        anim = GetComponent<Animation>();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown("k"))
         {
             StartCoroutine("blackout");
         }
+        
     }
-    
     IEnumerator blackout()
     {
-        _blackOut.SetActive(true);
+        anim.Play("FadeIn");
         Debug.Log("Screen goes bye :<");
         yield return new WaitForSeconds(_hazardDuration);
+        anim.Play("FadeOut");
         Debug.Log("Screen goes hi!");
-        _blackOut.SetActive(false);
     }
+    
 }
