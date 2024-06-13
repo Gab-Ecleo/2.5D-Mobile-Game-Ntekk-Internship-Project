@@ -15,12 +15,14 @@ public class BlackoutEffect : MonoBehaviour
 
     void Update()
     {
+        // CHANGE TRIGGER in the Future!!!  Activates hazard when button is pressed
         if (Input.GetKeyDown("k"))
         {
             StartCoroutine("blackout");
         }
         
     }
+    // Initiate a blackout which makes the screen go dark after [Hazard Duration].
     IEnumerator blackout()
     {
         anim.Play("FadeIn");

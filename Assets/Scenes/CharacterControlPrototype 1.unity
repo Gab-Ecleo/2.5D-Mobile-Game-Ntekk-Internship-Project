@@ -2136,8 +2136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hazardDuration: 5
-  _player: {fileID: 34740415}
-  _slowEffect: -4
+  _player: {fileID: 34740421}
+  _slowEffect: 4
+  _currentSpeed: 0
 --- !u!114 &1760651010
 MonoBehaviour:
   m_ObjectHideFlags: 0
