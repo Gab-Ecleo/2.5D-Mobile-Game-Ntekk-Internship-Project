@@ -8,14 +8,14 @@ using UnityEngine;
 public class RainEffect : MonoBehaviour
 {
     [SerializeField] private float _hazardDuration = 5f;
-    [SerializeField] private PlayerMovement _player;
+    [SerializeField] private PlayerStatsSO currentPlayerStats;
     [SerializeField] private float _currentSpeed;
     [SerializeField] private float _hazardModifier = 2;
 
     private void Start()
     {
         //Set current speed from the player stat speed value
-        _currentSpeed = _player.Speed;
+        _currentSpeed = currentPlayerStats.movementSpeed;
     }
 
     private void Update()
@@ -31,11 +31,11 @@ public class RainEffect : MonoBehaviour
     IEnumerator rainOn()
     {
         _currentSpeed /= _hazardModifier;
-        _player.Speed = _currentSpeed;
+        currentPlayerStats.movementSpeed = _currentSpeed;
         Debug.Log("Slow down player :<");
         yield return new WaitForSeconds(_hazardDuration);
         _currentSpeed *= _hazardModifier;
-        _player.Speed = _currentSpeed;
+        currentPlayerStats.movementSpeed = _currentSpeed;
         Debug.Log("Speed up Player :>");
     }
 }

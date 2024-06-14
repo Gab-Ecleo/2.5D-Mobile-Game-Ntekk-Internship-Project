@@ -16,29 +16,16 @@ namespace PlayerScripts
         private Vector2 _moveDirection = Vector2.zero;
         private Rigidbody _rb;
 
-        //player's local stats
-        private float _jumpingPower;
-        private float _speed;
-        private float _fallOffRate;
+        //player's stats. Only Modify 
+        [SerializeField] private PlayerStatsSO initialPlayerStats;
+        [SerializeField] private PlayerStatsSO currentPlayerStats;
 
         [Header("Raycast References")] [SerializeField]
         private Vector3 direction = -Vector3.up;
 
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
-
-        public float Speed
-        {
-            get
-            {
-                return _speed;
-            }
-            set
-            {
-                _speed = value;
-            }
-        }
-
+        
         private void Start()
         {
             _rb = GetComponent<Rigidbody>();
@@ -46,12 +33,13 @@ namespace PlayerScripts
             //initializes the value of the boolean depending on the player gameobject's local scale x value
             _isFacingRight = gameObject.transform.localEulerAngles != new Vector3(0, 180, 0);
 
-            //initialize local stats from player data scriptable
-            var initialPlayerStats = Resources.Load("PlayerData/PlayerStats") as PlayerStatsSO;
+            //initialize current player stats data using initial player stats
+
+            if (currentPlayerStats == null) return;
             if (initialPlayerStats == null) return;
-            _speed = initialPlayerStats.movementSpeed;
-            _jumpingPower = initialPlayerStats.jumpHeight;
-            _fallOffRate = initialPlayerStats.jumpFallOff;
+            currentPlayerStats.movementSpeed = initialPlayerStats.movementSpeed;
+            currentPlayerStats.jumpHeight = initialPlayerStats.jumpHeight;
+            currentPlayerStats.jumpFallOff = initialPlayerStats.jumpFallOff;
         }
 
         private void Update()
@@ -69,7 +57,7 @@ namespace PlayerScripts
         public void ProcessMove(Vector2 input)
         {
             _moveDirection = input;
-            _rb.velocity = new Vector3(_moveDirection.x * _speed, _rb.velocity.y, 0);
+            _rb.velocity = new Vector3(_moveDirection.x * currentPlayerStats.movementSpeed, _rb.velocity.y, 0);
         }
 
         //jump
@@ -78,13 +66,13 @@ namespace PlayerScripts
             //checks if the raycast hits an object before jumping
             if (IsGrounded() && ctx.ReadValueAsButton() == true)
             {
-                _rb.velocity = new Vector3(_rb.velocity.x, _jumpingPower);
+                _rb.velocity = new Vector3(_rb.velocity.x, currentPlayerStats.jumpHeight);
             }
 
             //after jumping button is released, while the player is jumping, drags the player down. 
             else if (ctx.ReadValueAsButton() == false && _rb.velocity.y > 0f)
             {
-                _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y * _fallOffRate);
+                _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y * currentPlayerStats.jumpFallOff);
             }
         }
 
