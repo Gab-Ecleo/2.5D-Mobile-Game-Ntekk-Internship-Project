@@ -13,7 +13,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Blocks
   - 
   - 
   - 
@@ -43,6 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
-    uniqueID: 485011449
+  - name: 
+    uniqueID: 1474571787
     locked: 0
