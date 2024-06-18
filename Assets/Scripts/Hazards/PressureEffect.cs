@@ -1,21 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using PlayerScripts;
 using ScriptableData;
 using Unity.Mathematics;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PressureEffect : MonoBehaviour
 {
     [SerializeField] private float _hazardDuration = 5f;
     [SerializeField] private PlayerStatsSO currentPlayerStats;
-    [SerializeField] private float force;
+
     [SerializeField] private Rigidbody _playerRB;
     [SerializeField] private GameObject _player;
-    public LayerMask m_LayerMask;
     
-    private void Update()
+    [SerializeField] private float _windStr;
+    [SerializeField] private Vector3 _windDir;
+    private void FixedUpdate()
     {
         // CHANGE TRIGGER in the Future!!! Activates Hazard when button is pressed
         if (Input.GetKeyDown("j"))
@@ -24,25 +28,14 @@ public class PressureEffect : MonoBehaviour
         }
     }
 
-    private void windBlow()
-    {
-        _playerRB.constraints = RigidbodyConstraints.FreezeAll;
-        Collider[] objects =
-            Physics.OverlapBox(_player.transform.position, transform.localScale / 2, quaternion.identity, m_LayerMask);
-        foreach (var obj in objects)
-        {
-            Vector2 direction = obj.transform.position - _player.transform.position;
-            obj.GetComponent<Rigidbody>().AddForce(direction * force);
-        }
-    }
-
-    //Halves the player's speed for [Hazard Duration], then returns to the original value
+    //Pushes the player for [Hazard Duration], then returns to the original value
     private IEnumerator windOn()
     {
-        windBlow();
+        
+        _playerRB.AddForce (_windStr * _windDir + _player.transform.position );
         Debug.Log("Pushing player :<");
         yield return new WaitForSeconds(_hazardDuration);
-        
+        //_playerRB.AddForce (_windStr  - _player.transform.position);
         Debug.Log("Returning :>");
     }
 }
