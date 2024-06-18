@@ -37,9 +37,9 @@ namespace BlockSystemScripts
         [SerializeField] private GameObject spawnManagerParent; //Parent game object for the SpawnManager
         [SerializeField] private GameObject rowManagerPrefab; //Prefab to be referenced for the row managers
         [SerializeField] private GameObject columnManagerPrefab; //Prefab to be referenced for the row managers
-        [SerializeField] private GameObject spawnManagerPrefab;
+        [SerializeField] private GameObject spawnManagerPrefab;//Prefab to be referenced for the spawn managers
         
-        //DO NOT MODIFY IN INSPECTOR. Displays each Row and Column manager present in the scene. 
+        //DO NOT MODIFY IN INSPECTOR. Displays each list of managers present in the scene. 
         [Header("Manager Lists")]
         [SerializeField] private List<RowManager> rowManagers;
         [SerializeField] private List<ColumnManager> columnManagers;
