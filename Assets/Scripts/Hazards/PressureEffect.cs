@@ -19,23 +19,35 @@ public class PressureEffect : MonoBehaviour
     
     [SerializeField] private float _windStr;
     [SerializeField] private Vector3 _windDir;
+
+   
     private void FixedUpdate()
     {
+       
         // CHANGE TRIGGER in the Future!!! Activates Hazard when button is pressed
         if (Input.GetKeyDown("j"))
         {
-            StartCoroutine("windOn");
+           StartCoroutine("windOn");
         }
     }
 
+    void windBlow(){
+        for (int i = 0; i <= _hazardDuration; i++)
+        {
+            Debug.Log("Pushing player :<");
+            _playerRB.AddForce (_windDir * _windStr);
+        }
+        
+    }
+    
     //Pushes the player for [Hazard Duration], then returns to the original value
     private IEnumerator windOn()
     {
-        
-        _playerRB.AddForce (_windStr * _windDir + _player.transform.position );
-        Debug.Log("Pushing player :<");
+        windBlow();
+        Debug.Log("Push push push :>");
         yield return new WaitForSeconds(_hazardDuration);
-        //_playerRB.AddForce (_windStr  - _player.transform.position);
+        
         Debug.Log("Returning :>");
+        
     }
 }
