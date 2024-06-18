@@ -8,11 +8,6 @@ namespace BlockSystemScripts.RowAndColumnScripts
     /// </summary>
     public class RowManager : AlignmentManager
     {
-        public override void AddCell(GameObject item)
-        {
-            base.AddCell(item);
-        }
-
         //Called by the GridCell class to validate the row assigned to this Manager.
         public void ValidateRow()
         {

@@ -501,13 +501,16 @@ MonoBehaviour:
   yStartPos: 5.5
   xPosIncrement: 1
   yPosIncrement: -1
-  alignmentManagerParent: {fileID: 1563653425}
-  rowManagerPrefab: {fileID: 2643941491340463738, guid: 2e05864ed4307fd43beece36c4c254b2, type: 3}
-  columnManagerPrefab: {fileID: 8118294045144532393, guid: 9dec68afce20ca04d885e8613cae34db, type: 3}
   gridCellParent: {fileID: 1792455667}
   gridCellPrefab: {fileID: 1856861217671169944, guid: a286d5d84fa147a49bf95006190ba7fd, type: 3}
+  alignmentManagerParent: {fileID: 1563653425}
+  spawnManagerParent: {fileID: 678555520}
+  rowManagerPrefab: {fileID: 2643941491340463738, guid: 2e05864ed4307fd43beece36c4c254b2, type: 3}
+  columnManagerPrefab: {fileID: 8118294045144532393, guid: 9dec68afce20ca04d885e8613cae34db, type: 3}
+  spawnManagerPrefab: {fileID: 2643941491340463738, guid: c1e2da2283ec1d848b338b28458dcf6c, type: 3}
   rowManagers: []
   columnManagers: []
+  spawnManagers: []
 --- !u!4 &414087774
 Transform:
   m_ObjectHideFlags: 0
@@ -1193,6 +1196,37 @@ RectTransform:
   m_AnchoredPosition: {x: -4.999939, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &678555520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 678555521}
+  m_Layer: 0
+  m_Name: Block Spawners Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &678555521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678555520}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &822325748
 GameObject:
   m_ObjectHideFlags: 0
@@ -3463,3 +3497,4 @@ SceneRoots:
   - {fileID: 414087774}
   - {fileID: 1563653426}
   - {fileID: 1792455668}
+  - {fileID: 678555521}
