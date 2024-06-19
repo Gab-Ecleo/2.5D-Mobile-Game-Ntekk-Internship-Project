@@ -12,6 +12,7 @@ public class ScoreSystem : MonoBehaviour
     */
 
     [SerializeField] private TMP_Text uiText;
+    [SerializeField] private ScoresSO scoresSO;
     private void OnEnable()
     {
         GameEvents.ON_SCORE_CHANGES += AddedPoints;
@@ -28,7 +29,7 @@ public class ScoreSystem : MonoBehaviour
 
     public void AddedPoints(int addedPoints)
     {
-        ScoresSO.Instance.Points += addedPoints;
+        scoresSO.Points += addedPoints;
         GameEvents.ON_UI_CHANGES?.Invoke();
     }
 
@@ -36,22 +37,22 @@ public class ScoreSystem : MonoBehaviour
     {
         if (isPoweredUp)
         {
-            ScoresSO.Instance.Points += _addedPoints * _multiplier;
+            scoresSO.Points += _addedPoints * _multiplier;
             GameEvents.ON_UI_CHANGES?.Invoke();
         }
     }
 
     public void UpdateUI()
     {
-        uiText.text = ScoresSO.Instance.Points.ToString();
+        uiText.text = scoresSO.Points.ToString();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            GameEvents.ON_SCORE_CHANGES?.Invoke(ScoresSO.Instance.PointsToAdd);
-            GameEvents.IS_SCORE_MULTIPLIED?.Invoke(ScoresSO.Instance.PointsToAdd, ScoresSO.Instance.Multiplier, ScoresSO.Instance.HasPowerUpMultiplier);
+            GameEvents.ON_SCORE_CHANGES?.Invoke(scoresSO.PointsToAdd);
+            GameEvents.IS_SCORE_MULTIPLIED?.Invoke(scoresSO.PointsToAdd, scoresSO.Multiplier, scoresSO.HasPowerUpMultiplier);
         }
     }
 }
