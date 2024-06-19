@@ -4,11 +4,11 @@ namespace BlockSystemScripts.RowAndColumnScripts
 {
     /// <summary>
     /// Inheritor of AlignmentManager
-    /// Used for Column Managers that validates their respective column of cells
+    /// Handles the behavior that validates the column of cells
     /// </summary>
     public class ColumnManager : AlignmentManager
     {
-        //Called by the GridCell class to validate the column assigned to this Manager.
+        //A validation call that checks the count of blocks in a column
         public void ValidateColumn()
         {
         }

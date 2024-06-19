@@ -48,12 +48,18 @@ namespace BlockSystemScripts
         
         private void Awake()
         {
+            //Resets the lists before starting the game to make sure there are no objects in them. 
+            rowManagers.Clear();
+            columnManagers.Clear();
+            spawnManagers.Clear();
+            
             //Gives the value of the determined starting positions to the current positions
             _xCurrentPos = xStartPos;
             _yCurrentPos = yStartPos;
             
-            //Generate Row and Columns first before generating the cells
+            //Generate Row and Columns, flush the lists of cells, then generate the cells
             GenerateManagers();
+            FlushCells();
             GenerateCell();
         }
         
@@ -101,6 +107,8 @@ namespace BlockSystemScripts
                     var cell = Instantiate(gridCellPrefab, new Vector3(_xCurrentPos, _yCurrentPos, 0), quaternion.identity, gridCellParent.transform);
                     cell.name = $"Cell R{currentRowCount + 1} C{currentColumnCount + 1}";
                     
+                    //
+                    
                     //Assigns this cell to respective row,column, and spawn manager.
                     rowManagers[currentRowCount].AddCell(cell);
                     columnManagers[currentColumnCount].AddCell(cell);
@@ -117,6 +125,24 @@ namespace BlockSystemScripts
                 _xCurrentPos = xStartPos;
                 //Adds the determined increment to the current vertical position for the next column.
                 _yCurrentPos += yPosIncrement;
+            }
+        }
+        
+        //Flushes all the managers lists
+        private void FlushCells()
+        {
+            foreach (var manager in rowManagers)
+            {
+                manager.ClearList();
+            }
+
+            foreach (var manager in columnManagers)
+            {
+                manager.ClearList();
+            }
+            foreach (var manager in spawnManagers)
+            {
+                manager.ClearList();
             }
         }
     }
