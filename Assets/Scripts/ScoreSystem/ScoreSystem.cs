@@ -1,71 +1,57 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public static class PointEventManager
-{
-    public static event EventHandler<PointEventArgs> OnPointEvent;
-
-    public static void TriggerPointsEvent(PointsMethod pointsMethod, int points, int multiplier = 1)
-    {
-        OnPointEvent?.Invoke(null, new PointEventArgs(pointsMethod, points, multiplier));
-    }
-}
+using TMPro;
 
 public class ScoreSystem : MonoBehaviour
 {
-    public int Points;
-    public int PointsToAdd;
-    private bool blockClear;
-    private int FinalPoints;
+    /*
+    [SerializeField] private int Points;
+    [SerializeField] private int PointsToAdd = 2;
+    [SerializeField] private int Multiplier = 1;
+    [SerializeField] private bool HasPowerUpMultiplier;
+    */
 
+    [SerializeField] private TMP_Text uiText;
     private void OnEnable()
     {
-        PointEventManager.OnPointEvent += HandlePointEvent;
+        GameEvents.ON_SCORE_CHANGES += AddedPoints;
+        GameEvents.ON_UI_CHANGES += UpdateUI;
+        GameEvents.IS_SCORE_MULTIPLIED += Multiplied;
     }
 
     private void OnDisable()
     {
-        PointEventManager.OnPointEvent -= HandlePointEvent;
+        GameEvents.ON_SCORE_CHANGES -= AddedPoints;
+        GameEvents.ON_UI_CHANGES -= UpdateUI;
+        GameEvents.IS_SCORE_MULTIPLIED -= Multiplied;
     }
 
-    private void HandlePointEvent(object sender, PointEventArgs e)
+    public void AddedPoints(int addedPoints)
     {
-        switch (e.PointsMethod)
-        {
-            case PointsMethod.Set:
-                SetPoints(e.FinalScore);
-                break;
+        ScoresSO.Instance.Points += addedPoints;
+        GameEvents.ON_UI_CHANGES?.Invoke();
+    }
 
-            case PointsMethod.Add:
-                AddPoints(e.FinalScore);
-                break;
+    public void Multiplied(int _addedPoints, int _multiplier, bool isPoweredUp)
+    {
+        if (isPoweredUp)
+        {
+            ScoresSO.Instance.Points += _addedPoints * _multiplier;
+            GameEvents.ON_UI_CHANGES?.Invoke();
         }
     }
 
-    public void SetPoints(int points) 
+    public void UpdateUI()
     {
-        //for ui
-        Points = points;
-        FinalPoints = points;
+        uiText.text = ScoresSO.Instance.Points.ToString();
     }
 
-    public void AddPoints(int addPoints)
-    {
-        Points += addPoints;
-        FinalPoints += addPoints;
-    }
-
-    /*
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            PointEventManager.TriggerPointsEvent(PointsMethod.Add, PointsToAdd, 1);
-            Debug.Log($"Setting Points: {FinalPoints}");
+            GameEvents.ON_SCORE_CHANGES?.Invoke(ScoresSO.Instance.PointsToAdd);
+            GameEvents.IS_SCORE_MULTIPLIED?.Invoke(ScoresSO.Instance.PointsToAdd, ScoresSO.Instance.Multiplier, ScoresSO.Instance.HasPowerUpMultiplier);
         }
     }
-    */
 }
-
