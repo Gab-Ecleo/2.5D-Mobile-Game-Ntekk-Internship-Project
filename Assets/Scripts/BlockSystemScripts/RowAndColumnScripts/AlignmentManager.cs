@@ -11,10 +11,11 @@ namespace BlockSystemScripts.RowAndColumnScripts
     public class AlignmentManager : MonoBehaviour
     {
         //DO NOT MODIFY IN INSPECTOR. References each cell belonging to this manager, depending on the type of inheritor. 
-        [SerializeField] private List<GameObject> gridCells;
-        
+        [SerializeField] private List<GridCell> gridCells;
+        public List<GridCell> GridCells => gridCells;
+
         //Called by the GridManager to add the newly generated cell to this list
-        public void AddCell(GameObject item)
+        public void AddCell(GridCell item)
         {
             gridCells.Add(item);
         }

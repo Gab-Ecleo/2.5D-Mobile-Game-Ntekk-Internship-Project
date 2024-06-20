@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridCells: []
+  assignedSpawnersManager: {fileID: 0}
+  failCounter: 0
+  canSpawn: 1
+  blockPrefab: {fileID: 3014360087961761113, guid: 1a911b3b8c19cbc4b99f8437b71a7239, type: 3}

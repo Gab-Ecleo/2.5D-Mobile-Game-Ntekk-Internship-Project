@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlockSystemScripts.BlockSpawnerScripts;
 using BlockSystemScripts.RowAndColumnScripts;
-using BlockSystemScripts.RowAndColumnScripts.BlockSpawnerScripts;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -34,24 +34,25 @@ namespace BlockSystemScripts
         
         [Header("Manager Data")]
         [SerializeField] private GameObject alignmentManagerParent; //Parent game object for the row and column managers
-        [SerializeField] private GameObject spawnManagerParent; //Parent game object for the SpawnManager
+        [SerializeField] private BlockSpawnersManager spawnManagerParent; //Parent game object for the SpawnManager
         [SerializeField] private GameObject rowManagerPrefab; //Prefab to be referenced for the row managers
         [SerializeField] private GameObject columnManagerPrefab; //Prefab to be referenced for the row managers
         [SerializeField] private GameObject spawnManagerPrefab;//Prefab to be referenced for the spawn managers
         
         //DO NOT MODIFY IN INSPECTOR. Displays each list of managers present in the scene. 
         [Header("Manager Lists")]
-        [SerializeField] private List<RowManager> rowManagers;
-        [SerializeField] private List<ColumnManager> columnManagers;
-        [SerializeField] private List<BlockSpawner> spawnManagers;
+        [SerializeField] private List<RowManager> rowManagersList;
+        [SerializeField] private List<ColumnManager> columnManagersList;
+        [SerializeField] private List<BlockSpawner> spawnManagersList;
         #endregion
         
         private void Awake()
         {
             //Resets the lists before starting the game to make sure there are no objects in them. 
-            rowManagers.Clear();
-            columnManagers.Clear();
-            spawnManagers.Clear();
+            rowManagersList.Clear();
+            columnManagersList.Clear();
+            spawnManagersList.Clear();
+            spawnManagerParent.ClearList();
             
             //Gives the value of the determined starting positions to the current positions
             _xCurrentPos = xStartPos;
@@ -59,7 +60,7 @@ namespace BlockSystemScripts
             
             //Generate Row and Columns, flush the lists of cells, then generate the cells
             GenerateManagers();
-            FlushCells();
+            FlushLists();
             GenerateCell();
         }
         
@@ -74,7 +75,7 @@ namespace BlockSystemScripts
                 var row = Instantiate(rowManagerPrefab, new Vector3(0,0,0), quaternion.identity, alignmentManagerParent.transform);
                 row.name = $"Row {currentRowCount + 1}";
                 if (row.GetComponent<RowManager>()==null) row.AddComponent<RowManager>();
-                rowManagers.Add(row.GetComponent<RowManager>());
+                rowManagersList.Add(row.GetComponent<RowManager>());
             }
 
             //Generate columns and block spawners depending on the assigned count of columns
@@ -84,13 +85,16 @@ namespace BlockSystemScripts
                 var column = Instantiate(columnManagerPrefab, new Vector3(0,0,0), quaternion.identity, alignmentManagerParent.transform);
                 column.name = $"Column {currentColumnCount + 1}";
                 if (column.GetComponent<ColumnManager>()==null) column.AddComponent<ColumnManager>();
-                columnManagers.Add(column.GetComponent<ColumnManager>());
+                columnManagersList.Add(column.GetComponent<ColumnManager>());
                 
-                //Generate a block spawner and add that spawner to the spawner list
+                //Generate a block spawner and add that spawner to the spawner list, then add that spawner to it's parent's list
                 var spawner = Instantiate(spawnManagerPrefab, new Vector3(0, 0, 0), quaternion.identity, spawnManagerParent.transform);
                 spawner.name = $"Spawner {currentColumnCount + 1}";
-                if (spawner.GetComponent<BlockSpawner>()==null) spawner.AddComponent<BlockSpawner>();
-                spawnManagers.Add(spawner.GetComponent<BlockSpawner>());
+                var blockSpawnerScript = spawner.GetComponent<BlockSpawner>();
+                if (blockSpawnerScript==null) spawner.AddComponent<BlockSpawner>();
+                spawnManagersList.Add(blockSpawnerScript);
+                blockSpawnerScript.SetSpawnManager();
+                spawnManagerParent.AddSpawnersToList(blockSpawnerScript);
             }
         }
         
@@ -106,17 +110,16 @@ namespace BlockSystemScripts
                     //Instantiate a cell, then gives it a name depending on which Row and Column it belongs to.
                     var cell = Instantiate(gridCellPrefab, new Vector3(_xCurrentPos, _yCurrentPos, 0), quaternion.identity, gridCellParent.transform);
                     cell.name = $"Cell R{currentRowCount + 1} C{currentColumnCount + 1}";
-                    
-                    //
-                    
+                    if (cell.GetComponent<GridCell>() == null) cell.AddComponent<GridCell>();
+                    var cellScript = cell.GetComponent<GridCell>();
+
                     //Assigns this cell to respective row,column, and spawn manager.
-                    rowManagers[currentRowCount].AddCell(cell);
-                    columnManagers[currentColumnCount].AddCell(cell);
-                    spawnManagers[currentColumnCount].AddCell(cell);
+                    rowManagersList[currentRowCount].AddCell(cellScript);
+                    columnManagersList[currentColumnCount].AddCell(cellScript);
+                    spawnManagersList[currentColumnCount].AddCell(cellScript);
                     
                     //Assigns a the respective row and column manager to the cell for reference.
-                    if (cell.GetComponent<GridCell>() == null) cell.AddComponent<GridCell>();
-                    cell.GetComponent<GridCell>().AssignRowAndColumn(rowManagers[currentRowCount],columnManagers[currentColumnCount]);
+                    cellScript.AssignRowAndColumn(rowManagersList[currentRowCount],columnManagersList[currentColumnCount], currentRowCount, currentColumnCount);
                     
                     //Adds the determined increment to the current horizontal position for the next column.
                     _xCurrentPos += xPosIncrement;
@@ -129,18 +132,18 @@ namespace BlockSystemScripts
         }
         
         //Flushes all the managers lists
-        private void FlushCells()
+        private void FlushLists()
         {
-            foreach (var manager in rowManagers)
+            foreach (var manager in rowManagersList)
             {
                 manager.ClearList();
             }
 
-            foreach (var manager in columnManagers)
+            foreach (var manager in columnManagersList)
             {
                 manager.ClearList();
             }
-            foreach (var manager in spawnManagers)
+            foreach (var manager in spawnManagersList)
             {
                 manager.ClearList();
             }

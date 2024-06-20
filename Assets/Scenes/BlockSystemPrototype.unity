@@ -504,13 +504,13 @@ MonoBehaviour:
   gridCellParent: {fileID: 1792455667}
   gridCellPrefab: {fileID: 1856861217671169944, guid: a286d5d84fa147a49bf95006190ba7fd, type: 3}
   alignmentManagerParent: {fileID: 1563653425}
-  spawnManagerParent: {fileID: 678555520}
+  spawnManagerParent: {fileID: 678555522}
   rowManagerPrefab: {fileID: 2643941491340463738, guid: 2e05864ed4307fd43beece36c4c254b2, type: 3}
   columnManagerPrefab: {fileID: 8118294045144532393, guid: 9dec68afce20ca04d885e8613cae34db, type: 3}
   spawnManagerPrefab: {fileID: 2643941491340463738, guid: c1e2da2283ec1d848b338b28458dcf6c, type: 3}
-  rowManagers: []
-  columnManagers: []
-  spawnManagers: []
+  rowManagersList: []
+  columnManagersList: []
+  spawnManagersList: []
 --- !u!4 &414087774
 Transform:
   m_ObjectHideFlags: 0
@@ -1205,6 +1205,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 678555521}
+  - component: {fileID: 678555522}
+  - component: {fileID: 678555523}
   m_Layer: 0
   m_Name: Block Spawners Parent
   m_TagString: Untagged
@@ -1227,6 +1229,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &678555522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678555520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc746deb0c34098b1660fada25334f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockSpawners: []
+--- !u!114 &678555523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678555520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a66a86d70647a097e0c67fb0ce9880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingSpawnTime: 3
+  timeMinValue: 3
+  timeMaxValue: 6
+  startingDifficultyTime: 10
+  spawnTimerDecrement: 0.3
+  spawnTimeLeft: 0
+  difficultyTimeLeft: 0
 --- !u!1 &822325748
 GameObject:
   m_ObjectHideFlags: 0
