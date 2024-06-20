@@ -839,6 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiText: {fileID: 690259553}
   scoresSO: {fileID: 11400000, guid: 39bda95efd9b96848bc304fa62520d9a, type: 2}
+  MultiplierDuration: 3
 --- !u!4 &2130157863
 Transform:
   m_ObjectHideFlags: 0

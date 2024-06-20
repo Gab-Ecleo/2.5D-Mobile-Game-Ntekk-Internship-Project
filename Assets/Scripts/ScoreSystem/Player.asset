@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Points: 0
   PointsToAdd: 2
-  Multiplier: 1
-  uiText: {fileID: 0}
-  HasPowerUpMultiplier: 0
+  Multiplier: 3
+  HasPowerUpMultiplier: 1
+  PowerUpDuration: 5
