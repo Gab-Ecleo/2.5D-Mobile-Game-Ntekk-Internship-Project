@@ -21,7 +21,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
                     _blockCounter++;
                 }
             }
-            Debug.Log($"{_blockCounter}/{GridCells.Count}");
+            Debug.Log($"{gameObject.name}: {_blockCounter}/{GridCells.Count}");
             if (_blockCounter < GridCells.Count) return;
             ClearRow();
         }

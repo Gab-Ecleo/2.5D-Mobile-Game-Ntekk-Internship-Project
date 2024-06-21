@@ -40,9 +40,8 @@ namespace BlockSystemScripts.BlockScripts
                 _isTimerActivated = false;
                 StopTimer();
                 blockScript.TransferCell();
-                StartTimer();
+                // StartTimer();
             }
-            
         }
 
         public void StartTimer()

@@ -13,13 +13,13 @@ namespace BlockSystemScripts
         [SerializeField] private BlockScript currentBlock;
         [SerializeField] private RowManager assignedRow;
         [SerializeField] private ColumnManager assignedColumn;
-        [SerializeField] private int rowNumber, columnNumber;
-        
+        [SerializeField] private int rowIndex, columnIndex;
+
         public BlockScript CurrentBlock => currentBlock;
         public RowManager AssignedRow => assignedRow;
         public ColumnManager AssignedColumn => assignedColumn;
-        public int RowNumber => rowNumber;
-        public int ColumnNumber => columnNumber;
+        public int RowIndex => rowIndex;
+        public int ColumnIndex => columnIndex;
 
         //On the generation of this cell, assign the respective row and column manager to it. 
         public void AssignRowAndColumn(RowManager designatedRow, ColumnManager designatedColumn, int rowNum, int colNum)
@@ -27,8 +27,8 @@ namespace BlockSystemScripts
             assignedRow = designatedRow;
             assignedColumn = designatedColumn;
 
-            rowNumber = rowNum;
-            columnNumber = colNum;
+            rowIndex = rowNum;
+            columnIndex = colNum;
         }
 
         public void FillCellSlot(BlockScript block)
