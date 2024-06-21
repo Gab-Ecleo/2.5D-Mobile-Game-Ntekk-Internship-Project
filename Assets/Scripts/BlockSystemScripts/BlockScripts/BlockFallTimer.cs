@@ -28,6 +28,7 @@ namespace BlockSystemScripts.BlockScripts
             UpdateTimer();
         }
 
+        #region Timer
         private void UpdateTimer()
         {
             if (!_isTimerActivated) return;
@@ -54,5 +55,8 @@ namespace BlockSystemScripts.BlockScripts
         {
             _isTimerActivated = false;
         }
+
+        #endregion
+        
     }
 }

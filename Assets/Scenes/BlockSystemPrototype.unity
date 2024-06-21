@@ -1257,8 +1257,9 @@ MonoBehaviour:
   startingSpawnTime: 3
   timeMinValue: 3
   timeMaxValue: 6
-  startingDifficultyTime: 20
-  spawnTimerDecrement: 0
+  initialDifficultyCountdown: 10
+  maxSpawnTimerDecrement: 2
+  minSpawnTimerDecrement: 4
   spawnTimeLeft: 0
   difficultyTimeLeft: 0
 --- !u!1 &822325748

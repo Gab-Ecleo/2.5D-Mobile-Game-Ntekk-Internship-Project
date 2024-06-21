@@ -15,8 +15,10 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         private bool _spawnTimerActive;
         
         [Header("Difficulty Timer Data")]
-        [SerializeField] private float startingDifficultyTime;
-        [SerializeField] private float spawnTimerDecrement;
+        [SerializeField] private float initialDifficultyCountdown;
+        [SerializeField] private float maxSpawnTimerDecrement;
+        [SerializeField] private float minSpawnTimerDecrement;
+        
         private bool _difficultyTimerActive;
         
         [Header("Active Timers")]
@@ -29,7 +31,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             spawnTimeLeft = startingSpawnTime;
             _spawnTimerActive = true;
 
-            difficultyTimeLeft = startingDifficultyTime;
+            difficultyTimeLeft = initialDifficultyCountdown;
             _difficultyTimerActive = true;
         }
 
@@ -69,6 +71,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         //countdown of the difficulty decrement unless it's inactive. Triggers the decrement of the spawn max timer
         private void UpdateDifficultyTimer()
         {
+            if (maxSpawnTimerDecrement <= 0 && minSpawnTimerDecrement <= 0) return;
             if (!_difficultyTimerActive) return;
             if (difficultyTimeLeft > 0)
             {
@@ -81,15 +84,38 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             }
         }
         
-        //Decrements the spawn timer
+        //Decrements the spawn timer values
         private void DecrementSpawnTimer()
         {
-            timeMaxValue -= spawnTimerDecrement;
-            difficultyTimeLeft = startingDifficultyTime;
+            if (minSpawnTimerDecrement >= 0)
+            {
+                if (timeMinValue > 1)
+                {
+                    timeMinValue -= minSpawnTimerDecrement;
+                    //checks if the value is lower than the minimum threshold, then force it to the minimum desired value
+                    if (timeMinValue < 1)
+                    {
+                        timeMinValue = 1;
+                    }
+                }
+            }
+            
+            if (maxSpawnTimerDecrement >= 0)
+            {
+                if (timeMaxValue > timeMinValue + 1)
+                {
+                    timeMaxValue -= maxSpawnTimerDecrement;
+                    //checks if the value is lower than the minimum threshold, then force it to the minimum desired value
+                    if (timeMaxValue < timeMinValue + 1)
+                    {
+                        timeMaxValue = timeMinValue + 1;
+                    }
+                }
+            }
+            
+            difficultyTimeLeft = initialDifficultyCountdown;
             _difficultyTimerActive = true;
         }
-        
-
         #endregion
         
         private void OnEnable()

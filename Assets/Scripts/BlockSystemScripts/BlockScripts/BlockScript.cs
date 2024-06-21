@@ -90,6 +90,7 @@ namespace BlockSystemScripts.BlockScripts
             // blockSpawner.TriggerCanSpawn();
         }
 
+        #region Raycast_Methods
         //casts a raycast, determining if there is a block below
         public bool IsLanded()
         {
@@ -99,13 +100,16 @@ namespace BlockSystemScripts.BlockScripts
         //casts a raycast, determining if there is a block above
         private BlockScript TopBlockDetection()
         {
-             Physics.Raycast(transform.position, directionTop, out _hit1,maxDistanceTop,  landedLayerTop);
-             if (_hit1.collider == null)
-             {
-                 return null;
-             }
-             return _hit1.collider.gameObject.GetComponent<BlockScript>();
+            Physics.Raycast(transform.position, directionTop, out _hit1,maxDistanceTop,  landedLayerTop);
+            if (_hit1.collider == null)
+            {
+                return null;
+            }
+            return _hit1.collider.gameObject.GetComponent<BlockScript>();
         }
+
+        #endregion
+        
         
         //method for checking if there is block on top of this block
         private void CheckForTopBlock()
