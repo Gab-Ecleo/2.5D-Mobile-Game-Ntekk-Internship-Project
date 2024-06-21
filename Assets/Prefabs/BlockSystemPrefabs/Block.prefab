@@ -123,11 +123,16 @@ MonoBehaviour:
   nextCell: {fileID: 0}
   blockSpawner: {fileID: 0}
   fallTimer: {fileID: 4761173554827105820}
-  direction: {x: -0, y: -1, z: -0}
-  maxDistance: 0.6
-  landedLayer:
+  directionBot: {x: -0, y: -1, z: -0}
+  maxDistanceBot: 0.6
+  landedLayerBot:
     serializedVersion: 2
     m_Bits: 72
+  directionTop: {x: -0, y: 1, z: -0}
+  maxDistanceTop: 0.6
+  landedLayerTop:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &4761173554827105820
 MonoBehaviour:
   m_ObjectHideFlags: 0

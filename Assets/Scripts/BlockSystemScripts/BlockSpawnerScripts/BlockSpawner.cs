@@ -44,14 +44,9 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         }
 
         //spawn a block and give it the proper references
+        [ContextMenu("SPAWN BLOCK")]
         private void SpawnBlock()
         {
-            if (GridCells[0].CurrentBlock!=null)
-            {
-                Debug.Log("GAME OVER. RESTART THE GAME");
-                Time.timeScale = 0;
-                return;
-            }
             var block = Instantiate(blockPrefab, GridCells[0].gameObject.transform.position, quaternion.identity);
             block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
             canSpawn = false;
