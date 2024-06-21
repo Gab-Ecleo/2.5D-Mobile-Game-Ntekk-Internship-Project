@@ -8,6 +8,7 @@ public class HazardManager : MonoBehaviour
     [SerializeField] private List<string> hazardTag;
 
     private GameManager GAMEMANAGER;
+    private bool _isCorActive;
     
     private void Start()
     {
@@ -16,18 +17,25 @@ public class HazardManager : MonoBehaviour
         if(GAMEMANAGER.IsGameOver()) return;
 
         //Initialize hazard after a delay
-        Invoke(nameof(TriggerHazard), hazardCooldown);
+        Invoke(nameof(InitiateHazardSeq), hazardCooldown);
+    }
+
+    private void InitiateHazardSeq()
+    {
+        StartCoroutine(TriggerHazard());
     }
 
     IEnumerator TriggerHazard()
     {
+        _isCorActive = true;
+        
         if(GAMEMANAGER.IsGameOver()) yield break;
-
-        Debug.Log("Loading Hazard");
         
         //Trigger hazard base on the hazard Randomization.
-        int hazardIndex = Random.Range(1, hazardTag.Count + 1);
+        int hazardIndex = Random.Range(0, hazardTag.Count);
         string hazard = hazardTag[hazardIndex];
+        
+        Debug.Log("Loading Hazard Index of: " + hazardIndex);
 
         switch (hazard)
         {
@@ -46,6 +54,8 @@ public class HazardManager : MonoBehaviour
         }
         
         yield return new WaitForSeconds(hazardCooldown);
-        TriggerHazard();
+        _isCorActive = false;
+        
+        InitiateHazardSeq();
     }
 }

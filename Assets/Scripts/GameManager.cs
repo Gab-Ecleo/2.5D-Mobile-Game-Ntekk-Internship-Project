@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
         GameEvents.IS_GAME_OVER += SetGameState;
     }
 
+    private void Start()
+    {
+        _gameEnd = false;
+    }
+
     private void OnDestroy()
     {
         GameEvents.IS_GAME_OVER -= SetGameState;
