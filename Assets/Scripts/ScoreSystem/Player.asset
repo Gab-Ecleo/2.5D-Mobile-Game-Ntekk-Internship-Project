@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Points: 0
   PointsToAdd: 2
-  Multiplier: 3
-  HasPowerUpMultiplier: 1
+  Multiplier: 2
+  HasPowerUpMultiplier: 0
   PowerUpDuration: 5

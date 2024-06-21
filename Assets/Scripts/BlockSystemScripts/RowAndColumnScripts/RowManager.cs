@@ -9,6 +9,8 @@ namespace BlockSystemScripts.RowAndColumnScripts
     public class RowManager : AlignmentManager
     {
         private int _blockCounter;
+
+        [SerializeField] private ScoresSO scoresSO;
         //A validation call that checks the number of blocks in a row
         public void ValidateRow()
         {
@@ -33,6 +35,8 @@ namespace BlockSystemScripts.RowAndColumnScripts
             {
                 if (cell.CurrentBlock == null) continue;
                 cell.DestroyBlock();
+                // add points and update ui when cleared
+                GameEvents.ON_SCORE_CHANGES?.Invoke(scoresSO.PointsToAdd, scoresSO.Multiplier, scoresSO.PowerUpDuration, scoresSO.HasPowerUpMultiplier); // can be own var in inspector but in this script I used the score Scriptable Object
             }
             Debug.Log("ROW CLEARED");
         }
