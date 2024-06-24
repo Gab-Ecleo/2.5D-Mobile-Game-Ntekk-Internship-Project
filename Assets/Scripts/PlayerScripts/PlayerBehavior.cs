@@ -15,13 +15,15 @@ namespace PlayerScripts
         private void Start()
         {
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
-            CurrentPlayerStats.shield = initialPlayerStats.shield;
+            CurrentPlayerStats._barrierUpgrade = initialPlayerStats._barrierUpgrade;
+            CurrentPlayerStats._barrierDurability = initialPlayerStats._barrierDurability;
+            CurrentPlayerStats._barrierDuration = initialPlayerStats._barrierDuration;
         }
 
         //triggered when player takes damage
         private void OnDamage()
         {
-            switch (CurrentPlayerStats.shield)
+            switch (CurrentPlayerStats._barrierDurability)
             {
                 //if player has no shield, trigger death
                 case <= 0:
@@ -30,8 +32,8 @@ namespace PlayerScripts
                 
                 //if player has shield, reduce shield by 1
                 case > 0:
-                    --CurrentPlayerStats.shield;
-                    Debug.Log($"Shield Count: {CurrentPlayerStats.shield}");
+                    --CurrentPlayerStats._barrierDurability;
+                    Debug.Log($"Shield Count: {CurrentPlayerStats._barrierDurability}");
                     break;
             }
         }
