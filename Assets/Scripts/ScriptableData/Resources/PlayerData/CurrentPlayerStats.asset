@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CurrentPlayerStats
   m_EditorClassIdentifier: 
   movementSpeed: 8
-  jumpHeight: 74
+  jumpHeight: 8
   jumpFallOff: 0.7
   scoreMultiplier: 0
   springJump: 0

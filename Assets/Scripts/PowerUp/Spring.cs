@@ -7,34 +7,19 @@ using UnityEngine;
 
 public class Spring : MonoBehaviour
 {
-    [SerializeField] private float _powerDuration = 3f;
-    [SerializeField] private PlayerStatsSO currentPlayerStats;
-    [SerializeField] private float _currentJumpHeight;
-    [SerializeField] private float _jumpBoost = 3;
-    
-    
-    private void Start()
+    private PowerUpManager _powerUp;
+
+    void Start()
     {
-        _currentJumpHeight = currentPlayerStats.jumpHeight;
+        _powerUp = GameObject.FindWithTag("PowerUp Manager").GetComponent<PowerUpManager>();
+        StartCoroutine(_powerUp.Decay());
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        StartCoroutine("SpringPower");
-        
-        //Destroy(gameObject);
+        StartCoroutine(_powerUp.SpringPower());
+        GetComponent<Collider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
     }
-
-    IEnumerator SpringPower()
-    {
-        _currentJumpHeight += _jumpBoost;
-        currentPlayerStats.jumpHeight = _currentJumpHeight;
-        Debug.Log("Spring On");
-        yield return new WaitForSeconds(_powerDuration);
-        _currentJumpHeight -= _jumpBoost;
-        currentPlayerStats.jumpHeight = _currentJumpHeight;
-        Debug.Log("Spring Off");
-    }
-
 
 }
