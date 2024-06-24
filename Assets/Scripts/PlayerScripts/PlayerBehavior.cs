@@ -46,7 +46,7 @@ namespace PlayerScripts
                     break;
             }
         }
-
+    
         IEnumerator BarrierTimer()
         {
             yield return new WaitForSeconds(CurrentPlayerStats._barrierDuration);

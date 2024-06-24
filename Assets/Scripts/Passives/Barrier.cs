@@ -28,14 +28,10 @@ public class Barrier : MonoBehaviour
     private void Update()
     {
         //Updating values
-        _upgradeCount = _currentPlayerStats._barrierUpgrade;
-        _durability = _currentPlayerStats._barrierDurability;
-        _duration = _currentPlayerStats._barrierDuration;
-        _initialPlayerStats._barrierUpgrade = _currentPlayerStats._barrierUpgrade;
-        _initialPlayerStats._barrierDurability = _currentPlayerStats._barrierDurability;
-        _initialPlayerStats._barrierDuration = _currentPlayerStats._barrierDuration;
-        _initialPlayerStats._canRez = _currentPlayerStats._canRez;
-        
+        _currentPlayerStats._barrierUpgrade = _upgradeCount;
+        _currentPlayerStats._barrierDurability = _durability;
+        _currentPlayerStats._barrierDuration = _duration;
+              
         //Upgrade Tree
         if (_upgradeCount == 1)
         {
@@ -43,36 +39,40 @@ public class Barrier : MonoBehaviour
             if (Input.GetKeyDown("p"))
             {
                 _upgradeCount++;
+                Debug.Log("Barrier Upgraded");
             }
         }
-        if (_upgradeCount == 2)
+        else if (_upgradeCount == 2)
         {
             // Add durability to the barrier using the modifier
             _durability += _durabModif;
             if (Input.GetKeyDown("p"))
             {
                 _upgradeCount++;
+                Debug.Log("Barrier Upgraded");
             }
         }
-        if (_upgradeCount == 3)
+        else if (_upgradeCount == 3)
         {
             // Add duration to the barrier using the modifier
             _duration += _durationModif;
             if (Input.GetKeyDown("p"))
             {
                 _upgradeCount++;
+                Debug.Log("Barrier Upgraded");
             }
         }
-        if (_upgradeCount == 4)
+        else if (_upgradeCount == 4)
         {
             // Add durability to the barrier using the modifier
             _durability += _durabModif;
             if (Input.GetKeyDown("p"))
             {
                 _upgradeCount++;
+                Debug.Log("Barrier Upgraded to Max Level! Revive Passive Unlocked!");
             }
         }
-        if (_upgradeCount == 5)
+        else if (_upgradeCount == 5)
         {
             // Add duration to the barrier using the modifier
             _duration += _durationModif;
