@@ -22,6 +22,11 @@ namespace BlockSystemScripts.BlockScripts
         [SerializeField] private float maxDistanceTop = 0.6f;
         [SerializeField] private LayerMask landedLayerTop;
         private RaycastHit _hit1;
+
+        private bool _canPickUp;
+
+        public bool CanPickUp => _canPickUp; 
+        
         public BlockFallTimer FallTimer => fallTimer;
         
         //draws a ray for the raycast. CAN DELETE AFTER TESTING
@@ -37,12 +42,12 @@ namespace BlockSystemScripts.BlockScripts
         {
             //If the block has already landed, stops the fall timer 
             //Tell block spawner that it can spawn a block again
-            //Then call for row validation
+            //Then call for row validation and column validation
             if (IsLanded())
             {
                 fallTimer.StopTimer();
                 blockSpawner.TriggerCanSpawn();
-                //checks if the vertical/row position of this cell is equals to the number of cells in the column. 
+                //checks if the vertical/row position of this cell is the last row
                 if (currentCell.RowIndex + 1 >= currentCell.AssignedColumn.GridCells.Count)
                 {
                     currentCell.AssignedRow.ValidateRow();
@@ -52,10 +57,11 @@ namespace BlockSystemScripts.BlockScripts
                 {
                     currentCell.AssignedColumn.ValidateColumn();
                 }
+                _canPickUp = true;
                 return;
             }
-            //checks if there is block on top of this block
-            CheckForTopBlock();
+            //Signals the block above that it can fall down
+            SignalTopBlock();
             
             //checks if nextCell has a value
             if (nextCell != null)
@@ -65,6 +71,8 @@ namespace BlockSystemScripts.BlockScripts
                 currentCell.FillCellSlot(this);
                 transform.position = currentCell.transform.position;
                 fallTimer.StartTimer();
+
+                _canPickUp = false;
             }
             
             //checks if the current cell is not yet the last one. If not, give nextCell a value. If it is, return null. 
@@ -76,7 +84,7 @@ namespace BlockSystemScripts.BlockScripts
             nextCell = null;
         }
 
-        //called by the block spawner to initialize references for this block 
+        //called by the block spawner or the player to initialize references for this block 
         public void InitializeReferences(GridCell cell, BlockSpawner spawnerReference)
         {
             currentCell = cell;
@@ -84,10 +92,21 @@ namespace BlockSystemScripts.BlockScripts
             fallTimer.StartTimer();
             nextCell = currentCell.AssignedColumn.GridCells[currentCell.RowIndex + 1].GetComponent<GridCell>();
             blockSpawner = spawnerReference;
-            
+
+            _canPickUp = false;
+
             // if (!IsLanded()) return;
             // fallTimer.StopTimer();
             // blockSpawner.TriggerCanSpawn();
+        }
+        
+        //method for checking if there is block on top of this block, then trigger it's transfer timer.
+        private void SignalTopBlock()
+        {
+            if (TopBlockDetection() != null)
+            {
+                TopBlockDetection().FallTimer.StartTimer();
+            }
         }
 
         #region Raycast_Methods
@@ -98,7 +117,7 @@ namespace BlockSystemScripts.BlockScripts
         }
         
         //casts a raycast, determining if there is a block above
-        private BlockScript TopBlockDetection()
+        public BlockScript TopBlockDetection()
         {
             Physics.Raycast(transform.position, directionTop, out _hit1,maxDistanceTop,  landedLayerTop);
             if (_hit1.collider == null)
@@ -109,21 +128,17 @@ namespace BlockSystemScripts.BlockScripts
         }
 
         #endregion
-        
-        
-        //method for checking if there is block on top of this block
-        private void CheckForTopBlock()
-        {
-            if (TopBlockDetection() != null)
-            {
-                TopBlockDetection().FallTimer.StartTimer();
-            }
-        }
 
         private void OnDestroy()
         {
             currentCell.EmptyCellSlot();
-            CheckForTopBlock();
+            SignalTopBlock();
+            blockSpawner.TriggerCanSpawn();
+        }
+
+        private void OnDisable()
+        {
+            currentCell.EmptyCellSlot();
             blockSpawner.TriggerCanSpawn();
         }
     }

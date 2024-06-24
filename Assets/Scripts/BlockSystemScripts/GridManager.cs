@@ -118,8 +118,8 @@ namespace BlockSystemScripts
                     columnManagersList[currentColumnCount].AddCell(cellScript);
                     spawnManagersList[currentColumnCount].AddCell(cellScript);
                     
-                    //Assigns a the respective row and column manager to the cell for reference.
-                    cellScript.AssignRowAndColumn(rowManagersList[currentRowCount],columnManagersList[currentColumnCount], currentRowCount, currentColumnCount);
+                    //Assigns a the respective managers to the cell for reference.
+                    cellScript.AssignRowAndColumn(rowManagersList[currentRowCount],columnManagersList[currentColumnCount], spawnManagersList[currentColumnCount],currentRowCount, currentColumnCount);
                     
                     //Adds the determined increment to the current horizontal position for the next column.
                     _xCurrentPos += xPosIncrement;
