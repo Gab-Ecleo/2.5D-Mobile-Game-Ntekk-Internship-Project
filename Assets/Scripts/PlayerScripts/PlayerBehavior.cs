@@ -35,7 +35,7 @@ namespace PlayerScripts
                     break;
             }
         }
-  
+
         private void PlayerDeath()
         {
             //add death behavior

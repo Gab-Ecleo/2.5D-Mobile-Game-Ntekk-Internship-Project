@@ -10,7 +10,7 @@ public class ScoresSO : ScriptableObject
     public int PointsToAdd = 2;
 
     public int Multiplier = 1;
-    public bool HasPowerUpMultiplier;
+    public bool HasPowerUpMultiplier = false;
     public float PowerUpDuration = 3.0f;
 
 
