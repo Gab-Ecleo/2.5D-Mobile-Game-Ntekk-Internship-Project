@@ -3048,6 +3048,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cd0b1b1a2099a4c8a94ced5fba5d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _powerDuration: 3
+  currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
+  _currentJumpHeight: 0
+  _jumpBoost: 3
 --- !u!1 &1984264593
 GameObject:
   m_ObjectHideFlags: 0
