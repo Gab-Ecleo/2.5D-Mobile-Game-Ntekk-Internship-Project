@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using EventScripts;
 using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
+using Input = UnityEngine.Windows.Input;
 
 namespace PlayerScripts
 {
@@ -18,15 +20,13 @@ namespace PlayerScripts
             CurrentPlayerStats._barrierDurability = initialPlayerStats._barrierDurability;
             CurrentPlayerStats._barrierDuration = initialPlayerStats._barrierDuration;
         }
-        //Barrier Timer countdown from max to 0
+        
         private void Update()
         {
-            --CurrentPlayerStats._barrierDuration;
-            if (CurrentPlayerStats._barrierDuration == 0)
-            {
-                CurrentPlayerStats._barrierDurability = 0;
-                Debug.Log("Barrier goes bye bye! :<");
-            }
+            
+             //   StartCoroutine("BarrierTimer");
+            
+            
         }
 
         //triggered when player takes damage
@@ -42,9 +42,16 @@ namespace PlayerScripts
                 //if player has shield, reduce shield by 1
                 case > 0:
                     --CurrentPlayerStats._barrierDurability;
-                    Debug.Log($"Shield Count: {CurrentPlayerStats._barrierDurability}");
+                    Debug.Log($"Barrier Hits Left: {CurrentPlayerStats._barrierDurability}");
                     break;
             }
+        }
+
+        IEnumerator BarrierTimer()
+        {
+            yield return new WaitForSeconds(CurrentPlayerStats._barrierDuration);
+            CurrentPlayerStats._barrierDurability = 0;
+            Debug.Log($"Barrier Depleted! Hit Count: {CurrentPlayerStats._barrierDurability}");
         }
 
         private void PlayerDeath()
