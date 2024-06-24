@@ -15,9 +15,18 @@ namespace PlayerScripts
         private void Start()
         {
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
-            CurrentPlayerStats._barrierUpgrade = initialPlayerStats._barrierUpgrade;
             CurrentPlayerStats._barrierDurability = initialPlayerStats._barrierDurability;
             CurrentPlayerStats._barrierDuration = initialPlayerStats._barrierDuration;
+        }
+        //Barrier Timer countdown from max to 0
+        private void Update()
+        {
+            --CurrentPlayerStats._barrierDuration;
+            if (CurrentPlayerStats._barrierDuration == 0)
+            {
+                CurrentPlayerStats._barrierDurability = 0;
+                Debug.Log("Barrier goes bye bye! :<");
+            }
         }
 
         //triggered when player takes damage

@@ -23,11 +23,10 @@ namespace ScriptableData
 
         //tentative list
         [Header("Activated Upgrades")] 
-        public int _barrierUpgrade = 0;
+        public int _barrierUpgrade = 1;
         public int _rezUpgrade = 0;
         
         [Header("Base upgrade stats")]
-        public int _hitCounter = 0;
         public int _barrierDurability = 1;
         public float _barrierDuration = 2;
         public bool _canRez = false;
