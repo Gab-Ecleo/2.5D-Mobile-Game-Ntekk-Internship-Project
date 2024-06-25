@@ -35,6 +35,7 @@ namespace BlockSystemScripts.BlockScripts
             //If timer is not activated, ignore everything els
             if (!_isTimerActivated) return;
             //If timer is more than zero, reduce timer. 
+
             if (timeLeft > 0)
             {
                 timeLeft -= Time.deltaTime;
@@ -61,6 +62,5 @@ namespace BlockSystemScripts.BlockScripts
         }
 
         #endregion
-        
     }
 }

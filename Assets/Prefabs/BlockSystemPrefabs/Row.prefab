@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridCells: []
+  scoresSO: {fileID: 11400000, guid: 39bda95efd9b96848bc304fa62520d9a, type: 2}
