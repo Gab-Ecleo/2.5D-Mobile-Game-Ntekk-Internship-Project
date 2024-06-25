@@ -6,9 +6,7 @@ namespace BlockSystemScripts.BlockScripts
 {
     public class BlockScript : MonoBehaviour
     {
-        [SerializeField] private GridCell currentCell, nextCell;
-        [SerializeField] private BlockSpawner blockSpawner;
-        
+        #region VARIABLES
         [Header("Block Fall Timer")]
         [SerializeField] private BlockFallTimer fallTimer;
 
@@ -22,12 +20,22 @@ namespace BlockSystemScripts.BlockScripts
         [SerializeField] private float maxDistanceTop = 0.6f;
         [SerializeField] private LayerMask landedLayerTop;
         private RaycastHit _hit1;
+        
+        [Header("Test References. To be private")]
+        [SerializeField] private GridCell currentCell, nextCell;
+        [SerializeField] private BlockSpawner blockSpawner;
 
         private bool _canPickUp;
 
-        public bool CanPickUp => _canPickUp; 
-        
+        public bool CanPickUp
+        {
+            get => _canPickUp;
+            private set => _canPickUp = value;
+        }
+
         public BlockFallTimer FallTimer => fallTimer;
+        
+        #endregion
         
         //draws a ray for the raycast. CAN DELETE AFTER TESTING
         private void FixedUpdate()
@@ -37,7 +45,6 @@ namespace BlockSystemScripts.BlockScripts
         }
 
         //moves the block down if the conditions are met
-        [ContextMenu("Drop Block")]
         public void TransferCell()
         {
             //If the block has already landed, stops the fall timer 
@@ -94,23 +101,18 @@ namespace BlockSystemScripts.BlockScripts
             blockSpawner = spawnerReference;
 
             _canPickUp = false;
-
-            // if (!IsLanded()) return;
-            // fallTimer.StopTimer();
-            // blockSpawner.TriggerCanSpawn();
         }
         
         //method for checking if there is block on top of this block, then trigger it's transfer timer.
         private void SignalTopBlock()
         {
-            if (TopBlockDetection() != null)
-            {
-                TopBlockDetection().FallTimer.StartTimer();
-            }
+            if (TopBlockDetection() == null) return;
+            TopBlockDetection().CanPickUp = false;
+            TopBlockDetection().FallTimer.StartTimer();
         }
 
-        #region Raycast_Methods
-        //casts a raycast, determining if there is a block below
+        #region RAYCAST_METHODS
+        //casts a raycast, determining if there is a block or a platform below
         public bool IsLanded()
         {
             return Physics.Raycast(transform.position, directionBot, maxDistanceBot, landedLayerBot);

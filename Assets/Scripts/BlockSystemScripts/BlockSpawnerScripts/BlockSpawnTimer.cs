@@ -7,6 +7,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
 {
     public class BlockSpawnTimer : MonoBehaviour
     {
+        #region VARIABLES
         [Header("Spawn Timer Data")] 
         [SerializeField] private float startingSpawnTime = 3f;
         [SerializeField] private float timeMinValue;
@@ -21,9 +22,10 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         
         private bool _difficultyTimerActive;
         
-        [Header("Active Timers")]
+        [Header("Active Timers. To be private")]
         [SerializeField] private float spawnTimeLeft;
         [SerializeField] private float difficultyTimeLeft;
+        #endregion
 
         private void Start()
         {
@@ -45,11 +47,14 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         //countdown of the spawn timer unless it's inactive. Reaching zero triggers the block spawn event
         private void UpdateSpawnTimer()
         {
+            //If timer is not activated, ignore everything els
             if (!_spawnTimerActive) return;
+            //If timer is more than zero, reduce timer. 
             if (spawnTimeLeft > 0)
             {
                 spawnTimeLeft -= Time.deltaTime;
             }
+            //If timer is equal to or less than zero, deactivate the timer, and trigger a block spawn
             else
             {
                 _spawnTimerActive = false;

@@ -11,6 +11,7 @@ namespace BlockSystemScripts
     public class GridCell : MonoBehaviour
     {
         //DO NOT MODIFY IN INSPECTOR. Displays the assigned row and column manager to this object
+        [Header("Test References. To be private")]
         [SerializeField] private BlockScript currentBlock;
         [SerializeField] private RowManager assignedRow;
         [SerializeField] private ColumnManager assignedColumn;

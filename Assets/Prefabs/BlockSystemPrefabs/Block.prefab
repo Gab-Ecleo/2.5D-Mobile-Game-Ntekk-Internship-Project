@@ -119,9 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef77a17ac37d42febea570dc29c77efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCell: {fileID: 0}
-  nextCell: {fileID: 0}
-  blockSpawner: {fileID: 0}
   fallTimer: {fileID: 4761173554827105820}
   directionBot: {x: -0, y: -1, z: -0}
   maxDistanceBot: 0.6
@@ -133,6 +130,9 @@ MonoBehaviour:
   landedLayerTop:
     serializedVersion: 2
     m_Bits: 64
+  currentCell: {fileID: 0}
+  nextCell: {fileID: 0}
+  blockSpawner: {fileID: 0}
 --- !u!114 &4761173554827105820
 MonoBehaviour:
   m_ObjectHideFlags: 0

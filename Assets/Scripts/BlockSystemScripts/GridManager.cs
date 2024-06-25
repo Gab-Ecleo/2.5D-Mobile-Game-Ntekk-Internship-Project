@@ -40,7 +40,7 @@ namespace BlockSystemScripts
         [SerializeField] private GameObject spawnManagerPrefab;//Prefab to be referenced for the spawn managers
         
         //DO NOT MODIFY IN INSPECTOR. Displays each list of managers present in the scene. 
-        [Header("Manager Lists")]
+        [Header("Manager Lists. To be private")]
         [SerializeField] private List<RowManager> rowManagersList;
         [SerializeField] private List<ColumnManager> columnManagersList;
         [SerializeField] private List<BlockSpawner> spawnManagersList;
@@ -63,7 +63,6 @@ namespace BlockSystemScripts
             FlushLists();
             GenerateCell();
         }
-        
 
         //Generate Row and Columns
         private void GenerateManagers()
