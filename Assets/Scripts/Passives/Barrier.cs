@@ -10,12 +10,9 @@ public class Barrier : MonoBehaviour
     //player's local stats
     [SerializeField] private PlayerStatsSO _initialPlayerStats;
     [SerializeField] private PlayerStatsSO _currentPlayerStats;
-    [SerializeField] private int _upgradeCount;
-    [SerializeField] private int _durability;
-    [SerializeField] private float _duration;
     [SerializeField] private int _durabModif = 1;
     [SerializeField] private float _durationModif = 1;
-    
+
     private void Start()
     {
         //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
@@ -27,56 +24,52 @@ public class Barrier : MonoBehaviour
 
     private void Update()
     {
-        //Updating values
-        _currentPlayerStats._barrierUpgrade = _upgradeCount;
-        _currentPlayerStats._barrierDurability = _durability;
-        _currentPlayerStats._barrierDuration = _duration;
-              
         //Upgrade Tree
-        if (_upgradeCount == 1)
+        if (_currentPlayerStats._barrierUpgrade == 1)
         {
             // Activate Barrier effect with starting duration and durability
             if (Input.GetKeyDown("p"))
             {
-                _upgradeCount++;
-                Debug.Log("Barrier Upgraded");
+                _currentPlayerStats._barrierUpgrade++;
+                Debug.Log("Barrier Upgraded to Level 2 !");
             }
         }
-        else if (_upgradeCount == 2)
+        else if (_currentPlayerStats._barrierUpgrade == 2)
         {
             // Add durability to the barrier using the modifier
-            _durability += _durabModif;
+            _currentPlayerStats._barrierDurability += _durabModif;
             if (Input.GetKeyDown("p"))
             {
-                _upgradeCount++;
-                Debug.Log("Barrier Upgraded");
+                _currentPlayerStats._barrierUpgrade++;
+                Debug.Log("Barrier Upgraded to Level 3 !");
             }
         }
-        else if (_upgradeCount == 3)
+        else if (_currentPlayerStats._barrierUpgrade == 3)
         {
             // Add duration to the barrier using the modifier
-            _duration += _durationModif;
+            _currentPlayerStats._barrierDuration += _durationModif;
             if (Input.GetKeyDown("p"))
             {
-                _upgradeCount++;
-                Debug.Log("Barrier Upgraded");
+                _currentPlayerStats._barrierUpgrade++;
+                Debug.Log("Barrier Upgraded to Level 4 !");
             }
         }
-        else if (_upgradeCount == 4)
+        else if (_currentPlayerStats._barrierUpgrade == 4)
         {
             // Add durability to the barrier using the modifier
-            _durability += _durabModif;
+            _currentPlayerStats._barrierDurability += _durabModif;
             if (Input.GetKeyDown("p"))
             {
-                _upgradeCount++;
-                Debug.Log("Barrier Upgraded to Max Level! Revive Passive Unlocked!");
+                _currentPlayerStats._barrierUpgrade++;
+                Debug.Log("Barrier Upgraded to Max Level ! Revive Passive Unlocked!");
             }
         }
-        else if (_upgradeCount == 5)
+        else if (_currentPlayerStats._barrierUpgrade == 5)
         {
             // Add duration to the barrier using the modifier
-            _duration += _durationModif;
+            _currentPlayerStats._barrierDuration += _durationModif;
             //Activate Revive Upgrade Node
+            
         }
     }
 }
