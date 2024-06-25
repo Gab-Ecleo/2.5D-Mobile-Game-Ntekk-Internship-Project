@@ -13,6 +13,8 @@ namespace PlayerScripts
         //player's local stats
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private PlayerStatsSO CurrentPlayerStats;
+        [SerializeField] private bool _barrierActive = true;
+        [SerializeField] private GameObject _deathScreen;
 
         private void Start()
         {
@@ -23,10 +25,10 @@ namespace PlayerScripts
         
         private void Update()
         {
-            
-             //   StartCoroutine("BarrierTimer");
-            
-            
+            if (_barrierActive)
+            {
+                StartCoroutine("BarrierTimer");
+            }
         }
 
         //triggered when player takes damage
@@ -51,6 +53,7 @@ namespace PlayerScripts
         {
             yield return new WaitForSeconds(CurrentPlayerStats._barrierDuration);
             CurrentPlayerStats._barrierDurability = 0;
+            _barrierActive = false;
             Debug.Log($"Barrier Depleted! Hit Count: {CurrentPlayerStats._barrierDurability}");
         }
 
@@ -58,6 +61,8 @@ namespace PlayerScripts
         {
             //add death behavior
             Debug.Log("Player Dead");
+            _deathScreen.SetActive(true);
+            Time.timeScale = 0;
         }
 
         private void OnEnable()
