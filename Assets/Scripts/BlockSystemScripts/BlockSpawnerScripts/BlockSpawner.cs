@@ -13,13 +13,14 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     /// </summary>
     public class BlockSpawner : AlignmentManager
     {
+        [SerializeField] private GameObject blockPrefab;
+        
+        [Header("Test Script References. To be private")]
         [SerializeField] private BlockSpawnersManager assignedSpawnersManager;
 
-        [Header("Spawn Validation References")]
+        [Header("Spawn Validation References. To be private")]
         [SerializeField] private int failCounter;
         [SerializeField] private bool canSpawn;
-
-        [SerializeField] private GameObject blockPrefab;
         
         //assigns the spawn manager to this spawner.
         public void SetSpawnManager()
@@ -35,7 +36,6 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             {
                 failCounter++;
                 assignedSpawnersManager.TriggerBlockSpawn(failCounter);
-                // Debug.Log($"{gameObject.name} failed");
                 return;
             }
             SpawnBlock();
@@ -47,14 +47,27 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         [ContextMenu("SPAWN BLOCK")]
         private void SpawnBlock()
         {
+            //Will only be true if the spawner tries to spawn while there is a sudden block on the topmost cell. 
+            if (GridCells[0].CurrentBlock != null)
+            {
+                canSpawn = false; 
+                ValidateBlockSpawn();
+                return;
+            }
+            
             var block = Instantiate(blockPrefab, GridCells[0].gameObject.transform.position, quaternion.identity);
             block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
-            canSpawn = false;
+            TriggerCannotSpawn();
         }
 
         public void TriggerCanSpawn()
         {
             canSpawn = true;
+        }
+
+        public void TriggerCannotSpawn()
+        {
+            canSpawn = false;
         }
     }
 }

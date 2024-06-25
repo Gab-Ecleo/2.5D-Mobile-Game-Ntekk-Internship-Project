@@ -40,7 +40,7 @@ namespace BlockSystemScripts
         [SerializeField] private GameObject spawnManagerPrefab;//Prefab to be referenced for the spawn managers
         
         //DO NOT MODIFY IN INSPECTOR. Displays each list of managers present in the scene. 
-        [Header("Manager Lists")]
+        [Header("Manager Lists. To be private")]
         [SerializeField] private List<RowManager> rowManagersList;
         [SerializeField] private List<ColumnManager> columnManagersList;
         [SerializeField] private List<BlockSpawner> spawnManagersList;
@@ -63,7 +63,6 @@ namespace BlockSystemScripts
             FlushLists();
             GenerateCell();
         }
-        
 
         //Generate Row and Columns
         private void GenerateManagers()
@@ -118,8 +117,8 @@ namespace BlockSystemScripts
                     columnManagersList[currentColumnCount].AddCell(cellScript);
                     spawnManagersList[currentColumnCount].AddCell(cellScript);
                     
-                    //Assigns a the respective row and column manager to the cell for reference.
-                    cellScript.AssignRowAndColumn(rowManagersList[currentRowCount],columnManagersList[currentColumnCount], currentRowCount, currentColumnCount);
+                    //Assigns a the respective managers to the cell for reference.
+                    cellScript.AssignRowAndColumn(rowManagersList[currentRowCount],columnManagersList[currentColumnCount], spawnManagersList[currentColumnCount],currentRowCount, currentColumnCount);
                     
                     //Adds the determined increment to the current horizontal position for the next column.
                     _xCurrentPos += xPosIncrement;

@@ -11,6 +11,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
     public class AlignmentManager : MonoBehaviour
     {
         //DO NOT MODIFY IN INSPECTOR. References each cell belonging to this manager, depending on the type of inheritor. 
+        [Header("Test References. To be private")]
         [SerializeField] private List<GridCell> gridCells;
         public List<GridCell> GridCells => gridCells;
 

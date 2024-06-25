@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5428743153089935736}
   - component: {fileID: 8751463564858181819}
   - component: {fileID: 1697453482714042064}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GridCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -118,5 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39231b0e951474997825b8d8dd36df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentBlock: {fileID: 0}
   assignedRow: {fileID: 0}
   assignedColumn: {fileID: 0}
+  assignedSpawner: {fileID: 0}
+  rowIndex: 0
+  columnIndex: 0
