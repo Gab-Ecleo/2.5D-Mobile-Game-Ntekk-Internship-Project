@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableData
 {
@@ -23,13 +24,12 @@ namespace ScriptableData
 
         //tentative list
         [Header("Activated Upgrades")] 
-        public int _barrierUpgrade = 1;
-        public int _rezUpgrade = 0;
+        public int barrierUpgrade = 0;
+        public int rezUpgrade = 0;
         
         [Header("Base upgrade stats")]
-        public int _barrierDurability = 1;
-        public float _barrierDuration = 2;
-        public bool _canRez = false;
+        public int barrierDurability = 1;
+        public bool canRez = false;
         
 
     }

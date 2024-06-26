@@ -1133,7 +1133,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 766687321}
         m_TargetAssemblyTypeName: Barrier, Assembly-CSharp
-        m_MethodName: upgradeBarrier
+        m_MethodName: UpgradeBarrier
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

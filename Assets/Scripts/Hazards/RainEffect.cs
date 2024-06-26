@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using PlayerScripts;
 using ScriptableData;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RainEffect : MonoBehaviour
 {
-    [SerializeField] private float _hazardDuration = 5f;
+    [SerializeField] private float hazardDuration = 5f;
     [SerializeField] private PlayerStatsSO currentPlayerStats;
-    [SerializeField] private float _currentSpeed;
-    [SerializeField] private float _hazardModifier = 2;
+    [SerializeField] private float currentSpeed;
+    [SerializeField] private float hazardModifier = 2;
 
     private void Start()
     {
         //Set current speed from the player stat speed value
-        _currentSpeed = currentPlayerStats.movementSpeed;
+        currentSpeed = currentPlayerStats.movementSpeed;
     }
 
     private void Update()
@@ -23,19 +24,19 @@ public class RainEffect : MonoBehaviour
         // CHANGE TRIGGER in the Future!!! Activates Hazard when button is pressed
         if (Input.GetKeyDown("l"))
         {
-            StartCoroutine("rainOn");
+            StartCoroutine(nameof(rainOn));
         }
     }
     
     //Halves the player's speed for [Hazard Duration], then returns to the original value
     IEnumerator rainOn()
     {
-        _currentSpeed /= _hazardModifier;
-        currentPlayerStats.movementSpeed = _currentSpeed;
+        currentSpeed /= hazardModifier;
+        currentPlayerStats.movementSpeed = currentSpeed;
         Debug.Log("Slow down player :<");
-        yield return new WaitForSeconds(_hazardDuration);
-        _currentSpeed *= _hazardModifier;
-        currentPlayerStats.movementSpeed = _currentSpeed;
+        yield return new WaitForSeconds(hazardDuration);
+        currentSpeed *= hazardModifier;
+        currentPlayerStats.movementSpeed = currentSpeed;
         Debug.Log("Speed up Player :>");
     }
 }

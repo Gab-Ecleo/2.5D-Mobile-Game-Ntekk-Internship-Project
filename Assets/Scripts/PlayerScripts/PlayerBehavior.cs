@@ -4,6 +4,7 @@ using EventScripts;
 using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Input = UnityEngine.Windows.Input;
 
 namespace PlayerScripts
@@ -12,56 +13,53 @@ namespace PlayerScripts
     {
         //player's local stats
         [SerializeField] private PlayerStatsSO initialPlayerStats;
-        [SerializeField] private PlayerStatsSO CurrentPlayerStats;
-        [SerializeField] private bool _barrierActive = true;
-        [SerializeField] private GameObject _deathScreen;
+        [SerializeField] private PlayerStatsSO currentPlayerStats;
+        [SerializeField] private GameObject deathScreen;
 
         private void Start()
         {
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
-            CurrentPlayerStats._barrierDurability = initialPlayerStats._barrierDurability;
-            CurrentPlayerStats._barrierDuration = initialPlayerStats._barrierDuration;
+            currentPlayerStats.barrierDurability = initialPlayerStats.barrierDurability;
         }
         
-        private void Update()
-        {
-            if (_barrierActive)
+        #region BARRIER_BEHAVIOR
+            //triggered when player takes damage
+            private void OnDamage()
             {
-                StartCoroutine("BarrierTimer");
+                CheckBarrier();
             }
-        }
 
-        //triggered when player takes damage
-        private void OnDamage()
-        {
-            switch (CurrentPlayerStats._barrierDurability)
+            private void CheckBarrier()
             {
-                //if player has no shield, trigger death
-                case <= 0:
+                // Check if player has barrier
+                // IF player has no barrier, triggers death when hit
+                if (currentPlayerStats.barrierUpgrade < 1)
+                {
                     PlayerDeath();
-                    break;
+                    return;
+                }
                 
-                //if player has shield, reduce shield by 1
-                case > 0:
-                    --CurrentPlayerStats._barrierDurability;
-                    Debug.Log($"Barrier Hits Left: {CurrentPlayerStats._barrierDurability}");
-                    break;
+                switch (currentPlayerStats.barrierDurability)
+                {
+                    //if player has no shield, trigger death
+                    case <= 0:
+                        PlayerDeath();
+                        break;
+                    
+                    //if player has shield, reduce shield by 1
+                    case > 0:
+                        --currentPlayerStats.barrierDurability;
+                        Debug.Log($"Barrier Hits Left: {currentPlayerStats.barrierDurability}");
+                        break;
+                }
             }
-        }
-    
-        IEnumerator BarrierTimer()
-        {
-            yield return new WaitForSeconds(CurrentPlayerStats._barrierDuration);
-            CurrentPlayerStats._barrierDurability = 0;
-            _barrierActive = false;
-            Debug.Log($"Barrier Depleted! Hit Count: {CurrentPlayerStats._barrierDurability}");
-        }
-
+        #endregion
+        
         private void PlayerDeath()
         {
             //add death behavior
             Debug.Log("Player Dead");
-            _deathScreen.SetActive(true);
+            deathScreen.SetActive(true);
             Time.timeScale = 0;
         }
 
