@@ -5,10 +5,15 @@ using System.Collections;
 
 public class ScoreSystem : MonoBehaviour
 {
-    [SerializeField] private TMP_Text uiText;
+    public TMP_Text uiText;
 
-    private ScoresSO scoresSO;
+    public ScoresSO _playerScore;
 
+    // can be deleted after testing or deemed not part of gameplay
+    private void Start()
+    {
+        _playerScore.Points = 0;
+    }
     #region Action
     private void OnEnable()
     {
@@ -24,42 +29,21 @@ public class ScoreSystem : MonoBehaviour
     #endregion
 
     // funcation being called by the action to update ui and add score
-    public void PointSystem(int addedPoints, int multiplier, float duration, bool isPoweredUp)
+    public void PointSystem(int addedPoints, int multiplier, bool isPoweredUp)
     {
         if (isPoweredUp)
         {
-            StartCoroutine(HandleMultiplierDuration(addedPoints, multiplier, duration));
+            _playerScore.Points *= multiplier;
         }
         else
         {
-            scoresSO.Points += addedPoints;
-            GameEvents.ON_UI_CHANGES?.Invoke();
+            _playerScore.Points += addedPoints;
         }
     }
 
     // will change later if hud is finalized
     public void UpdateUI()
     {
-        uiText.text = scoresSO.Points.ToString();
-    }
-
-    IEnumerator HandleMultiplierDuration(int addedPoints, int multiplier, float duration)
-    {
-        // depends on balancing of the game which multiplier to use
-        scoresSO.Points *= multiplier;
-        //scoresSO.Points += addedPoints * multiplier;
-
-        // timer
-        float timer = 0;
-        while (timer < duration)
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        // revert to normal scoring
-        scoresSO.HasPowerUpMultiplier = false;
-        scoresSO.Points += addedPoints;
-        GameEvents.ON_UI_CHANGES?.Invoke();
+        uiText.text = _playerScore.Points.ToString();
     }
 }

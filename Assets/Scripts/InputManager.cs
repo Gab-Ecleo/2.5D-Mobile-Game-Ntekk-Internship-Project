@@ -45,7 +45,7 @@ public class InputManager : MonoBehaviour
 
         _interactPowerUp = _playerControls.Player.PowerUp;
         _interactPowerUp.Enable();
-        _interactPowerUp.performed += _playerPowerUps.InputHandler;
+        _interactPowerUp.performed += _playerPowerUps.PowerUp;
     }
 
     private void OnDisable()
