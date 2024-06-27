@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class HazardManager : MonoBehaviour
 {
@@ -52,10 +54,23 @@ public class HazardManager : MonoBehaviour
                 GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
                 break;
         }
+
+        hazardCooldown = Random.Range(10, 17);
+        StartCoroutine(ShowWarning());
         
         yield return new WaitForSeconds(hazardCooldown);
         _isCorActive = false;
         
         InitiateHazardSeq();
     }
+
+    IEnumerator ShowWarning()
+    {
+        float warningTimer = hazardCooldown - 3f;
+
+        yield return new WaitForSeconds(warningTimer);
+        //Show hazard warning
+        Debug.LogWarning("Hazard Incoming");
+    }
+    
 }

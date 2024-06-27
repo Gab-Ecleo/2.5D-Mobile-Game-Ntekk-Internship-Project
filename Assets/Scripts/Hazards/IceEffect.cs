@@ -13,7 +13,6 @@ public class IceEffect : MonoBehaviour
     [SerializeField] private PhysicMaterial _slipperyMaterial;
     [SerializeField] private PhysicMaterial _defaultMaterial;
     [SerializeField] private Collider _platformColl;
-    [SerializeField] private Collider _blockColl;
 
     private bool _isCorActive;
     private GameManager _gameManager;
@@ -52,14 +51,12 @@ public class IceEffect : MonoBehaviour
         Debug.Log("Applying Ice Hazard");
         
         _platformColl.material = _slipperyMaterial;
-        _blockColl.material = _slipperyMaterial;
-        
+
         yield return new WaitForSeconds(_hazardDuration);
         
         Debug.Log("End of Hazard Duration");
         
         _platformColl.material = _defaultMaterial;
-        _blockColl.material = _defaultMaterial;
         _isCorActive = false;
     }
 }
