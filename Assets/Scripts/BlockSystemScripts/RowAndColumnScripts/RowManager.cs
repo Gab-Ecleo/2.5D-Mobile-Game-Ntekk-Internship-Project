@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ScriptableData;
+using UnityEngine;
 
 namespace BlockSystemScripts.RowAndColumnScripts
 {
@@ -8,6 +9,9 @@ namespace BlockSystemScripts.RowAndColumnScripts
     /// </summary>
     public class RowManager : AlignmentManager
     {
+        [SerializeField] private ScoresSO _playerScore;
+        [SerializeField] private PlayerStatsSO _playerCurrStats;
+        [SerializeField] private Multiplier multiplier;
         private int _blockCounter;
         //A validation call that checks the number of blocks in a row
         public void ValidateRow()
@@ -37,7 +41,24 @@ namespace BlockSystemScripts.RowAndColumnScripts
             {
                 if (cell.CurrentBlock == null) continue;
                 cell.DestroyBlock();
+
+                // add points and update ui when cleared
+                ScoreChanges();
             }
         }
+
+        [ContextMenu("Test clear ")]
+        public void ScoreChanges()
+        {
+            int pointsToAdd = _playerScore.PointsToAdd;
+            int multiplier = _playerScore.Multiplier;
+            bool hasMultiplier = _playerCurrStats.hasMultiplier; 
+
+            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
+            GameEvents.ON_UI_CHANGES?.Invoke();
+
+            Debug.Log(_playerScore.Points);
+        }
+
     }
 }
