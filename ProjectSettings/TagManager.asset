@@ -8,6 +8,8 @@ TagManager:
   - Block
   - WindArea
   - SpawnPoint
+  - PowerUp Manager
+  - PowerUp
   layers:
   - Default
   - TransparentFX
