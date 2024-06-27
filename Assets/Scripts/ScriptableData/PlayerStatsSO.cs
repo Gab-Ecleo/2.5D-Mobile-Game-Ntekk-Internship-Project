@@ -15,8 +15,8 @@ namespace ScriptableData
         public float jumpFallOff = 0.7f;
 
         //tentative list
-        [Header("Activated Power-ups")] 
-        public int scoreMultiplier;
+        [Header("Activated Power-ups")]
+        public bool hasMultiplier;
         public bool springJump;
         public bool timeSlow;
         public bool expressDelivery;

@@ -3707,6 +3707,9 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 523648446}
+      propertyPath: scoresSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 39bda95efd9b96848bc304fa62520d9a, type: 2}
     - target: {fileID: 5212742583501448224, guid: daccb568f323aaf429d9d1777464e8dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.03
