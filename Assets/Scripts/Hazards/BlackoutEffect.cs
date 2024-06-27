@@ -1,36 +1,51 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
-
 
 public class BlackoutEffect : MonoBehaviour
 {
     [SerializeField] private float hazardDuration = 5f;
     [SerializeField] private Animation anim;
 
-    void Update()
+    private GameManager _gameManager;
+    private bool _isCorActive;
+
+    #region UNITY METHODS
+
+    private void Awake()
     {
-        // CHANGE TRIGGER in the Future!!!  Activates hazard when button is pressed
-        if (Input.GetKeyDown("k"))
-        {
-            StartCoroutine(nameof(Blackout));
-        }
-        
+        GameEvents.TRIGGER_BLACKOUT_HAZARD += TriggerBoHazard;
     }
-    // Initiate a blackout which makes the screen go dark after [Hazard Duration].
-    IEnumerator Blackout()
+
+    private void OnDestroy()
     {
-        anim.Play("FadeIn");
+        GameEvents.TRIGGER_BLACKOUT_HAZARD -= TriggerBoHazard;
+    }
+
+    private void Start()
+    {
+        _gameManager = GameManager.Instance;
+        _isCorActive = false;
+    }
+
+    #endregion
+
+    private void TriggerBoHazard()
+    {
+        if (_isCorActive || _gameManager.IsGameOver()) return;
+
+        StartCoroutine(TriggerBlackout());
+    }
+
+    // Initiate a blackout which makes the screen go dark after [Hazard Duration].
+    IEnumerator TriggerBlackout()
+    {
         Debug.Log("Screen goes bye :<");
-        yield return new WaitForSeconds(hazardDuration);
+        anim.Play("FadeIn");
+        
+        yield return new WaitForSeconds(_hazardDuration);
+        Debug.Log("Hazard Duration Ended");
         anim.Play("FadeOut");
-        Debug.Log("Screen goes hi!");
     }
     
 }
