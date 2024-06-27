@@ -10,6 +10,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     /// </summary>
     public class BlockSpawnersManager : MonoBehaviour
     {
+        [Header("Test References. To be private")]
         [SerializeField] private List<BlockSpawner> blockSpawners;
         private BlockSpawnTimer _spawnTimer;
 
