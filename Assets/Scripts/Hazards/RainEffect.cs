@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using ScriptableData;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RainEffect : MonoBehaviour
 {
