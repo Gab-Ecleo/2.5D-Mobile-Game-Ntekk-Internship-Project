@@ -72,7 +72,7 @@ public class WindPressureEffect : MonoBehaviour
         SetLabel();
         
         yield return new WaitForSeconds(_hazardDuration);
-        Debug.Log("Stopping Wind force");
+        Debug.Log("End of Hazard Duration");
         _isCorActive = false;
     }
 
@@ -94,7 +94,6 @@ public class WindPressureEffect : MonoBehaviour
 
     void BlowWind()
     {
-        Debug.Log("Pushing player :<");
         Vector3 windForce = _windStrength * _dir;
         
         _playerRB.AddForce(windForce * Time.deltaTime, ForceMode.VelocityChange);

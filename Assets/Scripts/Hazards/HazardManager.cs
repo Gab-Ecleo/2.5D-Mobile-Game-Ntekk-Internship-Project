@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class HazardManager : MonoBehaviour
 {
     [SerializeField] private float hazardCooldown;
     [SerializeField] private List<string> hazardTag;
+    [SerializeField] private TextMeshProUGUI textWarning;
+    [SerializeField] private TextMeshProUGUI currentHazard;
 
     private GameManager GAMEMANAGER;
     private bool _isCorActive;
@@ -19,6 +23,7 @@ public class HazardManager : MonoBehaviour
         if(GAMEMANAGER.IsGameOver()) return;
 
         //Initialize hazard after a delay
+        StartCoroutine(ShowWarning());
         Invoke(nameof(InitiateHazardSeq), hazardCooldown);
     }
 
@@ -30,16 +35,18 @@ public class HazardManager : MonoBehaviour
     IEnumerator TriggerHazard()
     {
         _isCorActive = true;
+        textWarning.gameObject.SetActive(false);
         
         if(GAMEMANAGER.IsGameOver()) yield break;
         
         //Trigger hazard base on the hazard Randomization.
         int hazardIndex = Random.Range(0, hazardTag.Count);
-        string hazard = hazardTag[hazardIndex];
+        string hazardType = hazardTag[hazardIndex];
         
-        Debug.Log("Loading Hazard Index of: " + hazardIndex);
+        //Debug.Log($"Loading {hazardType} hazard");
+        currentHazard.text = "Current Hazard: " + hazardType;
 
-        switch (hazard)
+        switch (hazardType)
         {
             case "Rain":
                 GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
@@ -71,6 +78,7 @@ public class HazardManager : MonoBehaviour
         yield return new WaitForSeconds(warningTimer);
         //Show hazard warning
         Debug.LogWarning("Hazard Incoming");
+        textWarning.gameObject.SetActive(true);
     }
     
 }

@@ -48,8 +48,7 @@ public class IceEffect : MonoBehaviour
     IEnumerator ApplyIcePlatform()
     {
         _isCorActive = true;
-        Debug.Log("Applying Ice Hazard");
-        
+
         _platformColl.material = _slipperyMaterial;
 
         yield return new WaitForSeconds(_hazardDuration);

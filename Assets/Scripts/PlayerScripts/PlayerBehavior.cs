@@ -59,7 +59,7 @@ namespace PlayerScripts
         {
             //add death behavior
             Debug.Log("Player Dead");
-            deathScreen.SetActive(true);
+            //deathScreen.SetActive(true);
             Time.timeScale = 0;
         }
 

@@ -57,7 +57,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
             GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
             GameEvents.ON_UI_CHANGES?.Invoke();
 
-            Debug.Log(_playerScore.Points);
+            //Debug.Log(_playerScore.Points);
         }
 
     }

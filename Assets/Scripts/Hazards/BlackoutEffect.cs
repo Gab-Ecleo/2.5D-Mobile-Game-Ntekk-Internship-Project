@@ -40,7 +40,6 @@ public class BlackoutEffect : MonoBehaviour
     // Initiate a blackout which makes the screen go dark after [Hazard Duration].
     IEnumerator TriggerBlackout()
     {
-        Debug.Log("Screen goes bye :<");
         anim.Play("FadeIn");
         
         yield return new WaitForSeconds(_hazardDuration);
