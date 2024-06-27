@@ -6,11 +6,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 
 public class BlackoutEffect : MonoBehaviour
 {
-    [SerializeField] private float _hazardDuration = 5f;
+    [SerializeField] private float hazardDuration = 5f;
     [SerializeField] private Animation anim;
 
     void Update()
@@ -18,16 +19,16 @@ public class BlackoutEffect : MonoBehaviour
         // CHANGE TRIGGER in the Future!!!  Activates hazard when button is pressed
         if (Input.GetKeyDown("k"))
         {
-            StartCoroutine("blackout");
+            StartCoroutine(nameof(Blackout));
         }
         
     }
     // Initiate a blackout which makes the screen go dark after [Hazard Duration].
-    IEnumerator blackout()
+    IEnumerator Blackout()
     {
         anim.Play("FadeIn");
         Debug.Log("Screen goes bye :<");
-        yield return new WaitForSeconds(_hazardDuration);
+        yield return new WaitForSeconds(hazardDuration);
         anim.Play("FadeOut");
         Debug.Log("Screen goes hi!");
     }

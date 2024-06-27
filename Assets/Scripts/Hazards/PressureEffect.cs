@@ -1,17 +1,18 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class PressureEffect : MonoBehaviour
 {
-    [SerializeField] private float _hazardDuration = 5f;
+    [SerializeField] private float hazardDuration = 5f;
 
-    [SerializeField] private Rigidbody _playerRB;
+    [SerializeField] private Rigidbody playerRb;
     
-    [SerializeField] private float _windStr = 200f;
-    [SerializeField] private Vector3 _windDir;
+    [SerializeField] private float windStr = 200f;
+    [SerializeField] private Vector3 windDir;
     
     public Vector3 randomVal;
     private bool _isCoRunning;
@@ -26,14 +27,14 @@ public class PressureEffect : MonoBehaviour
     {
         if (Input.GetKeyDown("j") && !_isCoRunning)
         {
-            StartCoroutine("WindOn");
+            StartCoroutine(nameof(WindOn));
         }
     }
     
     void BlowWind()
     {
         Debug.Log("Pushing player :<");
-        _playerRB.AddForce(_windDir * _windStr * Time.deltaTime, ForceMode.VelocityChange);
+        playerRb.AddForce(windDir * windStr * Time.deltaTime, ForceMode.VelocityChange);
     }
 
     private int PickDirection()
@@ -52,9 +53,9 @@ public class PressureEffect : MonoBehaviour
         _isCoRunning = true;
         
         //randomize wind direction
-        _windDir.x = PickDirection();
+        windDir.x = PickDirection();
         
-        yield return new WaitForSeconds(_hazardDuration);
+        yield return new WaitForSeconds(hazardDuration);
         Debug.Log("Stopping Wind force");
         _isCoRunning = false;
     }

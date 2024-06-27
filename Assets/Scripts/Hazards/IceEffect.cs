@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class IceEffect : MonoBehaviour
 {
-    [SerializeField] private PhysicMaterial _slipperyMaterial;
-    [SerializeField] private PhysicMaterial _defaultMaterial;
-    [SerializeField] private Collider _platformColl;
-    [SerializeField] private Collider _blockColl;
+    [SerializeField] private PhysicMaterial slipperyMaterial;
+    [SerializeField] private PhysicMaterial defaultMaterial;
+    [SerializeField] private Collider platformColl;
+    [SerializeField] private Collider blockColl;
     
-    [SerializeField] private float _hazardDuration = 5f;
-    
+    [SerializeField] private float hazardDuration = 5f;
     
     private void Update()
     {
@@ -24,12 +24,12 @@ public class IceEffect : MonoBehaviour
     //Changes the material of the objects to a slippery ice material for [Hazard Duration], then returns to the original material
     IEnumerator slideOn()
     {
-        _platformColl.material = _slipperyMaterial;
-        _blockColl.material = _slipperyMaterial;
+        platformColl.material = slipperyMaterial;
+        blockColl.material = slipperyMaterial;
         Debug.Log("Slide them platforms :<");
-        yield return new WaitForSeconds(_hazardDuration);
-        _platformColl.material = _defaultMaterial;
-        _blockColl.material = _defaultMaterial;
+        yield return new WaitForSeconds(hazardDuration);
+        platformColl.material = defaultMaterial;
+        blockColl.material = defaultMaterial;
         Debug.Log("Returning Platform material :>");
     }
 }
