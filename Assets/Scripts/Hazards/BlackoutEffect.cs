@@ -42,7 +42,7 @@ public class BlackoutEffect : MonoBehaviour
     {
         anim.Play("FadeIn");
         
-        yield return new WaitForSeconds(_hazardDuration);
+        yield return new WaitForSeconds(hazardDuration);
         Debug.Log("Hazard Duration Ended");
         anim.Play("FadeOut");
     }

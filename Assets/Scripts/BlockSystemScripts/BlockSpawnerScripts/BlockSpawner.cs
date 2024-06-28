@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using BlockSystemScripts.BlockScripts;
 using BlockSystemScripts.RowAndColumnScripts;
 using EventScripts;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace BlockSystemScripts.BlockSpawnerScripts
 {
@@ -13,7 +15,11 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     /// </summary>
     public class BlockSpawner : AlignmentManager
     {
-        [SerializeField] private GameObject blockPrefab;
+        [SerializeField] private List<GameObject> blockPrefabs;
+        
+        [Header("Block Type Randomizer References")]
+        [SerializeField][Range(1, 100)] private float mainBlockSpawnRate;
+        
         
         [Header("Test Script References. To be private")]
         [SerializeField] private BlockSpawnersManager assignedSpawnersManager;
@@ -55,9 +61,39 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                 return;
             }
             
-            var block = Instantiate(blockPrefab, GridCells[0].gameObject.transform.position, quaternion.identity);
+            var block = Instantiate(BlockToSpawn(), GridCells[0].gameObject.transform.position, quaternion.identity);
             block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
             TriggerCannotSpawn();
+        }
+
+        //returns a block prefab with the "type" depending on the random number generated. 
+        private GameObject BlockToSpawn()
+        {
+            //checks if there is less than or equal to one type of block in the list
+            if (blockPrefabs.Count <= 1)
+            {
+                return blockPrefabs[0];
+            }
+
+            var tempMaxValue = 100f;
+            
+            var blockRangePass1 = Random.Range(1, tempMaxValue);
+            tempMaxValue = blockRangePass1;
+            var blockRangePass2 = Random.Range(1, tempMaxValue);
+            tempMaxValue = blockRangePass2;
+            var blockRangePass3 = Random.Range(1, tempMaxValue);
+            
+            var convertedSpawnRate = tempMaxValue * (mainBlockSpawnRate / 100);
+
+            if (blockRangePass3 <= convertedSpawnRate)
+                //return default block
+                return blockPrefabs[0];
+            if (blockRangePass3 > convertedSpawnRate)
+                //return heavy block
+                return blockPrefabs[1];
+            
+            //returns default block if no conditions are met
+            return blockPrefabs[0];
         }
 
         public void TriggerCanSpawn()

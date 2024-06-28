@@ -7,6 +7,9 @@ namespace BlockSystemScripts.BlockScripts
     public class BlockScript : MonoBehaviour
     {
         #region VARIABLES
+        [Header("Block Type")]
+        [SerializeField] private bool isHeavy;
+        
         [Header("Block Fall Timer")]
         [SerializeField] private BlockFallTimer fallTimer;
 
@@ -27,14 +30,8 @@ namespace BlockSystemScripts.BlockScripts
 
         private bool _canPickUp;
 
-        public bool CanPickUp
-        {
-            get => _canPickUp;
-            private set => _canPickUp = value;
-        }
+        public bool CanPickUp => _canPickUp;
 
-        public BlockFallTimer FallTimer => fallTimer;
-        
         #endregion
         
         //draws a ray for the raycast. CAN DELETE AFTER TESTING
@@ -42,6 +39,18 @@ namespace BlockSystemScripts.BlockScripts
         {
             Debug.DrawRay(transform.position, directionBot * maxDistanceBot, Color.red);
             Debug.DrawRay(transform.position, directionTop * maxDistanceTop, Color.green);
+        }
+        
+        //called by the block spawner or the player to initialize references for this block 
+        public void InitializeReferences(GridCell cell, BlockSpawner spawnerReference)
+        {
+            currentCell = cell;
+            currentCell.FillCellSlot(this);
+            fallTimer.StartTimer();
+            nextCell = currentCell.AssignedColumn.GridCells[currentCell.RowIndex + 1].GetComponent<GridCell>();
+            blockSpawner = spawnerReference;
+
+            TogglePickUpState(false);
         }
 
         //moves the block down if the conditions are met
@@ -64,7 +73,7 @@ namespace BlockSystemScripts.BlockScripts
                 {
                     currentCell.AssignedColumn.ValidateColumn();
                 }
-                _canPickUp = true;
+                TogglePickUpState(true);
                 return;
             }
             //Signals the block above that it can fall down
@@ -79,7 +88,7 @@ namespace BlockSystemScripts.BlockScripts
                 transform.position = currentCell.transform.position;
                 fallTimer.StartTimer();
 
-                _canPickUp = false;
+                TogglePickUpState(false);
             }
             
             //checks if the current cell is not yet the last one. If not, give nextCell a value. If it is, return null. 
@@ -91,24 +100,20 @@ namespace BlockSystemScripts.BlockScripts
             nextCell = null;
         }
 
-        //called by the block spawner or the player to initialize references for this block 
-        public void InitializeReferences(GridCell cell, BlockSpawner spawnerReference)
-        {
-            currentCell = cell;
-            currentCell.FillCellSlot(this);
-            fallTimer.StartTimer();
-            nextCell = currentCell.AssignedColumn.GridCells[currentCell.RowIndex + 1].GetComponent<GridCell>();
-            blockSpawner = spawnerReference;
 
-            _canPickUp = false;
+        private void TogglePickUpState(bool nextState)
+        {
+            if (isHeavy) return;
+            _canPickUp = nextState;
         }
-        
+
+
         //method for checking if there is block on top of this block, then trigger it's transfer timer.
         private void SignalTopBlock()
         {
             if (TopBlockDetection() == null) return;
-            TopBlockDetection().CanPickUp = false;
-            TopBlockDetection().FallTimer.StartTimer();
+            TopBlockDetection().TogglePickUpState(false);
+            TopBlockDetection().fallTimer.StartTimer();
         }
 
         #region RAYCAST_METHODS
