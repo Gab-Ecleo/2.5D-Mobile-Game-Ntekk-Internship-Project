@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableData
 {
@@ -14,8 +15,8 @@ namespace ScriptableData
         public float jumpFallOff = 0.7f;
 
         //tentative list
-        [Header("Activated Power-ups")] 
-        public int scoreMultiplier;
+        [Header("Activated Power-ups")]
+        public bool hasMultiplier;
         public bool springJump;
         public bool timeSlow;
         public bool expressDelivery;
@@ -23,8 +24,13 @@ namespace ScriptableData
 
         //tentative list
         [Header("Activated Upgrades")] 
-        public int shield = 1;
-
+        public int barrierUpgrade = 0;
+        public int rezUpgrade = 0;
+        
+        [Header("Base upgrade stats")]
+        public int barrierDurability = 1;
+        public bool canRez = false;
+        
 
     }
 }

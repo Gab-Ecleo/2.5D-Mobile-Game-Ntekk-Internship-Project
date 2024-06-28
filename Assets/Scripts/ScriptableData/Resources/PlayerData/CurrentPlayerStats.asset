@@ -20,4 +20,4 @@ MonoBehaviour:
   timeSlow: 0
   expressDelivery: 0
   singleBlockRemover: 0
-  shield: 0
+  shield: 1

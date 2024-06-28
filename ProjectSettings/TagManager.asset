@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Platform
   - Block
+  - WindArea
+  - SpawnPoint
+  - PowerUp Manager
+  - PowerUp
   layers:
   - Default
   - TransparentFX
@@ -14,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Blocks
-  - 
+  - GridCells
   - 
   - 
   - 

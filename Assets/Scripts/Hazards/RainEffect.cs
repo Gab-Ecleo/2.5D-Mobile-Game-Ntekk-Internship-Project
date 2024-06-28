@@ -1,41 +1,64 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using PlayerScripts;
 using ScriptableData;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RainEffect : MonoBehaviour
 {
     [SerializeField] private float _hazardDuration = 5f;
-    [SerializeField] private PlayerStatsSO currentPlayerStats;
     [SerializeField] private float _currentSpeed;
     [SerializeField] private float _hazardModifier = 2;
 
-    private void Start()
+    private PlayerStatsSO _playerStat;
+    private GameManager _gameManager;
+    private bool _isCorActive;
+
+    #region UNITY METHODS
+
+    private void Awake()
     {
-        //Set current speed from the player stat speed value
-        _currentSpeed = currentPlayerStats.movementSpeed;
+        GameEvents.TRIGGER_RAIN_HAZARD += TriggerRainHazard;
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        // CHANGE TRIGGER in the Future!!! Activates Hazard when button is pressed
-        if (Input.GetKeyDown("l"))
-        {
-            StartCoroutine("rainOn");
-        }
+        GameEvents.TRIGGER_RAIN_HAZARD -= TriggerRainHazard;
+    }
+
+    private void Start()
+    {
+        _gameManager = GameManager.Instance;
+        _playerStat = _gameManager.FetchCurrentPlayerStat();
+        _isCorActive = false;
+        
+        //Set current speed from the player stat speed value
+        _currentSpeed = _playerStat.movementSpeed;
+    }
+
+    #endregion
+    
+    private void TriggerRainHazard()
+    {
+        if (_isCorActive || _gameManager.IsGameOver()) return;
+
+        StartCoroutine(SlowPlayerMovement());
     }
     
     //Halves the player's speed for [Hazard Duration], then returns to the original value
-    IEnumerator rainOn()
+    IEnumerator SlowPlayerMovement()
     {
-        _currentSpeed /= _hazardModifier;
-        currentPlayerStats.movementSpeed = _currentSpeed;
+        _isCorActive = true;
+        
         Debug.Log("Slow down player :<");
+        _currentSpeed /= _hazardModifier;
+        _playerStat.movementSpeed = _currentSpeed;
+
         yield return new WaitForSeconds(_hazardDuration);
+        Debug.Log("End of Hazard Duration");
         _currentSpeed *= _hazardModifier;
-        currentPlayerStats.movementSpeed = _currentSpeed;
-        Debug.Log("Speed up Player :>");
+        _playerStat.movementSpeed = _currentSpeed;
+
+        _isCorActive = false;
     }
 }

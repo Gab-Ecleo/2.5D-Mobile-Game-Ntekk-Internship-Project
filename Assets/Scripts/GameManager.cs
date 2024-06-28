@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ScriptableData;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,16 +14,23 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    [SerializeField] private PlayerStatsSO _playerCurrentStat;
+    
     private bool _gameEnd;
-
+    
     private void Awake()
     {
         // Initialization
         if (_instance == null) _instance = this;
         else if (_instance != this) Destroy(gameObject);
-        
+
         //Event subscription
         GameEvents.IS_GAME_OVER += SetGameState;
+    }
+
+    private void Start()
+    {
+        _gameEnd = false;
     }
 
     private void OnDestroy()
@@ -55,5 +64,10 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver()
     {
         return _gameEnd;
+    }
+
+    public PlayerStatsSO FetchCurrentPlayerStat()
+    {
+        return _playerCurrentStat;
     }
 }
