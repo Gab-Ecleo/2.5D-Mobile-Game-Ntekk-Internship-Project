@@ -92,7 +92,7 @@ namespace PlayerScripts
             
             //nullifies the values of the collected block
             collectedBlock = null;
-            Debug.Log("Player has Thrown");
+            //Debug.Log("Player has Thrown");
         }
     }
 }

@@ -50,7 +50,6 @@ public class RainEffect : MonoBehaviour
     {
         _isCorActive = true;
         
-        Debug.Log("Slow down player :<");
         _currentSpeed /= _hazardModifier;
         _playerStat.movementSpeed = _currentSpeed;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlackoutEffect : MonoBehaviour
 {
-    [SerializeField] private float _hazardDuration = 5f;
+    [SerializeField] private float hazardDuration = 5f;
     [SerializeField] private Animation anim;
 
     private GameManager _gameManager;
@@ -40,7 +40,6 @@ public class BlackoutEffect : MonoBehaviour
     // Initiate a blackout which makes the screen go dark after [Hazard Duration].
     IEnumerator TriggerBlackout()
     {
-        Debug.Log("Screen goes bye :<");
         anim.Play("FadeIn");
         
         yield return new WaitForSeconds(hazardDuration);
