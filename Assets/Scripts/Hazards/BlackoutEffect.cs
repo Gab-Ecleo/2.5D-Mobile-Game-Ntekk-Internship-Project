@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlackoutEffect : MonoBehaviour
 {
-    [SerializeField] private float hazardDuration = 5f;
+    [SerializeField] private float _hazardDuration = 5f;
     [SerializeField] private Animation anim;
 
     private GameManager _gameManager;
