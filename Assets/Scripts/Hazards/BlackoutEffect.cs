@@ -43,7 +43,7 @@ public class BlackoutEffect : MonoBehaviour
         Debug.Log("Screen goes bye :<");
         anim.Play("FadeIn");
         
-        yield return new WaitForSeconds(_hazardDuration);
+        yield return new WaitForSeconds(hazardDuration);
         Debug.Log("Hazard Duration Ended");
         anim.Play("FadeOut");
     }
