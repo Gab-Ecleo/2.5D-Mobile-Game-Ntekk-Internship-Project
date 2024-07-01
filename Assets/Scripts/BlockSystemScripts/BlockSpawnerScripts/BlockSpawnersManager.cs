@@ -15,7 +15,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         private BlockSpawnTimer _spawnTimer;
 
         //initialize the value of the spawn timer. 
-        private void Start()
+        private void Awake()
         {
             _spawnTimer = GetComponent<BlockSpawnTimer>();
         }
