@@ -11,7 +11,6 @@ namespace BlockSystemScripts.RowAndColumnScripts
     {
         [SerializeField] private ScoresSO _playerScore;
         [SerializeField] private PlayerStatsSO _playerCurrStats;
-        [SerializeField] private Multiplier multiplier;
         private int _blockCounter;
         //A validation call that checks the number of blocks in a row
         public void ValidateRow()
