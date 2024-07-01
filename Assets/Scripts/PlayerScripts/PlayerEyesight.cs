@@ -13,14 +13,15 @@ namespace PlayerScripts
         [SerializeField] private float rayDistance = 1.05f;
         private RaycastHit _hit1, _hit2, _hit3;
         
-        private void FixedUpdate()
+        private void FixedUpdate() //For Testing. Can be Deleted
         {
             //Visually projects how the raycasts below would look like
             var position = transform.position;
             Debug.DrawRay(position + rayOffset1, transform.right * rayDistance, Color.blue);
             Debug.DrawRay(position + rayOffset2, transform.right * rayDistance, Color.blue);
         }
-        
+
+        #region RAYCAST_METHODS
         //returns a BlockScript object if the raycast has detected the layer based on it. returns null if none
         public BlockScript FirstBlockDetection()
         {
@@ -53,5 +54,6 @@ namespace PlayerScripts
             }
             return _hit3.collider.gameObject.GetComponent<GridCell>();
         }
+        #endregion
     }
 }
