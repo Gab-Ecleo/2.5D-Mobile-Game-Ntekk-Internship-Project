@@ -11,8 +11,15 @@ namespace ScriptableData
     {
         [Header("Movement Stats")] 
         public float movementSpeed = 8f;
+        public float acceleration = 9f;
+        public float decceleration = 9f;
+        public float velPower = 1.2f;
+        public float frictionAmount = 0.2f;
+
+        [Header("Jumping Stats")]
         public float jumpHeight = 8f;
-        public float jumpFallOff = 0.7f;
+        [Range(0, 1)]public float jumpCutMultiplier = 0.7f;
+
 
         //tentative list
         [Header("Activated Power-ups")]
