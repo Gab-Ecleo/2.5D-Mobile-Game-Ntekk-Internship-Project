@@ -40,7 +40,8 @@ namespace BlockSystemScripts.BlockScripts
             Debug.DrawRay(transform.position, directionBot * maxDistanceBot, Color.red);
             Debug.DrawRay(transform.position, directionTop * maxDistanceTop, Color.green);
         }
-        
+
+        #region BLOCK_MANIPULATION
         //called by the block spawner or the player to initialize references for this block 
         public void InitializeReferences(GridCell cell, BlockSpawner spawnerReference)
         {
@@ -99,15 +100,13 @@ namespace BlockSystemScripts.BlockScripts
             }
             nextCell = null;
         }
-
-
+        
         private void TogglePickUpState(bool nextState)
         {
             if (isHeavy) return;
             _canPickUp = nextState;
         }
-
-
+        
         //method for checking if there is block on top of this block, then trigger it's transfer timer.
         private void SignalTopBlock()
         {
@@ -115,7 +114,8 @@ namespace BlockSystemScripts.BlockScripts
             TopBlockDetection().TogglePickUpState(false);
             TopBlockDetection().fallTimer.StartTimer();
         }
-
+        #endregion
+        
         #region RAYCAST_METHODS
         //casts a raycast, determining if there is a block or a platform below
         public bool IsLanded()

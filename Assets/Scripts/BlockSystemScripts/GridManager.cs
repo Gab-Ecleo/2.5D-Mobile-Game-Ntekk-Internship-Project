@@ -63,7 +63,26 @@ namespace BlockSystemScripts
             FlushLists();
             GenerateCell();
         }
+        
+        //Flushes all the managers lists
+        private void FlushLists()
+        {
+            foreach (var manager in rowManagersList)
+            {
+                manager.ClearList();
+            }
 
+            foreach (var manager in columnManagersList)
+            {
+                manager.ClearList();
+            }
+            foreach (var manager in spawnManagersList)
+            {
+                manager.ClearList();
+            }
+        }
+
+        #region LIST_GENERATIONS
         //Generate Row and Columns
         private void GenerateManagers()
         {
@@ -129,23 +148,6 @@ namespace BlockSystemScripts
                 _yCurrentPos += yPosIncrement;
             }
         }
-        
-        //Flushes all the managers lists
-        private void FlushLists()
-        {
-            foreach (var manager in rowManagersList)
-            {
-                manager.ClearList();
-            }
-
-            foreach (var manager in columnManagersList)
-            {
-                manager.ClearList();
-            }
-            foreach (var manager in spawnManagersList)
-            {
-                manager.ClearList();
-            }
-        }
+        #endregion
     }
 }
