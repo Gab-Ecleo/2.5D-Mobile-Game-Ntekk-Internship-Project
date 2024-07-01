@@ -15,9 +15,12 @@ MonoBehaviour:
   movementSpeed: 8
   jumpHeight: 8
   jumpFallOff: 0.7
-  scoreMultiplier: 0
+  hasMultiplier: 0
   springJump: 0
   timeSlow: 0
   expressDelivery: 0
   singleBlockRemover: 0
-  shield: 1
+  barrierUpgrade: 0
+  rezUpgrade: 0
+  barrierDurability: 1
+  canRez: 0

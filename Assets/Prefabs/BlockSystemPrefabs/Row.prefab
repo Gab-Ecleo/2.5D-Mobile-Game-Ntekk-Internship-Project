@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5491137334048757841}
   - component: {fileID: 5554752121964742233}
-  - component: {fileID: 742011638167284835}
   m_Layer: 0
   m_Name: Row
   m_TagString: Untagged
@@ -48,27 +47,4 @@ MonoBehaviour:
   gridCells: []
   _playerScore: {fileID: 11400000, guid: 39bda95efd9b96848bc304fa62520d9a, type: 2}
   _playerCurrStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
-  multiplier: {fileID: 742011638167284835}
---- !u!114 &742011638167284835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2643941491340463738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4221b54867e7d094daa19776792f2c9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsInEffect: 1
-  powerUpReadyDelay: 0.1
-  powerUpActivateDuration: 3
-  powerUpDeactivateDelay: 0.5
-  powerUpCooldown: 5
-  _initialPlayerStatsSO: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
-  _currPlayerStatsSO: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
-  _playerScore: {fileID: 11400000, guid: 39bda95efd9b96848bc304fa62520d9a, type: 2}
-  _playerBehaviour: {fileID: 0}
-  _multiplierAmount: 2
-  _hasPowerUp: 0
+  multiplier: {fileID: 0}

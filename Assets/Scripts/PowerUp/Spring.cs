@@ -5,7 +5,7 @@ using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Spring : PlayerPowerUps
+public class Spring : MonoBehaviour
 {
     [Header("Spring Power-Up")]
     [SerializeField] protected float SpringJumpHeight;
@@ -24,17 +24,5 @@ public class Spring : PlayerPowerUps
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
     }
-    
-    protected override void OnPowerUpActive()
-    {
-        base.OnPowerUpActive();   
-        _currPlayerStatsSO.jumpHeight = SpringJumpHeight;
-    }
-
-    protected override void OnPowerUpDeactivate()
-    {
-        base.OnPowerUpDeactivate();
-        _currPlayerStatsSO.jumpHeight = _initialPlayerStatsSO.jumpHeight;
-    }
-
+  
 }

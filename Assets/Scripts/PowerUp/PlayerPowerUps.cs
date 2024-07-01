@@ -5,26 +5,9 @@ using ScriptableData;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum PowerState
+public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
 {
-    ready,
-    active,
-    cooldown,
-    deactivate
-}
-
-public enum PowerTypes
-{
-    None,
-    Multiplier,
-    Spring,
-    TimeSlow
-}
-
-public class PlayerPowerUps : MonoBehaviour
-{
-    [Header("Permissions")]
-    public bool IsInEffect = true;
+    [Tooltip("Go To PowerBase Script to add another power up")]
 
     // default floats
     [Header("Timers")]
@@ -39,11 +22,22 @@ public class PlayerPowerUps : MonoBehaviour
     [SerializeField] protected ScoresSO _playerScore;
     public bool PowerUpInitialized => _powerUpInitialized;
 
+    [Header("Time Slow Power-up")]
+    [SerializeField] private float _slowMotionFactor = 0.1f;
+    [SerializeField] private float _originalTimeScale;
+
+    [Header("Spring Power-Up")]
+    [SerializeField] private float _currentJumpHeight;
+    [SerializeField] private float _jumpBoost = 3;
+
+    [Header("Multiplier Power-Up")]
+    [SerializeField] private int _multiplierAmount = 2;
+
     protected GameObject _playerGo;
-    [SerializeField] protected PlayerBehavior _playerBehaviour;
+    protected PlayerBehavior _playerBehaviour;
     protected bool _powerUpInitialized = false;
     protected Animator _animator;
-    protected Mesh _mesh;
+    protected MeshRenderer _mesh;
     protected PowerState _powerState;
 
     protected PowerTypes _currentPowerUpType = PowerTypes.None;
@@ -56,16 +50,28 @@ public class PlayerPowerUps : MonoBehaviour
 
     protected virtual void Initialization()
     {
-        _playerGo = GameObject.FindGameObjectWithTag("Player");
-        _animator = _playerGo.GetComponent<Animator>();
-        _mesh = _playerGo.GetComponent<Mesh>();
+        try
+        {
+            _playerGo = GameObject.FindGameObjectWithTag("Player");
+            if (_playerGo == null) {throw new Exception("Player not referenced");}
 
-        _playerBehaviour = _playerGo.GetComponent<PlayerBehavior>();   
-        if (_playerBehaviour == null){Debug.LogError("There's no player behaviour attached");return;}
+            _animator = _playerGo.GetComponent<Animator>();
+            if (_animator == null) {throw new Exception("Animator not referenced");}
 
-        if (_currPlayerStatsSO == null){Debug.LogError("There's no player stats referenced");return;}
+            _mesh = _playerGo.GetComponent<MeshRenderer>();
+            if (_mesh == null) {throw new Exception("Mesh component not referenced");}
 
-        _powerUpInitialized = true;
+            _playerBehaviour = _playerGo.GetComponent<PlayerBehavior>();
+            if (_playerBehaviour == null) {throw new Exception("Player Script not referenced");}
+
+            if (_currPlayerStatsSO == null) {throw new Exception("PlayerStatsSO reference is not assigned.");}
+
+            _powerUpInitialized = true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Initialization failed: " + e.Message);
+        }
     }
 
     #endregion
@@ -76,36 +82,16 @@ public class PlayerPowerUps : MonoBehaviour
     {
         if (_powerState != PowerState.ready){Debug.Log("Player Power-up is not yet ready to use");return;}
         _currentPowerUpType = powerTypes;
-
-        switch (_currentPowerUpType)
-        {
-            case PowerTypes.Multiplier:
-                ActivateMultiplier();
-                Debug.Log("Multiplier Power-up");
-                break;
-            case PowerTypes.Spring:
-                ActivateSpring();
-                Debug.Log("Spring Power-up");
-                break;
-            case PowerTypes.TimeSlow:
-                ActivateTimeSlow();
-                Debug.Log("Time Slow Power-up");
-                break;
-            default:
-                Debug.LogError("Unhandled power-up type: " + _currentPowerUpType);
-                break;
-        }
+        Debug.Log(_currentPowerUpType + " Is Ready");
         StartCoroutine(DelayBeforeActivation());
     }
 
     protected virtual void OnPowerUpActive()
     {
         if (_powerState != PowerState.active) { Debug.Log("Player Power-up is not yet active"); return;}
-        Debug.Log("Power-up activated!");
-
+        Debug.Log(_currentPowerUpType + " Is Activated");
         StartCoroutine(PowerUpDuration());
     }
-
 
     /// <summary>
     /// Deactivate power-ups and bring back to normal gameplay
@@ -113,8 +99,31 @@ public class PlayerPowerUps : MonoBehaviour
     protected virtual void OnPowerUpDeactivate()
     {
         if (_powerState != PowerState.deactivate) { Debug.Log("Player Power-up is not yet deactivated"); return; }
-
         Debug.Log("Power-up deactivated!");
+
+        // turn on whatever power-up that is activated
+        switch (_currentPowerUpType)
+        {
+            case PowerTypes.Multiplier:
+                _currPlayerStatsSO.hasMultiplier = false;
+                OnMultiplierDeactivate();
+                Debug.Log("Multiplier Power-up finished");
+                break;
+            case PowerTypes.Spring:
+                _currPlayerStatsSO.springJump = false;
+                OnSpringDeactivate();
+                Debug.Log("Spring Power-up finished");
+                break;
+            case PowerTypes.TimeSlow:
+                _currPlayerStatsSO.timeSlow = false;
+                OnTimeSlowDeactivate();
+                Debug.Log("Time Slow Power-up finished");
+                break;
+            default:
+                Debug.LogError("Unhandled power-up type: " + _currentPowerUpType);
+                break;
+        }
+
         StartCoroutine(DelayBeforeCooldown());
     }
 
@@ -140,7 +149,26 @@ public class PlayerPowerUps : MonoBehaviour
     }
     private IEnumerator PowerUpDuration()
     {
-        yield return new WaitForSeconds(powerUpActivateDuration);
+        switch (_currentPowerUpType)
+        {
+            case PowerTypes.Multiplier:
+                OnMultiplierActivate();
+                Debug.Log("Multiplier Power-up");
+                break;
+            case PowerTypes.Spring:
+                OnSpringActivate();
+                Debug.Log("Spring Power-up");
+                break;
+            case PowerTypes.TimeSlow:
+                OnTimeSlowActivate();
+                Debug.Log("Time Slow Power-up");
+                break;
+            default:
+                Debug.LogError("Unhandled power-up type: " + _currentPowerUpType);
+                break;
+        }
+
+        yield return new WaitForSecondsRealtime(powerUpActivateDuration);
         _powerState = PowerState.deactivate;
         OnPowerUpDeactivate();
     }
@@ -161,55 +189,56 @@ public class PlayerPowerUps : MonoBehaviour
     }
     #endregion
 
-    #region Additionals
-    protected virtual void OnHit() { }
+    #region PowerUpsBaseMethods
+    public void OnMultiplierActivate()
+    {
+        GameEvents.ON_SCORE_CHANGES?.Invoke(_playerScore.PointsToAdd, _multiplierAmount, true);
+    }
 
-    protected virtual void OnDeath() { }
+    public void OnMultiplierDeactivate()
+    {
+        GameEvents.ON_SCORE_CHANGES?.Invoke(_playerScore.PointsToAdd, _multiplierAmount, false);
+    }
 
-    protected virtual void OnRespawn() { }
-
-    protected virtual void OnReset() { }
+    public void OnSpringActivate()
+    {
+        _currentJumpHeight += _jumpBoost;
+        _currPlayerStatsSO.jumpHeight = _currentJumpHeight;
+    }
+    public void OnSpringDeactivate()
+    {
+        _currentJumpHeight -= _jumpBoost;
+        _currPlayerStatsSO.jumpHeight = _initialPlayerStatsSO.jumpHeight;
+    }
+    public void OnTimeSlowActivate()
+    {
+        _originalTimeScale = Time.timeScale;
+        Time.timeScale = _slowMotionFactor;
+        Time.fixedDeltaTime = Time.timeScale * 0.01f;
+    }
+    public void OnTimeSlowDeactivate()
+    {
+        Time.timeScale = _originalTimeScale;
+    }
     #endregion
-
-    #region Power Ups Activation Methods
-    protected virtual void ActivateMultiplier() 
-    { 
-        _currPlayerStatsSO.hasMultiplier = true;
-        _currPlayerStatsSO.springJump = false;
-        _currPlayerStatsSO.timeSlow = false;
-    }
-
-    protected virtual void ActivateSpring()
-    {
-        _currPlayerStatsSO.springJump = true;
-        _currPlayerStatsSO.hasMultiplier = false;
-        _currPlayerStatsSO.timeSlow = false;
-    }
-
-    protected virtual void ActivateTimeSlow()
-    {
-        _currPlayerStatsSO.timeSlow = true;
-        _currPlayerStatsSO.springJump = false;
-        _currPlayerStatsSO.hasMultiplier = false;
-    }
-    #endregion
-
-    public virtual void PermitUseOfPowerUp(bool isPowerUpInEffect)
-    {
-        IsInEffect = isPowerUpInEffect;
-    }
 
     // handles input
     public void PowerUp(InputAction.CallbackContext context)
     {
         if (context.performed && _powerUpInitialized)
         {
-            if (_currPlayerStatsSO.hasMultiplier) { OnPowerUpReady(PowerTypes.Multiplier); }
-
-            if (_currPlayerStatsSO.springJump) { OnPowerUpReady(PowerTypes.Spring); }
-
-            if (_currPlayerStatsSO.timeSlow) { OnPowerUpReady(PowerTypes.TimeSlow); }
+            if (_currPlayerStatsSO.hasMultiplier) 
+            { 
+                OnPowerUpReady(PowerTypes.Multiplier); 
+            }
+            if (_currPlayerStatsSO.springJump) 
+            {
+                OnPowerUpReady(PowerTypes.Spring); 
+            }
+            if (_currPlayerStatsSO.timeSlow) 
+            {
+                OnPowerUpReady(PowerTypes.TimeSlow); 
+            }
         }
     }
-
 }

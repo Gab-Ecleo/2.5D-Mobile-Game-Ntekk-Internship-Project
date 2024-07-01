@@ -16,11 +16,11 @@ namespace ScriptableData
 
         //tentative list
         [Header("Activated Power-ups")]
-        public bool hasMultiplier;
-        public bool springJump;
-        public bool timeSlow;
-        public bool expressDelivery;
-        public bool singleBlockRemover;
+        public bool hasMultiplier = false;
+        public bool springJump = false;
+        public bool timeSlow = false;
+        public bool expressDelivery = false;
+        public bool singleBlockRemover = false;
 
         //tentative list
         [Header("Activated Upgrades")] 
