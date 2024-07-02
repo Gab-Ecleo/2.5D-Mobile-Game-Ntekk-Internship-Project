@@ -11,8 +11,9 @@ namespace PlayerScripts
     {
         [Header("Collected Block Placeholder")]
         [SerializeField] private GameObject blockPlaceholder;
-        
-        [Header("Test References. To be private")]
+
+        [Header("Test References. To be private")] 
+        [SerializeField] private bool hasSBCPowerUp;
         [SerializeField] private BlockScript collectedBlock;//for testing purposes. Unserialize after testing
         [SerializeField] private bool hasItem; //for testing purposes. Unserialize after testing
         
@@ -46,10 +47,20 @@ namespace PlayerScripts
             //detects object in front of player; eyesight level first, then waist level
             if (_eyeSight.FirstBlockDetection() != null)
             {
+                if (hasSBCPowerUp)
+                {
+                    DestroySingleBlock(_eyeSight.FirstBlockDetection());
+                    return;
+                }
                 PickUpBlock(_eyeSight.FirstBlockDetection());
             }
             else if (_eyeSight.SecondBlockDetection() != null)
             {
+                if (hasSBCPowerUp)
+                {
+                    DestroySingleBlock(_eyeSight.SecondBlockDetection());
+                    return;
+                }
                 PickUpBlock(_eyeSight.SecondBlockDetection());
             }
             else
@@ -99,6 +110,14 @@ namespace PlayerScripts
             //nullifies the values of the collected block
             collectedBlock = null;
             //Debug.Log("Player has Thrown");
+        }
+
+        //Triggered if player has the Single Block Clear Powerup
+        private void DestroySingleBlock(BlockScript detectedBlock)
+        {
+            if (!detectedBlock.CanPickUp) return;
+            Destroy(detectedBlock.gameObject);
+            hasSBCPowerUp = false;
         }
         #endregion
     }
