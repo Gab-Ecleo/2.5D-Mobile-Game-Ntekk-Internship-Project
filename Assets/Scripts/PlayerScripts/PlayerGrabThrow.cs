@@ -1,6 +1,7 @@
 ﻿using System;
 using BlockSystemScripts;
 using BlockSystemScripts.BlockScripts;
+using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,13 +13,14 @@ namespace PlayerScripts
         [Header("Collected Block Placeholder")]
         [SerializeField] private GameObject blockPlaceholder;
 
-        [Header("Test References. To be private")] 
-        [SerializeField] private bool hasSBCPowerUp;
+        [Header("Test References. To be private")]
         [SerializeField] private BlockScript collectedBlock;//for testing purposes. Unserialize after testing
         [SerializeField] private bool hasItem; //for testing purposes. Unserialize after testing
         
         private PlayerGrabCooldown _grabCooldown;
         private PlayerEyesight _eyeSight;
+        
+        private PlayerStatsSO _playerStats;
 
         private void Awake()
         {
@@ -27,6 +29,7 @@ namespace PlayerScripts
 
         private void InitializeScriptValues()
         {
+            _playerStats = Resources.Load("PlayerData/CurrentPlayerStats") as PlayerStatsSO;
             _eyeSight = GetComponent<PlayerEyesight>();
             _grabCooldown = GetComponent<PlayerGrabCooldown>();
         }
@@ -47,7 +50,7 @@ namespace PlayerScripts
             //detects object in front of player; eyesight level first, then waist level
             if (_eyeSight.FirstBlockDetection() != null)
             {
-                if (hasSBCPowerUp)
+                if (_playerStats.singleBlockRemover)
                 {
                     DestroySingleBlock(_eyeSight.FirstBlockDetection());
                     return;
@@ -56,7 +59,7 @@ namespace PlayerScripts
             }
             else if (_eyeSight.SecondBlockDetection() != null)
             {
-                if (hasSBCPowerUp)
+                if (_playerStats.singleBlockRemover)
                 {
                     DestroySingleBlock(_eyeSight.SecondBlockDetection());
                     return;
@@ -117,7 +120,7 @@ namespace PlayerScripts
         {
             if (!detectedBlock.CanPickUp) return;
             Destroy(detectedBlock.gameObject);
-            hasSBCPowerUp = false;
+            _playerStats.singleBlockRemover = false;
         }
         #endregion
     }
