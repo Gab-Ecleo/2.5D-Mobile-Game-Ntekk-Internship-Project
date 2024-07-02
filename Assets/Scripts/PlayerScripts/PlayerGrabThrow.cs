@@ -19,12 +19,18 @@ namespace PlayerScripts
         private PlayerGrabCooldown _grabCooldown;
         private PlayerEyesight _eyeSight;
 
-        private void Start()
+        private void Awake()
+        {
+            InitializeScriptValues();
+        }
+
+        private void InitializeScriptValues()
         {
             _eyeSight = GetComponent<PlayerEyesight>();
             _grabCooldown = GetComponent<PlayerGrabCooldown>();
         }
 
+        #region PLAYERACTION_METHODS
         public void Interact(InputAction.CallbackContext ctx)
         {
             //if grab is on cooldown, ignore this function. 
@@ -94,5 +100,6 @@ namespace PlayerScripts
             collectedBlock = null;
             //Debug.Log("Player has Thrown");
         }
+        #endregion
     }
 }

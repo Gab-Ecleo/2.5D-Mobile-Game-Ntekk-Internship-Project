@@ -27,7 +27,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         [SerializeField] private float difficultyTimeLeft;
         #endregion
 
-        private void Start()
+        private void Awake()
         {
             //sets the timers by the determined starting values
             spawnTimeLeft = startingSpawnTime;

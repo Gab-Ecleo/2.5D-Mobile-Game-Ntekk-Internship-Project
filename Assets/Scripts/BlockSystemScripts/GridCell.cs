@@ -10,6 +10,7 @@ namespace BlockSystemScripts
     /// </summary>
     public class GridCell : MonoBehaviour
     {
+        #region VARIABLES
         //DO NOT MODIFY IN INSPECTOR. Displays the assigned row and column manager to this object
         [Header("Test References. To be private")]
         [SerializeField] private BlockScript currentBlock;
@@ -24,6 +25,8 @@ namespace BlockSystemScripts
         public BlockSpawner AssignedSpawner  => assignedSpawner;
         public int RowIndex => rowIndex;
         public int ColumnIndex => columnIndex;
+        #endregion
+        
 
         //On the generation of this cell, assign the respective managers to it. 
         public void AssignRowAndColumn(RowManager designatedRow, ColumnManager designatedColumn, BlockSpawner designatedSpawner, int rowNum, int colNum)

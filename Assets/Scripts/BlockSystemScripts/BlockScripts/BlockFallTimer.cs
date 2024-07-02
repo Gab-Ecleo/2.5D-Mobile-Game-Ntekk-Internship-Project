@@ -19,7 +19,7 @@ namespace BlockSystemScripts.BlockScripts
         [Header("Active Timers. To be private")]
         [SerializeField] private float timeLeft;
 
-        private void Start()
+        private void Awake()
         {
             timeLeft = initialTimer;
         }
@@ -29,7 +29,7 @@ namespace BlockSystemScripts.BlockScripts
             UpdateTimer();
         }
 
-        #region Timer
+        #region TIMER_METHODS
         private void UpdateTimer()
         {
             //If timer is not activated, ignore everything els
