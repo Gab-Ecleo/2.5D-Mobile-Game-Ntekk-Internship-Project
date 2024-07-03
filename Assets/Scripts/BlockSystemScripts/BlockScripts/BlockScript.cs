@@ -32,6 +32,8 @@ namespace BlockSystemScripts.BlockScripts
 
         public bool CanPickUp => _canPickUp;
 
+        public GridCell CurrentCell => currentCell;
+
         #endregion
         
         //draws a ray for the raycast. CAN DELETE AFTER TESTING
