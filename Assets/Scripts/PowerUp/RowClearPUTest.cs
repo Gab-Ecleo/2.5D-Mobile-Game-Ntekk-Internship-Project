@@ -1,11 +1,13 @@
 ﻿using System;
 using BlockSystemScripts.BlockScripts;
+using ScriptableData;
 using UnityEngine;
 
 namespace PowerUp
 {
     public class RowClearPUTest : MonoBehaviour
     {
+        [SerializeField] private PlayerStatsSO _playerStatsSo;
         private PlayerPowerUps _powerUp;
         
         [Header("Raycast References")]
@@ -15,6 +17,7 @@ namespace PowerUp
 
         private void Start()
         {
+            _playerStatsSo = Resources.Load("PlayerData/CurrentPlayerStats") as PlayerStatsSO;
             _powerUp = GameObject.FindWithTag("Player").GetComponent<PlayerPowerUps>();
         }
         
@@ -28,11 +31,15 @@ namespace PowerUp
         {
             if (other.CompareTag("Player"))
             {
+                _playerStatsSo.expressDelivery = true;
+                
+                _powerUp.PowerUp();
                 if (BottomRayDetection())
                 {
                     BottomRayDetection().CurrentCell.AssignedRow.ClearRow();
-                    Destroy(gameObject);
                 }
+                
+                Destroy(gameObject);
             }
         }
 

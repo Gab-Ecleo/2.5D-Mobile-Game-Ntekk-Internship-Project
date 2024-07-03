@@ -52,7 +52,7 @@ public class DebugScript : MonoBehaviour
     {
         MovementSpeedSlider.value = CurrentStats.movementSpeed;
         JumpHeighSlider.value = CurrentStats.jumpHeight;
-        JumpFallSlider.value = CurrentStats.jumpFallOff;
+        JumpFallSlider.value = CurrentStats.jumpCutMultiplier;
 
         MultiplierBool.isOn = CurrentStats.hasMultiplier;
         SpringBool.isOn = CurrentStats.springJump;
@@ -88,7 +88,7 @@ public class DebugScript : MonoBehaviour
     }
     public void UpdateJumpFall()
     {
-        CurrentStats.jumpFallOff = JumpFallSlider.value;
+        CurrentStats.jumpCutMultiplier = JumpFallSlider.value;
     }
 
     public void UpdateMultiplier()

@@ -7,22 +7,27 @@ using UnityEngine;
 
 public class Spring : MonoBehaviour
 {
-    [Header("Spring Power-Up")]
-    [SerializeField] protected float SpringJumpHeight;
-    
-    private PowerUpManager _powerUp;
+    private PlayerStatsSO _playerStatsSo;
+    private PlayerPowerUps _powerUps;
 
     void Start()
     {
-        _powerUp = GameObject.FindWithTag("PowerUp Manager").GetComponent<PowerUpManager>();
-        StartCoroutine(_powerUp.Decay());
+        _playerStatsSo = Resources.Load("PlayerData/CurrentPlayerStats") as PlayerStatsSO;
+        _powerUps = GameObject.FindWithTag("Player").GetComponent<PlayerPowerUps>();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(_powerUp.SpringPower());
-        GetComponent<Collider>().enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
+        if (other.CompareTag("Player"))
+        {
+            _playerStatsSo.springJump = true;
+            _powerUps.PowerUp();
+            Destroy(gameObject);
+        }
+        
+        //Box Decay Trigger
+
+        
     }
   
 }
