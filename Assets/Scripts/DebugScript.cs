@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class DebugScript : MonoBehaviour
 {
     [SerializeField] private PlayerStatsSO CurrentStats;
+    [SerializeField] private GameObject DebugScreen;
 
     [Header("Movement UI")]
     public TMP_Text MoveNumber;
@@ -41,6 +42,7 @@ public class DebugScript : MonoBehaviour
     public TMP_Text RezText;
     public Slider RezSlider;
 
+    private bool isDebugScreenOpen;
     private void Awake()
     {
         if(CurrentStats == null) { return; }
@@ -50,6 +52,10 @@ public class DebugScript : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        DebugScreen.SetActive(false);
+        isDebugScreenOpen = false;
+
+        /*
         MovementSpeedSlider.value = CurrentStats.movementSpeed;
         JumpHeighSlider.value = CurrentStats.jumpHeight;
         JumpCutMultiplierSlider.value = CurrentStats.jumpCutMultiplier;
@@ -60,11 +66,24 @@ public class DebugScript : MonoBehaviour
 
         BarrierSlider.value = CurrentStats.barrierUpgrade;
         RezSlider.value = CurrentStats.rezUpgrade;
+        */
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) && !isDebugScreenOpen)
+        { 
+            DebugScreen.SetActive(true); 
+            isDebugScreenOpen=true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && isDebugScreenOpen)
+        {
+            isDebugScreenOpen = false;
+            DebugScreen.SetActive(false); 
+        }
+
+        /*
         MoveNumber.text = MovementSpeedSlider.value.ToString();
         JumpHeightNumber.text = JumpHeighSlider.value.ToString();
         JumpCutMultiplier.text = JumpCutMultiplierSlider.value.ToString();
@@ -75,6 +94,7 @@ public class DebugScript : MonoBehaviour
 
         BarrierText.text = BarrierSlider.value.ToString();
         RezText.text = RezSlider.value.ToString();
+        */
     }
 
     public void UpdateMovementSpeed()
