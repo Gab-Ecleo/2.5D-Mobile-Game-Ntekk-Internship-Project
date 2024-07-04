@@ -1,25 +1,15 @@
-﻿using System;
-using BlockSystemScripts.BlockScripts;
+﻿using BlockSystemScripts.BlockScripts;
 using ScriptableData;
 using UnityEngine;
 
-namespace PowerUp
+namespace PowerUp.PowerUps
 {
-    public class RowClearPUTest : MonoBehaviour
+    public class RowClearPUTest : PowerUpScript
     {
-        [SerializeField] private PlayerStatsSO _playerStatsSo;
-        private PlayerPowerUps _powerUp;
-        
         [Header("Raycast References")]
         [SerializeField] private float rayDistance = 1.05f;
         [SerializeField] private LayerMask blockLayerDetected;
         private RaycastHit _hit;
-
-        private void Start()
-        {
-            _playerStatsSo = Resources.Load("PlayerData/CurrentPlayerStats") as PlayerStatsSO;
-            _powerUp = GameObject.FindWithTag("Player").GetComponent<PlayerPowerUps>();
-        }
         
         private void FixedUpdate() //For Testing. Can be Deleted
         {
@@ -27,19 +17,16 @@ namespace PowerUp
             Debug.DrawRay(transform.position, -Vector3.up * rayDistance, Color.yellow);
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                _playerStatsSo.expressDelivery = true;
-                
-                _powerUp.PowerUp();
+                PlayerStatsSo.expressDelivery = true;
                 if (BottomRayDetection())
                 {
                     BottomRayDetection().CurrentCell.AssignedRow.ClearRow();
                 }
-                
-                Destroy(gameObject);
+                base.OnTriggerEnter(other);
             }
         }
 
