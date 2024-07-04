@@ -54,7 +54,7 @@ namespace Input_System_Actions
 
             _interactPowerUp = _playerControls.Player.PowerUp;
             _interactPowerUp.Enable();
-            _interactPowerUp.performed += _playerPowerUps.PowerUp;
+            //_interactPowerUp.performed += _playerPowerUps.PowerUp;
         }
 
         //disable the listeners for the buttons

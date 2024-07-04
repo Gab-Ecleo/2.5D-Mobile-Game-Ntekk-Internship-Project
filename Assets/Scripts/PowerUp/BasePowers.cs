@@ -15,7 +15,10 @@ public enum PowerTypes
     None,
     Multiplier,
     Spring,
-    TimeSlow
+    TimeSlow,
+    SingleClear,
+    RowClear
+    
 }
 
 public interface PowerUpsBaseMethods
@@ -26,4 +29,8 @@ public interface PowerUpsBaseMethods
     void OnSpringDeactivate();
     void OnTimeSlowActivate();
     void OnTimeSlowDeactivate();
+    void OnSingleClearActivate();
+    void OnSingleClearDeactivate();
+    void OnRowClearActivate();
+    void OnRowClearDeactivate();
 }

@@ -119,6 +119,16 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
                 OnTimeSlowDeactivate();
                 Debug.Log("Time Slow Power-up finished");
                 break;
+            case PowerTypes.SingleClear:
+                _currPlayerStatsSO.singleBlockRemover = false;
+                OnSingleClearDeactivate();
+                Debug.Log("Single Clear Finished");
+                break;
+            case PowerTypes.RowClear:
+                _currPlayerStatsSO.expressDelivery = false;
+                OnRowClearDeactivate();
+                Debug.Log("Row Clear Finished");
+                break;
             default:
                 Debug.LogError("Unhandled power-up type: " + _currentPowerUpType);
                 break;
@@ -162,6 +172,14 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
             case PowerTypes.TimeSlow:
                 OnTimeSlowActivate();
                 Debug.Log("Time Slow Power-up");
+                break;
+            case PowerTypes.SingleClear:
+                OnSingleClearActivate();
+                Debug.Log("Single Clear");
+                break;
+            case PowerTypes.RowClear:
+                OnRowClearActivate();
+                Debug.Log("Row Clear");
                 break;
             default:
                 Debug.LogError("Unhandled power-up type: " + _currentPowerUpType);
@@ -220,12 +238,30 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
     {
         Time.timeScale = _originalTimeScale;
     }
+
+    public void OnSingleClearActivate()
+    {
+        //yes
+    }
+    public void OnSingleClearDeactivate()
+    {
+        //yes
+    }
+    public void OnRowClearActivate()
+    {
+        //yes
+    }
+    public void OnRowClearDeactivate()
+    {
+        //yes
+    }
+
     #endregion
 
     // handles input
-    public void PowerUp(InputAction.CallbackContext context)
+    public void PowerUp(/*InputAction.CallbackContext context*/)
     {
-        if (context.performed && _powerUpInitialized)
+        if (/*context.performed &&*/ _powerUpInitialized)
         {
             if (_currPlayerStatsSO.hasMultiplier) 
             { 
@@ -238,6 +274,14 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
             if (_currPlayerStatsSO.timeSlow) 
             {
                 OnPowerUpReady(PowerTypes.TimeSlow); 
+            }
+            if (_currPlayerStatsSO.singleBlockRemover) 
+            {
+                OnPowerUpReady(PowerTypes.SingleClear); 
+            }
+            if (_currPlayerStatsSO.expressDelivery) 
+            {
+                OnPowerUpReady(PowerTypes.RowClear); 
             }
         }
     }

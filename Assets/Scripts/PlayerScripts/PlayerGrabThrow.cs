@@ -1,6 +1,7 @@
 ﻿using System;
 using BlockSystemScripts;
 using BlockSystemScripts.BlockScripts;
+using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,13 +12,15 @@ namespace PlayerScripts
     {
         [Header("Collected Block Placeholder")]
         [SerializeField] private GameObject blockPlaceholder;
-        
+
         [Header("Test References. To be private")]
         [SerializeField] private BlockScript collectedBlock;//for testing purposes. Unserialize after testing
         [SerializeField] private bool hasItem; //for testing purposes. Unserialize after testing
         
         private PlayerGrabCooldown _grabCooldown;
         private PlayerEyesight _eyeSight;
+        
+        private PlayerStatsSO _playerStats;
 
         private void Awake()
         {
@@ -26,6 +29,7 @@ namespace PlayerScripts
 
         private void InitializeScriptValues()
         {
+            _playerStats = Resources.Load("PlayerData/CurrentPlayerStats") as PlayerStatsSO;
             _eyeSight = GetComponent<PlayerEyesight>();
             _grabCooldown = GetComponent<PlayerGrabCooldown>();
         }
@@ -46,10 +50,20 @@ namespace PlayerScripts
             //detects object in front of player; eyesight level first, then waist level
             if (_eyeSight.FirstBlockDetection() != null)
             {
+                if (_playerStats.singleBlockRemover)
+                {
+                    DestroySingleBlock(_eyeSight.FirstBlockDetection());
+                    return;
+                }
                 PickUpBlock(_eyeSight.FirstBlockDetection());
             }
             else if (_eyeSight.SecondBlockDetection() != null)
             {
+                if (_playerStats.singleBlockRemover)
+                {
+                    DestroySingleBlock(_eyeSight.SecondBlockDetection());
+                    return;
+                }
                 PickUpBlock(_eyeSight.SecondBlockDetection());
             }
             else
@@ -99,6 +113,14 @@ namespace PlayerScripts
             //nullifies the values of the collected block
             collectedBlock = null;
             //Debug.Log("Player has Thrown");
+        }
+
+        //Triggered if player has the Single Block Clear Powerup
+        private void DestroySingleBlock(BlockScript detectedBlock)
+        {
+            if (!detectedBlock.CanPickUp) return;
+            Destroy(detectedBlock.gameObject);
+            _playerStats.singleBlockRemover = false;
         }
         #endregion
     }
