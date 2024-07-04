@@ -18,8 +18,8 @@ public class DebugScript : MonoBehaviour
     public Slider JumpHeighSlider;
 
     [Header("Jump Fall UI")]
-    public TMP_Text JumpFallNumber;
-    public Slider JumpFallSlider;
+    public TMP_Text JumpCutMultiplier;
+    public Slider JumpCutMultiplierSlider;
 
     [Header("Multiplier Power-up UI")]
     public TMP_Text MultiplierText;
@@ -52,7 +52,7 @@ public class DebugScript : MonoBehaviour
     {
         MovementSpeedSlider.value = CurrentStats.movementSpeed;
         JumpHeighSlider.value = CurrentStats.jumpHeight;
-        JumpFallSlider.value = CurrentStats.jumpCutMultiplier;
+        JumpCutMultiplierSlider.value = CurrentStats.jumpCutMultiplier;
 
         MultiplierBool.isOn = CurrentStats.hasMultiplier;
         SpringBool.isOn = CurrentStats.springJump;
@@ -67,7 +67,7 @@ public class DebugScript : MonoBehaviour
     {
         MoveNumber.text = MovementSpeedSlider.value.ToString();
         JumpHeightNumber.text = JumpHeighSlider.value.ToString();
-        JumpFallNumber.text = JumpFallSlider.value.ToString();
+        JumpCutMultiplier.text = JumpCutMultiplierSlider.value.ToString();
 
         MultiplierText.text = MultiplierBool.isOn.ToString();
         SpringText.text = SpringBool.isOn.ToString();
@@ -88,7 +88,7 @@ public class DebugScript : MonoBehaviour
     }
     public void UpdateJumpFall()
     {
-        CurrentStats.jumpCutMultiplier = JumpFallSlider.value;
+        CurrentStats.jumpCutMultiplier = JumpCutMultiplierSlider.value;
     }
 
     public void UpdateMultiplier()
