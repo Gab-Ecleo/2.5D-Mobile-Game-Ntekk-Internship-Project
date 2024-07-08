@@ -20,6 +20,7 @@ namespace PlayerScripts
         {
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
             currentPlayerStats.barrierDurability = initialPlayerStats.barrierDurability;
+            Time.timeScale = 1;
         }
         
         #region BARRIER_BEHAVIOR
@@ -60,6 +61,7 @@ namespace PlayerScripts
             //add death behavior
             Debug.Log("Player Dead");
             //deathScreen.SetActive(true);
+            GameEvents.IS_GAME_OVER?.Invoke(true);
             Time.timeScale = 0;
         }
 

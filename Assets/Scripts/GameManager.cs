@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField] private PlayerStatsSO _playerCurrentStat;
+    [SerializeField] private GameObject gameOverText;
     
     private bool _gameEnd;
     
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _gameEnd = false;
+        gameOverText.SetActive(false);
     }
 
     private void OnDestroy()
@@ -49,10 +52,10 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape)) //This is a tentative feature, it can be remove if not needed
         {
-            //load main menu scene here
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        
-        //Do game over stuff
+
+        gameOverText.SetActive(true);
     }
 
     private void SetGameState(bool _state)
