@@ -5,23 +5,21 @@ using UnityEngine;
 
 public class ScoreToCurrency : MonoBehaviour
 {
-    [SerializeField] private PlayerStatsSO initialPlayerStats;
-    [SerializeField] private PlayerStatsSO currentPlayerStats;
-    [SerializeField] private PlayerStatsSO coins;
-
-    [SerializeField] private ScoresSO Points;
+    [SerializeField] private PlayerStatsSO _initialPlayerStats;
     
-    [SerializeField] private float score;
+    [SerializeField] private ScoresSO _scores;
     
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int _currency;
+    [SerializeField] private int _scoreModifier;
+    [SerializeField] private int _finalScore;
+    
+    private void ConvertScore()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // get the final score
+        _finalScore = _scores.Points ;
+        // convert the final score with the score modifier to currency
+        _currency = _finalScore / _scoreModifier;
+        // add the currency to the player
+        _initialPlayerStats.coins += _currency;
     }
 }
