@@ -15,10 +15,11 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     /// </summary>
     public class BlockSpawner : AlignmentManager
     {
-        [SerializeField] private List<GameObject> blockPrefabs;
-        
+        [SerializeField] private List<GameObject> mainBlockList;
+        [SerializeField] private List<GameObject> specialBlockList;
+
         [Header("Block Type Randomizer References")]
-        [SerializeField][Range(1, 100)] private float mainBlockSpawnRate;
+        [SerializeField][Range(1, 100)] private int mainBlockSpawnRate;
         
         
         [Header("Test Script References. To be private")]
@@ -60,7 +61,6 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                 ValidateBlockSpawn();
                 return;
             }
-            
             var block = Instantiate(BlockToSpawn(), GridCells[0].gameObject.transform.position, quaternion.identity);
             block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
             TriggerCannotSpawn();
@@ -70,32 +70,51 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         private GameObject BlockToSpawn()
         {
             //checks if there is less than or equal to one type of block in the list
-            if (blockPrefabs.Count <= 1)
-            {
-                return blockPrefabs[0];
-            }
-
-            var tempMaxValue = 100f;
+            if (specialBlockList.Count <= 0) return RandomizedMainBlock();
             
-            var blockRangePass1 = Random.Range(1, tempMaxValue);
-            tempMaxValue = blockRangePass1;
-            var blockRangePass2 = Random.Range(1, tempMaxValue);
-            tempMaxValue = blockRangePass2;
-            var blockRangePass3 = Random.Range(1, tempMaxValue);
+            var tempMaxValue = 100;
+            var blockRangePass1 = Random.Range(1, tempMaxValue + 1);
+            blockRangePass1 = Random.Range(1, tempMaxValue + 1);
+            blockRangePass1 = Random.Range(1, tempMaxValue + 1);
             
-            var convertedSpawnRate = tempMaxValue * (mainBlockSpawnRate / 100);
+            var convertedSpawnRate = tempMaxValue * (mainBlockSpawnRate / 100f);
 
-            if (blockRangePass3 <= convertedSpawnRate)
-                //return default block
-                return blockPrefabs[0];
-            if (blockRangePass3 > convertedSpawnRate)
+            if (blockRangePass1 <= (int)convertedSpawnRate)
+                //return default block type
+                return RandomizedMainBlock();
+            if (blockRangePass1 > (int)convertedSpawnRate)
                 //return heavy block
-                return blockPrefabs[1];
-            
+                return RandomizedSpecialBlock();
             //returns default block if no conditions are met
-            return blockPrefabs[0];
+            return RandomizedMainBlock();
         }
 
+        #region BLOCK_RANDOMIZERS
+        private GameObject RandomizedMainBlock()
+        {
+            if (mainBlockList.Count <= 1)
+            {
+                return mainBlockList[0];
+            }
+            var blockNumber = Random.Range(0, mainBlockList.Count);
+            blockNumber = Random.Range(0, mainBlockList.Count);
+            blockNumber = Random.Range(0, mainBlockList.Count);
+            return mainBlockList[blockNumber];
+        }
+
+        private GameObject RandomizedSpecialBlock()
+        {
+            if (specialBlockList.Count <= 1)
+            {
+                return specialBlockList[0];
+            }
+            var blockNumber = Random.Range(0, specialBlockList.Count);
+            blockNumber = Random.Range(0, specialBlockList.Count);
+            blockNumber = Random.Range(0, specialBlockList.Count);
+            return specialBlockList[blockNumber];
+        }
+        #endregion
+        
         public void TriggerCanSpawn()
         {
             canSpawn = true;
