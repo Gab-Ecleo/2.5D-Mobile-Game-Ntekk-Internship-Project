@@ -9,5 +9,7 @@ namespace EventScripts
     public class PlayerEvents : MonoBehaviour
     {
         public static Action OnPlayerDamage;
+
+        public static Action OnPlayerPositionReset;
     }
 }
