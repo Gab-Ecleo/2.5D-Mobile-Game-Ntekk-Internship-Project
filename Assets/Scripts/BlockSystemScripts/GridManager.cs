@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BlockSystemScripts.BlockSpawnerScripts;
 using BlockSystemScripts.RowAndColumnScripts;
+using EventScripts;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -45,7 +46,8 @@ namespace BlockSystemScripts
         [SerializeField] private List<ColumnManager> columnManagersList;
         [SerializeField] private List<BlockSpawner> spawnManagersList;
         #endregion
-        
+
+        #region Initializations
         private void Awake()
         {
             //Resets the lists before starting the game to make sure there are no objects in them. 
@@ -81,7 +83,8 @@ namespace BlockSystemScripts
                 manager.ClearList();
             }
         }
-
+        #endregion
+        
         #region LIST_GENERATIONS
         //Generate Row and Columns
         private void GenerateManagers()
@@ -147,6 +150,13 @@ namespace BlockSystemScripts
                 //Adds the determined increment to the current vertical position for the next column.
                 _yCurrentPos += yPosIncrement;
             }
+            
+            IdentifyCellPosition();
+        }
+
+        private void IdentifyCellPosition()
+        {
+            GridGenerationEvents.OnGridCompletion?.Invoke();
         }
         #endregion
     }
