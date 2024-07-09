@@ -20,10 +20,6 @@ namespace BlockSystemScripts.BlockScripts
 
         public BlockType BlockType => blockType;
         public BlockState BlockState => _blockState;
-        // private bool _canPickUp;
-        //
-        // public bool CanPickUp => _canPickUp;
-
         public GridCell CurrentCell => currentCell;
 
         #endregion
@@ -78,12 +74,6 @@ namespace BlockSystemScripts.BlockScripts
             }
         }
         
-        // private void TogglePickUpState(bool nextState)
-        // {
-        //     if (isHeavy) return;
-        //     _canPickUp = nextState;
-        // }
-        
         //method for checking if there is block on top of this block, then trigger it's transfer timer.
         private void SignalTopBlock()
         {
@@ -127,16 +117,10 @@ namespace BlockSystemScripts.BlockScripts
 
         #endregion
 
-        private void OnDestroy()
-        {
-            currentCell.EmptyCellSlot();
-            SignalTopBlock();
-            blockSpawner.TriggerCanSpawn();
-        }
-
         private void OnDisable()
         {
             currentCell.EmptyCellSlot();
+            SignalTopBlock();
             blockSpawner.TriggerCanSpawn();
         }
     }

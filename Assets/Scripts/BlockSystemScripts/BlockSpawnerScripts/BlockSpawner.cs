@@ -21,32 +21,23 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         [Header("Block Type Randomizer References")]
         [SerializeField][Range(1, 100)] private int mainBlockSpawnRate;
         
-        
-        [Header("Test Script References. To be private")]
-        [SerializeField] private BlockSpawnersManager assignedSpawnersManager;
-
         [Header("Spawn Validation References. To be private")]
-        [SerializeField] private int failCounter;
         [SerializeField] private bool canSpawn;
         
-        //assigns the spawn manager to this spawner.
-        public void SetSpawnManager()
-        {
-            assignedSpawnersManager = transform.GetComponentInParent<BlockSpawnersManager>();
-        }
-
+        private GameObject _repeatingMainBlock;
+        
         //Called to validate the block spawn
         public void ValidateBlockSpawn()
         {
             //if there's still a moving block, find another spawner. Else, spawn a block and reset timer. 
             if (!canSpawn)
             {
-                failCounter++;
-                assignedSpawnersManager.TriggerBlockSpawn(failCounter);
+                SpawnEvents.OnSpawnTrigger?.Invoke(true);
+                SpawnEvents.onSpawnerListShuffle?.Invoke();
                 return;
             }
             SpawnBlock();
-            failCounter = 0;
+            SpawnEvents.onSpawnerListShuffle?.Invoke();
             SpawnEvents.OnSpawnTimerReset?.Invoke();
         }
 
@@ -66,6 +57,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             TriggerCannotSpawn();
         }
 
+        #region BLOCK_RANDOMIZERS
         //returns a block prefab with the "type" depending on the random number generated. 
         private GameObject BlockToSpawn()
         {
@@ -79,17 +71,15 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             
             var convertedSpawnRate = tempMaxValue * (mainBlockSpawnRate / 100f);
 
-            if (blockRangePass1 <= (int)convertedSpawnRate)
-                //return default block type
-                return RandomizedMainBlock();
-            if (blockRangePass1 > (int)convertedSpawnRate)
-                //return heavy block
-                return RandomizedSpecialBlock();
+            //return default block type
+            if (blockRangePass1 <= (int)convertedSpawnRate) return RandomizedMainBlock();
+            //return heavy block
+            if (blockRangePass1 > (int)convertedSpawnRate) return RandomizedSpecialBlock();
             //returns default block if no conditions are met
             return RandomizedMainBlock();
         }
-
-        #region BLOCK_RANDOMIZERS
+        
+        //Randomizer for Main Block
         private GameObject RandomizedMainBlock()
         {
             if (mainBlockList.Count <= 1)
@@ -97,11 +87,28 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                 return mainBlockList[0];
             }
             var blockNumber = Random.Range(0, mainBlockList.Count);
-            blockNumber = Random.Range(0, mainBlockList.Count);
-            blockNumber = Random.Range(0, mainBlockList.Count);
+            
+            if (_repeatingMainBlock == null) // checks if the _repeatingMainBlock is null
+            {
+                _repeatingMainBlock = mainBlockList[blockNumber];
+                return mainBlockList[blockNumber];
+            }
+
+            if (_repeatingMainBlock == mainBlockList[blockNumber]) // checks if the block to be spawned is the same as the last one
+            {
+                mainBlockList.Remove(_repeatingMainBlock);
+                blockNumber = Random.Range(0, mainBlockList.Count);
+                mainBlockList.Add(_repeatingMainBlock);
+                _repeatingMainBlock = mainBlockList[blockNumber];
+                return mainBlockList[blockNumber];
+            }
+            
+            // proceeds here if the repeating block is not null and if it is not the same as the last one
+            _repeatingMainBlock = mainBlockList[blockNumber];
             return mainBlockList[blockNumber];
         }
-
+        
+        //Randomizer for Special Block
         private GameObject RandomizedSpecialBlock()
         {
             if (specialBlockList.Count <= 1)
