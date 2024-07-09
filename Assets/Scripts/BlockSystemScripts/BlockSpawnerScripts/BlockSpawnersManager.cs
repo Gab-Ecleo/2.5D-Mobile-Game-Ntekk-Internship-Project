@@ -12,13 +12,9 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     {
         [Header("Test References. To be private")]
         [SerializeField] private List<BlockSpawner> blockSpawners;
-        private BlockSpawnTimer _spawnTimer;
 
-        //initialize the value of the spawn timer. 
-        private void Awake()
-        {
-            _spawnTimer = GetComponent<BlockSpawnTimer>();
-        }
+        private int _failCounter;
+        private BlockSpawner _repeatingSpawner;
         
         #region LIST_INITIALIZATION
         //Called by the GridManager to add a spawner to this manager's list
@@ -36,32 +32,39 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         
         //An event triggered by the timer. Triggers the block spawning
         [ContextMenu("SPAWN BLOCK")]
-        public void TriggerBlockSpawn()
+        private void TriggerBlockSpawn(bool isSpawnFailed)
         {
-            var spawnerRandomValue = Random.Range(0, blockSpawners.Count);
-            blockSpawners[spawnerRandomValue].ValidateBlockSpawn();
-        }
-        
-        //An overload method that is triggered when the spawner cannot spawn a block
-        public void TriggerBlockSpawn(int failCounter)
-        {
-            if (failCounter >= blockSpawners.Count)
+            if (isSpawnFailed)
             {
-                SpawnEvents.OnSpawnTimerReset?.Invoke();
-                return;
+                _failCounter++;
+                if (_failCounter >= blockSpawners.Count)
+                {
+                    Debug.Log("TOO MANY FAILURES LAH");
+                    SpawnEvents.OnSpawnTimerReset?.Invoke();
+                    return;
+                }
             }
             var spawnerRandomValue = Random.Range(0, blockSpawners.Count);
+            _repeatingSpawner = blockSpawners[spawnerRandomValue];
             blockSpawners[spawnerRandomValue].ValidateBlockSpawn();
+        }
+
+        private void ShuffleSpawnList()
+        {
+            blockSpawners.Remove(_repeatingSpawner);
+            blockSpawners.Add(_repeatingSpawner);
         }
 
         private void OnEnable()
         {
             SpawnEvents.OnSpawnTrigger += TriggerBlockSpawn;
+            SpawnEvents.onSpawnerListShuffle += ShuffleSpawnList;
         }
         
         private void OnDisable()
         {
             SpawnEvents.OnSpawnTrigger -= TriggerBlockSpawn;
+            SpawnEvents.onSpawnerListShuffle -= ShuffleSpawnList;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BlockSystemScripts.BlockScripts;
+using UnityEngine;
 
 namespace BlockSystemScripts.RowAndColumnScripts
 {
@@ -19,7 +20,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
                 //Checks each cell if there is currently a block in it
                 if (cell.CurrentBlock == null) continue;
                 //Then checks if the current block in that cell is Landed. If it is, add +1 ot the block counter
-                if (cell.CurrentBlock.IsLanded())
+                if (cell.CurrentBlock.BlockState is BlockState.Landed or BlockState.CanPickUp)
                 {
                     _blockCounter++;
                 }

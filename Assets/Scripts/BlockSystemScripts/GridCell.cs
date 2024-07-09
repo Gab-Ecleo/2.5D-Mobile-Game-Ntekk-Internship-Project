@@ -1,6 +1,8 @@
-﻿using BlockSystemScripts.BlockScripts;
+﻿using System;
+using BlockSystemScripts.BlockScripts;
 using BlockSystemScripts.BlockSpawnerScripts;
 using BlockSystemScripts.RowAndColumnScripts;
+using EventScripts;
 using UnityEngine;
 
 namespace BlockSystemScripts
@@ -18,6 +20,7 @@ namespace BlockSystemScripts
         [SerializeField] private ColumnManager assignedColumn;
         [SerializeField] private BlockSpawner assignedSpawner;
         [SerializeField] private int rowIndex, columnIndex;
+        [SerializeField] private GridCell previousCell, nextCell;
 
         public BlockScript CurrentBlock => currentBlock;
         public RowManager AssignedRow => assignedRow;
@@ -25,6 +28,8 @@ namespace BlockSystemScripts
         public BlockSpawner AssignedSpawner  => assignedSpawner;
         public int RowIndex => rowIndex;
         public int ColumnIndex => columnIndex;
+        public GridCell PreviousCell => previousCell;
+        public GridCell NextCell => nextCell;
         #endregion
         
 
@@ -37,6 +42,20 @@ namespace BlockSystemScripts
 
             rowIndex = rowNum;
             columnIndex = colNum;
+        }
+
+        //Triggered once after the generation of the grid has been completed
+        private void InitializePrevAndNextCell()
+        {
+            if (rowIndex != 0)
+            {
+                previousCell = assignedColumn.GridCells[rowIndex - 1];
+            }
+
+            if (rowIndex != assignedColumn.GridCells.Count - 1)
+            {
+                nextCell = assignedColumn.GridCells[rowIndex + 1];
+            }
         }
 
         public void FillCellSlot(BlockScript block)
@@ -53,6 +72,16 @@ namespace BlockSystemScripts
         {
             Destroy(currentBlock.gameObject);
             EmptyCellSlot();
+        }
+
+        private void OnEnable()
+        {
+            GridGenerationEvents.OnGridCompletion += InitializePrevAndNextCell;
+        }
+
+        private void OnDisable()
+        {
+            GridGenerationEvents.OnGridCompletion -= InitializePrevAndNextCell;
         }
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4908414823481421813}
   - component: {fileID: 4761173554827105820}
   m_Layer: 6
-  m_Name: Block
+  m_Name: Green Block
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 689651dae9b41c548a97f7a5f48e9bc1, type: 2}
+  - {fileID: 2100000, guid: cc651681b5d02d0479b598e9f1954d9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,20 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef77a17ac37d42febea570dc29c77efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHeavy: 0
+  blockType: 2
   fallTimer: {fileID: 4761173554827105820}
-  directionBot: {x: -0, y: -1, z: -0}
-  maxDistanceBot: 0.6
-  landedLayerBot:
-    serializedVersion: 2
-    m_Bits: 72
-  directionTop: {x: -0, y: 1, z: -0}
-  maxDistanceTop: 0.6
-  landedLayerTop:
-    serializedVersion: 2
-    m_Bits: 64
   currentCell: {fileID: 0}
-  nextCell: {fileID: 0}
   blockSpawner: {fileID: 0}
 --- !u!114 &4761173554827105820
 MonoBehaviour:
