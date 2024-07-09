@@ -9,16 +9,16 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     {
         #region VARIABLES
         [Header("Spawn Timer Data")] 
-        [SerializeField] private float startingSpawnTime = 3f;
-        [SerializeField] private float timeMinValue;
-        [SerializeField] private float timeMaxValue;
+        [SerializeField][Range(3,20)] private float startingSpawnTime = 3f;
+        [SerializeField][Range(1,20)] private float timeMinValue;
+        [SerializeField][Range(2,20)] private float timeMaxValue;
         
         private bool _spawnTimerActive;
         
         [Header("Difficulty Timer Data")]
-        [SerializeField] private float initialDifficultyCountdown;
-        [SerializeField] private float maxSpawnTimerDecrement;
-        [SerializeField] private float minSpawnTimerDecrement;
+        [SerializeField][Range(0,50)] private float difficultyCountdown;
+        [SerializeField][Range(0,10)] private float minDecrement;
+        [SerializeField][Range(0,10)] private float maxDecrement;
         
         private bool _difficultyTimerActive;
         
@@ -33,7 +33,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             spawnTimeLeft = startingSpawnTime;
             _spawnTimerActive = true;
 
-            difficultyTimeLeft = initialDifficultyCountdown;
+            difficultyTimeLeft = difficultyCountdown;
             _difficultyTimerActive = true;
         }
 
@@ -58,7 +58,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             else
             {
                 _spawnTimerActive = false;
-                SpawnEvents.OnSpawnTrigger?.Invoke();
+                SpawnEvents.OnSpawnTrigger?.Invoke(false);
             }
         }
 
@@ -76,7 +76,8 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         //countdown of the difficulty decrement unless it's inactive. Triggers the decrement of the spawn max timer
         private void UpdateDifficultyTimer()
         {
-            if (maxSpawnTimerDecrement <= 0 && minSpawnTimerDecrement <= 0) return;
+            if (difficultyCountdown <= 0) return;
+            if (maxDecrement <= 0 && minDecrement <= 0) return;
             if (!_difficultyTimerActive) return;
             if (difficultyTimeLeft > 0)
             {
@@ -92,11 +93,11 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         //Decrements the spawn timer values
         private void DecrementSpawnTimer()
         {
-            if (minSpawnTimerDecrement >= 0)
+            if (minDecrement >= 0)
             {
                 if (timeMinValue > 1)
                 {
-                    timeMinValue -= minSpawnTimerDecrement;
+                    timeMinValue -= minDecrement;
                     //checks if the value is lower than the minimum threshold, then force it to the minimum desired value
                     if (timeMinValue < 1)
                     {
@@ -105,11 +106,11 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                 }
             }
             
-            if (maxSpawnTimerDecrement >= 0)
+            if (maxDecrement >= 0)
             {
                 if (timeMaxValue > timeMinValue + 1)
                 {
-                    timeMaxValue -= maxSpawnTimerDecrement;
+                    timeMaxValue -= maxDecrement;
                     //checks if the value is lower than the minimum threshold, then force it to the minimum desired value
                     if (timeMaxValue < timeMinValue + 1)
                     {
@@ -118,7 +119,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                 }
             }
             
-            difficultyTimeLeft = initialDifficultyCountdown;
+            difficultyTimeLeft = difficultyCountdown;
             _difficultyTimerActive = true;
         }
         #endregion

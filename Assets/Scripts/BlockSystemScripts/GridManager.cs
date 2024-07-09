@@ -114,7 +114,6 @@ namespace BlockSystemScripts
                 var blockSpawnerScript = spawner.GetComponent<BlockSpawner>();
                 if (blockSpawnerScript==null) spawner.AddComponent<BlockSpawner>();
                 spawnManagersList.Add(blockSpawnerScript);
-                blockSpawnerScript.SetSpawnManager();
                 spawnManagerParent.AddSpawnersToList(blockSpawnerScript);
             }
         }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4908414823481421813}
   - component: {fileID: 4761173554827105820}
   m_Layer: 6
-  m_Name: Heavy Block
+  m_Name: Blue Block
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b05b10ea6c6cbbe458f03b9b7ae75363, type: 2}
+  - {fileID: 2100000, guid: 72a20459915b0c14ebec44a43e461071, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef77a17ac37d42febea570dc29c77efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockType: 4
+  blockType: 1
   fallTimer: {fileID: 4761173554827105820}
   currentCell: {fileID: 0}
   blockSpawner: {fileID: 0}

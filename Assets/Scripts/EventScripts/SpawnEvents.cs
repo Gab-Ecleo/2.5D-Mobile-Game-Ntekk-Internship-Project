@@ -8,7 +8,9 @@ namespace EventScripts
     /// </summary>
     public class SpawnEvents : MonoBehaviour
     {
-        public static Action OnSpawnTrigger;
+        public static Action<bool> OnSpawnTrigger;
+        public static Action onSpawnerListShuffle;
+        
         public static Action OnSpawnTimerReset;
     }
 }
