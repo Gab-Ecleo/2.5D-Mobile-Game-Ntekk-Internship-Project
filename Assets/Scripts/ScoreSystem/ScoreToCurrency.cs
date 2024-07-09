@@ -10,6 +10,8 @@ public class ScoreToCurrency : MonoBehaviour
     
     private ScoresSO _scores;
     
+    private GameManager _gameManager;
+    
     [SerializeField] private int _scoreModifier = 2;
     
     [SerializeField] private int _finalScore;
@@ -17,7 +19,9 @@ public class ScoreToCurrency : MonoBehaviour
 
     private void Start()
     {
-        ConvertScore();
+        _gameManager = GameManager.Instance;
+        _initialPlayerStats = _gameManager.FetchInitialPlayerStat();
+        _scores = _gameManager.FetchScores();
     }
 
     private void ConvertScore()
