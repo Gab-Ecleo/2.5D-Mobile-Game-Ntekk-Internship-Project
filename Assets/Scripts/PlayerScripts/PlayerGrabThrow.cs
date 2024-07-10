@@ -15,8 +15,7 @@ namespace PlayerScripts
         [SerializeField] private GameObject blockPlaceholder;
 
         [Header("Audio References")] 
-        [SerializeField] private AudioClip _pickupSFX;
-        [SerializeField] private AudioClip _dropSFX;
+        [SerializeField] private AudioClipsSO audioClip;
         
         [Header("Test References. To be private")]
         [SerializeField] private BlockScript collectedBlock;//for testing purposes. Unserialize after testing
@@ -92,7 +91,7 @@ namespace PlayerScripts
             blockPlaceholder.SetActive(true);
             
             //Plays the SFX correlating to the action
-            SfxScript.Instance.PlaySFXOneShot(_pickupSFX);
+            SfxScript.Instance.PlaySFXOneShot(audioClip._pickupSFX);
             
             hasItem = true;
         }
@@ -125,7 +124,7 @@ namespace PlayerScripts
             //Debug.Log("Player has Thrown");
             
             //Plays the SFX correlating to the action
-            SfxScript.Instance.PlaySFXOneShot(_dropSFX);
+            SfxScript.Instance.PlaySFXOneShot(audioClip._dropSFX);
         }
 
         //Triggered if player has the Single Block Clear Powerup

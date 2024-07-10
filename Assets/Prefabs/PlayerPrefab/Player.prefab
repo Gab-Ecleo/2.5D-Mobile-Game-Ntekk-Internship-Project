@@ -539,12 +539,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialPlayerStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
+  audioClip: {fileID: 11400000, guid: a90c4e1ae578a3a4eb2936c7202f34c7, type: 2}
   direction: {x: -0, y: -1, z: -0}
   maxDistance: 1.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
-  _jumpSFX: {fileID: 8300000, guid: e2354cc415c8549468bcdd23d2de31d1, type: 3}
 --- !u!114 &2827798416804891779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,8 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPlaceholder: {fileID: 4040168932507938031}
-  _pickupSFX: {fileID: 8300000, guid: e8d19c28e9ac92547815ecdebb9d363b, type: 3}
-  _dropSFX: {fileID: 8300000, guid: 0fa73d081bcfa2b4a9c3663d11b90a01, type: 3}
+  audioClip: {fileID: 11400000, guid: a90c4e1ae578a3a4eb2936c7202f34c7, type: 2}
   collectedBlock: {fileID: 0}
   hasItem: 0
 --- !u!114 &182711630544776900

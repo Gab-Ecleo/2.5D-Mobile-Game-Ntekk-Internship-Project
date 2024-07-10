@@ -21,6 +21,7 @@ namespace PlayerScripts
         //player's stats. Only Modify 
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private PlayerStatsSO currentPlayerStats;
+        [SerializeField] private AudioClipsSO audioClip;
 
         [Header("Raycast References")] [SerializeField]
         private Vector3 direction = -Vector3.up;
@@ -28,8 +29,6 @@ namespace PlayerScripts
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
 
-        [Header("Audio References")]
-        [SerializeField] private AudioClip _jumpSFX;
 
         private void Awake()
         {
@@ -120,7 +119,7 @@ namespace PlayerScripts
                 _rb.AddForce(Vector2.up*force, ForceMode.Impulse);
                 
                 // Plays SFX correlating to the action
-                SfxScript.Instance.PlaySFXOneShot(_jumpSFX);
+                SfxScript.Instance.PlaySFXOneShot(audioClip._jumpSFX);
             }
 
             //after jumping button is released, while the player is jumping, drags the player down. 
