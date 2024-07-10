@@ -15,37 +15,29 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     /// </summary>
     public class BlockSpawner : AlignmentManager
     {
-        [SerializeField] private List<GameObject> blockPrefabs;
-        
-        [Header("Block Type Randomizer References")]
-        [SerializeField][Range(1, 100)] private float mainBlockSpawnRate;
-        
-        
-        [Header("Test Script References. To be private")]
-        [SerializeField] private BlockSpawnersManager assignedSpawnersManager;
+        [SerializeField] private List<GameObject> mainBlockList;
+        [SerializeField] private List<GameObject> specialBlockList;
 
+        [Header("Block Type Randomizer References")]
+        [SerializeField][Range(1, 100)] private int mainBlockSpawnRate;
+        
         [Header("Spawn Validation References. To be private")]
-        [SerializeField] private int failCounter;
         [SerializeField] private bool canSpawn;
         
-        //assigns the spawn manager to this spawner.
-        public void SetSpawnManager()
-        {
-            assignedSpawnersManager = transform.GetComponentInParent<BlockSpawnersManager>();
-        }
-
+        private GameObject _repeatingMainBlock;
+        
         //Called to validate the block spawn
         public void ValidateBlockSpawn()
         {
             //if there's still a moving block, find another spawner. Else, spawn a block and reset timer. 
             if (!canSpawn)
             {
-                failCounter++;
-                assignedSpawnersManager.TriggerBlockSpawn(failCounter);
+                SpawnEvents.OnSpawnTrigger?.Invoke(true);
+                SpawnEvents.onSpawnerListShuffle?.Invoke();
                 return;
             }
             SpawnBlock();
-            failCounter = 0;
+            SpawnEvents.onSpawnerListShuffle?.Invoke();
             SpawnEvents.OnSpawnTimerReset?.Invoke();
         }
 
@@ -60,42 +52,76 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                 ValidateBlockSpawn();
                 return;
             }
-            
             var block = Instantiate(BlockToSpawn(), GridCells[0].gameObject.transform.position, quaternion.identity);
             block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
             TriggerCannotSpawn();
         }
 
+        #region BLOCK_RANDOMIZERS
         //returns a block prefab with the "type" depending on the random number generated. 
         private GameObject BlockToSpawn()
         {
             //checks if there is less than or equal to one type of block in the list
-            if (blockPrefabs.Count <= 1)
+            if (specialBlockList.Count <= 0) return RandomizedMainBlock();
+            
+            var tempMaxValue = 100;
+            var blockRangePass1 = Random.Range(1, tempMaxValue + 1);
+            blockRangePass1 = Random.Range(1, tempMaxValue + 1);
+            blockRangePass1 = Random.Range(1, tempMaxValue + 1);
+            
+            var convertedSpawnRate = tempMaxValue * (mainBlockSpawnRate / 100f);
+
+            //return default block type
+            if (blockRangePass1 <= (int)convertedSpawnRate) return RandomizedMainBlock();
+            //return heavy block
+            if (blockRangePass1 > (int)convertedSpawnRate) return RandomizedSpecialBlock();
+            //returns default block if no conditions are met
+            return RandomizedMainBlock();
+        }
+        
+        //Randomizer for Main Block
+        private GameObject RandomizedMainBlock()
+        {
+            if (mainBlockList.Count <= 1)
             {
-                return blockPrefabs[0];
+                return mainBlockList[0];
+            }
+            var blockNumber = Random.Range(0, mainBlockList.Count);
+            
+            if (_repeatingMainBlock == null) // checks if the _repeatingMainBlock is null
+            {
+                _repeatingMainBlock = mainBlockList[blockNumber];
+                return mainBlockList[blockNumber];
             }
 
-            var tempMaxValue = 100f;
+            if (_repeatingMainBlock == mainBlockList[blockNumber]) // checks if the block to be spawned is the same as the last one
+            {
+                mainBlockList.Remove(_repeatingMainBlock);
+                blockNumber = Random.Range(0, mainBlockList.Count);
+                mainBlockList.Add(_repeatingMainBlock);
+                _repeatingMainBlock = mainBlockList[blockNumber];
+                return mainBlockList[blockNumber];
+            }
             
-            var blockRangePass1 = Random.Range(1, tempMaxValue);
-            tempMaxValue = blockRangePass1;
-            var blockRangePass2 = Random.Range(1, tempMaxValue);
-            tempMaxValue = blockRangePass2;
-            var blockRangePass3 = Random.Range(1, tempMaxValue);
-            
-            var convertedSpawnRate = tempMaxValue * (mainBlockSpawnRate / 100);
-
-            if (blockRangePass3 <= convertedSpawnRate)
-                //return default block
-                return blockPrefabs[0];
-            if (blockRangePass3 > convertedSpawnRate)
-                //return heavy block
-                return blockPrefabs[1];
-            
-            //returns default block if no conditions are met
-            return blockPrefabs[0];
+            // proceeds here if the repeating block is not null and if it is not the same as the last one
+            _repeatingMainBlock = mainBlockList[blockNumber];
+            return mainBlockList[blockNumber];
         }
-
+        
+        //Randomizer for Special Block
+        private GameObject RandomizedSpecialBlock()
+        {
+            if (specialBlockList.Count <= 1)
+            {
+                return specialBlockList[0];
+            }
+            var blockNumber = Random.Range(0, specialBlockList.Count);
+            blockNumber = Random.Range(0, specialBlockList.Count);
+            blockNumber = Random.Range(0, specialBlockList.Count);
+            return specialBlockList[blockNumber];
+        }
+        #endregion
+        
         public void TriggerCanSpawn()
         {
             canSpawn = true;

@@ -7,9 +7,10 @@ namespace BlockSystemScripts.BlockScripts
     public class BlockScript : MonoBehaviour
     {
         #region VARIABLES
-        [Header("Block Type")]
-        [SerializeField] private bool isHeavy;
-        
+        [Header("Block States")]
+        [SerializeField] private BlockType blockType;
+        private BlockState _blockState;
+
         [Header("Block Fall Timer")]
         [SerializeField] private BlockFallTimer fallTimer;
 
@@ -17,10 +18,8 @@ namespace BlockSystemScripts.BlockScripts
         [SerializeField] private GridCell currentCell;
         [SerializeField] private BlockSpawner blockSpawner;
 
-        private bool _canPickUp;
-
-        public bool CanPickUp => _canPickUp;
-
+        public BlockType BlockType => blockType;
+        public BlockState BlockState => _blockState;
         public GridCell CurrentCell => currentCell;
 
         #endregion
@@ -34,7 +33,7 @@ namespace BlockSystemScripts.BlockScripts
             fallTimer.StartTimer();
             blockSpawner = spawnerReference;
 
-            TogglePickUpState(false);
+            _blockState = BlockState.Falling;
         }
 
         //moves the block down if the conditions are met
@@ -43,7 +42,7 @@ namespace BlockSystemScripts.BlockScripts
             //If the block has already landed, stops the fall timer 
             //Tell block spawner that it can spawn a block again
             //Then call for row validation and column validation
-            if (IsLanded())
+            if (BlockStateChecker() == BlockState.Landed)
             {
                 fallTimer.StopTimer();
                 blockSpawner.TriggerCanSpawn();
@@ -57,7 +56,7 @@ namespace BlockSystemScripts.BlockScripts
                 {
                     currentCell.AssignedColumn.ValidateColumn();
                 }
-                TogglePickUpState(true);
+                _blockState = BlockState.CanPickUp;
                 return;
             }
             //Signals the block above that it can fall down
@@ -71,38 +70,35 @@ namespace BlockSystemScripts.BlockScripts
                 currentCell.FillCellSlot(this);
                 transform.position = currentCell.transform.position;
                 fallTimer.StartTimer();
-                TogglePickUpState(false);
+                _blockState = BlockState.Falling;
             }
-        }
-        
-        private void TogglePickUpState(bool nextState)
-        {
-            if (isHeavy) return;
-            _canPickUp = nextState;
         }
         
         //method for checking if there is block on top of this block, then trigger it's transfer timer.
         private void SignalTopBlock()
         {
             if (TopBlockDetection() == null) return;
-            TopBlockDetection().TogglePickUpState(false);
+            TopBlockDetection()._blockState = BlockState.Falling;
             TopBlockDetection().fallTimer.StartTimer();
         }
         #endregion
         
-        #region RAYCAST_METHODS
+        #region STATE_CHECKER
         //Determines if there is a block or a platform below
-        public bool IsLanded()
+        private BlockState BlockStateChecker()
         {
             if (currentCell.NextCell == null)
             {
-                return true;
+                _blockState = BlockState.Landed;
+                return _blockState;
             }
             if (currentCell.NextCell.CurrentBlock != null)
             {
-                return true;
+                _blockState = BlockState.Landed;
+                return _blockState;
             }
-            return false;
+            _blockState = BlockState.Falling;
+            return _blockState;
         }
         
         //Determines if there is a block above
@@ -121,16 +117,10 @@ namespace BlockSystemScripts.BlockScripts
 
         #endregion
 
-        private void OnDestroy()
-        {
-            currentCell.EmptyCellSlot();
-            SignalTopBlock();
-            blockSpawner.TriggerCanSpawn();
-        }
-
         private void OnDisable()
         {
             currentCell.EmptyCellSlot();
+            SignalTopBlock();
             blockSpawner.TriggerCanSpawn();
         }
     }
