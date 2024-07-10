@@ -16,8 +16,12 @@ namespace PlayerScripts
         [SerializeField] private PlayerStatsSO currentPlayerStats;
         [SerializeField] private GameObject deathScreen;
 
+        [SerializeField] private Vector3 _playerPos;
         private void Start()
         {
+            // get starting positon
+            GetPlayerPosition();
+
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
             currentPlayerStats.barrierDurability = initialPlayerStats.barrierDurability;
             Time.timeScale = 1;
@@ -55,7 +59,20 @@ namespace PlayerScripts
                 }
             }
         #endregion
-        
+
+        #region player reset pos
+        private void GetPlayerPosition()
+        {
+            _playerPos = this.gameObject.transform.position;
+            currentPlayerStats.StartingPos = _playerPos;
+        }
+
+        private void ResetPlayerPosition()
+        {
+            this.gameObject.transform.position = currentPlayerStats.StartingPos;
+        }
+        #endregion 
+
         private void PlayerDeath()
         {
             //add death behavior
@@ -68,11 +85,13 @@ namespace PlayerScripts
         private void OnEnable()
         {
             PlayerEvents.OnPlayerDamage += OnDamage;
+            PlayerEvents.OnPlayerPositionReset += ResetPlayerPosition;
         }
 
         private void OnDisable()
         {
             PlayerEvents.OnPlayerDamage -= OnDamage;
+            PlayerEvents.OnPlayerPositionReset -= ResetPlayerPosition;
         }
     }
 }

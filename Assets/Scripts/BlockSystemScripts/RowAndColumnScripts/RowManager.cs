@@ -74,7 +74,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
         }
 
         [ContextMenu("Test clear ")]
-        public void ScoreChanges()
+        public void ScoreChanges() // for ui test
         {
             int pointsToAdd = _playerScore.PointsToAdd;
             int multiplier = _playerScore.Multiplier;
