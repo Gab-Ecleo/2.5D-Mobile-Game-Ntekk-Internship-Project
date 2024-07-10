@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcc8b3d10397ed4892e0bedfc64eafe, type: 3}
   m_Name: Audio Clips Data
   m_EditorClassIdentifier: 
-  _jumpSFX: {fileID: 0}
-  _pickupSFX: {fileID: 0}
-  _dropSFX: {fileID: 0}
+  _jumpSFX: {fileID: 8300000, guid: e2354cc415c8549468bcdd23d2de31d1, type: 3}
+  _pickupSFX: {fileID: 8300000, guid: e8d19c28e9ac92547815ecdebb9d363b, type: 3}
+  _dropSFX: {fileID: 8300000, guid: 0fa73d081bcfa2b4a9c3663d11b90a01, type: 3}
