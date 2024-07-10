@@ -44,15 +44,36 @@ public class DebugManager : MonoBehaviour
     private bool isPauseMenuOpen;
     [SerializeField] private GameObject PauseMenuScreen;
 
+    private bool isDebugMenuOpen;
+    [SerializeField] private GameObject DebugMenuScreen;
+
     private void Start()
     {
         PauseMenuScreen.SetActive(false);
         isPauseMenuOpen = false;
 
+        isDebugMenuOpen = false;
+        DebugMenuScreen.SetActive(false);
+
         InitializeDictionaries();
         InitializeStats();
     }
-
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isDebugMenuOpen)
+            {
+                isDebugMenuOpen = true;
+                DebugMenuScreen.SetActive(isDebugMenuOpen);
+            }
+            else
+            {
+                isDebugMenuOpen = false;
+                DebugMenuScreen.SetActive(isDebugMenuOpen);
+            }
+        }
+    }
     private void InitializeDictionaries()
     {
         _playerFloatStatsDict = new Dictionary<string, float>();
