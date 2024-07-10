@@ -51,7 +51,12 @@ MonoBehaviour:
   - {fileID: 3014360087961761113, guid: 7699ee9221ffa9c4c92046be38abeaaa, type: 3}
   specialBlockList:
   - {fileID: 3014360087961761113, guid: cc3e05f7ce873fd49be1618a7c4af936, type: 3}
-  mainBlockSpawnRate: 95
-  assignedSpawnersManager: {fileID: 0}
-  failCounter: 0
+  powerUpBlockList:
+  - {fileID: 7387297278845115731, guid: d45c3758ba4ba6d4fbdd7b3fc33c2568, type: 3}
+  - {fileID: 6139136983376210963, guid: f2993882403791d4194f8dcebdc93e02, type: 3}
+  - {fileID: 7508165069949542602, guid: c99ba4f46536aba4f849b2f7172adfbb, type: 3}
+  - {fileID: 5975858976166980346, guid: 0cba40c7a87e7574095a69943cc47aaf, type: 3}
+  defaultRate: 90
+  heavyRate: 95
+  powerUpRate: 100
   canSpawn: 1

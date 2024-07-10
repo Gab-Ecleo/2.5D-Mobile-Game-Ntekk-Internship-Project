@@ -17,15 +17,55 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     {
         [SerializeField] private List<GameObject> mainBlockList;
         [SerializeField] private List<GameObject> specialBlockList;
+        [SerializeField] private List<GameObject> powerUpBlockList;
 
         [Header("Block Type Randomizer References")]
-        [SerializeField][Range(1, 100)] private int mainBlockSpawnRate;
+        [Tooltip("Value should be LOWER than heavy block & power up block")]
+        [SerializeField][Range(1, 100)] private int defaultRate;
+        [Tooltip("Value should be HIGHER than default block & LOWER than power up block. Set to 0 to keep heavy blocks from spawning")]
+        [SerializeField][Range(0, 100)] private int heavyRate;
+        [Tooltip("Value should be HIGHER than heavy block, unless heavy block is set to 0. Set to 0 to keep power up blocks from spawning")]
+        [SerializeField][Range(0, 100)] private int powerUpRate;
         
         [Header("Spawn Validation References. To be private")]
         [SerializeField] private bool canSpawn;
         
         private GameObject _repeatingMainBlock;
+
+        private void Awake()
+        {
+            InitializeSpawnRatesValues();
+        }
+
+        #region INITIALIZATION_METHODS
+        private void InitializeSpawnRatesValues()
+        {
+            if (defaultRate <= 98)
+            {
+                if (heavyRate > 0 && heavyRate <= defaultRate)
+                {
+                    heavyRate = defaultRate + 1;
+                }
+
+                if (powerUpRate > 0 && heavyRate <= 99)
+                {
+                    if (heavyRate <= 0 && powerUpRate <= defaultRate)
+                    {
+                        powerUpRate = defaultRate + 1;
+                        return;
+                    }
+
+                    if (powerUpRate <= heavyRate)
+                    {
+                        powerUpRate = heavyRate + 1;
+                    }
+                }
+            }
+        }
         
+
+        #endregion
+
         //Called to validate the block spawn
         public void ValidateBlockSpawn()
         {
@@ -45,14 +85,22 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         [ContextMenu("SPAWN BLOCK")]
         private void SpawnBlock()
         {
+            GameObject block;
             //Will only be true if the spawner tries to spawn while there is a sudden block on the topmost cell. 
             if (GridCells[0].CurrentBlock != null)
             {
+                if (GridCells[0].CurrentBlock.BlockType == BlockType.PowerUp)
+                {
+                    GridCells[0].DestroyBlock();
+                    block = Instantiate(BlockToSpawn(), GridCells[0].gameObject.transform.position, quaternion.identity);
+                    block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
+                    TriggerCannotSpawn();
+                }
                 canSpawn = false; 
                 ValidateBlockSpawn();
                 return;
             }
-            var block = Instantiate(BlockToSpawn(), GridCells[0].gameObject.transform.position, quaternion.identity);
+            block = Instantiate(BlockToSpawn(), GridCells[0].gameObject.transform.position, quaternion.identity);
             block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
             TriggerCannotSpawn();
         }
@@ -69,12 +117,13 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             blockRangePass1 = Random.Range(1, tempMaxValue + 1);
             blockRangePass1 = Random.Range(1, tempMaxValue + 1);
             
-            var convertedSpawnRate = tempMaxValue * (mainBlockSpawnRate / 100f);
 
             //return default block type
-            if (blockRangePass1 <= (int)convertedSpawnRate) return RandomizedMainBlock();
+            if (blockRangePass1 <= defaultRate) return RandomizedMainBlock();
             //return heavy block
-            if (blockRangePass1 > (int)convertedSpawnRate) return RandomizedSpecialBlock();
+            if (blockRangePass1 > defaultRate && blockRangePass1 <= heavyRate) return RandomizedSpecialBlock();
+            //return PU block
+            if (blockRangePass1 > heavyRate && blockRangePass1 <= powerUpRate) return RandomizedPowerUpBlock();
             //returns default block if no conditions are met
             return RandomizedMainBlock();
         }
@@ -119,6 +168,18 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             blockNumber = Random.Range(0, specialBlockList.Count);
             blockNumber = Random.Range(0, specialBlockList.Count);
             return specialBlockList[blockNumber];
+        }
+        
+        private GameObject RandomizedPowerUpBlock()
+        {
+            if (powerUpBlockList.Count <= 1)
+            {
+                return powerUpBlockList[0];
+            }
+            var blockNumber = Random.Range(0, powerUpBlockList.Count);
+            blockNumber = Random.Range(0, powerUpBlockList.Count);
+            blockNumber = Random.Range(0, powerUpBlockList.Count);
+            return powerUpBlockList[blockNumber];
         }
         #endregion
         

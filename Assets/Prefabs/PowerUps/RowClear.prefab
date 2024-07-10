@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7779628255252991106}
   - component: {fileID: 7691679209900174610}
   - component: {fileID: 1761086011575443563}
+  - component: {fileID: -6478280422014051645}
+  - component: {fileID: -7158678812920029532}
   m_Layer: 0
   m_Name: RowClear
   m_TagString: Untagged
@@ -122,3 +124,32 @@ MonoBehaviour:
   blockLayerDetected:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-6478280422014051645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387297278845115731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef77a17ac37d42febea570dc29c77efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockType: 5
+  currentCell: {fileID: 0}
+  blockSpawner: {fileID: 0}
+--- !u!114 &-7158678812920029532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387297278845115731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcbbbbbc2ec34500aa661c4c86e1fe77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialTimer: 0.5
+  timeLeft: 0
