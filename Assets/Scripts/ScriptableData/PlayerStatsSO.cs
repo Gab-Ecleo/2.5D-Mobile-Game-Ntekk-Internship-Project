@@ -9,7 +9,8 @@ namespace ScriptableData
     [CreateAssetMenu(fileName = "PlayerStats", menuName = "PlayerData", order = 0)]
     public class PlayerStatsSO : ScriptableObject
     {
-        [Header("Movement Stats")] 
+        [Header("Movement Stats")]
+        public bool canPlayerMove;
         public float movementSpeed = 8f;
         public float acceleration = 9f;
         public float decceleration = 9f;
@@ -30,14 +31,17 @@ namespace ScriptableData
         public bool singleBlockRemover = false;
 
         //tentative list
-        [Header("Activated Upgrades")] 
+        [Header("Activated Upgrades")]
+        public bool isBarrierUpgraded;
+        public bool isRezUpgraded;
+
         public int barrierUpgrade = 0;
         public int rezUpgrade = 0;
         
         [Header("Base upgrade stats")]
         public int barrierDurability = 1;
         public bool canRez = false;
-        
 
+        public Vector3 StartingPos;
     }
 }
