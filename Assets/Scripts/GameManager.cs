@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private PlayerStatsSO _playerCurrentStat;
     [SerializeField] private GameObject gameOverText;
+    [SerializeField] private PlayerStatsSO _initialPlayerStats;
+    [SerializeField] private ScoresSO _scores;
+    
     
     private bool _gameEnd;
     
@@ -72,5 +75,15 @@ public class GameManager : MonoBehaviour
     public PlayerStatsSO FetchCurrentPlayerStat()
     {
         return _playerCurrentStat;
+    }
+
+    public PlayerStatsSO FetchInitialPlayerStat()
+    {
+        return _initialPlayerStats;
+    }
+
+    public ScoresSO FetchScores()
+    {
+        return _scores;
     }
 }

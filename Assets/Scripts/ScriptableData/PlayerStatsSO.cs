@@ -9,6 +9,9 @@ namespace ScriptableData
     [CreateAssetMenu(fileName = "PlayerStats", menuName = "PlayerData", order = 0)]
     public class PlayerStatsSO : ScriptableObject
     {
+        [Header("Currencies")] 
+        public float coins = 0f;
+        
         [Header("Movement Stats")]
         public bool canPlayerMove;
         public float movementSpeed = 8f;

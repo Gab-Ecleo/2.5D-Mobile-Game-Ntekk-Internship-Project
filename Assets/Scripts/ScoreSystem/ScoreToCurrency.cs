@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using ScriptableData;
@@ -5,14 +6,24 @@ using UnityEngine;
 
 public class ScoreToCurrency : MonoBehaviour
 {
-    [SerializeField] private PlayerStatsSO _initialPlayerStats;
+    private PlayerStatsSO _initialPlayerStats;
     
-    [SerializeField] private ScoresSO _scores;
+    private ScoresSO _scores;
     
-    [SerializeField] private int _currency;
-    [SerializeField] private int _scoreModifier;
+    private GameManager _gameManager;
+    
+    [SerializeField] private int _scoreModifier = 2;
+    
     [SerializeField] private int _finalScore;
-    
+    [SerializeField] private int _currency;
+
+    private void Start()
+    {
+        _gameManager = GameManager.Instance;
+        _initialPlayerStats = _gameManager.FetchInitialPlayerStat();
+        _scores = _gameManager.FetchScores();
+    }
+
     private void ConvertScore()
     {
         // get the final score
