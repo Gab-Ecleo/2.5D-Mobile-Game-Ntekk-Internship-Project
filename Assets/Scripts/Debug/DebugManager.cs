@@ -18,13 +18,6 @@ public class SliderPrefab
 }
 
 [System.Serializable]
-public class ButtonPrefab
-{
-    public string FunctionName;
-    public Button button;
-}
-
-[System.Serializable]
 public class TogglePrefab
 {
     public string StatsName;
@@ -35,7 +28,6 @@ public class DebugManager : MonoBehaviour
 {
     public SliderPrefab[] Sliders;
     public TogglePrefab[] Toggles;
-    public ButtonPrefab[] Buttons;
 
     [Header("Ref")]
     [SerializeField] private ScoresSO _playerScore;
@@ -46,8 +38,17 @@ public class DebugManager : MonoBehaviour
     private Dictionary<string, int> _playerIntStatsDict;
     private Dictionary<string, bool> _playerBoolStatsDict;
 
+
+    // for pause menu var 
+    // delete later when pause ui is complete
+    private bool isPauseMenuOpen;
+    [SerializeField] private GameObject PauseMenuScreen;
+
     private void Start()
     {
+        PauseMenuScreen.SetActive(false);
+        isPauseMenuOpen = false;
+
         InitializeDictionaries();
         InitializeStats();
     }
@@ -93,14 +94,6 @@ public class DebugManager : MonoBehaviour
             }
         }
 
-        foreach (ButtonPrefab buttonGO in Buttons)
-        {
-            if (buttonGO.button != null)
-            {
-                buttonGO.button.onClick.AddListener(() => OnButtonClick(buttonGO.FunctionName));
-            }
-        }
-
         foreach (TogglePrefab toggleGO in Toggles)
         {
             if (toggleGO != null && _playerBoolStatsDict.ContainsKey(toggleGO.StatsName))
@@ -110,18 +103,7 @@ public class DebugManager : MonoBehaviour
         }
     }
 
-    private void OnButtonClick(string functionName)
-    {
-        MethodInfo method = GetType().GetMethod(functionName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-        if (method != null)
-        {
-            method.Invoke(this, null);
-        }
-        else
-        {
-            Debug.LogError($"Function {functionName} not found in {GetType().Name}");
-        }
-    }
+
 
     public void UpdateUISliderStats(string Name)
     {
@@ -174,16 +156,14 @@ public class DebugManager : MonoBehaviour
                 case "Wind":
                     GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
                     break;
-                case "BlockSpawn":
-                    _blockSpawners.TriggerBlockSpawn();
-                    break;
             }
         }
     }
 
-    public void GoToMainMenu()
+    #region buttons
+    public void LevelSelector(int GoToScene)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(GoToScene);
     }
 
     public void ReloadScene()
@@ -205,6 +185,40 @@ public class DebugManager : MonoBehaviour
     {
         // to be added
     }
+
+    public void PauseMenu()
+    {
+        if (!isPauseMenuOpen)
+        {
+            Time.timeScale = 0;
+            isPauseMenuOpen = true;
+            PauseMenuScreen.SetActive(isPauseMenuOpen);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            isPauseMenuOpen = false;
+            PauseMenuScreen.SetActive(isPauseMenuOpen);
+        }
+    }
+
+    public void Scoring() // for ui test
+    {
+        int pointsToAdd = _playerScore.PointsToAdd;
+        int multiplier = _playerScore.Multiplier;
+        bool hasMultiplier = _playerCurrStats.hasMultiplier;
+
+        GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
+        GameEvents.ON_UI_CHANGES?.Invoke();
+
+        //Debug.Log(_playerScore.Points);
+    }
+
+    public void SpawnBlock()
+    {
+        SpawnEvents.OnSpawnTrigger?.Invoke(false);
+    }
+    #endregion
 }
 
 
