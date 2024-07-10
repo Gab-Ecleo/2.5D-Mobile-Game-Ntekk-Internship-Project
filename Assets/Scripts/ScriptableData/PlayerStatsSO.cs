@@ -9,6 +9,9 @@ namespace ScriptableData
     [CreateAssetMenu(fileName = "PlayerStats", menuName = "PlayerData", order = 0)]
     public class PlayerStatsSO : ScriptableObject
     {
+        [Header("Currencies")] 
+        public float coins = 0f;
+        
         [Header("Movement Stats")]
         public bool canPlayerMove;
         public float movementSpeed = 8f;
@@ -20,8 +23,7 @@ namespace ScriptableData
         [Header("Jumping Stats")]
         public float jumpHeight = 8f;
         [Range(0, 1)]public float jumpCutMultiplier = 0.7f;
-
-
+        
         //tentative list
         [Header("Activated Power-ups")]
         public bool hasMultiplier = false;
