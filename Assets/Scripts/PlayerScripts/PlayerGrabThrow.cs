@@ -1,5 +1,6 @@
 ﻿using System;
 using AudioScripts;
+using AudioScripts.AudioSettings;
 using BlockSystemScripts;
 using BlockSystemScripts.BlockScripts;
 using ScriptableData;
@@ -13,9 +14,6 @@ namespace PlayerScripts
     {
         [Header("Collected Block Placeholder")]
         [SerializeField] private GameObject blockPlaceholder;
-
-        [Header("Audio References")] 
-        [SerializeField] private AudioClipsSO audioClip;
         
         [Header("Test References. To be private")]
         [SerializeField] private BlockScript collectedBlock;//for testing purposes. Unserialize after testing
@@ -25,6 +23,9 @@ namespace PlayerScripts
         private PlayerEyesight _eyeSight;
         
         private PlayerStatsSO _playerStats;
+
+        private AudioClipsSO _audioClip;
+        private AudioManager _audioManager;
 
         private void Awake()
         {
@@ -36,6 +37,14 @@ namespace PlayerScripts
             _playerStats = Resources.Load("PlayerData/CurrentPlayerStats") as PlayerStatsSO;
             _eyeSight = GetComponent<PlayerEyesight>();
             _grabCooldown = GetComponent<PlayerGrabCooldown>();
+        }
+        
+        private void InitializeAudio()
+        {
+            //initialize current player stats data using initial player stats
+            if(_audioClip == null) return;
+            _audioManager = AudioManager.Instance;
+            _audioClip = _audioManager.FetchAudioClip();
         }
 
         #region PLAYERACTION_METHODS
@@ -91,7 +100,7 @@ namespace PlayerScripts
             blockPlaceholder.SetActive(true);
             
             //Plays the SFX correlating to the action
-            SfxScript.Instance.PlaySFXOneShot(audioClip._pickupSFX);
+            SfxScript.Instance.PlaySFXOneShot(_audioClip._pickupSFX);
             
             hasItem = true;
         }
@@ -124,7 +133,7 @@ namespace PlayerScripts
             //Debug.Log("Player has Thrown");
             
             //Plays the SFX correlating to the action
-            SfxScript.Instance.PlaySFXOneShot(audioClip._dropSFX);
+            SfxScript.Instance.PlaySFXOneShot(_audioClip._dropSFX);
         }
 
         //Triggered if player has the Single Block Clear Powerup
