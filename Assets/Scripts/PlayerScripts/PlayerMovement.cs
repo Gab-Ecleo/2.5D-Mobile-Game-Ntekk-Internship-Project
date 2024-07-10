@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using System.Xml.Schema;
+using AudioScripts;
 using ScriptableData;
 //using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
@@ -26,6 +27,9 @@ namespace PlayerScripts
 
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
+
+        [Header("Audio References")]
+        [SerializeField] private AudioClip _jumpSFX;
 
         private void Awake()
         {
@@ -114,6 +118,9 @@ namespace PlayerScripts
                     force -= _rb.velocity.y;
                 }
                 _rb.AddForce(Vector2.up*force, ForceMode.Impulse);
+                
+                // Plays SFX correlating to the action
+                SfxScript.Instance.PlaySFXOneShot(_jumpSFX);
             }
 
             //after jumping button is released, while the player is jumping, drags the player down. 

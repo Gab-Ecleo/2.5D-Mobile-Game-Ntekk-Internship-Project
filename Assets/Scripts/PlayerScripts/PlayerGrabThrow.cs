@@ -1,4 +1,5 @@
 ﻿using System;
+using AudioScripts;
 using BlockSystemScripts;
 using BlockSystemScripts.BlockScripts;
 using ScriptableData;
@@ -13,6 +14,10 @@ namespace PlayerScripts
         [Header("Collected Block Placeholder")]
         [SerializeField] private GameObject blockPlaceholder;
 
+        [Header("Audio References")] 
+        [SerializeField] private AudioClip _pickupSFX;
+        [SerializeField] private AudioClip _dropSFX;
+        
         [Header("Test References. To be private")]
         [SerializeField] private BlockScript collectedBlock;//for testing purposes. Unserialize after testing
         [SerializeField] private bool hasItem; //for testing purposes. Unserialize after testing
@@ -85,7 +90,10 @@ namespace PlayerScripts
             collectedBlock = detectedObject;
             collectedBlock.gameObject.SetActive(false);
             blockPlaceholder.SetActive(true);
-                
+            
+            //Plays the SFX correlating to the action
+            SfxScript.Instance.PlaySFXOneShot(_pickupSFX);
+            
             hasItem = true;
         }
 
@@ -115,6 +123,9 @@ namespace PlayerScripts
             //nullifies the values of the collected block
             collectedBlock = null;
             //Debug.Log("Player has Thrown");
+            
+            //Plays the SFX correlating to the action
+            SfxScript.Instance.PlaySFXOneShot(_dropSFX);
         }
 
         //Triggered if player has the Single Block Clear Powerup
