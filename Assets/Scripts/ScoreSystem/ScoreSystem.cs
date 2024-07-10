@@ -9,11 +9,6 @@ public class ScoreSystem : MonoBehaviour
 
     public ScoresSO _playerScore;
 
-    // can be deleted after testing or deemed not part of gameplay
-    private void Start()
-    {
-        _playerScore.Points = 0;
-    }
     #region Action
     private void OnEnable()
     {
@@ -45,5 +40,10 @@ public class ScoreSystem : MonoBehaviour
     public void UpdateUI()
     {
         uiText.text = _playerScore.Points.ToString();
+    }
+
+    public void ResetSore()
+    {
+        _playerScore.Points = 0;
     }
 }
