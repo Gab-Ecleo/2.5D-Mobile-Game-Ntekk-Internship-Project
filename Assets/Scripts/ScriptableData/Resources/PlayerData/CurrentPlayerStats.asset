@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68412950261645f68851af0471705469, type: 3}
   m_Name: CurrentPlayerStats
   m_EditorClassIdentifier: 
+  canPlayerMove: 0
   movementSpeed: 9
   acceleration: 9
   decceleration: 9
