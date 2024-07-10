@@ -1,6 +1,8 @@
 using System;
 using System.Numerics;
 using System.Xml.Schema;
+using AudioScripts;
+using AudioScripts.AudioSettings;
 using ScriptableData;
 //using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
@@ -16,16 +18,20 @@ namespace PlayerScripts
         private bool _isFacingRight;
         private Vector2 _moveDirection = Vector2.zero;
         private Rigidbody _rb;
+        private AudioClipsSO _audioClip;
+        private AudioManager _audioManager;
 
         //player's stats. Only Modify 
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private PlayerStatsSO currentPlayerStats;
+       
 
         [Header("Raycast References")] [SerializeField]
         private Vector3 direction = -Vector3.up;
 
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
+
 
         private void Awake()
         {
@@ -72,6 +78,14 @@ namespace PlayerScripts
             currentPlayerStats.jumpHeight = initialPlayerStats.jumpHeight;
             currentPlayerStats.jumpCutMultiplier = initialPlayerStats.jumpCutMultiplier;
         }
+        
+        private void InitializeAudio()
+        {
+            //initialize current player stats data using initial player stats
+            if(_audioClip == null) return;
+            _audioManager = AudioManager.Instance;
+            _audioClip = _audioManager.FetchAudioClip();
+        }
         #endregion
 
         #region MOVEMENT_CALCULATIONS
@@ -114,6 +128,9 @@ namespace PlayerScripts
                     force -= _rb.velocity.y;
                 }
                 _rb.AddForce(Vector2.up*force, ForceMode.Impulse);
+                
+                // Plays SFX correlating to the action
+                SfxScript.Instance.PlaySFXOneShot(_audioClip._jumpSFX);
             }
 
             //after jumping button is released, while the player is jumping, drags the player down. 

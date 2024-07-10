@@ -10,6 +10,7 @@ namespace AudioScripts.AudioSettings
     {
         public static AudioManager Instance;
         private AudioSettingsSO _audioData;
+        [SerializeField] private AudioClipsSO _audioClips;
         [SerializeField] private AudioSource[] bgmSources;
         [SerializeField] private AudioSource[] sfxSources;
 
@@ -85,6 +86,11 @@ namespace AudioScripts.AudioSettings
         private void OnDisable()
         {
             AudioEvents.OnValueChanged -= UpdateVolume;
+        }
+        
+        public AudioClipsSO FetchAudioClip()
+        {
+            return _audioClips;
         }
     }
 }
