@@ -72,6 +72,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
             //Behavior for a homogenous color clear
             if (sameColorCount == GridCells.Count)
             {
+                ColorScore(sameColorCount);
                 Debug.Log("SAME COLORED ROW COMPLETED");
             }
         }
@@ -87,6 +88,15 @@ namespace BlockSystemScripts.RowAndColumnScripts
             GameEvents.ON_UI_CHANGES?.Invoke();
 
             //Debug.Log(_playerScore.Points);
+        }
+
+        private void ColorScore(int pointsToAdd)
+        {
+            int multiplier = _playerScore.Multiplier;
+            bool hasMultiplier = _playerCurrStats.hasMultiplier;
+
+            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
+            GameEvents.ON_UI_CHANGES?.Invoke();
         }
 
     }

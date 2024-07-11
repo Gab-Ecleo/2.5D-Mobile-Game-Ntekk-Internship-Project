@@ -827,7 +827,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -1507,7 +1507,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: SpawnBlock
         m_Mode: 1
@@ -1516,7 +1516,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1147271629416380220
@@ -1822,7 +1822,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -2231,7 +2231,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -2360,7 +2360,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUISliderStats
         m_Mode: 5
@@ -2493,14 +2493,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: ReloadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: MainMenu
           m_BoolArgument: 0
@@ -3467,7 +3467,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -3702,7 +3702,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2361649805392996762}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4303688716359361822}
+        m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
+        m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3088783647475737871
 GameObject:
   m_ObjectHideFlags: 0
@@ -4059,7 +4071,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: Scoring
         m_Mode: 1
@@ -4068,7 +4080,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &3370293579711315018
@@ -4157,7 +4169,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -4567,7 +4579,7 @@ MonoBehaviour:
   _playerCurrStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   _blockSpawners: {fileID: 0}
   PauseMenuScreen: {fileID: 0}
-  DebugMenuScreen: {fileID: 3559102294817380420}
+  DebugMenuScreen: {fileID: 3933861481896456882}
 --- !u!1 &3581648691575102331
 GameObject:
   m_ObjectHideFlags: 0
@@ -4658,7 +4670,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUISliderStats
         m_Mode: 5
@@ -4832,7 +4844,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -5148,6 +5160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 35326191606894036}
+  - component: {fileID: 9116730833016934347}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -5176,6 +5189,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &9116730833016934347
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3933861481896456882}
+  m_CullTransparentMesh: 1
 --- !u!1 &3960758567214252450
 GameObject:
   m_ObjectHideFlags: 0
@@ -5483,7 +5504,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5224965066986893996}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4303688716359361822}
+        m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
+        m_MethodName: ExpressDelivery
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4340387298460375752
 GameObject:
   m_ObjectHideFlags: 0
@@ -5639,7 +5672,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUISliderStats
         m_Mode: 5
@@ -7648,7 +7681,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2790373051914383768}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4303688716359361822}
+        m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
+        m_MethodName: ResetPlayerPos
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5624026047354801517
 GameObject:
   m_ObjectHideFlags: 0
@@ -8311,7 +8356,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: LevelSelector
         m_Mode: 3
@@ -8792,7 +8837,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUISliderStats
         m_Mode: 5
@@ -9807,7 +9852,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -10087,7 +10132,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUISliderStats
         m_Mode: 5
@@ -10540,7 +10585,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -11078,7 +11123,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -11492,7 +11537,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUISliderStats
         m_Mode: 5
@@ -11728,7 +11773,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUISliderStats
         m_Mode: 5
@@ -12110,7 +12155,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -12409,9 +12454,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
-        m_MethodName: UpdateUISliderStats
+        m_MethodName: UpdateUIToggleStats
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12582,7 +12627,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: UpdateUIToggleStats
         m_Mode: 5
@@ -12817,7 +12862,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4303688716359361822}
         m_TargetAssemblyTypeName: DebugManager, Assembly-CSharp
         m_MethodName: PauseMenu
         m_Mode: 1
@@ -12826,7 +12871,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8609271976255552963
