@@ -380,6 +380,7 @@ Transform:
   - {fileID: 4291680809695722391}
   - {fileID: 2641151329641515461}
   - {fileID: 3429633126443853525}
+  - {fileID: 7981118811313407419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3584220807990516844
@@ -538,6 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialPlayerStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
+  audioClip: {fileID: 11400000, guid: a90c4e1ae578a3a4eb2936c7202f34c7, type: 2}
   direction: {x: -0, y: -1, z: -0}
   maxDistance: 1.05
   groundLayer:
@@ -577,6 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPlaceholder: {fileID: 4040168932507938031}
+  audioClip: {fileID: 11400000, guid: a90c4e1ae578a3a4eb2936c7202f34c7, type: 2}
   collectedBlock: {fileID: 0}
   hasItem: 0
 --- !u!114 &182711630544776900
