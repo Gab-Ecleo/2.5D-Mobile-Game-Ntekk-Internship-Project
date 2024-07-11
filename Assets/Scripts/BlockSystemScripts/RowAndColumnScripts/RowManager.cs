@@ -45,6 +45,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
             foreach (var cell in GridCells)
             {
                 if (cell.CurrentBlock == null) continue;
+                if (cell.CurrentBlock.BlockType == BlockType.PowerUp) continue;
                 
                 //A validation run for checking if the blocks in the row are homogenous
                 sameColorCount++;
