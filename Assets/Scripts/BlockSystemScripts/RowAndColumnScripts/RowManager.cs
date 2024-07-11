@@ -22,6 +22,8 @@ namespace BlockSystemScripts.RowAndColumnScripts
             {
                 //Checks each cell if there is currently a block in it
                 if (cell.CurrentBlock == null) continue;
+                //Checks if the block in this current cell is a powerup or not
+                if (cell.CurrentBlock.BlockType == BlockType.PowerUp) continue;
                 //Then checks if the current block in that cell is Landed. If it is, add +1 ot the block counter
                 if (cell.CurrentBlock.BlockState is BlockState.Landed or BlockState.CanPickUp)
                 {
@@ -43,6 +45,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
             foreach (var cell in GridCells)
             {
                 if (cell.CurrentBlock == null) continue;
+                if (cell.CurrentBlock.BlockType == BlockType.PowerUp) continue;
                 
                 //A validation run for checking if the blocks in the row are homogenous
                 sameColorCount++;

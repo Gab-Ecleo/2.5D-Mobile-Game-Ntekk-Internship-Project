@@ -6,7 +6,8 @@
         Blue,
         Green,
         Yellow,
-        Heavy
+        Heavy,
+        PowerUp
     }
 
     public enum BlockState

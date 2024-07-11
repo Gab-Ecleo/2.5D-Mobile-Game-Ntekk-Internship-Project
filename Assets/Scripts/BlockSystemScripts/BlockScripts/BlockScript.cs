@@ -12,7 +12,7 @@ namespace BlockSystemScripts.BlockScripts
         private BlockState _blockState;
 
         [Header("Block Fall Timer")]
-        [SerializeField] private BlockFallTimer fallTimer;
+        private BlockFallTimer _fallTimer;
 
         [Header("Test References. To be private")]
         [SerializeField] private GridCell currentCell;
@@ -24,13 +24,22 @@ namespace BlockSystemScripts.BlockScripts
 
         #endregion
 
+        private void Awake()
+        {
+            if (gameObject.GetComponent<BlockFallTimer>() == null)
+            {
+                gameObject.AddComponent<BlockFallTimer>();
+            }
+            _fallTimer = GetComponent<BlockFallTimer>();
+        }
+
         #region BLOCK_MANIPULATION
         //called by the block spawner or the player to initialize references for this block 
         public void InitializeReferences(GridCell cell, BlockSpawner spawnerReference)
         {
             currentCell = cell;
             currentCell.FillCellSlot(this);
-            fallTimer.StartTimer();
+            _fallTimer.StartTimer();
             blockSpawner = spawnerReference;
 
             _blockState = BlockState.Falling;
@@ -44,7 +53,7 @@ namespace BlockSystemScripts.BlockScripts
             //Then call for row validation and column validation
             if (BlockStateChecker() == BlockState.Landed)
             {
-                fallTimer.StopTimer();
+                _fallTimer.StopTimer();
                 blockSpawner.TriggerCanSpawn();
                 //checks if the vertical/row position of this cell is the last row
                 if (currentCell.RowIndex + 1 >= currentCell.AssignedColumn.GridCells.Count)
@@ -69,7 +78,7 @@ namespace BlockSystemScripts.BlockScripts
                 currentCell = currentCell.NextCell;
                 currentCell.FillCellSlot(this);
                 transform.position = currentCell.transform.position;
-                fallTimer.StartTimer();
+                _fallTimer.StartTimer();
                 _blockState = BlockState.Falling;
             }
         }
@@ -79,7 +88,7 @@ namespace BlockSystemScripts.BlockScripts
         {
             if (TopBlockDetection() == null) return;
             TopBlockDetection()._blockState = BlockState.Falling;
-            TopBlockDetection().fallTimer.StartTimer();
+            TopBlockDetection()._fallTimer.StartTimer();
         }
         #endregion
         
@@ -92,8 +101,17 @@ namespace BlockSystemScripts.BlockScripts
                 _blockState = BlockState.Landed;
                 return _blockState;
             }
+            
             if (currentCell.NextCell.CurrentBlock != null)
             {
+                //if the next cell's current block is a powerUp, destroy it and replace its position
+                if (currentCell.NextCell.CurrentBlock.BlockType == BlockType.PowerUp)
+                {
+                    currentCell.NextCell.DestroyBlock();
+                    _blockState = BlockState.Falling;
+                    return _blockState;
+                }
+                
                 _blockState = BlockState.Landed;
                 return _blockState;
             }

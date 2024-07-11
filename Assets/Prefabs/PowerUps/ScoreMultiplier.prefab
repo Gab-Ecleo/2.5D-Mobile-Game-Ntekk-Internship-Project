@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2492568042278753784}
   - component: {fileID: 6610263003982913219}
   - component: {fileID: 7587252207005902506}
+  - component: {fileID: 2511366188642452209}
+  - component: {fileID: -7543860231072407068}
   m_Layer: 0
   m_Name: ScoreMultiplier
   m_TagString: Untagged
@@ -118,3 +120,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63cbba3f4bcbd24dbaf43de3f4f7416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2511366188642452209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6139136983376210963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef77a17ac37d42febea570dc29c77efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockType: 5
+  currentCell: {fileID: 0}
+  blockSpawner: {fileID: 0}
+--- !u!114 &-7543860231072407068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6139136983376210963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcbbbbbc2ec34500aa661c4c86e1fe77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialTimer: 0.5
+  timeLeft: 0

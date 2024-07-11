@@ -87,10 +87,10 @@ namespace PlayerScripts
 
         private void PickUpBlock(BlockScript detectedObject)
         {
-            //Checks if the detected block's type is Heavy
+            //Checks if the detected block's type is Heavy or is a Power Up
             //If not, checks if it has a block above it on the grid.
             //If there is none, detect if the block can be picked up.
-            if (detectedObject.BlockType == BlockType.Heavy) return;
+            if (detectedObject.BlockType is BlockType.Heavy or BlockType.PowerUp) return;
             if (detectedObject.TopBlockDetection() != null) return;
             if (detectedObject.BlockState != BlockState.CanPickUp) return;
             
@@ -139,6 +139,7 @@ namespace PlayerScripts
         //Triggered if player has the Single Block Clear Powerup
         private void DestroySingleBlock(BlockScript detectedBlock)
         {
+            if (detectedBlock.BlockType == BlockType.PowerUp) return;
             if (detectedBlock.BlockState != BlockState.CanPickUp) return;
             Destroy(detectedBlock.gameObject);
             _playerStats.singleBlockRemover = false;

@@ -10,7 +10,7 @@ namespace BlockSystemScripts.BlockScripts
     public class BlockFallTimer : MonoBehaviour
     {
         [Header("Script References")]
-        [SerializeField] private BlockScript blockScript;
+        private BlockScript _blockScript;
         
         [Header("Timer Data")] 
         [SerializeField] private float initialTimer = 0.5f;
@@ -21,6 +21,7 @@ namespace BlockSystemScripts.BlockScripts
 
         private void Awake()
         {
+            _blockScript = GetComponent<BlockScript>();
             timeLeft = initialTimer;
         }
 
@@ -44,7 +45,7 @@ namespace BlockSystemScripts.BlockScripts
             else
             {
                 StopTimer();
-                blockScript.TransferCell();
+                _blockScript.TransferCell();
             }
         }
         
