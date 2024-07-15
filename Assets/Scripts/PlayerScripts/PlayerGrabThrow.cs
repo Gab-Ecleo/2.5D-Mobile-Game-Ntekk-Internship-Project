@@ -98,11 +98,10 @@ namespace PlayerScripts
             collectedBlock = detectedObject;
             collectedBlock.gameObject.SetActive(false);
             blockPlaceholder.SetActive(true);
+            hasItem = true;
             
             //Plays the SFX correlating to the action
             SfxScript.Instance.PlaySFXOneShot(_audioClip._pickupSFX);
-            
-            hasItem = true;
         }
 
         private void ThrowBlock(GridCell detectedCell)
