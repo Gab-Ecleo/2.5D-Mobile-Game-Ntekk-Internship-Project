@@ -20,19 +20,18 @@ namespace PlayerScripts
         private Rigidbody _rb;
         private AudioClipsSO _audioClip;
         private AudioManager _audioManager;
-
+        
+        [Header("Player Data References")]
         //player's stats. Only Modify 
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private PlayerStatsSO currentPlayerStats;
-       
-
+        
         [Header("Raycast References")] [SerializeField]
         private Vector3 direction = -Vector3.up;
 
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
-
-
+        
         private void Awake()
         {
             InitializeScriptValues();
@@ -94,15 +93,39 @@ namespace PlayerScripts
         {
             #region MOVEMENT
             _moveDirection = input;
-            //_rb.velocity = new Vector3(_moveDirection.x * currentPlayerStats.movementSpeed, _rb.velocity.y, 0);
 
             float targetSpeed = _moveDirection.x * currentPlayerStats.movementSpeed;
             float speedDiff = targetSpeed - _rb.velocity.x;
             float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? currentPlayerStats.acceleration : currentPlayerStats.decceleration;
             float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, currentPlayerStats.velPower) *
-                             Mathf.Sign(speedDiff);
-            
-            _rb.AddForce(movement *Vector2.right);
+                                 Mathf.Sign(speedDiff);
+
+            switch (currentPlayerStats.movementState)
+            {
+                case PlayerMovementState.WithAerialMovement:
+                    _rb.AddForce(movement * Vector2.right);
+                    break;
+                case PlayerMovementState.ReducedAerialMovement:
+                {
+                    _rb.AddForce(movement * Vector2.right);
+                    if (!IsGrounded())
+                    {
+                        _rb.velocity = new Vector3(_rb.velocity.x * currentPlayerStats.aerialSpdReducer, _rb.velocity.y,
+                            _rb.velocity.z);
+                    }
+                    break;
+                }
+                case PlayerMovementState.NoAerialMovement:
+                {
+                    if (IsGrounded())
+                    {
+                        _rb.AddForce(movement * Vector2.right);
+                    }
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             #endregion
 
             #region FRICTION
@@ -121,7 +144,6 @@ namespace PlayerScripts
             //checks if the raycast hits an object before jumping
             if (IsGrounded() && ctx.ReadValueAsButton() == true)
             {
-                //_rb.velocity = new Vector3(_rb.velocity.x, currentPlayerStats.jumpHeight);
                 float force = currentPlayerStats.jumpHeight;
                 if (_rb.velocity.y<0)
                 {

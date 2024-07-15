@@ -3,10 +3,18 @@ using UnityEngine.Serialization;
 
 namespace ScriptableData
 {
+    public enum PlayerMovementState
+    {
+        WithAerialMovement,
+        ReducedAerialMovement,
+        NoAerialMovement,
+    }
+    
     /// <summary>
     /// initial stats that will be fetch by local variables of player scripts. 
     /// </summary>
     [CreateAssetMenu(fileName = "PlayerStats", menuName = "PlayerData", order = 0)]
+    
     public class PlayerStatsSO : ScriptableObject
     {
         [Header("Currencies")] 
@@ -19,6 +27,11 @@ namespace ScriptableData
         public float decceleration = 9f;
         public float velPower = 1.2f;
         public float frictionAmount = 0.2f;
+        
+        [Header("Movement Implementation Choice")]
+        public PlayerMovementState movementState;
+        [Tooltip("A rate multiplier that reduces the player's movement speed on-air. Will only be calculated if the Movement State is set to 'Reduced Aerial Movement")]
+        [Range(0.1f, 1f)] public float aerialSpdReducer = 0.8f;
 
         [Header("Jumping Stats")]
         public float jumpHeight = 8f;
