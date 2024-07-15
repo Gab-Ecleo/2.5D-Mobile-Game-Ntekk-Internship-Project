@@ -9,5 +9,6 @@ public class AudioClipsSO : ScriptableObject
     public AudioClip _jumpSFX;
     public AudioClip _pickupSFX;
     public AudioClip _dropSFX;
+    public AudioClip _damageSFX;
 
 }

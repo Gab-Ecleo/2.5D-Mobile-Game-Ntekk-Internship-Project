@@ -15,3 +15,4 @@ MonoBehaviour:
   _jumpSFX: {fileID: 8300000, guid: e2354cc415c8549468bcdd23d2de31d1, type: 3}
   _pickupSFX: {fileID: 8300000, guid: e8d19c28e9ac92547815ecdebb9d363b, type: 3}
   _dropSFX: {fileID: 8300000, guid: 0fa73d081bcfa2b4a9c3663d11b90a01, type: 3}
+  _damageSFX: {fileID: 8300000, guid: 255fe0ae34d9f894fbb8ed5817dc67c4, type: 3}
