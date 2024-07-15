@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68412950261645f68851af0471705469, type: 3}
   m_Name: CurrentPlayerStats
   m_EditorClassIdentifier: 
+  coins: 0
   canPlayerMove: 0
   movementSpeed: 9
   acceleration: 9
@@ -25,7 +26,10 @@ MonoBehaviour:
   timeSlow: 0
   expressDelivery: 0
   singleBlockRemover: 0
+  isBarrierUpgraded: 0
+  isRezUpgraded: 0
   barrierUpgrade: 0
   rezUpgrade: 0
   barrierDurability: 1
   canRez: 0
+  StartingPos: {x: -6, y: 0.25, z: 0}
