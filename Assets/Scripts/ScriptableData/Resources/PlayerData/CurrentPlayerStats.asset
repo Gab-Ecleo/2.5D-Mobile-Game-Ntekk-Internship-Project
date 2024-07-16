@@ -16,15 +16,15 @@ MonoBehaviour:
   canPlayerMove: 0
   movementSpeed: 9
   acceleration: 9
-  decceleration: 9
+  deceleration: 9
   velPower: 1.2
   frictionAmount: 0.2
-  movementState: 0
-  aerialSpdReducer: 0.8
+  movementState: 1
+  aerialSpdReducer: 0.7
   jumpHeight: 7
   jumpCutMultiplier: 0.7
   hasMultiplier: 0
-  springJump: 0
+  springJump: 1
   timeSlow: 0
   expressDelivery: 0
   singleBlockRemover: 0

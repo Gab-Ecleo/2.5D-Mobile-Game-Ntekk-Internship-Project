@@ -26,12 +26,13 @@ namespace PlayerScripts
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private PlayerStatsSO currentPlayerStats;
         
-        [Header("Raycast References")] [SerializeField]
-        private Vector3 direction = -Vector3.up;
+        [Header("Raycast References")] 
+        [SerializeField] private Vector3 direction = -Vector3.up;
 
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
-        
+
+        #region UNITY_DEFAULT_FUNCTIONS
         private void Awake()
         {
             InitializeScriptValues();
@@ -39,7 +40,7 @@ namespace PlayerScripts
 
         private void Start()
         {
-           InitializePlayerStats();
+            InitializePlayerStats();
         }
 
         private void Update()
@@ -53,7 +54,8 @@ namespace PlayerScripts
             //draws a ray for the groundCheck raycast
             Debug.DrawRay(transform.position, direction * maxDistance, Color.yellow);
         }
-
+        #endregion
+        
         #region INITIALIZATION_METHODS
         private void InitializeScriptValues()
         {
@@ -70,7 +72,7 @@ namespace PlayerScripts
             if (initialPlayerStats == null) return;
             currentPlayerStats.movementSpeed = initialPlayerStats.movementSpeed;
             currentPlayerStats.acceleration = initialPlayerStats.acceleration;
-            currentPlayerStats.decceleration = initialPlayerStats.decceleration;
+            currentPlayerStats.deceleration = initialPlayerStats.deceleration;
             currentPlayerStats.velPower = initialPlayerStats.velPower;
             currentPlayerStats.frictionAmount = initialPlayerStats.frictionAmount;
             
@@ -94,12 +96,17 @@ namespace PlayerScripts
             #region MOVEMENT
             _moveDirection = input;
 
+            //calculated the player's input multiplied by the set movement speed
             float targetSpeed = _moveDirection.x * currentPlayerStats.movementSpeed;
+            //calculates the difference between the set target speed and the player's current velocity
             float speedDiff = targetSpeed - _rb.velocity.x;
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? currentPlayerStats.acceleration : currentPlayerStats.decceleration;
+            //checks if the target speed is more than or less than 0, allowing ato switch between the set acceleration and set deceleration
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? currentPlayerStats.acceleration : currentPlayerStats.deceleration;
+            //calculates the final movement computation
             float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, currentPlayerStats.velPower) *
                                  Mathf.Sign(speedDiff);
 
+            //determines which type of aerial movement implementation will the player use
             switch (currentPlayerStats.movementState)
             {
                 case PlayerMovementState.WithAerialMovement:
@@ -110,8 +117,23 @@ namespace PlayerScripts
                     _rb.AddForce(movement * Vector2.right);
                     if (!IsGrounded())
                     {
-                        _rb.velocity = new Vector3(_rb.velocity.x * currentPlayerStats.aerialSpdReducer, _rb.velocity.y,
-                            _rb.velocity.z);
+                        var velocity = _rb.velocity;
+                        velocity = new Vector3(velocity.x * currentPlayerStats.aerialSpdReducer, velocity.y,
+                            velocity.z);
+                        _rb.velocity = velocity;
+                    }
+                    break;
+                }
+                case PlayerMovementState.ReducedFlippedMovement:
+                {
+                    if (!IsGrounded())
+                    {
+                        _rb.AddForce(movement * Vector2.right * currentPlayerStats.aerialSpdReducer);
+                        
+                    }
+                    else if (IsGrounded())
+                    {
+                        _rb.AddForce(movement * Vector2.right);
                     }
                     break;
                 }
