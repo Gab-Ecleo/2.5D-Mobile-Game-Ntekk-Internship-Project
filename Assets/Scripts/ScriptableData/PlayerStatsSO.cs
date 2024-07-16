@@ -6,6 +6,7 @@ namespace ScriptableData
     public enum PlayerMovementState
     {
         WithAerialMovement,
+        ReducedFlippedMovement,
         ReducedAerialMovement,
         NoAerialMovement,
     }
@@ -24,7 +25,7 @@ namespace ScriptableData
         public bool canPlayerMove;
         public float movementSpeed = 8f;
         public float acceleration = 9f;
-        public float decceleration = 9f;
+        public float deceleration = 9f;
         public float velPower = 1.2f;
         public float frictionAmount = 0.2f;
         
