@@ -21,14 +21,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public @PlayerControls()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""PlayerControls"",
+    ""upgradeName"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""upgradeName"": ""Player"",
             ""id"": ""bf77b2a1-ae90-423f-9374-237e17654a9a"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
+                    ""upgradeName"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""986f41ef-5a2b-4826-be1e-9ab2b49dca65"",
                     ""expectedControlType"": ""Vector2"",
@@ -37,7 +37,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""upgradeName"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""6785ec16-f372-4777-a805-1fe662f51637"",
                     ""expectedControlType"": ""Button"",
@@ -46,7 +46,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Interact"",
+                    ""upgradeName"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""11b81f9d-7b67-4a92-b114-6e6382fd4480"",
                     ""expectedControlType"": ""Button"",
@@ -55,7 +55,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PowerUp"",
+                    ""upgradeName"": ""PowerUp"",
                     ""type"": ""Button"",
                     ""id"": ""e9836718-7170-4aef-b3f3-c6ca76cb0681"",
                     ""expectedControlType"": ""Button"",
@@ -66,7 +66,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
+                    ""upgradeName"": """",
                     ""id"": ""4b8e7a43-bdcb-412e-bd0f-7977b9b2a667"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
@@ -77,7 +77,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
+                    ""upgradeName"": """",
                     ""id"": ""7b7abb25-b5a9-4ccd-a1db-274899b4403f"",
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
@@ -88,7 +88,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""upgradeName"": ""2D Vector"",
                     ""id"": ""be4aff92-5910-437c-a4c1-864f27c5087c"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -99,7 +99,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""left"",
+                    ""upgradeName"": ""left"",
                     ""id"": ""b3bd834d-7f4c-4483-bdd7-b389d6d14c69"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
@@ -110,7 +110,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
+                    ""upgradeName"": ""left"",
                     ""id"": ""8c3a6cb0-2752-471f-a74a-60ea33b9e7c0"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
@@ -121,7 +121,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
+                    ""upgradeName"": ""right"",
                     ""id"": ""6db7e9e9-b825-40f4-b06e-328098553a5b"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
@@ -132,7 +132,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
+                    ""upgradeName"": ""right"",
                     ""id"": ""f82e7ea9-ff21-4609-beef-7989386bdcaf"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
@@ -143,7 +143,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
+                    ""upgradeName"": """",
                     ""id"": ""a104b59f-9eae-41ad-a2a4-fd25f8aa3d16"",
                     ""path"": ""<Gamepad>/dpad"",
                     ""interactions"": """",
@@ -154,7 +154,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
+                    ""upgradeName"": """",
                     ""id"": ""b9a2b8b9-0725-4510-97a6-992f4ec5cb49"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -165,7 +165,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
+                    ""upgradeName"": """",
                     ""id"": ""10a2be24-0a2e-48a3-a3c7-b359e6bc1ea9"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
@@ -176,7 +176,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
+                    ""upgradeName"": """",
                     ""id"": ""a859c0a2-f497-446a-8a5d-47370e785651"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
