@@ -814,19 +814,7 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8976717761938167097}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: UpdateUISlider
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: SFX
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1751448515246354790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2588,7 +2576,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 4347885608136152123}
+  m_TargetGraphic: {fileID: 2953189166106162237}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3234,7 +3222,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 5270091407506066379}
+  m_TargetGraphic: {fileID: 9067852908491942034}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
