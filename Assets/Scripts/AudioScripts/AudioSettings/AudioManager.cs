@@ -92,5 +92,20 @@ namespace AudioScripts.AudioSettings
         {
             return _audioClips;
         }
+
+        public void AudioMute(bool isMuted, AudioType audioType)
+        {
+            float volume = isMuted ? 0 : (audioType == AudioType.BGM ? _audioData.bgmVolume : _audioData.sfxVolume);
+
+            if (audioType == AudioType.BGM)
+            {
+                UpdateBGMVolume(volume);
+            }
+            else
+            {
+                UpdateSfxVolume(volume);
+            }
+        }
+
     }
 }

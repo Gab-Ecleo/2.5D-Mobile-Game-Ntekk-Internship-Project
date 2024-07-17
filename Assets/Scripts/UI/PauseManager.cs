@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using AudioType = AudioScripts.AudioSettings.AudioType;
+
 
 public class PauseManager : MonoBehaviour
 {
@@ -15,6 +16,19 @@ public class PauseManager : MonoBehaviour
 
     private GameObject _pauseScreen;
     private bool _isPauseScreenOpen;
+
+    [Header("BGM Audio")]
+    [SerializeField] private Sprite _bgmOn;
+    [SerializeField] private Sprite _bgmOff;
+    [SerializeField] private Button _bgmButton;
+
+    [Header("SFX Audio")]
+    [SerializeField] private Sprite _sfxOn;
+    [SerializeField] private Sprite _sfxOff;
+    [SerializeField] private Button _sfxButton;
+
+    private bool _isBgmOn;
+    private bool _isSfxOn;
 
     private void Awake()
     {
@@ -29,6 +43,7 @@ public class PauseManager : MonoBehaviour
         }
 
         if(_pauseScreen == null) { _pauseScreen = this.gameObject;}
+
     }
 
     private void Start()
@@ -76,6 +91,20 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         TogglePause();
+    }
+
+    public void MuteBGM()
+    {
+        _isBgmOn = !_isBgmOn;
+        _bgmButton.image.sprite = _isBgmOn ? _bgmOn : _bgmOff;
+        AudioManager.Instance.AudioMute(!_isBgmOn, AudioType.BGM);
+    }
+
+    public void MuteSFX()
+    {
+        _isSfxOn = !_isSfxOn;
+        _sfxButton.image.sprite = _isSfxOn ? _sfxOn : _sfxOff;
+        AudioManager.Instance.AudioMute(!_isSfxOn, AudioType.Sfx);
     }
     #endregion
 }
