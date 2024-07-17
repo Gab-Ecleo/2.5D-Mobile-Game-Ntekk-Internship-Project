@@ -16,3 +16,6 @@ MonoBehaviour:
   _pickupSFX: {fileID: 8300000, guid: e8d19c28e9ac92547815ecdebb9d363b, type: 3}
   _dropSFX: {fileID: 8300000, guid: 0fa73d081bcfa2b4a9c3663d11b90a01, type: 3}
   _damageSFX: {fileID: 8300000, guid: 255fe0ae34d9f894fbb8ed5817dc67c4, type: 3}
+  _rainSFX: {fileID: 8300000, guid: 55303ed29c124974bbe2ab3531aac57d, type: 3}
+  _windSFX: {fileID: 8300000, guid: f766879364ea5f345b8ebf0d802f9501, type: 3}
+  _blackoutSFX: {fileID: 8300000, guid: 8b304ecdb28e2fa4c941ea6099edb8e5, type: 3}
