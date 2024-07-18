@@ -33,18 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PowerUp",
-                    "type": "Button",
-                    "id": "e9836718-7170-4aef-b3f3-c6ca76cb0681",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Pause",
                     "type": "Button",
-                    "id": "817bdc83-021b-45fc-8488-d0b7514f85db",
+                    "id": "cda6c5f3-0dc1-412b-a121-24304a68f426",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -164,18 +155,7 @@
                 },
                 {
                     "name": "",
-                    "id": "a859c0a2-f497-446a-8a5d-47370e785651",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PowerUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "95968cdf-520e-43ba-bc0e-3fdac7fb0947",
+                    "id": "052a9953-0837-45ab-9645-85b462d3d1a3",
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
