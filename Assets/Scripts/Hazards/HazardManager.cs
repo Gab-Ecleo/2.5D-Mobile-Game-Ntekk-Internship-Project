@@ -70,9 +70,6 @@ public class HazardManager : MonoBehaviour
             case "Blackout":
                 GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
                 break;
-            case "Ice":
-                GameEvents.TRIGGER_ICE_HAZARD?.Invoke();
-                break;
             case "Wind":
                 GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
                 break;

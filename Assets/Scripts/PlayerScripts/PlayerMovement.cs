@@ -41,6 +41,7 @@ namespace PlayerScripts
         private void Start()
         {
             InitializePlayerStats();
+            InitializeAudio();
         }
 
         private void Update()
@@ -85,9 +86,8 @@ namespace PlayerScripts
         private void InitializeAudio()
         {
             //initialize current player stats data using initial player stats
-            if(_audioClip == null) return;
             _audioManager = AudioManager.Instance;
-            _audioClip = _audioManager.FetchAudioClip();
+            _audioClip = _audioManager.FetchAudioClips();
         }
         #endregion
 
@@ -220,14 +220,7 @@ namespace PlayerScripts
         //returns True if the player is walking/running, false if not
         public bool IsWalking()
         {
-            if (_rb.velocity.y == 0 && _moveDirection.x != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return _rb.velocity.y == 0 && _moveDirection.x != 0;
         }
         #endregion
     }

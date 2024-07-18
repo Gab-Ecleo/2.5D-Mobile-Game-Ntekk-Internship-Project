@@ -5,6 +5,7 @@ using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,11 +15,17 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => _instance;
 
     #endregion
+    
+    [Header("Scriptable")]
+    [SerializeField] private PlayerStatsSO playerCurrentStat;
+    [SerializeField] private PlayerStatsSO initialPlayerStats;
+    [SerializeField] private ScoresSO scoreSO;
 
-    [SerializeField] private PlayerStatsSO _playerCurrentStat;
+    [Header("Game Objects")] 
+    [SerializeField] private GameObject playerObj;
+    
+    [Header("UI Objects")]
     [SerializeField] private GameObject gameOverText;
-    [SerializeField] private PlayerStatsSO _initialPlayerStats;
-    [SerializeField] private ScoresSO _scores;
     
     
     private bool _gameEnd;
@@ -65,25 +72,36 @@ public class GameManager : MonoBehaviour
     {
         _gameEnd = _state;
     }
-
+    
     //Fetch game state
     public bool IsGameOver()
     {
         return _gameEnd;
     }
+    
+    #region Object Fetching
 
     public PlayerStatsSO FetchCurrentPlayerStat()
     {
-        return _playerCurrentStat;
+        return playerCurrentStat;
     }
 
     public PlayerStatsSO FetchInitialPlayerStat()
     {
-        return _initialPlayerStats;
+        return initialPlayerStats;
     }
 
     public ScoresSO FetchScores()
     {
-        return _scores;
+        return scoreSO;
     }
+
+    public GameObject FetchPlayer()
+    {
+        return playerObj;
+    }
+
+    #endregion
+
+
 }

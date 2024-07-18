@@ -44,7 +44,7 @@ namespace PlayerScripts
             //initialize current player stats data using initial player stats
             if(_audioClip == null) return;
             _audioManager = AudioManager.Instance;
-            _audioClip = _audioManager.FetchAudioClip();
+            _audioClip = _audioManager.FetchAudioClips();
         }
 
         #region PLAYERACTION_METHODS

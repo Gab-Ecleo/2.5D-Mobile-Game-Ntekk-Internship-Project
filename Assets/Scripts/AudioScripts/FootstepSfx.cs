@@ -13,7 +13,9 @@ namespace AudioScripts
 
         private void Start()
         {
-            _playerMotor = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
+            _playerMotor = GameManager.Instance.
+                FetchPlayer().GetComponent<PlayerMovement>();
+            
             _audioSource = GetComponent<AudioSource>();
         }
 
@@ -22,10 +24,8 @@ namespace AudioScripts
         /// </summary>
         private void Update()
         {
-            if (_audioSource.enabled != _playerMotor.IsWalking())
-            {
+            if (_playerMotor.IsWalking())
                 _audioSource.enabled = _playerMotor.IsWalking();
-            }
         }
     }
 }
