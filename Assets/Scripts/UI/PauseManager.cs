@@ -12,9 +12,9 @@ using AudioType = AudioScripts.AudioSettings.AudioType;
 public class PauseManager : MonoBehaviour
 {
     private static PauseManager _instance;
-    public static PauseManager Instance { get { return _instance; } }
+    public static PauseManager Instance => _instance;
 
-    private GameObject _pauseScreen;
+    [SerializeField] private GameObject _pauseScreenPanel;
     private bool _isPauseScreenOpen;
 
     [Header("BGM Audio")]
@@ -32,39 +32,28 @@ public class PauseManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (_instance == null) _instance = this;
+        else Destroy(this);
 
-        if(_pauseScreen == null) { _pauseScreen = this.gameObject;}
+        GameEvents.ON_PAUSE += TogglePause;
+    }
 
+    private void OnDestroy()
+    {
+        GameEvents.ON_PAUSE -= TogglePause;
     }
 
     private void Start()
     {
         _isPauseScreenOpen = false;
-        _pauseScreen.SetActive(_isPauseScreenOpen);
+        _pauseScreenPanel.SetActive(_isPauseScreenOpen);
     }
 
     #region Pause Screen
-    public void OnPause(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            TogglePause();
-        }
-    }
-
     private void TogglePause()
     {
         _isPauseScreenOpen = !_isPauseScreenOpen;
-        _pauseScreen.SetActive(_isPauseScreenOpen);
+        _pauseScreenPanel.SetActive(_isPauseScreenOpen);
 
         if (_isPauseScreenOpen)
         {

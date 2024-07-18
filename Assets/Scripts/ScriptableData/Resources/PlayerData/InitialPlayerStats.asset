@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coins: 0
   canPlayerMove: 0
-  movementSpeed: 0
+  movementSpeed: 5.5
   acceleration: 9
   deceleration: 9
   velPower: 1.2
