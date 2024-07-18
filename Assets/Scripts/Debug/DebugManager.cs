@@ -29,7 +29,6 @@ public class DebugManager : MonoBehaviour
 
     private void Start()
     {
-
         isDebugMenuOpen = false;
         DebugMenuScreen.SetActive(false);
 
@@ -139,24 +138,6 @@ public class DebugManager : MonoBehaviour
             _playerCurrStats.GetType().GetField(Name).SetValue(_playerCurrStats, togglePrefab.toggle.isOn);
             _playerBoolStatsDict[Name] = togglePrefab.toggle.isOn;
         }
-        else
-        {
-            switch (Name)
-            {
-                case "Rain":
-                    GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
-                    break;
-                case "Blackout":
-                    GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
-                    break;
-                case "Ice":
-                    GameEvents.TRIGGER_ICE_HAZARD?.Invoke();
-                    break;
-                case "Wind":
-                    GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
-                    break;
-            }
-        }
     }
 
     #region buttons
@@ -205,6 +186,28 @@ public class DebugManager : MonoBehaviour
     public void SpawnBlock()
     {
         SpawnEvents.OnSpawnTrigger?.Invoke(false);
+    }
+
+    public void HazardButton(string Hazard)
+    {
+        switch (Hazard)
+        {
+            case "Rain":
+                GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
+                break;
+            case "Blackout":
+                GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
+                break;
+            case "Ice":
+                GameEvents.TRIGGER_ICE_HAZARD?.Invoke();
+                break;
+            case "Wind":
+                GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
+                break;
+            case "Cooldown":
+                HazardManager.Instance.StopAllCoroutines();
+                break;
+        }
     }
     #endregion
 }
