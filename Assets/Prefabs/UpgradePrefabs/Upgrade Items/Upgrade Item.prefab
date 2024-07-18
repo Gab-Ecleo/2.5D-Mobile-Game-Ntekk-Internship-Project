@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5264100915069424501}
   - component: {fileID: 5725190365395951756}
   - component: {fileID: 8646770006091977779}
+  - component: {fileID: 7838698908925361313}
   m_Layer: 5
   m_Name: Upgrade Item
   m_TagString: Untagged
@@ -95,9 +96,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 8905775351264529018}
   description: {fileID: 8904510806328815671}
-  itemData: {fileID: 0}
-  idData: {fileID: 0}
   upgradeLevelGenerator: {fileID: 7767715638044206824}
+  currentItem:
+    identifier: 
+    upgradeName: 
+    description: 
+    affectedStat: 0
+    maxLevelCount: 0
+    currentLevel: 0
+    currentIncrease: 0
+    costPerLevel: 
+    valuePerLevel: []
+  idData: {fileID: 0}
+--- !u!114 &7838698908925361313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186878863928110332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a71f8e6cbc74daaa971db74d9c13398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
 --- !u!1 &2583191703206624319
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,8 +242,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 184319511425984417}
-        m_TargetAssemblyTypeName: UpgradeShop.UpgradeLevels.ItemLevelManager, Assembly-CSharp
+      - m_Target: {fileID: 7838698908925361313}
+        m_TargetAssemblyTypeName: UpgradeShop.ItemLevels.ItemLevelManager, Assembly-CSharp
         m_MethodName: AddLevel
         m_Mode: 1
         m_Arguments:
@@ -245,7 +268,6 @@ GameObject:
   - component: {fileID: 8061035471411622452}
   - component: {fileID: 8887878343519708627}
   - component: {fileID: 7767715638044206824}
-  - component: {fileID: 184319511425984417}
   m_Layer: 5
   m_Name: ItemLevelList
   m_TagString: Untagged
@@ -362,20 +384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridCellParent: {fileID: 5234929956179505625}
   gridCellPrefab: {fileID: 3022314946011917300, guid: f1dc4b9b5b9926e48917f4ef9320151c, type: 3}
-  itemLevelManager: {fileID: 184319511425984417}
---- !u!114 &184319511425984417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5234929956179505625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a71f8e6cbc74daaa971db74d9c13398, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemLevels: []
+  itemLevelManager: {fileID: 7838698908925361313}
 --- !u!1 &6507031276772039667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,8 +1042,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 184319511425984417}
-        m_TargetAssemblyTypeName: UpgradeShop.UpgradeLevels.ItemLevelManager, Assembly-CSharp
+      - m_Target: {fileID: 7838698908925361313}
+        m_TargetAssemblyTypeName: UpgradeShop.ItemLevels.ItemLevelManager, Assembly-CSharp
         m_MethodName: ReduceLevel
         m_Mode: 1
         m_Arguments:

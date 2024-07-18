@@ -7,14 +7,18 @@ namespace UpgradeShop
 {
     public class ItemGenerator : MonoBehaviour
     {
+        [Header("UI References")]
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI description;
+        
+        [Header("Script References")]
+        [SerializeField] private ItemLevelGenerator upgradeLevelGenerator;
 
         [Header("Upgrade Items. To be private")]
         [SerializeField] private UpgradeItem currentItem;
         [SerializeField] private UpgradeItemIdentifier idData;
 
-        [SerializeField] private ItemLevelGenerator upgradeLevelGenerator;
+        
         public void UpdateItemValues(UpgradeItem item, UpgradeItemIdentifier id)
         {
             currentItem = item;

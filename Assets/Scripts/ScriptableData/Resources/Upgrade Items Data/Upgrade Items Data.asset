@@ -16,38 +16,44 @@ MonoBehaviour:
   - identifier: upgrade-barrier
     upgradeName: Barrier TEST
     description: Yippeee
+    affectedStat: 0
     maxLevelCount: 6
     currentLevel: 2
     currentIncrease: 0
-    costPerLevel: 010000000200000003000000040000000400000004000000
-    increasePerLevel:
+    costPerLevel: 01000000020000000300000004000000040000000400000004000000
+    valuePerLevel:
+    - 0
     - 1
     - 2
     - 3
     - 4
-    - 4
-    - 4
+    - 5
+    - 6
   - identifier: upgrade-movement
     upgradeName: Movement TEST
     description: Yahoo!
+    affectedStat: 1
     maxLevelCount: 5
     currentLevel: 3
     currentIncrease: 0
-    costPerLevel: 0100000002000000030000000400000004000000
-    increasePerLevel:
-    - 1
-    - 2
-    - 3
-    - 4
-    - 4
+    costPerLevel: 010000000200000003000000040000000400000004000000
+    valuePerLevel:
+    - 5.5
+    - 6
+    - 6.5
+    - 7
+    - 7.5
+    - 8
   - identifier: upgrade-aerial-movement
     upgradeName: Aerial Movement Test
     description: Tentenenten
+    affectedStat: 2
     maxLevelCount: 3
-    currentLevel: 0
+    currentLevel: 1
     currentIncrease: 0
-    costPerLevel: 010000000200000003000000
-    increasePerLevel:
-    - 1
-    - 2
-    - 3
+    costPerLevel: 01000000020000000300000003000000
+    valuePerLevel:
+    - 0.4
+    - 0.5
+    - 0.6
+    - 0.8
