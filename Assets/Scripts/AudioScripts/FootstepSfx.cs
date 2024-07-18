@@ -24,7 +24,7 @@ namespace AudioScripts
         /// </summary>
         private void Update()
         {
-            if (_playerMotor.IsWalking())
+            if (_audioSource.enabled != _playerMotor.IsWalking())
                 _audioSource.enabled = _playerMotor.IsWalking();
         }
     }
