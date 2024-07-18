@@ -1,0 +1,137 @@
+﻿using System;
+using System.Collections.Generic;
+using ScriptableData;
+using UnityEngine;
+
+namespace UpgradeShop.ItemLevels
+{
+    //Handles the manipulation of each item's upgrade progress
+    public class ItemLevelManager : MonoBehaviour
+    {
+        [SerializeField] private PlayerStatsSO initialStats;
+        
+        [SerializeField]private List<ItemLevel> levelSlots;
+
+        private Upgradables _statToUpgrade;
+        
+        private UpgradeItem _currentItem;
+        private UpgradeItemIdentifier _id;
+        
+        private int _levelCount;
+
+        #region INITIALIZATIONS
+        public void AddLevelSlotToList(ItemLevel itemLevel)
+        {
+            levelSlots.Add(itemLevel);
+        }
+
+        public void RenderList(UpgradeItem item, UpgradeItemIdentifier identifier)
+        {
+            _currentItem = item;
+            _id = identifier;
+            _statToUpgrade = _currentItem.affectedStat;
+
+            //renders each cell based on the current level found in the current item's data
+            for (var index = 0; index < levelSlots.Count; index++)
+            {
+                var level = levelSlots[index];
+                if (index <= _currentItem.currentLevel - 1 && _currentItem.currentLevel > 0)
+                {
+                    level.UpgradeSlot();
+                }
+                else if (index > _currentItem.currentLevel - 1)
+                {
+                    level.DegradeSlot();
+                }
+            }
+            UpdateStats();
+        }
+        #endregion
+        
+        #region LEVEL_MANIPULATION
+        public void AddLevel()
+        {
+            //Finds the next un-upgraded slot that could be upgraded/purchased
+            for (var index = 0; index < levelSlots.Count; index++)
+            {
+                var level = levelSlots[index];
+                switch (level.ItemLevelState)
+                {
+                    case LevelState.Upgraded:
+                        continue;
+                    
+                    case LevelState.NotUpgraded:
+                        level.UpgradeSlot();
+                        _currentItem.currentLevel++;
+                        UpdateStats();
+                        return;
+                        
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        public void ReduceLevel()
+        {
+            //Finds the latest upgraded slot that could be degraded
+            for (var index = levelSlots.Count - 1; index > -1; index--)
+            {
+                var level = levelSlots[index];
+                switch (level.ItemLevelState)
+                {
+                    case LevelState.NotUpgraded:
+                        continue;
+                    
+                    case LevelState.Upgraded:
+                        level.DegradeSlot();
+                        _currentItem.currentLevel--;
+                        UpdateStats();
+                        return;
+                        
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+        #endregion
+
+        //ADD NEW STATS UPDATES HERE
+        #region STAT_UPDATE
+        private void UpdateStats()
+        {
+            switch (_statToUpgrade)
+            {
+                case Upgradables.Barrier:
+                    initialStats.barrierDurability = (int)_currentItem.valuePerLevel[_currentItem.currentLevel];
+                    ValidateForResurrectionUpgrade();
+                    break;
+                case Upgradables.MovementSpeed:
+                    initialStats.movementSpeed = _currentItem.valuePerLevel[_currentItem.currentLevel];
+                    break;
+                case Upgradables.AerialMovement:
+                    initialStats.aerialSpdReducer = _currentItem.valuePerLevel[_currentItem.currentLevel];
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        #endregion
+
+        //ADD UNIQUE BEHAVIOR HERE FOR SPECIAL UPGRADES
+        #region SPECIAL_UPRADE_BEHAVIORS
+        private void ValidateForResurrectionUpgrade()
+        {
+            switch (_currentItem.currentLevel)
+            {
+                case < 6:
+                    return;
+                case 6:
+                    Debug.Log("RESURRECTION UPGRADE UNLOCKED");
+                    break;
+            }
+        }
+        #endregion
+        
+    }
+}
