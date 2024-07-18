@@ -5,6 +5,7 @@ using UpgradeShop.ItemLevels;
 
 namespace UpgradeShop
 {
+    //Handles the generation and initialization of the generated item's values.
     public class ItemGenerator : MonoBehaviour
     {
         [Header("UI References")]
@@ -28,7 +29,6 @@ namespace UpgradeShop
             description.text = currentItem.description;
             
             upgradeLevelGenerator.GenerateUpgradeCells(currentItem,idData);
-            
         }
     }
 }

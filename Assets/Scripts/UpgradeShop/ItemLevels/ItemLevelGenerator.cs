@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UpgradeShop.ItemLevels
 {
+    //Generates and initializes the values of each cell/level for an item
     public class ItemLevelGenerator : MonoBehaviour
     {
         [Header("Grid Cell Data")]

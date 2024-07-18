@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace UpgradeShop
 {
+    //Handles the generation of each item in the Upgrade Shop
     public class UpgradeShopManager : MonoBehaviour
     {
         [SerializeField] private UpgradeItemsList itemList;

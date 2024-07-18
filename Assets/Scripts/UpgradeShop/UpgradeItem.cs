@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UpgradeShop
 {
+    //Handles the data of each upgrade item
     [Serializable]
     public class UpgradeItem
     {

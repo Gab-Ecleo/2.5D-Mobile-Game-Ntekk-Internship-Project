@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace UpgradeShop.ItemLevels
 {
+    //Handles the manipulation of each item's upgrade progress
     public class ItemLevelManager : MonoBehaviour
     {
         [SerializeField] private PlayerStatsSO initialStats;
@@ -18,6 +19,7 @@ namespace UpgradeShop.ItemLevels
         
         private int _levelCount;
 
+        #region INITIALIZATIONS
         public void AddLevelSlotToList(ItemLevel itemLevel)
         {
             levelSlots.Add(itemLevel);
@@ -27,9 +29,9 @@ namespace UpgradeShop.ItemLevels
         {
             _currentItem = item;
             _id = identifier;
-
             _statToUpgrade = _currentItem.affectedStat;
 
+            //renders each cell based on the current level found in the current item's data
             for (var index = 0; index < levelSlots.Count; index++)
             {
                 var level = levelSlots[index];
@@ -42,13 +44,14 @@ namespace UpgradeShop.ItemLevels
                     level.DegradeSlot();
                 }
             }
-            
             UpdateStats();
         }
-
+        #endregion
+        
         #region LEVEL_MANIPULATION
         public void AddLevel()
         {
+            //Finds the next un-upgraded slot that could be upgraded/purchased
             for (var index = 0; index < levelSlots.Count; index++)
             {
                 var level = levelSlots[index];
@@ -71,6 +74,7 @@ namespace UpgradeShop.ItemLevels
 
         public void ReduceLevel()
         {
+            //Finds the latest upgraded slot that could be degraded
             for (var index = levelSlots.Count - 1; index > -1; index--)
             {
                 var level = levelSlots[index];
@@ -114,10 +118,18 @@ namespace UpgradeShop.ItemLevels
         }
         #endregion
 
+        //ADD UNIQUE BEHAVIOR HERE FOR SPECIAL UPGRADES
         #region SPECIAL_UPRADE_BEHAVIORS
         private void ValidateForResurrectionUpgrade()
         {
-            Debug.Log(_currentItem.currentLevel >= 6 ? "RESURRECTION UPGRADE UNLOCKED!" : "NO RESURRECTION YET!");
+            switch (_currentItem.currentLevel)
+            {
+                case < 6:
+                    return;
+                case 6:
+                    Debug.Log("RESURRECTION UPGRADE UNLOCKED");
+                    break;
+            }
         }
         #endregion
         

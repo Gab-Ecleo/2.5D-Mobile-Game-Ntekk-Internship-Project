@@ -9,6 +9,7 @@ namespace UpgradeShop.ItemLevels
         Upgraded,
     }
 
+    //Handles the UI and State of each upgrade level for an item
     public class ItemLevel : MonoBehaviour
     {
         private Image _myImage;
