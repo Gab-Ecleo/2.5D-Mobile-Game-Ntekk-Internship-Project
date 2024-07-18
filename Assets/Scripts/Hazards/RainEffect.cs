@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using AudioScripts;
+using AudioScripts.AudioSettings;
 using ScriptableData;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,6 +15,8 @@ public class RainEffect : MonoBehaviour
     private PlayerStatsSO _playerStat;
     private GameManager _gameManager;
     private bool _isCorActive;
+    private AudioClipsSO _audioClip;
+    private AudioManager _audioManager;
 
     #region UNITY METHODS
 
@@ -43,6 +47,9 @@ public class RainEffect : MonoBehaviour
         if (_isCorActive || _gameManager.IsGameOver()) return;
 
         StartCoroutine(SlowPlayerMovement());
+        // Plays SFX correlating to the action
+        SfxScript.Instance.PlaySFXOneShot(_audioClip._rainSFX);
+        
     }
     
     //Halves the player's speed for [Hazard Duration], then returns to the original value

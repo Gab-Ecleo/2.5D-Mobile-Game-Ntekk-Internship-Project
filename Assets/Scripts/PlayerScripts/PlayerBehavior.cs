@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using AudioScripts;
+using AudioScripts.AudioSettings;
 using EventScripts;
 using ScriptableData;
 using Unity.VisualScripting;
@@ -17,6 +19,10 @@ namespace PlayerScripts
         [SerializeField] private GameObject deathScreen;
 
         [SerializeField] private Vector3 _playerPos;
+        
+        private AudioClipsSO _audioClip;
+        private AudioManager _audioManager;
+
         private void Start()
         {
             // get starting positon
@@ -32,6 +38,8 @@ namespace PlayerScripts
             private void OnDamage()
             {
                 CheckBarrier();
+                // Plays SFX correlating to the action
+                SfxScript.Instance.PlaySFXOneShot(_audioClip._damageSFX);
             }
 
             private void CheckBarrier()

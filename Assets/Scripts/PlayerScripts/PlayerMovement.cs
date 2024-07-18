@@ -75,6 +75,8 @@ namespace PlayerScripts
             currentPlayerStats.deceleration = initialPlayerStats.deceleration;
             currentPlayerStats.velPower = initialPlayerStats.velPower;
             currentPlayerStats.frictionAmount = initialPlayerStats.frictionAmount;
+
+            currentPlayerStats.aerialSpdReducer = initialPlayerStats.aerialSpdReducer;
             
             currentPlayerStats.jumpHeight = initialPlayerStats.jumpHeight;
             currentPlayerStats.jumpCutMultiplier = initialPlayerStats.jumpCutMultiplier;
