@@ -58,6 +58,7 @@ public class PauseManager : MonoBehaviour
         if (_isPauseScreenOpen)
         {
             Time.timeScale = 0;
+            AudioEvents.ON_STOP_SFX?.Invoke();
         }
         else
         {

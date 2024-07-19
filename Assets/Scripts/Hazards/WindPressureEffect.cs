@@ -26,8 +26,6 @@ public class WindPressureEffect : MonoBehaviour
     private Vector3 _dir;
     private bool _isCorActive;
     private GameManager _gameManager;
-    private AudioClipsSO _audioClip;
-    private AudioManager _audioManager;
 
     #region UNITY METHODS
 
@@ -63,7 +61,6 @@ public class WindPressureEffect : MonoBehaviour
 
         StartCoroutine(EnableWind());
         // Plays SFX correlating to the action
-        SfxScript.Instance.PlaySFXOneShot(_audioClip._windSFX);
     }
     
     //Start Hazard timer
