@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 //stores audio clips
 [CreateAssetMenu(fileName = "Audio Clips Data", menuName = "SFX Clips", order = 0)]
 public class AudioClipsSO : ScriptableObject
 {
     [Header("Player SFX")]
-    public AudioClip _jumpSFX;
-    public AudioClip _pickupSFX;
-    public AudioClip _dropSFX;
-    public AudioClip _damageSFX;
+    public AudioClip JumpSFX;
+    public AudioClip PickupSFX;
+    public AudioClip DropSFX;
+    public AudioClip DamageSFX;
+    public AudioClip FootstepSFX;
 
     [Header("Hazard SFX")] 
-    public AudioClip _rainSFX;
-    public AudioClip _windSFX;
-    public AudioClip _blackoutSFX;
+    public AudioClip RainSFX;
+    public AudioClip WindSFX;
+    public AudioClip BlackoutSFX;
 }

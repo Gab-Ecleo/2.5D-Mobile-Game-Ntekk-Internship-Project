@@ -39,7 +39,7 @@ namespace PlayerScripts
             {
                 CheckBarrier();
                 // Plays SFX correlating to the action
-                SfxScript.Instance.PlaySFXOneShot(_audioClip._damageSFX);
+                SfxScript.Instance.PlaySFXOneShot(_audioClip.DamageSFX);
             }
 
             private void CheckBarrier()

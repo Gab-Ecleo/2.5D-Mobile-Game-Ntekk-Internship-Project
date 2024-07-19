@@ -85,6 +85,7 @@ namespace AudioScripts.AudioSettings
             AudioEvents.OnValueChanged -= UpdateVolume;
         }
         
+        //Fetches Audio Clip Scriptable
         public AudioClipsSO FetchAudioClips()
         {
             return _audioClips;

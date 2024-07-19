@@ -1,10 +1,7 @@
-﻿using System;
-using AudioScripts;
-using AudioScripts.AudioSettings;
-using BlockSystemScripts;
+﻿using BlockSystemScripts;
 using BlockSystemScripts.BlockScripts;
+using EventScripts;
 using ScriptableData;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,9 +21,6 @@ namespace PlayerScripts
         
         private PlayerStatsSO _playerStats;
 
-        private AudioClipsSO _audioClip;
-        private AudioManager _audioManager;
-
         private void Awake()
         {
             InitializeScriptValues();
@@ -39,14 +33,6 @@ namespace PlayerScripts
             _grabCooldown = GetComponent<PlayerGrabCooldown>();
         }
         
-        private void InitializeAudio()
-        {
-            //initialize current player stats data using initial player stats
-            if(_audioClip == null) return;
-            _audioManager = AudioManager.Instance;
-            _audioClip = _audioManager.FetchAudioClips();
-        }
-
         #region PLAYERACTION_METHODS
         public void Interact(InputAction.CallbackContext ctx)
         {
@@ -101,7 +87,7 @@ namespace PlayerScripts
             hasItem = true;
             
             //Plays the SFX correlating to the action
-            SfxScript.Instance.PlaySFXOneShot(_audioClip._pickupSFX);
+            AudioEvents.ON_PLAYER_PICKUP?.Invoke();
         }
 
         private void ThrowBlock(GridCell detectedCell)
@@ -132,7 +118,7 @@ namespace PlayerScripts
             //Debug.Log("Player has Thrown");
             
             //Plays the SFX correlating to the action
-            SfxScript.Instance.PlaySFXOneShot(_audioClip._dropSFX);
+            AudioEvents.ON_PLAYER_DROP?.Invoke();
         }
 
         //Triggered if player has the Single Block Clear Powerup
