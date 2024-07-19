@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EventScripts;
 using ScriptableData;
 using UnityEngine;
 
@@ -61,7 +62,13 @@ namespace UpgradeShop.ItemLevels
                         continue;
                     
                     case LevelState.NotUpgraded:
+                        if (initialStats.coins < _currentItem.costPerLevel[_currentItem.currentLevel + 1])
+                        {
+                            Debug.Log("YOU ARE POOR");
+                            return;
+                        }
                         level.UpgradeSlot();
+                        UpgradeShopEvents.OnPurchaseLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel + 1]);
                         _currentItem.currentLevel++;
                         UpdateStats();
                         return;
@@ -85,6 +92,7 @@ namespace UpgradeShop.ItemLevels
                     
                     case LevelState.Upgraded:
                         level.DegradeSlot();
+                        UpgradeShopEvents.OnSellLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel]);
                         _currentItem.currentLevel--;
                         UpdateStats();
                         return;
