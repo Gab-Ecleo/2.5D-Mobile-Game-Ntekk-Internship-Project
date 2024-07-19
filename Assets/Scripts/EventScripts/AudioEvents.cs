@@ -1,7 +1,5 @@
 ﻿using System;
-using AudioScripts.AudioSettings;
 using UnityEngine;
-using AudioType = AudioScripts.AudioSettings.AudioType;
 
 namespace EventScripts
 {
@@ -11,5 +9,13 @@ namespace EventScripts
     public class AudioEvents : MonoBehaviour
     {
         public static Action<object> OnValueChanged;
+        public static Action ON_STOP_SFX;
+
+        public static Action ON_PLAYER_JUMP;
+        public static Action ON_PLAYER_PICKUP;
+        public static Action ON_PLAYER_DROP;
+        public static Action ON_PLAYER_HIT;
+        public static Action ON_PLAYER_MOVE;
+        public static Action ON_PLAYER_STOP;
     }
 }

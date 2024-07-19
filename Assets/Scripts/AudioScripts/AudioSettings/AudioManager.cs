@@ -8,22 +8,19 @@ namespace AudioScripts.AudioSettings
 {
     public class AudioManager : MonoBehaviour
     {
-        public static AudioManager Instance;
+        private static AudioManager _instance;
+        public static AudioManager Instance => _instance;
+        
         private AudioSettingsSO _audioData;
+        
         [SerializeField] private AudioClipsSO _audioClips;
         [SerializeField] private AudioSource[] bgmSources;
         [SerializeField] private AudioSource[] sfxSources;
 
         private void Awake()
         {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (_instance == null) _instance = this;
+            else if (_instance != this) Destroy(gameObject);
         }
 
         private void Start()
@@ -88,7 +85,8 @@ namespace AudioScripts.AudioSettings
             AudioEvents.OnValueChanged -= UpdateVolume;
         }
         
-        public AudioClipsSO FetchAudioClip()
+        //Fetches Audio Clip Scriptable
+        public AudioClipsSO FetchAudioClips()
         {
             return _audioClips;
         }

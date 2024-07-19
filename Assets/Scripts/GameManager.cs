@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,10 +15,17 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => _instance;
 
     #endregion
+    
+    [Header("Scriptable")]
+    [SerializeField] private PlayerStatsSO playerCurrentStat;
+    [SerializeField] private PlayerStatsSO initialPlayerStats;
+    [SerializeField] private ScoresSO scoreSO;
 
-    [SerializeField] private PlayerStatsSO _playerCurrentStat;
-    [SerializeField] private PlayerStatsSO _initialPlayerStats;
-    [SerializeField] private ScoresSO _scores;
+    [Header("Game Objects")] 
+    [SerializeField] private GameObject playerObj;
+    
+    [Header("UI Objects")]
+    [SerializeField] private GameObject gameOverText;
     
     
     private bool _gameEnd;
@@ -34,6 +43,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _gameEnd = false;
+        gameOverText.SetActive(false);
     }
 
     private void OnDestroy()
@@ -52,35 +62,46 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape)) //This is a tentative feature, it can be remove if not needed
         {
-            //load main menu scene here
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        
-        //Do game over stuff
+
+        gameOverText.SetActive(true);
     }
 
     private void SetGameState(bool _state)
     {
         _gameEnd = _state;
     }
-
+    
     //Fetch game state
     public bool IsGameOver()
     {
         return _gameEnd;
     }
+    
+    #region Object Fetching
 
     public PlayerStatsSO FetchCurrentPlayerStat()
     {
-        return _playerCurrentStat;
+        return playerCurrentStat;
     }
 
     public PlayerStatsSO FetchInitialPlayerStat()
     {
-        return _initialPlayerStats;
+        return initialPlayerStats;
     }
 
     public ScoresSO FetchScores()
     {
-        return _scores;
+        return scoreSO;
     }
+
+    public GameObject FetchPlayer()
+    {
+        return playerObj;
+    }
+
+    #endregion
+
+
 }
