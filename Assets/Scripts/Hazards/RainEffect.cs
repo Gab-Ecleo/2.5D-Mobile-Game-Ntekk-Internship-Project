@@ -9,6 +9,7 @@ public class RainEffect : MonoBehaviour
     [SerializeField] private float _hazardDuration = 5f;
     [SerializeField] private float _currentSpeed;
     [SerializeField] private float _hazardModifier = 2;
+    [SerializeField] public GameObject _rainParticles;
 
     private PlayerStatsSO _playerStat;
     private GameManager _gameManager;
@@ -49,6 +50,7 @@ public class RainEffect : MonoBehaviour
     IEnumerator SlowPlayerMovement()
     {
         _isCorActive = true;
+        var rainParticles = Instantiate(_rainParticles);
         
         _currentSpeed /= _hazardModifier;
         _playerStat.movementSpeed = _currentSpeed;

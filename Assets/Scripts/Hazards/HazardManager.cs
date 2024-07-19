@@ -67,6 +67,7 @@ public class HazardManager : MonoBehaviour
         
         yield return new WaitForSeconds(hazardCooldown);
         _isCorActive = false;
+        Destroy(GameObject.FindWithTag("HazardFX"));
         
         InitiateHazardSeq();
     }

@@ -17,6 +17,8 @@ public class WindPressureEffect : MonoBehaviour
     [SerializeField] private float _hazardDuration = 5f;
     [SerializeField] private float _windStrength = 200f;
     [SerializeField] private WindDir _windDirection;
+    [SerializeField] public GameObject _windParticlesL;
+    [SerializeField] public GameObject _windParticlesR;
     
     [Header("Dependencies")]
     [SerializeField] private Rigidbody _playerRB;
@@ -82,10 +84,12 @@ public class WindPressureEffect : MonoBehaviour
         {
             case 1:
                 _windDirection = WindDir.Right; 
+                var windParticlesL = Instantiate(_windParticlesL);
                 break;
             
             case -1:
                 _windDirection = WindDir.Left;
+                var windParticlesR = Instantiate(_windParticlesR);
                 break;
         }
     }
