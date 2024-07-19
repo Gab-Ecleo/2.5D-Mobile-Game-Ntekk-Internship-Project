@@ -86,6 +86,7 @@ namespace PlayerScripts
         private void InitializeAudio()
         {
             //initialize current player stats data using initial player stats
+            if(_audioClip != null) return;
             _audioManager = AudioManager.Instance;
             _audioClip = _audioManager.FetchAudioClips();
         }
