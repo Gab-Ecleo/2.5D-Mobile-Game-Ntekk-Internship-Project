@@ -19,3 +19,10 @@ MonoBehaviour:
   _rainSFX: {fileID: 8300000, guid: 55303ed29c124974bbe2ab3531aac57d, type: 3}
   _windSFX: {fileID: 8300000, guid: f766879364ea5f345b8ebf0d802f9501, type: 3}
   _blackoutSFX: {fileID: 8300000, guid: 8b304ecdb28e2fa4c941ea6099edb8e5, type: 3}
+  _firstLevelBGM: {fileID: 8300000, guid: 51ac5ae5273e1494ca5baa1a55758d27, type: 3}
+  _secondLevelBGM: {fileID: 8300000, guid: 13f9d49fc5f3f6541a3fa83d1884512e, type: 3}
+  _thirdLevelBGM: {fileID: 8300000, guid: 9b0d263798e35ce499bea1e045ffcc8e, type: 3}
+  _victoryBGM: {fileID: 0}
+  _creditsBGM: {fileID: 8300000, guid: dff95f124933dc849b9d56c02fd0da93, type: 3}
+  _menuBGM: {fileID: 8300000, guid: e696f584adadc1649856153a0e44eb53, type: 3}
+  _deathBGM: {fileID: 8300000, guid: eba08345a56c4494890acdf11b808622, type: 3}
