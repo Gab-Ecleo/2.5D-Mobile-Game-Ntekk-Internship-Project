@@ -84,6 +84,7 @@ namespace PlayerScripts
         private void PlayerDeath()
         {
             //add death behavior
+            //Stops Level BGM and then Plays the Death BGM (Note: Should play the Level BGM back if have revive)
             BgmScript.Instance.StopBGM();
             BgmScript.Instance.PlayBGM(_audioClip.DeathBGM);
             Debug.Log("Player Dead");
