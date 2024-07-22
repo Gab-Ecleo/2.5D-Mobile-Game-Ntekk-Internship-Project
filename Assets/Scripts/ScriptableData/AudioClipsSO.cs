@@ -16,4 +16,13 @@ public class AudioClipsSO : ScriptableObject
     public AudioClip _rainSFX;
     public AudioClip _windSFX;
     public AudioClip _blackoutSFX;
+
+    [Header("Background Audios")] 
+    public AudioClip _firstLevelBGM;
+    public AudioClip _secondLevelBGM;
+    public AudioClip _thirdLevelBGM;
+    public AudioClip _victoryBGM;
+    public AudioClip _creditsBGM;
+    public AudioClip _menuBGM;
+    public AudioClip _deathBGM;
 }

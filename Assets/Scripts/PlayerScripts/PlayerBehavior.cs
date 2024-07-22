@@ -83,6 +83,8 @@ namespace PlayerScripts
         private void PlayerDeath()
         {
             //add death behavior
+            BgmScript.Instance.StopBGM();
+            BgmScript.Instance.PlayBGM(_audioClip._deathBGM);
             Debug.Log("Player Dead");
             //deathScreen.SetActive(true);
             Time.timeScale = 0;
