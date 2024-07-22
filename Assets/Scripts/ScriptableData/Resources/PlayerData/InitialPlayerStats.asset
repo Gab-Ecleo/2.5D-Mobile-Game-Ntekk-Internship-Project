@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68412950261645f68851af0471705469, type: 3}
   m_Name: InitialPlayerStats
   m_EditorClassIdentifier: 
-  movementSpeed: 9
+  coins: 0
+  canPlayerMove: 0
+  movementSpeed: 5.5
   acceleration: 9
-  decceleration: 9
+  deceleration: 9
   velPower: 1.2
   frictionAmount: 0.2
+  movementState: 0
+  aerialSpdReducer: 0.8
   jumpHeight: 7
   jumpCutMultiplier: 0.7
   hasMultiplier: 0
@@ -24,7 +28,10 @@ MonoBehaviour:
   timeSlow: 0
   expressDelivery: 0
   singleBlockRemover: 0
+  isBarrierUpgraded: 0
+  isRezUpgraded: 0
   barrierUpgrade: 0
   rezUpgrade: 0
-  barrierDurability: 1
+  barrierDurability: 0
   canRez: 0
+  StartingPos: {x: 0, y: 0, z: 0}

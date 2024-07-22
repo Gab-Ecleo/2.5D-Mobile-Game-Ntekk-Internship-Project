@@ -1,13 +1,10 @@
 using System;
-using System.Numerics;
-using System.Xml.Schema;
-using AudioScripts;
 using AudioScripts.AudioSettings;
+using EventScripts;
 using ScriptableData;
 //using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows.Speech;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -18,9 +15,7 @@ namespace PlayerScripts
         private bool _isFacingRight;
         private Vector2 _moveDirection = Vector2.zero;
         private Rigidbody _rb;
-        private AudioClipsSO _audioClip;
-        private AudioManager _audioManager;
-        
+
         [Header("Player Data References")]
         //player's stats. Only Modify 
         [SerializeField] private PlayerStatsSO initialPlayerStats;
@@ -75,18 +70,13 @@ namespace PlayerScripts
             currentPlayerStats.deceleration = initialPlayerStats.deceleration;
             currentPlayerStats.velPower = initialPlayerStats.velPower;
             currentPlayerStats.frictionAmount = initialPlayerStats.frictionAmount;
+
+            currentPlayerStats.aerialSpdReducer = initialPlayerStats.aerialSpdReducer;
             
             currentPlayerStats.jumpHeight = initialPlayerStats.jumpHeight;
             currentPlayerStats.jumpCutMultiplier = initialPlayerStats.jumpCutMultiplier;
         }
         
-        private void InitializeAudio()
-        {
-            //initialize current player stats data using initial player stats
-            if(_audioClip == null) return;
-            _audioManager = AudioManager.Instance;
-            _audioClip = _audioManager.FetchAudioClip();
-        }
         #endregion
 
         #region MOVEMENT_CALCULATIONS
@@ -164,17 +154,21 @@ namespace PlayerScripts
         public void Jump(InputAction.CallbackContext ctx)
         {
             //checks if the raycast hits an object before jumping
-            if (IsGrounded() && ctx.ReadValueAsButton() == true)
+            if (IsGrounded() && ctx.ReadValueAsButton())
             {
+                // Plays SFX correlating to the action
+                AudioEvents.ON_PLAYER_JUMP?.Invoke();
+
+                #region Jump Calculation
+
                 float force = currentPlayerStats.jumpHeight;
                 if (_rb.velocity.y<0)
                 {
                     force -= _rb.velocity.y;
                 }
                 _rb.AddForce(Vector2.up*force, ForceMode.Impulse);
-                
-                // Plays SFX correlating to the action
-                SfxScript.Instance.PlaySFXOneShot(_audioClip._jumpSFX);
+
+                #endregion
             }
 
             //after jumping button is released, while the player is jumping, drags the player down. 
@@ -218,14 +212,7 @@ namespace PlayerScripts
         //returns True if the player is walking/running, false if not
         public bool IsWalking()
         {
-            if (_rb.velocity.y == 0 && _moveDirection.x != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return _rb.velocity.y == 0 && _moveDirection.x != 0;
         }
         #endregion
     }

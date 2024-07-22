@@ -30,6 +30,7 @@ namespace PlayerScripts
 
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
             currentPlayerStats.barrierDurability = initialPlayerStats.barrierDurability;
+            Time.timeScale = 1;
         }
         
         #region BARRIER_BEHAVIOR
@@ -38,7 +39,7 @@ namespace PlayerScripts
             {
                 CheckBarrier();
                 // Plays SFX correlating to the action
-                SfxScript.Instance.PlaySFXOneShot(_audioClip._damageSFX);
+                SfxScript.Instance.PlaySFXOneShot(_audioClip.DamageSFX);
             }
 
             private void CheckBarrier()
@@ -87,6 +88,7 @@ namespace PlayerScripts
             BgmScript.Instance.PlayBGM(_audioClip._deathBGM);
             Debug.Log("Player Dead");
             //deathScreen.SetActive(true);
+            GameEvents.IS_GAME_OVER?.Invoke(true);
             Time.timeScale = 0;
         }
 

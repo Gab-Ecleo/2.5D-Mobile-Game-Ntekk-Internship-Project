@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ae0d58243f2ed247a882f51aa29cc6d, type: 3}
-  m_Name: PlayerScore
+  m_Script: {fileID: 11500000, guid: 9235c04648ba43078542b01e4c7debb7, type: 3}
+  m_Name: Barrier Id
   m_EditorClassIdentifier: 
-  Points: 0
-  PointsToAdd: 2
-  Multiplier: 2
-  HasPowerUpMultiplier: 0
-  PowerUpDuration: 5
+  identifier: upgrade-barrier
