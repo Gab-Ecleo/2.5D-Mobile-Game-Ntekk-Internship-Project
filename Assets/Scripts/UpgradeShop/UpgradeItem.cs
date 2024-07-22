@@ -15,6 +15,9 @@ namespace UpgradeShop
 
         [Header("Stat to be Upgraded")]
         public Upgradables affectedStat;
+        
+        [Header("Stat Sign")] 
+        public StatSign statSign;
 
         [Header("Level Data")]
         public int maxLevelCount;

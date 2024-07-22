@@ -10,6 +10,7 @@ namespace UpgradeShop.ItemLevels
     public class ItemLevelManager : MonoBehaviour
     {
         [SerializeField] private PlayerStatsSO initialStats;
+        [SerializeField] private ItemInfoUI infoUI;
         
         [SerializeField]private List<ItemLevel> levelSlots;
 
@@ -108,6 +109,7 @@ namespace UpgradeShop.ItemLevels
         #region STAT_UPDATE
         private void UpdateStats()
         {
+            //Update Actual Stats
             switch (_statToUpgrade)
             {
                 case Upgradables.Barrier:
@@ -122,6 +124,26 @@ namespace UpgradeShop.ItemLevels
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+            UpdateStatsUI();
+        }
+        
+        //ADD NEW STATS SIGN HERE
+        private void UpdateStatsUI()
+        {
+            //Update Stats UI
+            if (_currentItem.currentLevel == _currentItem.maxLevelCount)
+            {
+                infoUI.UpdateDetailsUI("Max Level", 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel].ToString(), "Max Level", _currentItem.statSign, true);
+            }
+            else
+            {
+                infoUI.UpdateDetailsUI(_currentItem.costPerLevel[_currentItem.currentLevel + 1].ToString(), 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel].ToString(), 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel + 1].ToString(), 
+                    _currentItem.statSign,
+                    false);
             }
         }
         #endregion
