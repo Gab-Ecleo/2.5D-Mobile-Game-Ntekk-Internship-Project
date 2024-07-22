@@ -85,7 +85,7 @@ namespace PlayerScripts
         {
             //add death behavior
             BgmScript.Instance.StopBGM();
-            BgmScript.Instance.PlayBGM(_audioClip._deathBGM);
+            BgmScript.Instance.PlayBGM(_audioClip.DeathBGM);
             Debug.Log("Player Dead");
             //deathScreen.SetActive(true);
             GameEvents.IS_GAME_OVER?.Invoke(true);

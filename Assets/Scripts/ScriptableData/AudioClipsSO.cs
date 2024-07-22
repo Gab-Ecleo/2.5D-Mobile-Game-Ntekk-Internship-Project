@@ -7,22 +7,23 @@ using UnityEngine;
 public class AudioClipsSO : ScriptableObject
 {
     [Header("Player SFX")]
-    public AudioClip _jumpSFX;
-    public AudioClip _pickupSFX;
-    public AudioClip _dropSFX;
-    public AudioClip _damageSFX;
+    public AudioClip JumpSFX;
+    public AudioClip PickupSFX;
+    public AudioClip DropSFX;
+    public AudioClip DamageSFX;
+    public AudioClip FootstepSFX;
 
     [Header("Hazard SFX")] 
-    public AudioClip _rainSFX;
-    public AudioClip _windSFX;
-    public AudioClip _blackoutSFX;
+    public AudioClip RainSFX;
+    public AudioClip WindSFX;
+    public AudioClip BlackoutSFX;
 
     [Header("Background Audios")] 
-    public AudioClip _firstLevelBGM;
-    public AudioClip _secondLevelBGM;
-    public AudioClip _thirdLevelBGM;
-    public AudioClip _victoryBGM;
-    public AudioClip _creditsBGM;
-    public AudioClip _menuBGM;
-    public AudioClip _deathBGM;
+    public AudioClip FirstLevelBGM;
+    public AudioClip SecondLevelBGM;
+    public AudioClip ThirdLevelBGM;
+    public AudioClip VictoryBGM;
+    public AudioClip CreditsBGM;
+    public AudioClip MenuBGM;
+    public AudioClip DeathBGM;
 }
