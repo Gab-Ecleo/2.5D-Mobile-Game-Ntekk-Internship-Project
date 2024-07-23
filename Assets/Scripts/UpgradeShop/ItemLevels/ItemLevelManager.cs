@@ -66,6 +66,7 @@ namespace UpgradeShop.ItemLevels
                         if (initialStats.coins < _currentItem.costPerLevel[_currentItem.currentLevel + 1])
                         {
                             Debug.Log("YOU ARE POOR");
+                            UpgradeShopEvents.OnInsufficientFunds?.Invoke();
                             return;
                         }
                         level.UpgradeSlot();
@@ -126,6 +127,7 @@ namespace UpgradeShop.ItemLevels
                     throw new ArgumentOutOfRangeException();
             }
             UpdateStatsUI();
+            infoUI.UpdateButtonsUI(_currentItem.maxLevelCount, _currentItem.currentLevel);
         }
         
         //ADD NEW STATS SIGN HERE

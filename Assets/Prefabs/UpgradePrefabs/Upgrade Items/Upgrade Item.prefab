@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5725190365395951756}
   - component: {fileID: 8646770006091977779}
   - component: {fileID: 7838698908925361313}
+  - component: {fileID: 1951339085084903814}
   m_Layer: 5
   m_Name: Upgrade Item
   m_TagString: Untagged
@@ -122,8 +123,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
-  infoUI: {fileID: 1171252365050410678}
+  infoUI: {fileID: 1951339085084903814}
   levelSlots: []
+--- !u!114 &1951339085084903814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186878863928110332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf0705493954ad3a546bf2465713a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currencySign: 2
+  nextCostTxt: {fileID: 4982233120442885663}
+  currentLvlStatTxt: {fileID: 6250898786374497345}
+  nextLvlStatTxt: {fileID: 4864839495283910587}
+  upgradeButton: {fileID: 1071308424639042713}
+  degradeButton: {fileID: 8794514635585332459}
+  noMoneyUI: {fileID: 0}
+  uiTimer: 1
 --- !u!1 &207264531607926018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1090,6 @@ GameObject:
   - component: {fileID: 5127594647886300028}
   - component: {fileID: 7031481400545669555}
   - component: {fileID: 6080953101922493875}
-  - component: {fileID: 1171252365050410678}
   m_Layer: 5
   m_Name: Upgrade Info
   m_TagString: Untagged
@@ -1140,22 +1160,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1171252365050410678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6412940712175857988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf0705493954ad3a546bf2465713a0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currencySign: 2
-  nextCostTxt: {fileID: 4982233120442885663}
-  currentLvlStatTxt: {fileID: 6250898786374497345}
-  nextLvlStatTxt: {fileID: 4864839495283910587}
 --- !u!1 &6507031276772039667
 GameObject:
   m_ObjectHideFlags: 0
