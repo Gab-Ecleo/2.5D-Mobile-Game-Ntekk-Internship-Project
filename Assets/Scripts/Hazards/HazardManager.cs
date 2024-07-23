@@ -60,7 +60,7 @@ public class HazardManager : MonoBehaviour
         string hazardType = hazardTag[hazardIndex];
         
         //Debug.Log($"Loading {hazardType} hazard");
-        currentHazard.text = "Current Hazard: " + hazardType;
+        currentHazard.text = hazardType;
 
         switch (hazardType)
         {

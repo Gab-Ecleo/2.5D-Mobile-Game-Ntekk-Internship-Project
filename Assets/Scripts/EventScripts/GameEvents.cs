@@ -9,6 +9,7 @@ public class GameEvents : MonoBehaviour
     public static Action<bool> IS_GAME_OVER;
     
     //HAZARDS
+    
     public static Action TRIGGER_BLACKOUT_HAZARD;
     public static Action TRIGGER_RAIN_HAZARD;
     public static Action TRIGGER_ICE_HAZARD;
