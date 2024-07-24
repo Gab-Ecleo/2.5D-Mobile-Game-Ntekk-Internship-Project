@@ -129,25 +129,6 @@ namespace UpgradeShop.ItemLevels
             UpdateStatsUI();
             infoUI.UpdateButtonsUI(_currentItem.maxLevelCount, _currentItem.currentLevel);
         }
-        
-        //ADD NEW STATS SIGN HERE
-        private void UpdateStatsUI()
-        {
-            //Update Stats UI
-            if (_currentItem.currentLevel == _currentItem.maxLevelCount)
-            {
-                infoUI.UpdateDetailsUI("Max Level", 
-                    _currentItem.valuePerLevel[_currentItem.currentLevel].ToString(), "Max Level", _currentItem.statSign, true);
-            }
-            else
-            {
-                infoUI.UpdateDetailsUI(_currentItem.costPerLevel[_currentItem.currentLevel + 1].ToString(), 
-                    _currentItem.valuePerLevel[_currentItem.currentLevel].ToString(), 
-                    _currentItem.valuePerLevel[_currentItem.currentLevel + 1].ToString(), 
-                    _currentItem.statSign,
-                    false);
-            }
-        }
         #endregion
 
         //ADD UNIQUE BEHAVIOR HERE FOR SPECIAL UPGRADES
@@ -161,6 +142,29 @@ namespace UpgradeShop.ItemLevels
                 case 6:
                     Debug.Log("RESURRECTION UPGRADE UNLOCKED");
                     break;
+            }
+        }
+        #endregion
+
+        #region UI_CALLER
+        private void UpdateStatsUI()
+        {
+            //Update Stats UI
+            if (_currentItem.currentLevel == _currentItem.maxLevelCount)
+            {
+                infoUI.UpdateDetailsUI(null, 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel].ToString(), 
+                    null, 
+                    _currentItem.statSign, 
+                    true);
+            }
+            else
+            {
+                infoUI.UpdateDetailsUI(_currentItem.costPerLevel[_currentItem.currentLevel + 1].ToString(), 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel].ToString(), 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel + 1].ToString(), 
+                    _currentItem.statSign,
+                    false);
             }
         }
         #endregion

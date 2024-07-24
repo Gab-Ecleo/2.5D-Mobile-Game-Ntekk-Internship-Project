@@ -23,7 +23,7 @@ namespace UpgradeShop
                 Destroy(child.gameObject);
             }
             
-            foreach (var item in itemList.Items)
+            foreach (var item in itemList.items)
             {
                 foreach (var id in itemIdentifiers)
                 {

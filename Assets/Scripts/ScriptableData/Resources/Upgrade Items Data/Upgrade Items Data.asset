@@ -53,7 +53,7 @@ MonoBehaviour:
     currentLevel: 0
     costPerLevel: 0000000014000000280000003c000000
     valuePerLevel:
-    - 0.4
-    - 0.5
+    - 0
+    - 0.2
     - 0.6
-    - 0.8
+    - 1
