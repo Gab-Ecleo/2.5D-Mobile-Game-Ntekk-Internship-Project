@@ -39,7 +39,7 @@ namespace PlayerScripts
             {
                 CheckBarrier();
                 // Plays SFX correlating to the action
-                SfxScript.Instance.PlaySFXOneShot(_audioClip.DamageSFX);
+                AudioEvents.ON_PLAYER_HIT?.Invoke();
             }
 
             private void CheckBarrier()
@@ -84,9 +84,7 @@ namespace PlayerScripts
         private void PlayerDeath()
         {
             //add death behavior
-            //Stops Level BGM and then Plays the Death BGM (Note: Should play the Level BGM back if have revive)
-            BgmScript.Instance.StopBGM();
-            BgmScript.Instance.PlayBGM(_audioClip.DeathBGM);
+            AudioEvents.ON_PLAYER_DEATH?.Invoke();
             Debug.Log("Player Dead");
             //deathScreen.SetActive(true);
             GameEvents.IS_GAME_OVER?.Invoke(true);

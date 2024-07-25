@@ -11,7 +11,7 @@ namespace AudioScripts
     public class PlayerAudio : MonoBehaviour
     {
         [Header("Audio Sources")]
-        private AudioSource _footstepSource;
+        [SerializeField] private AudioSource _footstepSource;
         
         [Header("Object References")]
         private PlayerMovement _playerMotor;
@@ -41,12 +41,12 @@ namespace AudioScripts
         private void Start()
         {
             _sfxScript = SfxScript.Instance;
-            _footstepSource = GetComponent<AudioSource>();
             _audioClipSO = AudioManager.Instance.FetchAudioClips();
+            
+            InitializeAudioClips();
+            
             _playerMotor = GameManager.Instance.FetchPlayer()
                 .GetComponent<PlayerMovement>();
-
-            InitializeAudioClips();
         }
         private void Update()
         { 
