@@ -15,8 +15,15 @@ MonoBehaviour:
   JumpSFX: {fileID: 8300000, guid: e2354cc415c8549468bcdd23d2de31d1, type: 3}
   PickupSFX: {fileID: 8300000, guid: e8d19c28e9ac92547815ecdebb9d363b, type: 3}
   DropSFX: {fileID: 8300000, guid: 0fa73d081bcfa2b4a9c3663d11b90a01, type: 3}
-  DamageSFX: {fileID: 8300000, guid: 8b304ecdb28e2fa4c941ea6099edb8e5, type: 3}
-  FootstepSFX: {fileID: 8300000, guid: 69ca5839bb688634c9d1afe174648ae6, type: 3}
+  DamageSFX: {fileID: 8300000, guid: 255fe0ae34d9f894fbb8ed5817dc67c4, type: 3}
+  FootstepSFX: {fileID: 8300000, guid: 04d8c001037998d42a6728c4f00d6e98, type: 3}
   RainSFX: {fileID: 8300000, guid: 55303ed29c124974bbe2ab3531aac57d, type: 3}
   WindSFX: {fileID: 8300000, guid: f766879364ea5f345b8ebf0d802f9501, type: 3}
   BlackoutSFX: {fileID: 8300000, guid: 8b304ecdb28e2fa4c941ea6099edb8e5, type: 3}
+  FirstLevelBGM: {fileID: 8300000, guid: 51ac5ae5273e1494ca5baa1a55758d27, type: 3}
+  SecondLevelBGM: {fileID: 8300000, guid: 13f9d49fc5f3f6541a3fa83d1884512e, type: 3}
+  ThirdLevelBGM: {fileID: 8300000, guid: 9b0d263798e35ce499bea1e045ffcc8e, type: 3}
+  VictoryBGM: {fileID: 0}
+  CreditsBGM: {fileID: 8300000, guid: dff95f124933dc849b9d56c02fd0da93, type: 3}
+  MenuBGM: {fileID: 8300000, guid: e696f584adadc1649856153a0e44eb53, type: 3}
+  DeathBGM: {fileID: 8300000, guid: eba08345a56c4494890acdf11b808622, type: 3}
