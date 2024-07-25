@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace UpgradeShop.ShopCurrency
 {
+    //handles the UI updates for the currency
     public class CurrencyUIManager : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI currencyTxt;

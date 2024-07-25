@@ -96,8 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df7a1c2c04545e89cd3db97aad7c5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 8905775351264529018}
-  description: {fileID: 8904510806328815671}
+  itemInfoUI: {fileID: 1951339085084903814}
   upgradeLevelGenerator: {fileID: 7767715638044206824}
   currentItem:
     identifier: 
@@ -138,13 +137,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currencySign: 2
+  title: {fileID: 8905775351264529018}
+  description: {fileID: 8904510806328815671}
   nextCostTxt: {fileID: 4982233120442885663}
   currentLvlStatTxt: {fileID: 6250898786374497345}
   nextLvlStatTxt: {fileID: 4864839495283910587}
   upgradeButton: {fileID: 1071308424639042713}
   degradeButton: {fileID: 8794514635585332459}
-  noMoneyUI: {fileID: 0}
-  uiTimer: 1
 --- !u!1 &207264531607926018
 GameObject:
   m_ObjectHideFlags: 0

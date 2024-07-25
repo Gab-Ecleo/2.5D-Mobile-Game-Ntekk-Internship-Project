@@ -63,12 +63,14 @@ namespace UpgradeShop.ItemLevels
                         continue;
                     
                     case LevelState.NotUpgraded:
+                        //triggered when the player does not have enough money
                         if (initialStats.coins < _currentItem.costPerLevel[_currentItem.currentLevel + 1])
                         {
                             Debug.Log("YOU ARE POOR");
                             UpgradeShopEvents.OnInsufficientFunds?.Invoke();
                             return;
                         }
+                        
                         level.UpgradeSlot();
                         UpgradeShopEvents.OnPurchaseLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel + 1]);
                         _currentItem.currentLevel++;
@@ -138,8 +140,13 @@ namespace UpgradeShop.ItemLevels
             switch (_currentItem.currentLevel)
             {
                 case < 6:
+                    if (initialStats.canRez)
+                    {
+                        initialStats.canRez = false;
+                    }
                     return;
                 case 6:
+                    initialStats.canRez = true;
                     Debug.Log("RESURRECTION UPGRADE UNLOCKED");
                     break;
             }

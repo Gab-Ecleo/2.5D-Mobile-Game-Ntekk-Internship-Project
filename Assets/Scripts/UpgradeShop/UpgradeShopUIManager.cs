@@ -12,7 +12,8 @@ namespace UpgradeShop
         [SerializeField] private float uiTimer = 1f;
 
         private bool _isCoroutineActive;
-        
+
+        #region INSUFFICIENT_FUNDS
         private void TriggerNoMoneyUI()
         {
             StartCoroutine(NoMoneyUITimer());
@@ -29,7 +30,8 @@ namespace UpgradeShop
             
             _isCoroutineActive = false;
         }
-
+        #endregion
+        
         private void OnEnable()
         {
             UpgradeShopEvents.OnInsufficientFunds += TriggerNoMoneyUI;

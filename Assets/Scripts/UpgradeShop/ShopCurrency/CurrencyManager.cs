@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace UpgradeShop.ShopCurrency
 {
+    //handles the updates given to the currency in the upgrade shop
     public class CurrencyManager : MonoBehaviour
     {
         [SerializeField] private PlayerStatsSO currencyStats;

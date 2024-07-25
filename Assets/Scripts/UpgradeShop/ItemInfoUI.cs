@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using ScriptableData;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,18 +8,14 @@ using UnityEngine.UI;
 
 namespace UpgradeShop
 {
-    public enum CurrencySign {
-    PHPeso,
-    JPYen,
-    SPPeseta,
-    USDollar,
-    }
-
+    //handles UI that handles the details regarding an item's status
     public class ItemInfoUI : MonoBehaviour
     {
         [SerializeField] private CurrencySign currencySign; 
         
         [Header("Item Info Text")]
+        [SerializeField] private TextMeshProUGUI title;
+        [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private TextMeshProUGUI nextCostTxt;
         [SerializeField] private TextMeshProUGUI currentLvlStatTxt;
         [SerializeField] private TextMeshProUGUI nextLvlStatTxt;
@@ -27,11 +24,17 @@ namespace UpgradeShop
         [SerializeField] private Button upgradeButton;
         [SerializeField] private Button degradeButton;
 
+        public void UpdateNewItemName(UpgradeItem item)
+        {
+            //update the new item's name and description
+            title.text = item.upgradeName;
+            description.text = item.description;
+        }
+
         public void UpdateDetailsUI(string nextCost, string currLvl, string nextLvl,StatSign statSign, bool maxLevel)
         {
-            //set prefix and suffix here   
             #region PREFIX_&_SUFFIX
-            //currency
+            //ADD NEW CURRENCY FORMAT HERE
             var nextCostWithCurrency = currencySign switch
             {
                 CurrencySign.PHPeso => $"₱ {nextCost}",
@@ -41,7 +44,7 @@ namespace UpgradeShop
                 _ => nextCostTxt.text
             };
             
-            //stats
+            //ADD NEW STATS FORMAT HERE
             var currLvlWithSign = statSign switch
             {
                 StatSign.None => $"{currLvl}",

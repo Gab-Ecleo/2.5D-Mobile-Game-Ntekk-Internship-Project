@@ -18,11 +18,13 @@ namespace UpgradeShop
 
         private void Start()
         {
+            //destroy existing child
             foreach (Transform child in containerPrefab.transform)
             {
                 Destroy(child.gameObject);
             }
             
+            //generate new items and provide their proper references
             foreach (var item in itemList.items)
             {
                 foreach (var id in itemIdentifiers)
