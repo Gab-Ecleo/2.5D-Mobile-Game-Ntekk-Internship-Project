@@ -24,7 +24,7 @@ MonoBehaviour:
   jumpHeight: 7
   jumpCutMultiplier: 0.7
   hasMultiplier: 0
-  springJump: 1
+  springJump: 0
   timeSlow: 0
   expressDelivery: 0
   singleBlockRemover: 0
