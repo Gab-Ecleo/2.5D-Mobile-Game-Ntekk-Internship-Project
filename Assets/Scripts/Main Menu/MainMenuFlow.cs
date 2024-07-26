@@ -26,48 +26,6 @@ public class MainMenuFlow : MonoBehaviour
     {
         MainMenuButtons("Player");
     }
-
-    public void OpenShop()
-    {
-        if (!isShopOpen)
-        {
-            // open the tab
-            isShopOpen=true;
-            ShopTab.SetActive(isShopOpen);
-
-            // close the others
-            isPlayerOpen = false;
-            isUpgradeOpen=false;
-            PlayerTab.SetActive(isPlayerOpen);
-            UpgradesTab.SetActive(isUpgradeOpen);
-        }
-        else
-        {
-            isShopOpen = false;
-            ShopTab.SetActive(isShopOpen);
-        }
-    }
-
-    public void OpenPlayer()
-    {
-        if(!isPlayerOpen)
-        {
-            // open the tab
-            isPlayerOpen = true;
-            PlayerTab.SetActive(isPlayerOpen);
-
-            // close the others
-            isUpgradeOpen = false;
-            isShopOpen = false;
-            ShopTab.SetActive(isShopOpen);
-            UpgradesTab.SetActive(isUpgradeOpen);
-        }
-        else
-        {
-            PlayerTab.SetActive(isPlayerOpen);
-        }
-    }
-
     public void MainMenuButtons(string uiPanel)
     {
         switch (uiPanel)
