@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EventScripts;
 using ScriptableData;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ namespace UpgradeShop.ItemLevels
     public class ItemLevelManager : MonoBehaviour
     {
         [SerializeField] private PlayerStatsSO initialStats;
+        [SerializeField] private ItemInfoUI infoUI;
         
+        [Header("Level Slots List. DO NOT MODIFY!!!")]
         [SerializeField]private List<ItemLevel> levelSlots;
 
         private Upgradables _statToUpgrade;
@@ -61,7 +64,16 @@ namespace UpgradeShop.ItemLevels
                         continue;
                     
                     case LevelState.NotUpgraded:
+                        //triggered when the player does not have enough money
+                        if (initialStats.coins < _currentItem.costPerLevel[_currentItem.currentLevel + 1])
+                        {
+                            Debug.Log("YOU ARE POOR");
+                            UpgradeShopEvents.OnInsufficientFunds?.Invoke();
+                            return;
+                        }
+                        
                         level.UpgradeSlot();
+                        UpgradeShopEvents.OnPurchaseLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel + 1]);
                         _currentItem.currentLevel++;
                         UpdateStats();
                         return;
@@ -85,6 +97,7 @@ namespace UpgradeShop.ItemLevels
                     
                     case LevelState.Upgraded:
                         level.DegradeSlot();
+                        UpgradeShopEvents.OnSellLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel]);
                         _currentItem.currentLevel--;
                         UpdateStats();
                         return;
@@ -100,6 +113,7 @@ namespace UpgradeShop.ItemLevels
         #region STAT_UPDATE
         private void UpdateStats()
         {
+            //Update Actual Stats
             switch (_statToUpgrade)
             {
                 case Upgradables.Barrier:
@@ -115,6 +129,8 @@ namespace UpgradeShop.ItemLevels
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            UpdateStatsUI();
+            infoUI.UpdateButtonsUI(_currentItem.maxLevelCount, _currentItem.currentLevel);
         }
         #endregion
 
@@ -125,10 +141,38 @@ namespace UpgradeShop.ItemLevels
             switch (_currentItem.currentLevel)
             {
                 case < 6:
+                    if (initialStats.canRez)
+                    {
+                        initialStats.canRez = false;
+                    }
                     return;
                 case 6:
+                    initialStats.canRez = true;
                     Debug.Log("RESURRECTION UPGRADE UNLOCKED");
                     break;
+            }
+        }
+        #endregion
+
+        #region UI_CALLER
+        private void UpdateStatsUI()
+        {
+            //Update Stats UI
+            if (_currentItem.currentLevel == _currentItem.maxLevelCount)
+            {
+                infoUI.UpdateDetailsUI(null, 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel].ToString(), 
+                    null, 
+                    _currentItem.statSign, 
+                    true);
+            }
+            else
+            {
+                infoUI.UpdateDetailsUI(_currentItem.costPerLevel[_currentItem.currentLevel + 1].ToString(), 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel].ToString(), 
+                    _currentItem.valuePerLevel[_currentItem.currentLevel + 1].ToString(), 
+                    _currentItem.statSign,
+                    false);
             }
         }
         #endregion
