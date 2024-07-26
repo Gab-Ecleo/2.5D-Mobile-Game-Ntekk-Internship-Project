@@ -27,6 +27,7 @@ public class WindPressureEffect : MonoBehaviour
 
     private Vector3 _dir;
     private bool _isCorActive;
+    private GameObject _windParticles;
     private GameManager _gameManager;
 
     #region UNITY METHODS
@@ -78,6 +79,7 @@ public class WindPressureEffect : MonoBehaviour
         
         yield return new WaitForSeconds(_hazardDuration);
         Debug.Log("End of Hazard Duration");
+        _windParticles.SetActive(false);
         _isCorActive = false;
     }
 
@@ -87,12 +89,12 @@ public class WindPressureEffect : MonoBehaviour
         {
             case 1:
                 _windDirection = WindDir.Right; 
-                var windParticlesL = Instantiate(_windParticlesL);
+                _windParticles = Instantiate(_windParticlesL);
                 break;
             
             case -1:
                 _windDirection = WindDir.Left;
-                var windParticlesR = Instantiate(_windParticlesR);
+                _windParticles = Instantiate(_windParticlesR);
                 break;
         }
     }
