@@ -97,6 +97,11 @@ public class PauseManager : MonoBehaviour
         AudioManager.Instance.AudioMute(!_isSfxOn, AudioType.Sfx);
     }
     #endregion
+
+    public void OpenMenuButton()
+    {
+        GameEvents.ON_PAUSE?.Invoke();
+    }
 }
 
 
