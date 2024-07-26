@@ -10,6 +10,7 @@ TagManager:
   - SpawnPoint
   - PowerUp Manager
   - PowerUp
+  - HazardFX
   layers:
   - Default
   - TransparentFX

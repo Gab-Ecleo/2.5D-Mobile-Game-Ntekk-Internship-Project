@@ -8,6 +8,7 @@ public class BlackoutEffect : MonoBehaviour
 {
     [SerializeField] private float hazardDuration = 5f;
     [SerializeField] private Animation anim;
+    [SerializeField] public GameObject _blackoutParticles;
 
     private GameManager _gameManager;
     private bool _isCorActive;
@@ -44,6 +45,7 @@ public class BlackoutEffect : MonoBehaviour
     IEnumerator TriggerBlackout()
     {
         anim.Play("FadeIn");
+        var blackoutParticles = Instantiate(_blackoutParticles);
         
         yield return new WaitForSeconds(hazardDuration);
         Debug.Log("Hazard Duration Ended");

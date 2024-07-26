@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -319,13 +319,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1004810484}
     - target: {fileID: 1522544122296608528, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
-      propertyPath: _windStrength
-      value: 100
-      objectReference: {fileID: 0}
+      propertyPath: _windParticlesL
+      value: 
+      objectReference: {fileID: 7061389092004909203, guid: 528ec03feff11104fa4f67aaefbbe72e, type: 3}
+    - target: {fileID: 1522544122296608528, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: _windParticlesR
+      value: 
+      objectReference: {fileID: 7061389092004909203, guid: 98c93a9d421df884ab793003476b4625, type: 3}
     - target: {fileID: 2312023922905624038, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
       propertyPath: _platformColl
       value: 
       objectReference: {fileID: 9250929}
+    - target: {fileID: 2824862220806485754, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: _rainParticles
+      value: 
+      objectReference: {fileID: 8138550303160385573, guid: 39141f27d872d3c4ab7a11d33ffffd01, type: 3}
     - target: {fileID: 5585031198864634749, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
       propertyPath: TextWarning
       value: 
@@ -342,6 +350,10 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 1974325638}
+    - target: {fileID: 8293693128987647523, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: _blackoutParticles
+      value: 
+      objectReference: {fileID: 1637273294980811808, guid: a0a8856c40a33a34a806ab44696e710a, type: 3}
     - target: {fileID: 9149837772464151127, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1742,9 +1754,9 @@ MonoBehaviour:
   startingSpawnTime: 3
   timeMinValue: 5
   timeMaxValue: 8
-  initialDifficultyCountdown: 10
-  maxSpawnTimerDecrement: 0
-  minSpawnTimerDecrement: 0
+  difficultyCountdown: 0
+  minDecrement: 0
+  maxDecrement: 0
   spawnTimeLeft: 0
   difficultyTimeLeft: 0
 --- !u!1 &702078767
