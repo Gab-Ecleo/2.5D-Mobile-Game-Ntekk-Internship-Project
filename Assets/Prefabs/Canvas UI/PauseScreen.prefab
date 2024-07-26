@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 7043014976997306889}
   - component: {fileID: 8976717761938167097}
   - component: {fileID: 6405195871929180596}
+  - component: {fileID: 5359143134911833440}
   m_Layer: 5
   m_Name: PauseScreen
   m_TagString: Untagged
@@ -454,6 +455,18 @@ MonoBehaviour:
   sfxSlider: {fileID: 4346096757999413492}
   bgmTxt: {fileID: 5132119494319229587}
   sfxTxt: {fileID: 670036548925039031}
+--- !u!114 &5359143134911833440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800562010119237543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f36222df9ec5945a09dc73c1dfeef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &933916065242252513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,9 +2271,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8976717761938167097}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: LevelSelector
+      - m_Target: {fileID: 5359143134911833440}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: LoadScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

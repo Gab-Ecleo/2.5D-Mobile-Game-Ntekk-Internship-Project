@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &485705229528270915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5678186664265228066}
+  - component: {fileID: 4154166247076806742}
+  - component: {fileID: 1103045064094599648}
+  m_Layer: 0
+  m_Name: Upgrade Shop Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5678186664265228066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485705229528270915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4154166247076806742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485705229528270915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c573ade8280745db85a592e9943ad994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList: {fileID: 11400000, guid: a63d035f678e47f49a7b7b37f7cf5e94, type: 2}
+  itemIdentifiers:
+  - {fileID: 11400000, guid: 42936f5e2eaaf474eab0cf711483cfb1, type: 2}
+  - {fileID: 11400000, guid: c1ff30e7aebd3ab45917bc8a3efecc16, type: 2}
+  - {fileID: 11400000, guid: 7451c9ea6417bf449b7ce4ac1e4eb6d4, type: 2}
+  itemPrefab: {fileID: 186878863928110332, guid: 16da800bf78d7c24ab45d49a1919330f, type: 3}
+  containerPrefab: {fileID: 0}
+--- !u!114 &1103045064094599648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485705229528270915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 289bbd2e95d44632865865a10380d4cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noMoneyUI: {fileID: 0}
+  uiTimer: 1

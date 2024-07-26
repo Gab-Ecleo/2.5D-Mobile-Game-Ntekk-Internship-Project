@@ -68,15 +68,6 @@ public class PauseManager : MonoBehaviour
     #endregion
 
     #region buttons
-    public void LevelSelector(int GoToScene)
-    {
-        SceneManager.LoadScene(GoToScene);
-    }
-
-    public void ReloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     public void Resume()
     {
@@ -97,6 +88,11 @@ public class PauseManager : MonoBehaviour
         AudioManager.Instance.AudioMute(!_isSfxOn, AudioType.Sfx);
     }
     #endregion
+
+    public void OpenMenuButton()
+    {
+        GameEvents.ON_PAUSE?.Invoke();
+    }
 }
 
 
