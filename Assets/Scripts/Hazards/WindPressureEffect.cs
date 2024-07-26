@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using AudioScripts;
+using AudioScripts.AudioSettings;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -60,6 +62,7 @@ public class WindPressureEffect : MonoBehaviour
         if (_isCorActive || _gameManager.IsGameOver()) return;
 
         StartCoroutine(EnableWind());
+        // Plays SFX correlating to the action
     }
     
     //Start Hazard timer

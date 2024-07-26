@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BlockSystemScripts.BlockScripts;
 using BlockSystemScripts.RowAndColumnScripts;
 using EventScripts;
+using ScriptableData;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,55 +16,57 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     /// </summary>
     public class BlockSpawner : AlignmentManager
     {
-        [SerializeField] private List<GameObject> mainBlockList;
-        [SerializeField] private List<GameObject> specialBlockList;
-        [SerializeField] private List<GameObject> powerUpBlockList;
+        [SerializeField] private BlockSpawnerSO blockData;
+        private GameObject _repeatingMainBlock;
 
-        [Header("Block Type Randomizer References")]
-        [Tooltip("Value should be LOWER than heavy block & power up block")]
-        [SerializeField][Range(1, 100)] private int defaultRate;
-        [Tooltip("Value should be HIGHER than default block & LOWER than power up block. Set to 0 to keep heavy blocks from spawning")]
-        [SerializeField][Range(0, 100)] private int heavyRate;
-        [Tooltip("Value should be HIGHER than heavy block, unless heavy block is set to 0. Set to 0 to keep power up blocks from spawning")]
-        [SerializeField][Range(0, 100)] private int powerUpRate;
-        
         [Header("Spawn Validation References. To be private")]
         [SerializeField] private bool canSpawn;
         
-        private GameObject _repeatingMainBlock;
-
         private void Awake()
         {
-            InitializeSpawnRatesValues();
+            InitializeData();
         }
 
-        #region INITIALIZATION_METHODS
-        private void InitializeSpawnRatesValues()
+        #region INITIALIZATIONS
+        private void InitializeData()
         {
-            if (defaultRate <= 98)
+            //checks if the default rate is equal or more than 99
+            if (blockData.defaultRate >= 99)
             {
-                if (heavyRate > 0 && heavyRate <= defaultRate)
+                blockData.heavyRate = 0;
+                //checks if the default rate is equal or more than 100
+                if (blockData.defaultRate >=100)
                 {
-                    heavyRate = defaultRate + 1;
+                    blockData.powerUpRate = 0;
                 }
-
-                if (powerUpRate > 0 && heavyRate <= 99)
+            }
+            //checks if the heavy rate and block date are equals to 0 
+            if (blockData.heavyRate <= 0 && blockData.powerUpRate <= 0)
+            {
+                blockData.defaultRate = 100;
+                return;
+            }
+            //checks if the heavy rate is more than 0 and is less than the default rate
+            if (blockData.heavyRate > 0 && blockData.heavyRate <= blockData.defaultRate)
+            {
+                blockData.heavyRate = blockData.defaultRate + ((100 - blockData.defaultRate) / 2);
+            }
+            //checks if the heavy rate is more than 0 and the power up rate is set to 0
+            if (blockData.heavyRate > 0 && blockData.powerUpRate <= 0)
+            {
+                blockData.heavyRate = 100;
+            }
+            //checks if the power up rate is more than 0 
+            if (blockData.powerUpRate > 0)
+            {
+                blockData.powerUpRate = 100;
+                //checks if the heavy rate is already set to 100
+                if (blockData.heavyRate >=100)
                 {
-                    if (heavyRate <= 0 && powerUpRate <= defaultRate)
-                    {
-                        powerUpRate = defaultRate + 1;
-                        return;
-                    }
-
-                    if (powerUpRate <= heavyRate)
-                    {
-                        powerUpRate = heavyRate + 1;
-                    }
+                    blockData.powerUpRate = 0;
                 }
             }
         }
-        
-
         #endregion
 
         //Called to validate the block spawn
@@ -110,7 +113,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         private GameObject BlockToSpawn()
         {
             //checks if there is less than or equal to one type of block in the list
-            if (specialBlockList.Count <= 0) return RandomizedMainBlock();
+            if (blockData.specialBlockList.Count <= 0) return RandomizedMainBlock();
             
             var tempMaxValue = 100;
             var blockRangePass1 = Random.Range(1, tempMaxValue + 1);
@@ -119,11 +122,11 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             
 
             //return default block type
-            if (blockRangePass1 <= defaultRate) return RandomizedMainBlock();
+            if (blockRangePass1 <= blockData.defaultRate) return RandomizedMainBlock();
             //return heavy block
-            if (blockRangePass1 > defaultRate && blockRangePass1 <= heavyRate) return RandomizedSpecialBlock();
+            if (blockRangePass1 > blockData.defaultRate && blockRangePass1 <= blockData.heavyRate) return RandomizedSpecialBlock();
             //return PU block
-            if (blockRangePass1 > heavyRate && blockRangePass1 <= powerUpRate) return RandomizedPowerUpBlock();
+            if (blockRangePass1 > blockData.heavyRate && blockRangePass1 <= blockData.powerUpRate) return RandomizedPowerUpBlock();
             //returns default block if no conditions are met
             return RandomizedMainBlock();
         }
@@ -131,55 +134,55 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         //Randomizer for Main Block
         private GameObject RandomizedMainBlock()
         {
-            if (mainBlockList.Count <= 1)
+            if (blockData.mainBlockList.Count <= 1)
             {
-                return mainBlockList[0];
+                return blockData.mainBlockList[0];
             }
-            var blockNumber = Random.Range(0, mainBlockList.Count);
+            var blockNumber = Random.Range(0, blockData.mainBlockList.Count);
             
             if (_repeatingMainBlock == null) // checks if the _repeatingMainBlock is null
             {
-                _repeatingMainBlock = mainBlockList[blockNumber];
-                return mainBlockList[blockNumber];
+                _repeatingMainBlock = blockData.mainBlockList[blockNumber];
+                return blockData.mainBlockList[blockNumber];
             }
 
-            if (_repeatingMainBlock == mainBlockList[blockNumber]) // checks if the block to be spawned is the same as the last one
+            if (_repeatingMainBlock == blockData.mainBlockList[blockNumber]) // checks if the block to be spawned is the same as the last one
             {
-                mainBlockList.Remove(_repeatingMainBlock);
-                blockNumber = Random.Range(0, mainBlockList.Count);
-                mainBlockList.Add(_repeatingMainBlock);
-                _repeatingMainBlock = mainBlockList[blockNumber];
-                return mainBlockList[blockNumber];
+                blockData.mainBlockList.Remove(_repeatingMainBlock);
+                blockNumber = Random.Range(0, blockData.mainBlockList.Count);
+                blockData.mainBlockList.Add(_repeatingMainBlock);
+                _repeatingMainBlock = blockData.mainBlockList[blockNumber];
+                return blockData.mainBlockList[blockNumber];
             }
             
             // proceeds here if the repeating block is not null and if it is not the same as the last one
-            _repeatingMainBlock = mainBlockList[blockNumber];
-            return mainBlockList[blockNumber];
+            _repeatingMainBlock = blockData.mainBlockList[blockNumber];
+            return blockData.mainBlockList[blockNumber];
         }
         
         //Randomizer for Special Block
         private GameObject RandomizedSpecialBlock()
         {
-            if (specialBlockList.Count <= 1)
+            if (blockData.specialBlockList.Count <= 1)
             {
-                return specialBlockList[0];
+                return blockData.specialBlockList[0];
             }
-            var blockNumber = Random.Range(0, specialBlockList.Count);
-            blockNumber = Random.Range(0, specialBlockList.Count);
-            blockNumber = Random.Range(0, specialBlockList.Count);
-            return specialBlockList[blockNumber];
+            var blockNumber = Random.Range(0, blockData.specialBlockList.Count);
+            blockNumber = Random.Range(0, blockData.specialBlockList.Count);
+            blockNumber = Random.Range(0, blockData.specialBlockList.Count);
+            return blockData.specialBlockList[blockNumber];
         }
         
         private GameObject RandomizedPowerUpBlock()
         {
-            if (powerUpBlockList.Count <= 1)
+            if (blockData.powerUpBlockList.Count <= 1)
             {
-                return powerUpBlockList[0];
+                return blockData.powerUpBlockList[0];
             }
-            var blockNumber = Random.Range(0, powerUpBlockList.Count);
-            blockNumber = Random.Range(0, powerUpBlockList.Count);
-            blockNumber = Random.Range(0, powerUpBlockList.Count);
-            return powerUpBlockList[blockNumber];
+            var blockNumber = Random.Range(0, blockData.powerUpBlockList.Count);
+            blockNumber = Random.Range(0,blockData.powerUpBlockList.Count);
+            blockNumber = Random.Range(0, blockData.powerUpBlockList.Count);
+            return blockData.powerUpBlockList[blockNumber];
         }
         #endregion
         

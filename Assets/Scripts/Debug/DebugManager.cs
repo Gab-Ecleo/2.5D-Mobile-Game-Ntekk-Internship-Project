@@ -1,28 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using ScriptableData;
 using System.Reflection;
 using BlockSystemScripts.BlockSpawnerScripts;
 using UnityEngine.SceneManagement;
 using EventScripts;
-
-[System.Serializable]
-public class SliderPrefab
-{
-    public string StatsName;
-    public Slider slider;
-    public TMP_Text Number;
-}
-
-[System.Serializable]
-public class TogglePrefab
-{
-    public string StatsName;
-    public Toggle toggle;
-}
 
 public class DebugManager : MonoBehaviour
 {
@@ -39,19 +21,11 @@ public class DebugManager : MonoBehaviour
     private Dictionary<string, bool> _playerBoolStatsDict;
 
 
-    // for pause menu var 
-    // delete later when pause ui is complete
-    private bool isPauseMenuOpen;
-    [SerializeField] private GameObject PauseMenuScreen;
-
     private bool isDebugMenuOpen;
     [SerializeField] private GameObject DebugMenuScreen;
 
     private void Start()
     {
-        PauseMenuScreen.SetActive(false);
-        isPauseMenuOpen = false;
-
         isDebugMenuOpen = false;
         DebugMenuScreen.SetActive(false);
 
@@ -161,24 +135,6 @@ public class DebugManager : MonoBehaviour
             _playerCurrStats.GetType().GetField(Name).SetValue(_playerCurrStats, togglePrefab.toggle.isOn);
             _playerBoolStatsDict[Name] = togglePrefab.toggle.isOn;
         }
-        else
-        {
-            switch (Name)
-            {
-                case "Rain":
-                    GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
-                    break;
-                case "Blackout":
-                    GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
-                    break;
-                case "Ice":
-                    GameEvents.TRIGGER_ICE_HAZARD?.Invoke();
-                    break;
-                case "Wind":
-                    GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
-                    break;
-            }
-        }
     }
 
     #region buttons
@@ -209,18 +165,7 @@ public class DebugManager : MonoBehaviour
 
     public void PauseMenu()
     {
-        if (!isPauseMenuOpen)
-        {
-            Time.timeScale = 0;
-            isPauseMenuOpen = true;
-            PauseMenuScreen.SetActive(isPauseMenuOpen);
-        }
-        else
-        {
-            Time.timeScale = 1;
-            isPauseMenuOpen = false;
-            PauseMenuScreen.SetActive(isPauseMenuOpen);
-        }
+        // add pause manager here
     }
 
     public void Scoring() // for ui test
@@ -238,6 +183,28 @@ public class DebugManager : MonoBehaviour
     public void SpawnBlock()
     {
         SpawnEvents.OnSpawnTrigger?.Invoke(false);
+    }
+
+    public void HazardButton(string Hazard)
+    {
+        switch (Hazard)
+        {
+            case "Rain":
+                GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
+                break;
+            case "Blackout":
+                GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
+                break;
+            case "Ice":
+                GameEvents.TRIGGER_ICE_HAZARD?.Invoke();
+                break;
+            case "Wind":
+                GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
+                break;
+            case "Cooldown":
+                HazardManager.Instance.StopAllCoroutines();
+                break;
+        }
     }
     #endregion
 }

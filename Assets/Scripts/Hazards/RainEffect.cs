@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using AudioScripts;
+using AudioScripts.AudioSettings;
 using ScriptableData;
 using UnityEngine;
 using UnityEngine.Serialization;

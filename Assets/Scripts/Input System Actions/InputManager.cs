@@ -9,19 +9,22 @@ namespace Input_System_Actions
         private PlayerMovement _playerMovement;
         private PlayerGrabThrow _playerGrabThrow;
         private PlayerPowerUps _playerPowerUps;
-
         private PlayerControls _playerControls;
+        [SerializeField] private PauseManager _playerPauseManager;
+
         private InputAction _move;
         private InputAction _jump;
         private InputAction _interactObject;
 
-        private InputAction _interactPowerUp;
+        private InputAction _pause;
+
         
         //initialize values
         private void Awake()
         {
             InitializeScriptValues();
         }
+
 
         private void FixedUpdate()
         {
@@ -52,9 +55,10 @@ namespace Input_System_Actions
             _interactObject.Enable();
             _interactObject.performed += _playerGrabThrow.Interact;
 
-            _interactPowerUp = _playerControls.Player.PowerUp;
-            _interactPowerUp.Enable();
-            //_interactPowerUp.performed += _playerPowerUps.PowerUp;
+
+            _pause = _playerControls.Player.Pause;
+            _pause.Enable();
+            _pause.performed += Pause;
         }
 
         //disable the listeners for the buttons
@@ -63,7 +67,12 @@ namespace Input_System_Actions
             _move.Disable();
             _jump.Disable();
             _interactObject.Disable();
-            _interactPowerUp.Disable();
+            _pause.Disable();
+        }
+
+        private void Pause(InputAction.CallbackContext ctx)
+        {
+            GameEvents.ON_PAUSE?.Invoke();
         }
     }
 }

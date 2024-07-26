@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using AudioScripts;
+using AudioScripts.AudioSettings;
 using UnityEngine;
 
 public class BlackoutEffect : MonoBehaviour
@@ -36,6 +38,7 @@ public class BlackoutEffect : MonoBehaviour
         if (_isCorActive || _gameManager.IsGameOver()) return;
 
         StartCoroutine(TriggerBlackout());
+        // Plays SFX correlating to the action
     }
 
     // Initiate a blackout which makes the screen go dark after [Hazard Duration].

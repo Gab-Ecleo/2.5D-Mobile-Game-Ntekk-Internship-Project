@@ -11,7 +11,4 @@ public class ScoresSO : ScriptableObject
 
     public int Multiplier = 1;
     public float PowerUpDuration = 3.0f;
-
-
-    public static ScoresSO Instance;
 }

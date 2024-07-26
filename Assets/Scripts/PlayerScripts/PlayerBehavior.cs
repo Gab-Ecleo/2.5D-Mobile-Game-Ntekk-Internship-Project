@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using AudioScripts;
+using AudioScripts.AudioSettings;
 using EventScripts;
 using ScriptableData;
 using Unity.VisualScripting;
@@ -17,6 +19,10 @@ namespace PlayerScripts
         [SerializeField] private GameObject deathScreen;
 
         [SerializeField] private Vector3 _playerPos;
+        
+        private AudioClipsSO _audioClip;
+        private AudioManager _audioManager;
+
         private void Start()
         {
             // get starting positon
@@ -24,6 +30,7 @@ namespace PlayerScripts
 
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
             currentPlayerStats.barrierDurability = initialPlayerStats.barrierDurability;
+            Time.timeScale = 1;
         }
         
         #region BARRIER_BEHAVIOR
@@ -31,6 +38,8 @@ namespace PlayerScripts
             private void OnDamage()
             {
                 CheckBarrier();
+                // Plays SFX correlating to the action
+                SfxScript.Instance.PlaySFXOneShot(_audioClip.DamageSFX);
             }
 
             private void CheckBarrier()
@@ -75,8 +84,12 @@ namespace PlayerScripts
         private void PlayerDeath()
         {
             //add death behavior
+            //Stops Level BGM and then Plays the Death BGM (Note: Should play the Level BGM back if have revive)
+            BgmScript.Instance.StopBGM();
+            BgmScript.Instance.PlayBGM(_audioClip.DeathBGM);
             Debug.Log("Player Dead");
             //deathScreen.SetActive(true);
+            GameEvents.IS_GAME_OVER?.Invoke(true);
             Time.timeScale = 0;
         }
 

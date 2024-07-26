@@ -1,13 +1,10 @@
 using System;
-using System.Numerics;
-using System.Xml.Schema;
-using AudioScripts;
 using AudioScripts.AudioSettings;
+using EventScripts;
 using ScriptableData;
 //using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows.Speech;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -18,21 +15,19 @@ namespace PlayerScripts
         private bool _isFacingRight;
         private Vector2 _moveDirection = Vector2.zero;
         private Rigidbody _rb;
-        private AudioClipsSO _audioClip;
-        private AudioManager _audioManager;
 
+        [Header("Player Data References")]
         //player's stats. Only Modify 
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private PlayerStatsSO currentPlayerStats;
-       
-
-        [Header("Raycast References")] [SerializeField]
-        private Vector3 direction = -Vector3.up;
+        
+        [Header("Raycast References")] 
+        [SerializeField] private Vector3 direction = -Vector3.up;
 
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
 
-
+        #region UNITY_DEFAULT_FUNCTIONS
         private void Awake()
         {
             InitializeScriptValues();
@@ -40,7 +35,7 @@ namespace PlayerScripts
 
         private void Start()
         {
-           InitializePlayerStats();
+            InitializePlayerStats();
         }
 
         private void Update()
@@ -54,7 +49,8 @@ namespace PlayerScripts
             //draws a ray for the groundCheck raycast
             Debug.DrawRay(transform.position, direction * maxDistance, Color.yellow);
         }
-
+        #endregion
+        
         #region INITIALIZATION_METHODS
         private void InitializeScriptValues()
         {
@@ -71,21 +67,16 @@ namespace PlayerScripts
             if (initialPlayerStats == null) return;
             currentPlayerStats.movementSpeed = initialPlayerStats.movementSpeed;
             currentPlayerStats.acceleration = initialPlayerStats.acceleration;
-            currentPlayerStats.decceleration = initialPlayerStats.decceleration;
+            currentPlayerStats.deceleration = initialPlayerStats.deceleration;
             currentPlayerStats.velPower = initialPlayerStats.velPower;
             currentPlayerStats.frictionAmount = initialPlayerStats.frictionAmount;
+
+            currentPlayerStats.aerialSpdReducer = initialPlayerStats.aerialSpdReducer;
             
             currentPlayerStats.jumpHeight = initialPlayerStats.jumpHeight;
             currentPlayerStats.jumpCutMultiplier = initialPlayerStats.jumpCutMultiplier;
         }
         
-        private void InitializeAudio()
-        {
-            //initialize current player stats data using initial player stats
-            if(_audioClip == null) return;
-            _audioManager = AudioManager.Instance;
-            _audioClip = _audioManager.FetchAudioClip();
-        }
         #endregion
 
         #region MOVEMENT_CALCULATIONS
@@ -94,15 +85,59 @@ namespace PlayerScripts
         {
             #region MOVEMENT
             _moveDirection = input;
-            //_rb.velocity = new Vector3(_moveDirection.x * currentPlayerStats.movementSpeed, _rb.velocity.y, 0);
 
+            //calculated the player's input multiplied by the set movement speed
             float targetSpeed = _moveDirection.x * currentPlayerStats.movementSpeed;
+            //calculates the difference between the set target speed and the player's current velocity
             float speedDiff = targetSpeed - _rb.velocity.x;
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? currentPlayerStats.acceleration : currentPlayerStats.decceleration;
+            //checks if the target speed is more than or less than 0, allowing ato switch between the set acceleration and set deceleration
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? currentPlayerStats.acceleration : currentPlayerStats.deceleration;
+            //calculates the final movement computation
             float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, currentPlayerStats.velPower) *
-                             Mathf.Sign(speedDiff);
-            
-            _rb.AddForce(movement *Vector2.right);
+                                 Mathf.Sign(speedDiff);
+
+            //determines which type of aerial movement implementation will the player use
+            switch (currentPlayerStats.movementState)
+            {
+                case PlayerMovementState.WithAerialMovement:
+                    _rb.AddForce(movement * Vector2.right);
+                    break;
+                case PlayerMovementState.ReducedAerialMovement:
+                {
+                    _rb.AddForce(movement * Vector2.right);
+                    if (!IsGrounded())
+                    {
+                        var velocity = _rb.velocity;
+                        velocity = new Vector3(velocity.x * currentPlayerStats.aerialSpdReducer, velocity.y,
+                            velocity.z);
+                        _rb.velocity = velocity;
+                    }
+                    break;
+                }
+                case PlayerMovementState.ReducedFlippedMovement:
+                {
+                    if (!IsGrounded())
+                    {
+                        _rb.AddForce(movement * Vector2.right * currentPlayerStats.aerialSpdReducer);
+                        
+                    }
+                    else if (IsGrounded())
+                    {
+                        _rb.AddForce(movement * Vector2.right);
+                    }
+                    break;
+                }
+                case PlayerMovementState.NoAerialMovement:
+                {
+                    if (IsGrounded())
+                    {
+                        _rb.AddForce(movement * Vector2.right);
+                    }
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             #endregion
 
             #region FRICTION
@@ -119,18 +154,21 @@ namespace PlayerScripts
         public void Jump(InputAction.CallbackContext ctx)
         {
             //checks if the raycast hits an object before jumping
-            if (IsGrounded() && ctx.ReadValueAsButton() == true)
+            if (IsGrounded() && ctx.ReadValueAsButton())
             {
-                //_rb.velocity = new Vector3(_rb.velocity.x, currentPlayerStats.jumpHeight);
+                // Plays SFX correlating to the action
+                AudioEvents.ON_PLAYER_JUMP?.Invoke();
+
+                #region Jump Calculation
+
                 float force = currentPlayerStats.jumpHeight;
                 if (_rb.velocity.y<0)
                 {
                     force -= _rb.velocity.y;
                 }
                 _rb.AddForce(Vector2.up*force, ForceMode.Impulse);
-                
-                // Plays SFX correlating to the action
-                SfxScript.Instance.PlaySFXOneShot(_audioClip._jumpSFX);
+
+                #endregion
             }
 
             //after jumping button is released, while the player is jumping, drags the player down. 
@@ -174,14 +212,7 @@ namespace PlayerScripts
         //returns True if the player is walking/running, false if not
         public bool IsWalking()
         {
-            if (_rb.velocity.y == 0 && _moveDirection.x != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return _rb.velocity.y == 0 && _moveDirection.x != 0;
         }
         #endregion
     }
