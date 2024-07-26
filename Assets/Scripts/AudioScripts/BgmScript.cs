@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using AudioScripts.AudioSettings;
+using EventScripts;
+using UnityEditor;
+using UnityEngine;
 
 namespace AudioScripts
 {
@@ -8,33 +12,60 @@ namespace AudioScripts
     /// </summary>
     public class BgmScript : MonoBehaviour
     {
-        public static BgmScript Instance;
-        private AudioSource _audioSource;
+        [Header("AudioSources")]
+        [SerializeField] private AudioSource _audioSource;
+
+        private AudioClipsSO _audioClips;
+
 
         private void Awake()
         {
-            Instance = this;
+            AudioEvents.ON_PLAYER_DEATH += PlayDeathBGM;
+        }
+
+        private void OnDestroy()
+        {
+            AudioEvents.ON_PLAYER_DEATH -= PlayDeathBGM;
         }
 
         private void Start()
         {
-            _audioSource = GetComponent<AudioSource>();
+            _audioClips = AudioManager.Instance.FetchAudioClips();
+
+            PlayGameBGM();
         }
 
-        public void PlayBGM(AudioClip clip)
+        #region Audio Controls
+
+        private void PlayBGM(AudioClip clip)
         {
             _audioSource.clip = clip;
             _audioSource.Play();
         }
 
-        public void StopBGM()
+        private void StopBGM()
         {
             _audioSource.Stop();
         }
 
-        public void PauseBGM()
+        private void PauseBGM()
         {
             _audioSource.Pause();
         }
+
+        #endregion
+
+        private void PlayGameBGM()
+        {
+            StopBGM();
+            PlayBGM(_audioClips.FirstLevelBGM);
+        }
+
+        private void PlayDeathBGM()
+        {
+            StopBGM();
+            PlayBGM(_audioClips.DeathBGM);
+        }
+        
     }
 }

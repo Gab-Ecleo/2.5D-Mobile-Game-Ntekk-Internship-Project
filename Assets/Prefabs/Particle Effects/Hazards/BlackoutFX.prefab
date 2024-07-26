@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8758066344503380119}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BlackoutFX
   m_TagString: HazardFX
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 5071969166165098622}
   - component: {fileID: 988977691104980925}
   - component: {fileID: 4444667325516022809}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Rain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4875,7 +4875,7 @@ GameObject:
   - component: {fileID: 1989810768487706367}
   - component: {fileID: 7354618951056594250}
   - component: {fileID: 5055341584878777167}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}

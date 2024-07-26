@@ -23,6 +23,6 @@ public class SceneController : MonoBehaviour
     //uncomment if building
     public void Exit()
     {
-        //Application.Quit();
+        Application.Quit();
     }
 }

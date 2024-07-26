@@ -16,7 +16,7 @@ MonoBehaviour:
   PickupSFX: {fileID: 8300000, guid: e8d19c28e9ac92547815ecdebb9d363b, type: 3}
   DropSFX: {fileID: 8300000, guid: 0fa73d081bcfa2b4a9c3663d11b90a01, type: 3}
   DamageSFX: {fileID: 8300000, guid: 255fe0ae34d9f894fbb8ed5817dc67c4, type: 3}
-  FootstepSFX: {fileID: 8300000, guid: 04d8c001037998d42a6728c4f00d6e98, type: 3}
+  FootstepSFX: {fileID: 8300000, guid: 69ca5839bb688634c9d1afe174648ae6, type: 3}
   RainSFX: {fileID: 8300000, guid: 55303ed29c124974bbe2ab3531aac57d, type: 3}
   WindSFX: {fileID: 8300000, guid: f766879364ea5f345b8ebf0d802f9501, type: 3}
   BlackoutSFX: {fileID: 8300000, guid: 8b304ecdb28e2fa4c941ea6099edb8e5, type: 3}
