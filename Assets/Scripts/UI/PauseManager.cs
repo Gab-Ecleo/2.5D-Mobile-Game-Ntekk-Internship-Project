@@ -68,15 +68,6 @@ public class PauseManager : MonoBehaviour
     #endregion
 
     #region buttons
-    public void LevelSelector(int GoToScene)
-    {
-        SceneManager.LoadScene(GoToScene);
-    }
-
-    public void ReloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 
     public void Resume()
     {
