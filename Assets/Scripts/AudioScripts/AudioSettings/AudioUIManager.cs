@@ -37,11 +37,16 @@ namespace AudioScripts.AudioSettings
         [Header("UI Texts")]
         [SerializeField] private TextMeshProUGUI bgmTxt;
         [SerializeField] private TextMeshProUGUI sfxTxt;
-        
-        private void Start()
+
+
+        private void Awake()
         {
             //initialize values from the Audio Setting Data
             _audioData = Resources.Load("AudioSettingData/Audio Settings Data") as AudioSettingsSO;
+        }
+
+        private void Start()
+        {
             bgmSlider.value = _audioData.bgmVolume;
             sfxSlider.value = _audioData.sfxVolume;
         }
