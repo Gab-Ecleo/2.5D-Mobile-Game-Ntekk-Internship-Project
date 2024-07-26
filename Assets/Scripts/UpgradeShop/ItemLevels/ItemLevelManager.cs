@@ -12,6 +12,7 @@ namespace UpgradeShop.ItemLevels
         [SerializeField] private PlayerStatsSO initialStats;
         [SerializeField] private ItemInfoUI infoUI;
         
+        [Header("Level Slots List. DO NOT MODIFY!!!")]
         [SerializeField]private List<ItemLevel> levelSlots;
 
         private Upgradables _statToUpgrade;

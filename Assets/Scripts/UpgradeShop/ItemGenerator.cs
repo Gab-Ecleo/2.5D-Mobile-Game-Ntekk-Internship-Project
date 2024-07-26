@@ -12,7 +12,7 @@ namespace UpgradeShop
         [SerializeField] private ItemInfoUI itemInfoUI;
         [SerializeField] private ItemLevelGenerator upgradeLevelGenerator;
 
-        [Header("Upgrade Items. To be private")]
+        [Header("Upgrade Items. DO NOT MODIFY!!!")]
         [SerializeField] private UpgradeItem currentItem;
         [SerializeField] private UpgradeItemIdentifier idData;
         

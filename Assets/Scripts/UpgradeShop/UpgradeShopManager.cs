@@ -14,12 +14,14 @@ namespace UpgradeShop
 
         [Header("Prefab references")]
         [SerializeField] private GameObject itemPrefab;
-        [SerializeField] private GameObject containerPrefab;
+        
+        [Header("Content Container")]
+        [SerializeField] private GameObject contentList;
 
         private void Start()
         {
             //destroy existing child
-            foreach (Transform child in containerPrefab.transform)
+            foreach (Transform child in contentList.transform)
             {
                 Destroy(child.gameObject);
             }
@@ -33,7 +35,7 @@ namespace UpgradeShop
                     {
                         continue;
                     }
-                    var newItem = Instantiate(itemPrefab, containerPrefab.transform);
+                    var newItem = Instantiate(itemPrefab, contentList.transform);
 
                     var newItemComponent = newItem.GetComponent<ItemGenerator>();
 
