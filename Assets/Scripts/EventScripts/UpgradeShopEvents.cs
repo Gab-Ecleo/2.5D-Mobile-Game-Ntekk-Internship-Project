@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UpgradeShop;
 
 namespace EventScripts
 {
@@ -11,5 +12,8 @@ namespace EventScripts
         
         //UI Events
         public static Action OnInsufficientFunds;
+        
+        //Data Events
+        public static Action SaveUpgradesData;
     }
 }

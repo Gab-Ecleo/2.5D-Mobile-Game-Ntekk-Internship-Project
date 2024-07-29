@@ -20,7 +20,7 @@ MonoBehaviour:
   velPower: 1.2
   frictionAmount: 0.2
   movementState: 0
-  aerialSpdReducer: 0.4
+  aerialSpdReducer: 0
   jumpHeight: 7
   jumpCutMultiplier: 0.7
   hasMultiplier: 0
@@ -32,6 +32,6 @@ MonoBehaviour:
   isRezUpgraded: 0
   barrierUpgrade: 0
   rezUpgrade: 0
-  barrierDurability: 0
+  barrierDurability: 1
   canRez: 0
   StartingPos: {x: 0, y: 0, z: 0}

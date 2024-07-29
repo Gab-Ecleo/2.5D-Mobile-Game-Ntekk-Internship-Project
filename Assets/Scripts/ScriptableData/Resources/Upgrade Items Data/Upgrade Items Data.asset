@@ -19,7 +19,7 @@ MonoBehaviour:
     affectedStat: 0
     statSign: 0
     maxLevelCount: 6
-    currentLevel: 0
+    currentLevel: 3
     costPerLevel: 000000000a000000140000001e00000028000000320000003c000000
     valuePerLevel:
     - 0
