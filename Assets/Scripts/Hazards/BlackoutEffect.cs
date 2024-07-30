@@ -12,7 +12,7 @@ public class BlackoutEffect : MonoBehaviour
 
     private GameManager _gameManager;
     private bool _isCorActive;
-
+    
     #region UNITY METHODS
 
     private void Awake()
@@ -40,17 +40,16 @@ public class BlackoutEffect : MonoBehaviour
         StartCoroutine(TriggerBlackout());
         // Plays SFX correlating to the action
     }
-
+    
     // Initiate a blackout which makes the screen go dark after [Hazard Duration].
     IEnumerator TriggerBlackout()
     {
         anim.Play("FadeIn");
         var blackoutParticles = Instantiate(_blackoutParticles);
-        
+        anim.Play("Flicker");
         yield return new WaitForSeconds(hazardDuration);
         Debug.Log("Hazard Duration Ended");
         blackoutParticles.SetActive(false);
         anim.Play("FadeOut");
     }
-    
 }

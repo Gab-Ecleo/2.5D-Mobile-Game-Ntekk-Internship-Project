@@ -433,6 +433,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 48934743fc708744c82d545159c7cdde, type: 2}
   - {fileID: 7400000, guid: e63f6e5806558db4f825fd476751f1ca, type: 2}
+  - {fileID: 7400000, guid: 1f87ffc3a06049b418f8ede1042af536, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -5373,6 +5374,30 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 168160544}
+    - target: {fileID: 8293693128987647523, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: imgComp
+      value: 
+      objectReference: {fileID: 168160545}
+    - target: {fileID: 8293693128987647523, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: endColor.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293693128987647523, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: gameObject
+      value: 
+      objectReference: {fileID: 168160540}
+    - target: {fileID: 8293693128987647523, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: startColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293693128987647523, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: startColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8293693128987647523, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
+      propertyPath: startColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9149837772464151127, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
