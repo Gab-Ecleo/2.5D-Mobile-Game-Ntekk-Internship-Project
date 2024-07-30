@@ -517,6 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8171902399e045998b13105e6715ec9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialPlayerStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
+  itemList: {fileID: 11400000, guid: a63d035f678e47f49a7b7b37f7cf5e94, type: 2}
 --- !u!4 &1659563537
 Transform:
   m_ObjectHideFlags: 0

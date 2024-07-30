@@ -182,7 +182,8 @@ namespace UpgradeShop.ItemLevels
         #region UPDATE_DATA
         private void UpdateLocalData()
         {
-            UpgradeShopEvents.SaveUpgradesData?.Invoke();
+            LocalStorageEvents.OnSaveUpgradesData?.Invoke();
+            LocalStorageEvents.OnSavePlayerStats?.Invoke();
         }
         #endregion
     }
