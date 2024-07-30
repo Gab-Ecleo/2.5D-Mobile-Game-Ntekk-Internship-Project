@@ -30,12 +30,16 @@ public class PauseManager : MonoBehaviour
     private bool _isBgmOn;
     private bool _isSfxOn;
 
+    public AudioUIManager AudioUIManager;
+
     private void Awake()
     {
         if (_instance == null) _instance = this;
         else Destroy(this);
 
         GameEvents.ON_PAUSE += TogglePause;
+
+        AudioUIManager = GetComponent<AudioUIManager>();
     }
 
     private void OnDestroy()
@@ -79,6 +83,9 @@ public class PauseManager : MonoBehaviour
         _isBgmOn = !_isBgmOn;
         _bgmButton.image.sprite = _isBgmOn ? _bgmOn : _bgmOff;
         AudioManager.Instance.AudioMute(!_isBgmOn, AudioType.BGM);
+
+        if (!_isBgmOn) { AudioUIManager.bgmSlider.interactable = false; }
+        else { AudioUIManager.bgmSlider.interactable = true; }
     }
 
     public void MuteSFX()
@@ -86,6 +93,10 @@ public class PauseManager : MonoBehaviour
         _isSfxOn = !_isSfxOn;
         _sfxButton.image.sprite = _isSfxOn ? _sfxOn : _sfxOff;
         AudioManager.Instance.AudioMute(!_isSfxOn, AudioType.Sfx);
+        
+        if(!_isSfxOn) {AudioUIManager.sfxSlider.interactable = false; }
+        else { AudioUIManager.sfxSlider.interactable = true; }
+
     }
     #endregion
 
