@@ -41,6 +41,8 @@ public class ScoreToCurrency : MonoBehaviour
     public void UpdateUI()
     {
         ConvertScore();
+        
+        if(currencyText == null) return;
         currencyText.text = _currency.ToString();
     }
 

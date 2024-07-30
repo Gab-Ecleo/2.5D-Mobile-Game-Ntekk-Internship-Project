@@ -60,7 +60,7 @@ public class RainEffect : MonoBehaviour
         yield return new WaitForSeconds(_hazardDuration);
         Debug.Log("End of Hazard Duration");
         rainParticles.SetActive(false);
-        _playerStat.movementSpeed = _currentSpeed;
+        _playerStat.movementSpeed *= _hazardModifier;
 
         _isCorActive = false;
     }

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68412950261645f68851af0471705469, type: 3}
   m_Name: InitialPlayerStats
   m_EditorClassIdentifier: 
-  coins: 500
+  coins: 435
   canPlayerMove: 0
   movementSpeed: 5.5
   acceleration: 9
   deceleration: 9
   velPower: 1.2
   frictionAmount: 0.2
-  movementState: 0
-  aerialSpdReducer: 0.4
+  movementState: 2
+  aerialSpdReducer: 0
   jumpHeight: 7
-  jumpCutMultiplier: 0.7
+  jumpCutMultiplier: 0.4
   hasMultiplier: 0
   springJump: 0
   timeSlow: 0

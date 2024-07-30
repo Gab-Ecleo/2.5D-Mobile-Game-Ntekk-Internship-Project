@@ -19,10 +19,10 @@ MonoBehaviour:
   deceleration: 9
   velPower: 1.2
   frictionAmount: 0.2
-  movementState: 1
-  aerialSpdReducer: 0.4
+  movementState: 2
+  aerialSpdReducer: 0
   jumpHeight: 7
-  jumpCutMultiplier: 0.7
+  jumpCutMultiplier: 0.4
   hasMultiplier: 0
   springJump: 0
   timeSlow: 0
