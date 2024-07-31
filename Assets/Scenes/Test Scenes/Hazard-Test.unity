@@ -1589,7 +1589,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 1f87ffc3a06049b418f8ede1042af536, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &871418915
