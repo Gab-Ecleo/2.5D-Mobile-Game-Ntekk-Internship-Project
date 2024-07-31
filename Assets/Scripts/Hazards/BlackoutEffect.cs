@@ -7,7 +7,8 @@ using UnityEngine;
 public class BlackoutEffect : MonoBehaviour
 {
     [SerializeField] private float hazardDuration = 5f;
-    [SerializeField] private Animation anim;
+    [SerializeField] private Animation blackOutAnimation;
+    [SerializeField] private Animation whiteOutAnimation;
     [SerializeField] public GameObject _blackoutParticles;
 
     private GameManager _gameManager;
@@ -44,12 +45,12 @@ public class BlackoutEffect : MonoBehaviour
     // Initiate a blackout which makes the screen go dark after [Hazard Duration].
     IEnumerator TriggerBlackout()
     {
-        anim.Play("FadeIn");
+        blackOutAnimation.Play("FadeIn");
         var blackoutParticles = Instantiate(_blackoutParticles);
-        anim.Play("Flicker");
+        whiteOutAnimation.Play("Flicker");
         yield return new WaitForSeconds(hazardDuration);
         Debug.Log("Hazard Duration Ended");
         blackoutParticles.SetActive(false);
-        anim.Play("FadeOut");
+        blackOutAnimation.Play("FadeOut");
     }
 }
