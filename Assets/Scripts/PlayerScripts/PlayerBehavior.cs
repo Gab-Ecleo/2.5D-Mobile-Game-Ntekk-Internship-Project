@@ -25,6 +25,7 @@ namespace PlayerScripts
 
         private void Start()
         {
+            LocalStorageEvents.OnLoadPlayerStats?.Invoke();
             // get starting positon
             GetPlayerPosition();
 

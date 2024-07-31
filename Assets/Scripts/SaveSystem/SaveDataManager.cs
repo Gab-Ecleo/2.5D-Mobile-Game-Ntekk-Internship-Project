@@ -17,28 +17,25 @@ namespace SaveSystem
         
         private void Awake()
         {
-            Debug.Log("awoken");
+            #region Singleton
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
+            #endregion
             
             InitializeFiles();
-        }
-        public void TestSceneTransfer()
-        {
-            SceneManager.LoadScene("BlockRelatedPowerUpTest");
         }
 
         private void InitializeFiles()
         {
             new UpgradeStorage().CreateUpgradeData();
             new StatStorages().CreateStatData();
+            new CurrencyStorage().CreateCurrencyData();
         }
 
+        #region PLAYER_STATS
         private void LoadPlayerStats()
         {
             if (new StatStorages().GetStatData() == null) return;
-            initialPlayerStats.coins = new StatStorages().GetStatData().coins;
-
             initialPlayerStats.movementSpeed = new StatStorages().GetStatData().movementSpeed;
             initialPlayerStats.aerialSpdReducer = new StatStorages().GetStatData().aerialSpdReducer;
             
@@ -52,7 +49,6 @@ namespace SaveSystem
         {
             var tempStats = new StatData
             {
-                coins = initialPlayerStats.coins,
                 movementSpeed = initialPlayerStats.movementSpeed,
                 aerialSpdReducer = initialPlayerStats.aerialSpdReducer,
                 jumpHeight = initialPlayerStats.jumpHeight,
@@ -61,7 +57,9 @@ namespace SaveSystem
             };
             new StatStorages().SaveStatData(tempStats);
         }
+        #endregion
 
+        #region UPGRADES
         private void LoadUpgrade()
         {
             //called to update in-game data from the local storage
@@ -86,21 +84,44 @@ namespace SaveSystem
             };
             new UpgradeStorage().SaveUpgradeData(tempUpgrades);
         }
+        #endregion
+
+        #region CURRENCY
+        private void LoadCurrencyData()
+        {
+            if (new CurrencyStorage().GetCurrencyData() == null) return;
+            initialPlayerStats.coins = new CurrencyStorage().GetCurrencyData().coins;
+        }
+        
+        private void SaveCurrencyData()
+        {
+            var tempCurrency = new CurrencyData { coins = initialPlayerStats.coins};
+            new CurrencyStorage().SaveCurrencyData(tempCurrency);
+        }
+        #endregion
 
         private void OnEnable()
         {
             LocalStorageEvents.OnLoadPlayerStats += LoadPlayerStats;
             LocalStorageEvents.OnSavePlayerStats += SavePlayerStats;
+            
             LocalStorageEvents.OnSaveUpgradesData += SaveUpgrade;
             LocalStorageEvents.OnLoadUpgradeData += LoadUpgrade;
+
+            LocalStorageEvents.OnLoadCurrencyData += LoadCurrencyData;
+            LocalStorageEvents.OnSaveCurrencyData += SaveCurrencyData;
         }
 
         private void OnDisable()
         {
             LocalStorageEvents.OnLoadPlayerStats -= LoadPlayerStats;
             LocalStorageEvents.OnSavePlayerStats -= SavePlayerStats;
+            
             LocalStorageEvents.OnSaveUpgradesData -= SaveUpgrade;
             LocalStorageEvents.OnLoadUpgradeData -= LoadUpgrade;
+            
+            LocalStorageEvents.OnLoadCurrencyData -= LoadCurrencyData;
+            LocalStorageEvents.OnSaveCurrencyData -= SaveCurrencyData;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace UpgradeShop.ShopCurrency
 
         private void Start()
         {
+            LocalStorageEvents.OnLoadCurrencyData?.Invoke();
             UIManager.UpdateCurrencyUI(currencyStats.coins);
         }
 
@@ -21,12 +22,14 @@ namespace UpgradeShop.ShopCurrency
         {
             currencyStats.coins -= itemCost;
             UIManager.UpdateCurrencyUI(currencyStats.coins);
+            LocalStorageEvents.OnSaveCurrencyData?.Invoke();
         }
 
         private void OnItemSell(float itemCost)
         {
             currencyStats.coins += itemCost;
             UIManager.UpdateCurrencyUI(currencyStats.coins);
+            LocalStorageEvents.OnSaveCurrencyData?.Invoke();
         }
 
         private void OnEnable()

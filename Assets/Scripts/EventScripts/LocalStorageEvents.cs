@@ -12,5 +12,9 @@ namespace EventScripts
         //Upgrade Events
         public static Action OnLoadUpgradeData;
         public static Action OnSaveUpgradesData;
+        
+        //Currency Events
+        public static Action OnLoadCurrencyData;
+        public static Action OnSaveCurrencyData;
     }
 }

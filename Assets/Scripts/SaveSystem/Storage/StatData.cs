@@ -7,9 +7,6 @@ namespace SaveSystem.Storage
     [Serializable]
     public class StatData
     {
-        [Header("Currencies")] 
-        public float coins = 0f;
-        
         [Header("Movement Stats")]
         public float movementSpeed = 8f;
 
