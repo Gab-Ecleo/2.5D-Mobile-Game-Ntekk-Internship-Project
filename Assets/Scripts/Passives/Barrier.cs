@@ -15,8 +15,8 @@ public class Barrier : MonoBehaviour
     [SerializeField] private PlayerStatsSO initialPlayerStats;
     [SerializeField] private PlayerStatsSO currentPlayerStats;
     [SerializeField] private int durabModif = 1;
-    [SerializeField] private Button button;
-    [SerializeField] private Button rezButton;
+    [SerializeField] private UnityEngine.UI.Button button;
+    [SerializeField] private UnityEngine.UI.Button rezButton;
 
     private void Start()
     {

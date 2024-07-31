@@ -20,12 +20,12 @@ public class PauseManager : MonoBehaviour
     [Header("BGM Audio")]
     [SerializeField] private Sprite _bgmOn;
     [SerializeField] private Sprite _bgmOff;
-    [SerializeField] private Button _bgmButton;
+    [SerializeField] private UnityEngine.UI.Button _bgmButton;
 
     [Header("SFX Audio")]
     [SerializeField] private Sprite _sfxOn;
     [SerializeField] private Sprite _sfxOff;
-    [SerializeField] private Button _sfxButton;
+    [SerializeField] private UnityEngine.UI.Button _sfxButton;
 
     private bool _isBgmOn;
     private bool _isSfxOn;
