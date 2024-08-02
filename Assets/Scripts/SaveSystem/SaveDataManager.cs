@@ -20,6 +20,7 @@ namespace SaveSystem
             #region Singleton
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
+            DontDestroyOnLoad(gameObject);
             #endregion
             
             InitializeFiles();
@@ -31,6 +32,14 @@ namespace SaveSystem
             new StatStorages().CreateStatData();
             new CurrencyStorage().CreateCurrencyData();
         }
+
+        private void SaveAll(Scene current, Scene next)
+        {
+            SavePlayerStats();
+            SaveCurrencyData();
+            SaveUpgrade();
+        }
+        
 
         #region PLAYER_STATS
         private void LoadPlayerStats()
@@ -110,6 +119,8 @@ namespace SaveSystem
 
             LocalStorageEvents.OnLoadCurrencyData += LoadCurrencyData;
             LocalStorageEvents.OnSaveCurrencyData += SaveCurrencyData;
+
+            SceneManager.activeSceneChanged += SaveAll;
         }
 
         private void OnDisable()
@@ -122,6 +133,14 @@ namespace SaveSystem
             
             LocalStorageEvents.OnLoadCurrencyData -= LoadCurrencyData;
             LocalStorageEvents.OnSaveCurrencyData -= SaveCurrencyData;
+            SceneManager.activeSceneChanged += SaveAll;
+        }
+        
+        private void OnApplicationQuit()
+        {
+            SavePlayerStats();
+            SaveCurrencyData();
+            SaveUpgrade();
         }
     }
 }
