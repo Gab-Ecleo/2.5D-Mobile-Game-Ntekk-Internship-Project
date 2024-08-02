@@ -7,12 +7,13 @@ using UnityEngine;
 public class BlackoutEffect : MonoBehaviour
 {
     [SerializeField] private float hazardDuration = 5f;
-    [SerializeField] private Animation anim;
+    [SerializeField] private Animation blackOutAnimation;
+    [SerializeField] private Animation whiteOutAnimation;
     [SerializeField] public GameObject _blackoutParticles;
 
     private GameManager _gameManager;
     private bool _isCorActive;
-
+    
     #region UNITY METHODS
 
     private void Awake()
@@ -40,17 +41,18 @@ public class BlackoutEffect : MonoBehaviour
         StartCoroutine(TriggerBlackout());
         // Plays SFX correlating to the action
     }
-
+    
     // Initiate a blackout which makes the screen go dark after [Hazard Duration].
     IEnumerator TriggerBlackout()
     {
-        anim.Play("FadeIn");
+        blackOutAnimation.Play("FadeIn");
         var blackoutParticles = Instantiate(_blackoutParticles);
-        
-        yield return new WaitForSeconds(hazardDuration);
+        whiteOutAnimation.Play("Flicker");
+        yield return new WaitForSeconds(hazardDuration / 2);
+        whiteOutAnimation.Play("Flicker");
+        yield return new WaitForSeconds(hazardDuration / 2);
         Debug.Log("Hazard Duration Ended");
         blackoutParticles.SetActive(false);
-        anim.Play("FadeOut");
+        blackOutAnimation.Play("FadeOut");
     }
-    
 }
