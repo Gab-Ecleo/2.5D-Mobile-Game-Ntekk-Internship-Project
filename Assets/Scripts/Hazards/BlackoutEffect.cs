@@ -48,7 +48,9 @@ public class BlackoutEffect : MonoBehaviour
         blackOutAnimation.Play("FadeIn");
         var blackoutParticles = Instantiate(_blackoutParticles);
         whiteOutAnimation.Play("Flicker");
-        yield return new WaitForSeconds(hazardDuration);
+        yield return new WaitForSeconds(hazardDuration / 2);
+        whiteOutAnimation.Play("Flicker");
+        yield return new WaitForSeconds(hazardDuration / 2);
         Debug.Log("Hazard Duration Ended");
         blackoutParticles.SetActive(false);
         blackOutAnimation.Play("FadeOut");
