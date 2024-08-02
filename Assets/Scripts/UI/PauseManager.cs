@@ -20,15 +20,17 @@ public class PauseManager : MonoBehaviour
     [Header("BGM Audio")]
     [SerializeField] private Sprite _bgmOn;
     [SerializeField] private Sprite _bgmOff;
-    [SerializeField] private Button _bgmButton;
+    [SerializeField] private UnityEngine.UI.Button _bgmButton;
 
     [Header("SFX Audio")]
     [SerializeField] private Sprite _sfxOn;
     [SerializeField] private Sprite _sfxOff;
-    [SerializeField] private Button _sfxButton;
+    [SerializeField] private UnityEngine.UI.Button _sfxButton;
 
     private bool _isBgmOn;
     private bool _isSfxOn;
+
+    public AudioUIManager AudioUIManager;
 
     private void Awake()
     {
@@ -36,6 +38,8 @@ public class PauseManager : MonoBehaviour
         else Destroy(this);
 
         GameEvents.ON_PAUSE += TogglePause;
+
+        AudioUIManager = GetComponent<AudioUIManager>();
     }
 
     private void OnDestroy()
@@ -79,6 +83,9 @@ public class PauseManager : MonoBehaviour
         _isBgmOn = !_isBgmOn;
         _bgmButton.image.sprite = _isBgmOn ? _bgmOn : _bgmOff;
         AudioManager.Instance.AudioMute(!_isBgmOn, AudioType.BGM);
+
+        if (!_isBgmOn) { AudioUIManager.bgmSlider.interactable = false; }
+        else { AudioUIManager.bgmSlider.interactable = true; }
     }
 
     public void MuteSFX()
@@ -86,6 +93,10 @@ public class PauseManager : MonoBehaviour
         _isSfxOn = !_isSfxOn;
         _sfxButton.image.sprite = _isSfxOn ? _sfxOn : _sfxOff;
         AudioManager.Instance.AudioMute(!_isSfxOn, AudioType.Sfx);
+        
+        if(!_isSfxOn) {AudioUIManager.sfxSlider.interactable = false; }
+        else { AudioUIManager.sfxSlider.interactable = true; }
+
     }
     #endregion
 

@@ -21,8 +21,8 @@ namespace UpgradeShop
         [SerializeField] private TextMeshProUGUI nextLvlStatTxt;
 
         [Header("UI Buttons")]
-        [SerializeField] private Button upgradeButton;
-        [SerializeField] private Button degradeButton;
+        [SerializeField] private UnityEngine.UI.Button upgradeButton;
+        [SerializeField] private UnityEngine.UI.Button degradeButton;
 
         public void UpdateNewItemName(UpgradeItem item)
         {

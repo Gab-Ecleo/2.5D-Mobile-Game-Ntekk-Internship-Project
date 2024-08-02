@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feaf8ee1a642467da82e715c3b7cf480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _footstepSource: {fileID: 9110891215903574990}
 --- !u!82 &9110891215903574990
 AudioSource:
   m_ObjectHideFlags: 0
@@ -105,7 +106,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067339100726678968}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 69ca5839bb688634c9d1afe174648ae6, type: 3}
@@ -380,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88dbac7380f400a88b47ebc4f75ac96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSource: {fileID: 2980578267850187704}
 --- !u!82 &2980578267850187704
 AudioSource:
   m_ObjectHideFlags: 0
