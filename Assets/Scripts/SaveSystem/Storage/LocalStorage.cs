@@ -19,15 +19,13 @@ namespace SaveSystem.Storage
             }
             
             // Create a new file when it doesn't exist
-            Debug.Log("File doesn't exist, creating a new one");
+            Debug.Log($"{path} doesn't exist, creating a new one");
             System.IO.File.Create(_buildPath(path));
         }
         public static void Write<T>(T data, string path)
         {
             _checkFile(path);
-            Debug.Log($"Received: {data}");
             string json = JsonUtility.ToJson(data, true);
-            Debug.Log($"Writing to file: {json}");
             System.IO.File.WriteAllText(_buildPath(path), json);
         }
         

@@ -9,6 +9,8 @@ namespace EventScripts
         //Currency Events
         public static Action<float> OnPurchaseLevel;
         public static Action<float> OnSellLevel;
+
+        public static Action OnUpdateCurrency;
         
         //UI Events
         public static Action OnInsufficientFunds;

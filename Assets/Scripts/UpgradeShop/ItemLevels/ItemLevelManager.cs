@@ -76,7 +76,6 @@ namespace UpgradeShop.ItemLevels
                         UpgradeShopEvents.OnPurchaseLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel + 1]);
                         _currentItem.currentLevel++;
                         UpdateStats();
-                        UpdateLocalData();
                         return;
                         
                     default:
@@ -101,7 +100,6 @@ namespace UpgradeShop.ItemLevels
                         UpgradeShopEvents.OnSellLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel]);
                         _currentItem.currentLevel--;
                         UpdateStats();
-                        UpdateLocalData();
                         return;
                         
                     default:
@@ -178,13 +176,6 @@ namespace UpgradeShop.ItemLevels
             }
         }
         #endregion
-
-        #region UPDATE_DATA
-        private void UpdateLocalData()
-        {
-            LocalStorageEvents.OnSaveUpgradesData?.Invoke();
-            LocalStorageEvents.OnSavePlayerStats?.Invoke();
-        }
-        #endregion
+        
     }
 }
