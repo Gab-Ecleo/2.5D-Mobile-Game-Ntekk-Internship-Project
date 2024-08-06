@@ -74,7 +74,9 @@ namespace AudioScripts
             }
             else
             {
+                if (!_footstepSource.isPlaying) return;
                 _footstepSource.loop = false;
+                _footstepSource.Stop();
             }
         }
 

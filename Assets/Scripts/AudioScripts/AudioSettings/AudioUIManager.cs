@@ -28,7 +28,7 @@ namespace AudioScripts.AudioSettings
     }
     public class AudioUIManager : MonoBehaviour
     {
-        private AudioSettingsSO _audioData;
+        [SerializeField]private AudioSettingsSO audioData;
 
         [Header("UI Sliders")]
         public Slider bgmSlider;
@@ -38,17 +38,10 @@ namespace AudioScripts.AudioSettings
         [SerializeField] private TextMeshProUGUI bgmTxt;
         [SerializeField] private TextMeshProUGUI sfxTxt;
 
-
-        private void Awake()
-        {
-            //initialize values from the Audio Setting Data
-            _audioData = Resources.Load("AudioSettingData/Audio Settings Data") as AudioSettingsSO;
-        }
-
         private void Start()
         {
-            bgmSlider.value = _audioData.bgmVolume;
-            sfxSlider.value = _audioData.sfxVolume;
+            bgmSlider.value = audioData.bgmVolume;
+            sfxSlider.value = audioData.sfxVolume;
         }
         
         //Everytime a slider changes value, this function gets called to update the UI and the Audio data
