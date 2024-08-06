@@ -13,8 +13,8 @@ public class Revive : MonoBehaviour
     [SerializeField] private PlayerStatsSO initialPlayerStats;
     [SerializeField] private PlayerStatsSO currentPlayerStats;
     [SerializeField] private GameObject deathScreen;
-    [SerializeField] private Button button;
-    [SerializeField] private Button reviveDeathButton;
+    [SerializeField] private UnityEngine.UI.Button button;
+    [SerializeField] private UnityEngine.UI.Button reviveDeathButton;
     
     private void Start()
     {

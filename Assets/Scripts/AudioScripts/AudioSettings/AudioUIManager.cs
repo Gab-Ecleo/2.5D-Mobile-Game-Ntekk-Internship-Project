@@ -31,8 +31,8 @@ namespace AudioScripts.AudioSettings
         private AudioSettingsSO _audioData;
 
         [Header("UI Sliders")]
-        [SerializeField] private Slider bgmSlider;
-        [SerializeField] private Slider sfxSlider;
+        public Slider bgmSlider;
+        public Slider sfxSlider;
 
         [Header("UI Texts")]
         [SerializeField] private TextMeshProUGUI bgmTxt;
@@ -85,5 +85,7 @@ namespace AudioScripts.AudioSettings
             bgmSlider.onValueChanged.RemoveListener(value =>OnsliderValueChanged(AudioType.BGM,value));
             sfxSlider.onValueChanged.RemoveListener(value =>OnsliderValueChanged(AudioType.Sfx,value));
         }
+
+       
     }
 }

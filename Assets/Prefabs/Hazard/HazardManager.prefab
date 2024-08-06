@@ -68,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hazardDuration: 5
   anim: {fileID: 0}
+  _blackoutParticles: {fileID: 1637273294980811808, guid: a0a8856c40a33a34a806ab44696e710a, type: 3}
 --- !u!114 &2824862220806485754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +84,7 @@ MonoBehaviour:
   _hazardDuration: 5
   _currentSpeed: 0
   _hazardModifier: 2
+  _rainParticles: {fileID: 8138550303160385573, guid: 39141f27d872d3c4ab7a11d33ffffd01, type: 3}
 --- !u!114 &1522544122296608528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,4 +100,6 @@ MonoBehaviour:
   _hazardDuration: 5
   _windStrength: 100
   _windDirection: 0
+  _windParticlesL: {fileID: 7061389092004909203, guid: 528ec03feff11104fa4f67aaefbbe72e, type: 3}
+  _windParticlesR: {fileID: 7061389092004909203, guid: 98c93a9d421df884ab793003476b4625, type: 3}
   _playerRB: {fileID: 0}
