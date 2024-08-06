@@ -12,8 +12,9 @@ namespace UpgradeShop.ShopCurrency
         [SerializeField] private PlayerStatsSO currencyStats;
         [SerializeField] private CurrencyUIManager UIManager;
 
-        private void Start()
+        private void InitializeCurrency()
         {
+            LocalStorageEvents.OnLoadCurrencyData?.Invoke();
             UIManager.UpdateCurrencyUI(currencyStats.coins);
         }
 
@@ -33,12 +34,16 @@ namespace UpgradeShop.ShopCurrency
         {
             UpgradeShopEvents.OnPurchaseLevel += OnItemPurchase;
             UpgradeShopEvents.OnSellLevel += OnItemSell;
+
+            UpgradeShopEvents.OnUpdateCurrency += InitializeCurrency;
         }
 
         private void OnDisable()
         {
             UpgradeShopEvents.OnPurchaseLevel -= OnItemPurchase;
             UpgradeShopEvents.OnSellLevel -= OnItemSell;
+            
+            UpgradeShopEvents.OnUpdateCurrency -= InitializeCurrency;
         }
     }
 }

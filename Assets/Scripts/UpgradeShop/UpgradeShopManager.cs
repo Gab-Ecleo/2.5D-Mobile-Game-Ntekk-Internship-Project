@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using EventScripts;
+using SaveSystem.Storage;
 using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,15 +14,18 @@ namespace UpgradeShop
     {
         [SerializeField] private UpgradeItemsList itemList;
         [SerializeField] private List<UpgradeItemIdentifier> itemIdentifiers;
-
+        
         [Header("Prefab references")]
         [SerializeField] private GameObject itemPrefab;
         
         [Header("Content Container")]
         [SerializeField] private GameObject contentList;
-
-        private void Start()
+        
+        public void GenerateItems()
         {
+            LocalStorageEvents.OnLoadUpgradeData?.Invoke();
+            UpgradeShopEvents.OnUpdateCurrency?.Invoke();
+            
             //destroy existing child
             foreach (Transform child in contentList.transform)
             {
