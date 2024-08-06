@@ -382,7 +382,6 @@ GameObject:
   - component: {fileID: 692229661079167039}
   - component: {fileID: 7043014976997306889}
   - component: {fileID: 8976717761938167097}
-  - component: {fileID: 6405195871929180596}
   - component: {fileID: 5359143134911833440}
   m_Layer: 5
   m_Name: PauseScreen
@@ -439,22 +438,7 @@ MonoBehaviour:
   _sfxOn: {fileID: 21300000, guid: 7f41d32d8a3645d46955f11b8127dd3b, type: 3}
   _sfxOff: {fileID: 21300000, guid: 84697ba20ccce684ea59e9991fd4d188, type: 3}
   _sfxButton: {fileID: 4999560019301948269}
---- !u!114 &6405195871929180596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800562010119237543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b651876a2c5c43a782b2ed14cf980f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmSlider: {fileID: 1652419856850211444}
-  sfxSlider: {fileID: 4346096757999413492}
-  bgmTxt: {fileID: 5132119494319229587}
-  sfxTxt: {fileID: 670036548925039031}
+  AudioUIManager: {fileID: 0}
 --- !u!114 &5359143134911833440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,6 +1108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8649565272960005752}
   - component: {fileID: 4353280696490000541}
+  - component: {fileID: 761869528042943186}
   m_Layer: 5
   m_Name: Music
   m_TagString: Untagged
@@ -1179,6 +1164,23 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &761869528042943186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3456765074675129414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b651876a2c5c43a782b2ed14cf980f9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioData: {fileID: 11400000, guid: 4571c298988b77a4aa74557a5829fdc0, type: 2}
+  bgmSlider: {fileID: 1652419856850211444}
+  sfxSlider: {fileID: 4346096757999413492}
+  bgmTxt: {fileID: 5132119494319229587}
+  sfxTxt: {fileID: 670036548925039031}
 --- !u!1 &3720947546998297983
 GameObject:
   m_ObjectHideFlags: 0
