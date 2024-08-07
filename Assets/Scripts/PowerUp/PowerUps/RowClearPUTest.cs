@@ -1,4 +1,5 @@
-﻿using BlockSystemScripts.BlockScripts;
+﻿using BlockSystemScripts;
+using BlockSystemScripts.BlockScripts;
 using ScriptableData;
 using UnityEngine;
 
@@ -24,20 +25,20 @@ namespace PowerUp.PowerUps
                 PlayerStatsSo.expressDelivery = true;
                 if (BottomRayDetection())
                 {
-                    BottomRayDetection().CurrentCell.AssignedRow.ClearRow();
+                    BottomRayDetection().AssignedRow.ClearRow();
                 }
                 base.OnTriggerEnter(other);
             }
         }
 
-        private BlockScript BottomRayDetection()
+        private GridCell BottomRayDetection()
         {
             Physics.Raycast(transform.position, -Vector3.up, out _hit, rayDistance, blockLayerDetected);
             if (_hit.collider == null)
             {
                 return null;
             }
-            return _hit.collider.gameObject.GetComponent<BlockScript>();
+            return _hit.collider.gameObject.GetComponent<GridCell>();
         }
     }
 }

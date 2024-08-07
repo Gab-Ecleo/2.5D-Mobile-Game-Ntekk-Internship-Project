@@ -45,5 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridCells: []
+  rowState: 1
   _playerScore: {fileID: 11400000, guid: aab198d4403120b4dbdd13d5aabbf717, type: 2}
   _playerCurrStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
