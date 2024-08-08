@@ -12,7 +12,7 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.timeSlow = true;
+                PlayerStatsSo.stats.timeSlow = true;
                 base.OnTriggerEnter(other);
             }
         }

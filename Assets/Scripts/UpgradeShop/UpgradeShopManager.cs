@@ -23,9 +23,6 @@ namespace UpgradeShop
         
         public void GenerateItems()
         {
-            LocalStorageEvents.OnLoadUpgradeData?.Invoke();
-            UpgradeShopEvents.OnUpdateCurrency?.Invoke();
-            
             //destroy existing child
             foreach (Transform child in contentList.transform)
             {

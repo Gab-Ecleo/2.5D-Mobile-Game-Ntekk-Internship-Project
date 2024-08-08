@@ -10,7 +10,7 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.hasMultiplier = true;
+                PlayerStatsSo.stats.hasMultiplier = true;
                 base.OnTriggerEnter(other);
             }
         }

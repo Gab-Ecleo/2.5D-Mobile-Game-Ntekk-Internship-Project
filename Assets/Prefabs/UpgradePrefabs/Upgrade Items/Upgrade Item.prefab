@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
+  playerCurrency: {fileID: 11400000, guid: 2664018984b24a54ca9b1003bbcc846e, type: 2}
   infoUI: {fileID: 1951339085084903814}
   levelSlots: []
 --- !u!114 &1951339085084903814

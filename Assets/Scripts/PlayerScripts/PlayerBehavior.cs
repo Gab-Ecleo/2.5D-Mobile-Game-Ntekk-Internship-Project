@@ -30,7 +30,7 @@ namespace PlayerScripts
             GetPlayerPosition();
 
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
-            currentPlayerStats.barrierDurability = initialPlayerStats.barrierDurability;
+            currentPlayerStats.stats = initialPlayerStats.stats;
             Time.timeScale = 1;
         }
         
@@ -47,13 +47,13 @@ namespace PlayerScripts
             {
                 // Check if player has barrier
                 // IF player has no barrier, triggers death when hit
-                if (currentPlayerStats.barrierUpgrade < 1)
-                {
-                    PlayerDeath();
-                    return;
-                }
+                // if (currentPlayerStats.stats.barrierDurability < 1)
+                // {
+                //     PlayerDeath();
+                //     return;
+                // }
                 
-                switch (currentPlayerStats.barrierDurability)
+                switch (currentPlayerStats.stats.barrierDurability)
                 {
                     //if player has no shield, trigger death
                     case <= 0:
@@ -62,8 +62,8 @@ namespace PlayerScripts
                     
                     //if player has shield, reduce shield by 1
                     case > 0:
-                        --currentPlayerStats.barrierDurability;
-                        Debug.Log($"Barrier Hits Left: {currentPlayerStats.barrierDurability}");
+                        --currentPlayerStats.stats.barrierDurability;
+                        Debug.Log($"Barrier Hits Left: {currentPlayerStats.stats.barrierDurability}");
                         break;
                 }
             }
@@ -73,12 +73,12 @@ namespace PlayerScripts
         private void GetPlayerPosition()
         {
             _playerPos = this.gameObject.transform.position;
-            currentPlayerStats.StartingPos = _playerPos;
+            currentPlayerStats.stats.StartingPos = _playerPos;
         }
 
         private void ResetPlayerPosition()
         {
-            this.gameObject.transform.position = currentPlayerStats.StartingPos;
+            this.gameObject.transform.position = currentPlayerStats.stats.StartingPos;
         }
         #endregion 
 

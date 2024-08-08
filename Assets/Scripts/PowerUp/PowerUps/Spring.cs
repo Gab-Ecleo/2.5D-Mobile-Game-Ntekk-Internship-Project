@@ -9,7 +9,7 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.springJump = true;
+                PlayerStatsSo.stats.springJump = true;
                 base.OnTriggerEnter(other);
             }
             //Box Decay Trigger
