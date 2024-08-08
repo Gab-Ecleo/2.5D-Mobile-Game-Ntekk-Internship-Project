@@ -1,7 +1,9 @@
 ﻿using System;
 using EventScripts;
+using Player_Statistics;
 using SaveSystem.Storage;
 using ScriptableData;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +15,7 @@ namespace SaveSystem
         public static SaveDataManager Instance => _instance;
 
         [SerializeField] private PlayerStatsSO initialPlayerStats;
+        [SerializeField] private CurrencySO playerCurrency;
         [SerializeField] private UpgradeItemsList itemList;
         
         private void Awake()
@@ -33,31 +36,35 @@ namespace SaveSystem
             new CurrencyStorage().CreateCurrencyData();
         }
 
+        //called at the beginning of the scene
+        private void InitializeData(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.buildIndex == 0)
+            {
+                LoadUpgrade();
+                LoadPlayerStats();
+                LoadCurrencyData();
+                UpgradeShopEvents.OnUpdateCurrency?.Invoke();
+            }
+
+            if (scene.buildIndex != 0)
+            {
+                
+            }
+        }
+
         #region PLAYER_STATS
         private void LoadPlayerStats()
         {
             if (new StatStorages().GetStatData() == null) return;
             Debug.Log("Loading Player Stats");
-            initialPlayerStats.movementSpeed = new StatStorages().GetStatData().movementSpeed;
-            initialPlayerStats.aerialSpdReducer = new StatStorages().GetStatData().aerialSpdReducer;
-            
-            initialPlayerStats.jumpHeight = new StatStorages().GetStatData().jumpHeight;
-
-            initialPlayerStats.barrierDurability = new StatStorages().GetStatData().barrierDurability;
-            initialPlayerStats.canRez = new StatStorages().GetStatData().canRez;
+            initialPlayerStats.stats = new StatStorages().GetStatData().stats;
         }
 
         private void SavePlayerStats()
         {
             Debug.Log("Saving Player Stats");
-            var tempStats = new StatData
-            {
-                movementSpeed = initialPlayerStats.movementSpeed,
-                aerialSpdReducer = initialPlayerStats.aerialSpdReducer,
-                jumpHeight = initialPlayerStats.jumpHeight,
-                barrierDurability = initialPlayerStats.barrierDurability,
-                canRez = initialPlayerStats.canRez
-            };
+            var tempStats = new StatData() { stats = initialPlayerStats.stats};
             new StatStorages().SaveStatData(tempStats);
         }
         #endregion
@@ -96,31 +103,48 @@ namespace SaveSystem
         {
             if (new CurrencyStorage().GetCurrencyData() == null) return;
             Debug.Log("Loading Currency");
-            initialPlayerStats.coins = new CurrencyStorage().GetCurrencyData().coins;
+            playerCurrency.coins = new CurrencyStorage().GetCurrencyData().coins;
         }
         
         private void SaveCurrencyData()
         {
             Debug.Log("Saving Currency");
-            var tempCurrency = new CurrencyData { coins = initialPlayerStats.coins};
+            var tempCurrency = new CurrencyData { coins = playerCurrency.coins};
             new CurrencyStorage().SaveCurrencyData(tempCurrency);
         }
         #endregion
         
+        //called when a scene has loaded out
         private void SaveAll(Scene current)
         {
-            Debug.Log("Unloading Scene. Saving Data");
-            SavePlayerStats();
-            SaveCurrencyData();
-            SaveUpgrade();
+            if (current.buildIndex == 0)
+            {
+                Debug.Log("Unloading Scene. Saving Data");
+                SavePlayerStats();
+                SaveCurrencyData();
+                SaveUpgrade();
+            }
+            
+            if (current.buildIndex != 0)
+            {
+                SaveCurrencyData();
+            }
         }
         
         private void OnApplicationQuit()
         {
-            Debug.Log("Quitting Application. Saving Data");
-            SavePlayerStats();
-            SaveCurrencyData();
-            SaveUpgrade();
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                Debug.Log("Quitting Application. Saving Data");
+                SavePlayerStats();
+                SaveCurrencyData();
+                SaveUpgrade();
+            }
+
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+            {
+                SaveCurrencyData();
+            }
         }
 
         private void OnEnable()
@@ -134,7 +158,9 @@ namespace SaveSystem
             LocalStorageEvents.OnLoadCurrencyData += LoadCurrencyData;
             LocalStorageEvents.OnSaveCurrencyData += SaveCurrencyData;
 
+            
             SceneManager.sceneUnloaded += SaveAll;
+            SceneManager.sceneLoaded += InitializeData;
         }
 
         private void OnDisable()
@@ -149,6 +175,7 @@ namespace SaveSystem
             LocalStorageEvents.OnSaveCurrencyData -= SaveCurrencyData;
             
             SceneManager.sceneUnloaded -= SaveAll;
+            SceneManager.sceneLoaded -= InitializeData;
         }
     }
 }

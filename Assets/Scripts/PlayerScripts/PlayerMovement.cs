@@ -1,6 +1,7 @@
 using System;
 using AudioScripts.AudioSettings;
 using EventScripts;
+using Player_Statistics;
 using ScriptableData;
 //using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
@@ -15,6 +16,9 @@ namespace PlayerScripts
         private bool _isFacingRight;
         private Vector2 _moveDirection = Vector2.zero;
         private Rigidbody _rb;
+        
+        [Header("Movement Implementation Choice")]
+        public PlayerMovementState movementState = PlayerMovementState.ReducedFlippedMovement;
 
         [Header("Player Data References")]
         //player's stats. Only Modify 
@@ -31,11 +35,6 @@ namespace PlayerScripts
         private void Awake()
         {
             InitializeScriptValues();
-        }
-
-        private void Start()
-        {
-            InitializePlayerStats();
         }
 
         private void Update()
@@ -59,23 +58,6 @@ namespace PlayerScripts
             //initializes the value of the boolean depending on the player gameobject's local scale x value
             _isFacingRight = gameObject.transform.localEulerAngles != new Vector3(0, 180, 0);
         }
-
-        private void InitializePlayerStats()
-        {
-            //initialize current player stats data using initial player stats
-            if (currentPlayerStats == null) return;
-            if (initialPlayerStats == null) return;
-            currentPlayerStats.movementSpeed = initialPlayerStats.movementSpeed;
-            currentPlayerStats.acceleration = initialPlayerStats.acceleration;
-            currentPlayerStats.deceleration = initialPlayerStats.deceleration;
-            currentPlayerStats.velPower = initialPlayerStats.velPower;
-            currentPlayerStats.frictionAmount = initialPlayerStats.frictionAmount;
-
-            currentPlayerStats.aerialSpdReducer = initialPlayerStats.aerialSpdReducer;
-            
-            currentPlayerStats.jumpHeight = initialPlayerStats.jumpHeight;
-            currentPlayerStats.jumpCutMultiplier = initialPlayerStats.jumpCutMultiplier;
-        }
         
         #endregion
 
@@ -87,17 +69,17 @@ namespace PlayerScripts
             _moveDirection = input;
 
             //calculated the player's input multiplied by the set movement speed
-            float targetSpeed = _moveDirection.x * currentPlayerStats.movementSpeed;
+            float targetSpeed = _moveDirection.x * currentPlayerStats.stats.movementSpeed;
             //calculates the difference between the set target speed and the player's current velocity
             float speedDiff = targetSpeed - _rb.velocity.x;
             //checks if the target speed is more than or less than 0, allowing ato switch between the set acceleration and set deceleration
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? currentPlayerStats.acceleration : currentPlayerStats.deceleration;
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? currentPlayerStats.stats.acceleration : currentPlayerStats.stats.deceleration;
             //calculates the final movement computation
-            float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, currentPlayerStats.velPower) *
+            float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, currentPlayerStats.stats.velPower) *
                                  Mathf.Sign(speedDiff);
 
             //determines which type of aerial movement implementation will the player use
-            switch (currentPlayerStats.movementState)
+            switch (movementState)
             {
                 case PlayerMovementState.WithAerialMovement:
                     _rb.AddForce(movement * Vector2.right);
@@ -108,7 +90,7 @@ namespace PlayerScripts
                     if (!IsGrounded())
                     {
                         var velocity = _rb.velocity;
-                        velocity = new Vector3(velocity.x * currentPlayerStats.aerialSpdReducer, velocity.y,
+                        velocity = new Vector3(velocity.x * currentPlayerStats.stats.aerialSpdReducer, velocity.y,
                             velocity.z);
                         _rb.velocity = velocity;
                     }
@@ -118,7 +100,7 @@ namespace PlayerScripts
                 {
                     if (!IsGrounded())
                     {
-                        _rb.AddForce(movement * Vector2.right * currentPlayerStats.aerialSpdReducer);
+                        _rb.AddForce(movement * Vector2.right * currentPlayerStats.stats.aerialSpdReducer);
                         
                     }
                     else if (IsGrounded())
@@ -143,7 +125,7 @@ namespace PlayerScripts
             #region FRICTION
             if (IsGrounded() && Mathf.Abs(_moveDirection.x) <= 0)
             {
-                float amount = Mathf.Min(Mathf.Abs(_rb.velocity.x), Mathf.Abs(currentPlayerStats.frictionAmount));
+                float amount = Mathf.Min(Mathf.Abs(_rb.velocity.x), Mathf.Abs(currentPlayerStats.stats.frictionAmount));
                 amount *= Mathf.Sign(_rb.velocity.x);
                 _rb.AddForce(Vector2.right*-amount, ForceMode.Impulse);
             }
@@ -161,7 +143,7 @@ namespace PlayerScripts
 
                 #region Jump Calculation
 
-                float force = currentPlayerStats.jumpHeight;
+                float force = currentPlayerStats.stats.jumpHeight;
                 if (_rb.velocity.y<0)
                 {
                     force -= _rb.velocity.y;
@@ -174,7 +156,7 @@ namespace PlayerScripts
             //after jumping button is released, while the player is jumping, drags the player down. 
             else if (ctx.ReadValueAsButton() == false && _rb.velocity.y > 0f)
             {
-                _rb.AddForce(Vector3.down * _rb.velocity.y*(1-currentPlayerStats.jumpCutMultiplier), ForceMode.Impulse);
+                _rb.AddForce(Vector3.down * _rb.velocity.y*(1-currentPlayerStats.stats.jumpCutMultiplier), ForceMode.Impulse);
             }
         }
 

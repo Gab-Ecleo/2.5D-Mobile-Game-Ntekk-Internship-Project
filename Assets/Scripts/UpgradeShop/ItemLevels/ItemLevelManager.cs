@@ -10,6 +10,7 @@ namespace UpgradeShop.ItemLevels
     public class ItemLevelManager : MonoBehaviour
     {
         [SerializeField] private PlayerStatsSO initialStats;
+        [SerializeField] private CurrencySO playerCurrency;
         [SerializeField] private ItemInfoUI infoUI;
         
         [Header("Level Slots List. DO NOT MODIFY!!!")]
@@ -65,7 +66,7 @@ namespace UpgradeShop.ItemLevels
                     
                     case LevelState.NotUpgraded:
                         //triggered when the player does not have enough money
-                        if (initialStats.coins < _currentItem.costPerLevel[_currentItem.currentLevel + 1])
+                        if (playerCurrency.coins < _currentItem.costPerLevel[_currentItem.currentLevel + 1])
                         {
                             Debug.Log("YOU ARE POOR");
                             UpgradeShopEvents.OnInsufficientFunds?.Invoke();
@@ -117,14 +118,14 @@ namespace UpgradeShop.ItemLevels
             switch (_statToUpgrade)
             {
                 case Upgradables.Barrier:
-                    initialStats.barrierDurability = (int)_currentItem.valuePerLevel[_currentItem.currentLevel];
+                    initialStats.stats.barrierDurability = (int)_currentItem.valuePerLevel[_currentItem.currentLevel];
                     ValidateForResurrectionUpgrade();
                     break;
                 case Upgradables.MovementSpeed:
-                    initialStats.movementSpeed = _currentItem.valuePerLevel[_currentItem.currentLevel];
+                    initialStats.stats.movementSpeed = _currentItem.valuePerLevel[_currentItem.currentLevel];
                     break;
                 case Upgradables.AerialMovement:
-                    initialStats.aerialSpdReducer = _currentItem.valuePerLevel[_currentItem.currentLevel];
+                    initialStats.stats.aerialSpdReducer = _currentItem.valuePerLevel[_currentItem.currentLevel];
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -141,13 +142,13 @@ namespace UpgradeShop.ItemLevels
             switch (_currentItem.currentLevel)
             {
                 case < 6:
-                    if (initialStats.canRez)
+                    if (initialStats.stats.canRez)
                     {
-                        initialStats.canRez = false;
+                        initialStats.stats.canRez = false;
                     }
                     return;
                 case 6:
-                    initialStats.canRez = true;
+                    initialStats.stats.canRez = true;
                     Debug.Log("RESURRECTION UPGRADE UNLOCKED");
                     break;
             }

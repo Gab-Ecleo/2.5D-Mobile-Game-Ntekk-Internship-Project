@@ -414,6 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3685100824261808067}
   - component: {fileID: 2348477677290683587}
+  - component: {fileID: 7020289863072844209}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -468,6 +469,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &7020289863072844209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561704961548356234}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b216cad9ac454dafa8c21f426f2c65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2530405860912492466
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +627,8 @@ GameObject:
   - component: {fileID: 3327930481089313839}
   - component: {fileID: 6422328693008063124}
   - component: {fileID: 1011674604469731803}
+  - component: {fileID: 1537940130970551771}
+  - component: {fileID: 3854804997712511613}
   m_Layer: 5
   m_Name: Pick-up/Drop
   m_TagString: Untagged
@@ -722,6 +737,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1537940130970551771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2600419520916093177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/buttonWest
+--- !u!114 &3854804997712511613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2600419520916093177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5704bf485fd041388b5e44cad989b2ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2752535753047853693
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +874,8 @@ GameObject:
   - component: {fileID: 1820464846869157412}
   - component: {fileID: 607754828480657929}
   - component: {fileID: 7197134212588484801}
+  - component: {fileID: 5310524407701480740}
+  - component: {fileID: 515046622468971321}
   m_Layer: 5
   m_Name: 'Left '
   m_TagString: Untagged
@@ -942,6 +984,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5310524407701480740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3006832613436785541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/dpad/left
+--- !u!114 &515046622468971321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3006832613436785541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5704bf485fd041388b5e44cad989b2ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3504385803887361441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,6 +1269,8 @@ GameObject:
   - component: {fileID: 8590926960756168998}
   - component: {fileID: 2740684472158025498}
   - component: {fileID: 809238806846680448}
+  - component: {fileID: 8761292180917845393}
+  - component: {fileID: 2149863535460276014}
   m_Layer: 5
   m_Name: jump
   m_TagString: Untagged
@@ -1310,6 +1379,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8761292180917845393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901270325906905702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/buttonSouth
+--- !u!114 &2149863535460276014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901270325906905702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5704bf485fd041388b5e44cad989b2ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4926688729817207721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2482,6 +2576,8 @@ GameObject:
   - component: {fileID: 6041214759771077934}
   - component: {fileID: 2483199251184302893}
   - component: {fileID: 2291594313020180280}
+  - component: {fileID: 4013292801839787341}
+  - component: {fileID: 6474699464162990969}
   m_Layer: 5
   m_Name: Right
   m_TagString: Untagged
@@ -2590,6 +2686,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4013292801839787341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6905647411994848826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/dpad/right
+--- !u!114 &6474699464162990969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6905647411994848826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5704bf485fd041388b5e44cad989b2ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7138377756105221413
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ namespace AudioScripts.AudioSettings
         private static AudioManager _instance;
         public static AudioManager Instance => _instance;
         
-        private AudioSettingsSO _audioData;
+        [SerializeField] private AudioSettingsSO audioData;
         
         [SerializeField] private AudioClipsSO _audioClips;
         [SerializeField] private AudioSource[] bgmSources;
@@ -22,14 +22,12 @@ namespace AudioScripts.AudioSettings
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
         }
-
+        
         private void Start()
         {
-            //initialize values from the Audio Setting Data
-            _audioData = Resources.Load("AudioSettingData/Audio Settings Data") as AudioSettingsSO;
-            if (_audioData == null) return;
-            UpdateBGMVolume(_audioData.bgmVolume);
-            UpdateSfxVolume(_audioData.sfxVolume);
+            if (audioData == null) return;
+            UpdateBGMVolume(audioData.bgmVolume);
+            UpdateSfxVolume(audioData.sfxVolume);
         }
 
         //updates the values of all the audio sources in the list
@@ -62,11 +60,11 @@ namespace AudioScripts.AudioSettings
             switch (settingsPayload.AudioSettingType)
             {
                 case AudioType.BGM:
-                    _audioData.bgmVolume = settingsPayload.Volume;
+                    audioData.bgmVolume = settingsPayload.Volume;
                     UpdateBGMVolume(settingsPayload.Volume);
                     break;
                 case AudioType.Sfx:
-                    _audioData.sfxVolume = settingsPayload.Volume;
+                    audioData.sfxVolume = settingsPayload.Volume;
                     UpdateSfxVolume(settingsPayload.Volume);
                     break;
                 default:
@@ -93,7 +91,7 @@ namespace AudioScripts.AudioSettings
 
         public void AudioMute(bool isMuted, AudioType audioType)
         {
-            float volume = isMuted ? 0 : (audioType == AudioType.BGM ? _audioData.bgmVolume : _audioData.sfxVolume);
+            float volume = isMuted ? 0 : (audioType == AudioType.BGM ? audioData.bgmVolume : audioData.sfxVolume);
 
             if (audioType == AudioType.BGM)
             {

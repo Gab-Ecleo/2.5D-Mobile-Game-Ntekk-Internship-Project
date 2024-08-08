@@ -6,7 +6,7 @@ using UnityEngine;
 using TMPro;   
 public class ScoreToCurrency : MonoBehaviour
 {
-    private PlayerStatsSO _initialPlayerStats;
+    private CurrencySO playerCoins;
     
     private ScoresSO _scores;
     
@@ -22,7 +22,7 @@ public class ScoreToCurrency : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
-        _initialPlayerStats = _gameManager.FetchInitialPlayerStat();
+        playerCoins = _gameManager.FetchCurrency();
         _scores = _gameManager.FetchScores();
 
         UpdateUI();
@@ -35,7 +35,7 @@ public class ScoreToCurrency : MonoBehaviour
         // convert the final score with the score modifier to currency
         _currency = _finalScore / _scoreModifier;
         // add the currency to the player
-        _initialPlayerStats.coins += _currency;
+        playerCoins.coins += _currency;
     }
 
     public void UpdateUI()
