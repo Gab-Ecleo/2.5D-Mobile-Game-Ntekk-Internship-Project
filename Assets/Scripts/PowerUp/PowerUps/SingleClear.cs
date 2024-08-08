@@ -8,7 +8,7 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.singleBlockRemover = true;
+                PlayerStatsSo.stats.singleBlockRemover = true;
                 base.OnTriggerEnter(other);
             }
         }

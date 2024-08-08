@@ -22,7 +22,7 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.expressDelivery = true;
+                PlayerStatsSo.stats.expressDelivery = true;
                 if (BottomRayDetection())
                 {
                     BottomRayDetection().AssignedRow.ClearRow();

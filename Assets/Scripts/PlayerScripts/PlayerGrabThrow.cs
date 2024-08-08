@@ -49,7 +49,7 @@ namespace PlayerScripts
             //detects object in front of player; eyesight level first, then waist level
             if (_eyeSight.FirstBlockDetection() != null)
             {
-                if (_playerStats.singleBlockRemover)
+                if (_playerStats.stats.singleBlockRemover)
                 {
                     DestroySingleBlock(_eyeSight.FirstBlockDetection());
                     return;
@@ -58,7 +58,7 @@ namespace PlayerScripts
             }
             else if (_eyeSight.SecondBlockDetection() != null)
             {
-                if (_playerStats.singleBlockRemover)
+                if (_playerStats.stats.singleBlockRemover)
                 {
                     DestroySingleBlock(_eyeSight.SecondBlockDetection());
                     return;
@@ -127,7 +127,7 @@ namespace PlayerScripts
             if (detectedBlock.BlockType == BlockType.PowerUp) return;
             if (detectedBlock.BlockState != BlockState.CanPickUp) return;
             Destroy(detectedBlock.gameObject);
-            _playerStats.singleBlockRemover = false;
+            _playerStats.stats.singleBlockRemover = false;
         }
         #endregion
     }

@@ -22,6 +22,13 @@ namespace AudioScripts.AudioSettings
             if (_instance == null) _instance = this;
             else if (_instance != this) Destroy(gameObject);
         }
+        
+        private void Start()
+        {
+            if (audioData == null) return;
+            UpdateBGMVolume(audioData.bgmVolume);
+            UpdateSfxVolume(audioData.sfxVolume);
+        }
 
         //updates the values of all the audio sources in the list
         private void UpdateBGMVolume(float volume)

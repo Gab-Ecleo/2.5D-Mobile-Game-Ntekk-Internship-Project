@@ -105,27 +105,27 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
         switch (_currentPowerUpType)
         {
             case PowerTypes.Multiplier:
-                _currPlayerStatsSO.hasMultiplier = false;
+                _currPlayerStatsSO.stats.hasMultiplier = false;
                 OnMultiplierDeactivate();
                 Debug.Log("Multiplier Power-up finished");
                 break;
             case PowerTypes.Spring:
-                _currPlayerStatsSO.springJump = false;
+                _currPlayerStatsSO.stats.springJump = false;
                 OnSpringDeactivate();
                 Debug.Log("Spring Power-up finished");
                 break;
             case PowerTypes.TimeSlow:
-                _currPlayerStatsSO.timeSlow = false;
+                _currPlayerStatsSO.stats.timeSlow = false;
                 OnTimeSlowDeactivate();
                 Debug.Log("Time Slow Power-up finished");
                 break;
             case PowerTypes.SingleClear:
-                _currPlayerStatsSO.singleBlockRemover = false;
+                _currPlayerStatsSO.stats.singleBlockRemover = false;
                 OnSingleClearDeactivate();
                 Debug.Log("Single Clear Finished");
                 break;
             case PowerTypes.RowClear:
-                _currPlayerStatsSO.expressDelivery = false;
+                _currPlayerStatsSO.stats.expressDelivery = false;
                 OnRowClearDeactivate();
                 Debug.Log("Row Clear Finished");
                 break;
@@ -221,12 +221,12 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
     public void OnSpringActivate()
     {
         _currentJumpHeight += _jumpBoost;
-        _currPlayerStatsSO.jumpHeight = _currentJumpHeight;
+        _currPlayerStatsSO.stats.jumpHeight = _currentJumpHeight;
     }
     public void OnSpringDeactivate()
     {
         _currentJumpHeight -= _jumpBoost;
-        _currPlayerStatsSO.jumpHeight = _initialPlayerStatsSO.jumpHeight;
+        _currPlayerStatsSO.stats.jumpHeight = _initialPlayerStatsSO.stats.jumpHeight;
     }
     public void OnTimeSlowActivate()
     {
@@ -263,23 +263,23 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
     {
         if (/*context.performed &&*/ _powerUpInitialized)
         {
-            if (_currPlayerStatsSO.hasMultiplier) 
+            if (_currPlayerStatsSO.stats.hasMultiplier) 
             { 
                 OnPowerUpReady(PowerTypes.Multiplier); 
             }
-            if (_currPlayerStatsSO.springJump) 
+            if (_currPlayerStatsSO.stats.springJump) 
             {
                 OnPowerUpReady(PowerTypes.Spring); 
             }
-            if (_currPlayerStatsSO.timeSlow) 
+            if (_currPlayerStatsSO.stats.timeSlow) 
             {
                 OnPowerUpReady(PowerTypes.TimeSlow); 
             }
-            if (_currPlayerStatsSO.singleBlockRemover) 
+            if (_currPlayerStatsSO.stats.singleBlockRemover) 
             {
                 OnPowerUpReady(PowerTypes.SingleClear); 
             }
-            if (_currPlayerStatsSO.expressDelivery) 
+            if (_currPlayerStatsSO.stats.expressDelivery) 
             {
                 OnPowerUpReady(PowerTypes.RowClear); 
             }

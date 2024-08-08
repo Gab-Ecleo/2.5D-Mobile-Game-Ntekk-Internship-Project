@@ -36,7 +36,7 @@ public class RainEffect : MonoBehaviour
         _isCorActive = false;
         
         //Set current speed from the player stat speed value
-        _currentSpeed = _playerStat.movementSpeed;
+        _currentSpeed = _playerStat.stats.movementSpeed;
     }
 
     #endregion
@@ -55,12 +55,12 @@ public class RainEffect : MonoBehaviour
         var rainParticles = Instantiate(_rainParticles);
         
         _currentSpeed /= _hazardModifier;
-        _playerStat.movementSpeed = _currentSpeed;
+        _playerStat.stats.movementSpeed = _currentSpeed;
 
         yield return new WaitForSeconds(_hazardDuration);
         Debug.Log("End of Hazard Duration");
         rainParticles.SetActive(false);
-        _playerStat.movementSpeed *= _hazardModifier;
+        _playerStat.stats.movementSpeed *= _hazardModifier;
 
         _isCorActive = false;
     }

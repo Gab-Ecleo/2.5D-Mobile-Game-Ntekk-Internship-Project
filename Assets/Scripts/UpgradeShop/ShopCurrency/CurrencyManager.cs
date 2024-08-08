@@ -9,12 +9,12 @@ namespace UpgradeShop.ShopCurrency
     //handles the updates given to the currency in the upgrade shop
     public class CurrencyManager : MonoBehaviour
     {
-        [SerializeField] private PlayerStatsSO currencyStats;
+        [SerializeField] private CurrencySO currencyStats;
         [SerializeField] private CurrencyUIManager UIManager;
 
         private void InitializeCurrency()
         {
-            LocalStorageEvents.OnLoadCurrencyData?.Invoke();
+            
             UIManager.UpdateCurrencyUI(currencyStats.coins);
         }
 
