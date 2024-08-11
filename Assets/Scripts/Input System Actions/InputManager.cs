@@ -26,7 +26,7 @@ namespace Input_System_Actions
         }
 
 
-        private void FixedUpdate()
+        private void Update()
         {
             //forwards the values of the player's movement inputs to the movement script
             _playerMovement.ProcessMove(_move.ReadValue<Vector2>());
