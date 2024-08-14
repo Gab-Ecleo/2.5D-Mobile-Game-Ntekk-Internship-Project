@@ -15,93 +15,101 @@ public class TabGroup : MonoBehaviour
     public Sprite tabExit;
 
     private TabButton _selectedTab;
+    public bool tabIsOpen;
+    public ButtonTimerState timerState = ButtonTimerState.Ready;
+    public float cooldownTime = 1f;
 
-    #region Start Game Button
-    // make sure that tab 0 is the Home/Player button
     private void Start()
     {
         if (tabButtons != null && tabButtons.Count > 0)
         {
-            OnTabSelected(tabButtons[0], false);
+            OnTabSelected(tabButtons[0]);
         }
-    }
-    #endregion
-
-    public void Subscribe(TabButton button)
-    {
-        if (tabButtons == null)
-        {
-            tabButtons = new List<TabButton>();
-        }
-
-        tabButtons.Add(button);
     }
 
     public void OnTabEnter(TabButton button)
     {
-        ResetButtons();
-        if (_selectedTab == null || button != _selectedTab) { button.Background.sprite = tabHover; }
-        
+        if (timerState == ButtonTimerState.Ready)
+        {
+            ResetButtons();
+            if (_selectedTab == null || button != _selectedTab)
+            {
+                button.Background.sprite = tabHover;
+            }
+        }
     }
+
     public void OnTabExit(TabButton button)
     {
-        ResetButtons();
+        if (timerState == ButtonTimerState.Ready)
+        {
+            ResetButtons();
+        }
     }
-    public void OnTabSelected(TabButton button, bool isAnimated)
+
+    public void OnTabSelected(TabButton button)
     {
+        if (timerState != ButtonTimerState.Ready) return;
+
+        if (_selectedTab == button) return;
+
         _selectedTab = button;
+        tabIsOpen = true;
         ResetButtons();
         button.Background.sprite = tabActive;
 
-        if (isAnimated)
-        {
-            LeanTween.scale(button.gameObject, new Vector3(0.9f, 0.8f, 0.6f), 0.1f).setDelay(0.1f).setEase(LeanTweenType.easeOutCubic);
-            LeanTween.moveLocalY(button.gameObject, -138f, 0.1f);
-        }
-        else
-        {
-            button.transform.localScale = new Vector3(0.9f, 0.8f, 0.6f);
-            button.transform.localPosition = new Vector3(button.transform.localPosition.x, -138f, button.transform.localPosition.z);
-        }
+        LeanTween.scale(button.gameObject, new Vector3(0.9f, 0.8f, 0.6f), 0.1f)
+                 .setDelay(0.1f).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.moveLocalY(button.gameObject, -138f, 0.1f);
 
-        ActivatePage(button, isAnimated);
+        ActivatePage(button);
+
+        StartCoroutine(ButtonCooldown());
     }
 
     public void ResetButtons()
     {
-        foreach(TabButton button in tabButtons)
+        foreach (TabButton button in tabButtons)
         {
-            if(_selectedTab != null && button == _selectedTab) { continue; }
+            if (_selectedTab != null && button == _selectedTab) continue;
             button.Background.sprite = tabIdle;
 
-            // reset the scale and tranform
-            LeanTween.scale(button.gameObject, new Vector3(0.8f, 0.6f, 0.6f), 0.1f).setDelay(0.1f).setEase(LeanTweenType.easeOutCubic);
+            LeanTween.scale(button.gameObject, new Vector3(0.8f, 0.6f, 0.6f), 0.1f)
+                     .setDelay(0.1f).setEase(LeanTweenType.easeOutCubic);
             LeanTween.moveLocalY(button.gameObject, -158f, 0.1f);
         }
     }
 
-    public void ActivatePage(TabButton button, bool animate)
+    public void ActivatePage(TabButton button)
     {
-        // get the pages for each button
-        // make sure the page list has the same arrangement as the button list
         int index = button.transform.GetSiblingIndex();
         for (int i = 0; i < objectsToSwap.Count; i++)
         {
             if (i == index)
             {
-                if (animate)
-                {
-                    LeanTween.moveLocalX(objectsToSwap[i], 0, 0.5f).setDelay(0.1f).setEase(LeanTweenType.easeInQuint);
-                }
-                else
-                {
-                    objectsToSwap[i].transform.localPosition = new Vector3(0f, objectsToSwap[i].transform.localPosition.y, objectsToSwap[i].transform.localPosition.z);    
-                }
+                LeanTween.moveLocalX(objectsToSwap[i], 0, 0.5f)
+                         .setEase(LeanTweenType.easeInQuint);
             }
             else
             {
-                LeanTween.moveLocalX(objectsToSwap[i], 1400f, 0.1f);
+                LeanTween.moveLocalX(objectsToSwap[i], 1400f, 0.1f)
+                         .setEase(LeanTweenType.easeInQuint);
             }
         }
     }
+
+    private IEnumerator ButtonCooldown()
+    {
+        timerState = ButtonTimerState.Waiting;
+        yield return new WaitForSeconds(cooldownTime);
+        timerState = ButtonTimerState.Ready;
+    }
 }
+
+public enum ButtonTimerState
+{
+    Ready,
+    Waiting,
+    Cooldown
+}
+
