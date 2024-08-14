@@ -19,10 +19,10 @@ MonoBehaviour:
   specialBlockList:
   - {fileID: 3014360087961761113, guid: cc3e05f7ce873fd49be1618a7c4af936, type: 3}
   powerUpBlockList:
-  - {fileID: 5975858976166980346, guid: 0cba40c7a87e7574095a69943cc47aaf, type: 3}
-  - {fileID: 7508165069949542602, guid: c99ba4f46536aba4f849b2f7172adfbb, type: 3}
-  - {fileID: 6139136983376210963, guid: f2993882403791d4194f8dcebdc93e02, type: 3}
-  - {fileID: 7387297278845115731, guid: d45c3758ba4ba6d4fbdd7b3fc33c2568, type: 3}
-  defaultRate: 90
-  heavyRate: 95
+  - {fileID: 9003241988300482068, guid: 32feac7bcd990e746800fd5956745645, type: 3}
+  - {fileID: 4629124967111218583, guid: 7d77219b6073a374fa57b6c657bf2483, type: 3}
+  - {fileID: 630370101307869008, guid: 31e0dd785876f95499857f9642659a44, type: 3}
+  - {fileID: 1487277569331736682, guid: 1f2d8b29139af6b4f95f9dc4aa94c13f, type: 3}
+  defaultRate: 46
+  heavyRate: 0
   powerUpRate: 100
