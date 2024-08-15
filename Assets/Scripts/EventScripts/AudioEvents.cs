@@ -11,6 +11,7 @@ namespace EventScripts
         public static Action<object> OnValueChanged;
         public static Action ON_STOP_SFX;
         public static Action ON_STOP_BGM;
+        public static Action ON_GAME_START;
 
         public static Action ON_PLAYER_JUMP;
         public static Action ON_PLAYER_PICKUP;
