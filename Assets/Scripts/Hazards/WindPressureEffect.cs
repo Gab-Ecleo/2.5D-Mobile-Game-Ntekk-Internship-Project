@@ -69,6 +69,7 @@ public class WindPressureEffect : MonoBehaviour
     //Start Hazard timer
     private IEnumerator EnableWind()
     {
+        _gameManager.FetchHazardData().IsWindActive = true;
         _isCorActive = true;
         
         //randomize wind direction
@@ -81,6 +82,7 @@ public class WindPressureEffect : MonoBehaviour
         Debug.Log("End of Hazard Duration");
         _windParticles.SetActive(false);
         _isCorActive = false;
+        _gameManager.FetchHazardData().IsWindActive = false;
     }
 
     private void SetLabel()

@@ -35,6 +35,7 @@ public class HazardManager : MonoBehaviour
     private void Start()
     {
         GAMEMANAGER = GameManager.Instance;
+        GAMEMANAGER.FetchHazardData().ResetAllData();
         
         if(GAMEMANAGER.IsGameOver()) return;
 

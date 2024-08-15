@@ -51,6 +51,7 @@ public class RainEffect : MonoBehaviour
     //Halves the player's speed for [Hazard Duration], then returns to the original value
     IEnumerator SlowPlayerMovement()
     {
+        _gameManager.FetchHazardData().IsRainActive = true;
         _isCorActive = true;
         var rainParticles = Instantiate(_rainParticles);
         
@@ -63,5 +64,7 @@ public class RainEffect : MonoBehaviour
         _playerStat.stats.movementSpeed *= _hazardModifier;
 
         _isCorActive = false;
+        
+        _gameManager.FetchHazardData().IsRainActive = false;
     }
 }
