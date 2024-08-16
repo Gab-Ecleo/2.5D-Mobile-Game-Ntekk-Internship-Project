@@ -25,5 +25,10 @@ namespace AudioScripts
         {
             _audioSource.PlayOneShot(clip);
         }
+
+        public void StopSFX()
+        {
+            _audioSource.Stop();
+        }
     }
 }

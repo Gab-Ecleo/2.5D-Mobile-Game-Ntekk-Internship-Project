@@ -206,6 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8460247769894290781}
   - component: {fileID: 6625476333248900628}
+  - component: {fileID: 1996233096331850552}
   - component: {fileID: 2045137320077183666}
   m_Layer: 0
   m_Name: SfxSource
@@ -239,6 +240,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 311ac19adc5c4967b064190162a8874d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1996233096331850552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051649939126853363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951ba894314a4f46aa11ae337950091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!82 &2045137320077183666

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using AudioScripts;
 using AudioScripts.AudioSettings;
+using EventScripts;
 using ScriptableData;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,7 +10,6 @@ using UnityEngine.Serialization;
 public class RainEffect : MonoBehaviour
 {
     [SerializeField] private float _hazardDuration = 5f;
-    [SerializeField] private float _currentSpeed;
     [SerializeField] private float _hazardModifier = 2;
     [SerializeField] public GameObject _rainParticles;
 
@@ -36,7 +36,6 @@ public class RainEffect : MonoBehaviour
         _isCorActive = false;
         
         //Set current speed from the player stat speed value
-        _currentSpeed = _playerStat.stats.movementSpeed;
     }
 
     #endregion
@@ -55,12 +54,16 @@ public class RainEffect : MonoBehaviour
         _isCorActive = true;
         var rainParticles = Instantiate(_rainParticles);
         
-        _currentSpeed /= _hazardModifier;
-        _playerStat.stats.movementSpeed = _currentSpeed;
+        AudioEvents.ON_HAZARD_TRIGGER?.Invoke("rain");
+        
+        _playerStat.stats.movementSpeed /= _hazardModifier;
 
         yield return new WaitForSeconds(_hazardDuration);
         Debug.Log("End of Hazard Duration");
+        
+        SfxScript.Instance.StopSFX();
         rainParticles.SetActive(false);
+        
         _playerStat.stats.movementSpeed *= _hazardModifier;
 
         _isCorActive = false;
