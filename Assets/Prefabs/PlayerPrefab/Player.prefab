@@ -640,7 +640,7 @@ MonoBehaviour:
   powerUpCooldown: 5
   _initialPlayerStatsSO: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
   _currPlayerStatsSO: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
-  _playerScore: {fileID: 0}
+  _playerScore: {fileID: 11400000, guid: aab198d4403120b4dbdd13d5aabbf717, type: 2}
   _slowMotionFactor: 0.1
   _originalTimeScale: 0
   _currentJumpHeight: 0
