@@ -548,6 +548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f9a54c229d7ee41974b306a0e209e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementState: 1
   initialPlayerStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   direction: {x: -0, y: -1, z: -0}
@@ -639,7 +640,7 @@ MonoBehaviour:
   powerUpCooldown: 5
   _initialPlayerStatsSO: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
   _currPlayerStatsSO: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
-  _playerScore: {fileID: 11400000, guid: 39bda95efd9b96848bc304fa62520d9a, type: 2}
+  _playerScore: {fileID: 0}
   _slowMotionFactor: 0.1
   _originalTimeScale: 0
   _currentJumpHeight: 0
