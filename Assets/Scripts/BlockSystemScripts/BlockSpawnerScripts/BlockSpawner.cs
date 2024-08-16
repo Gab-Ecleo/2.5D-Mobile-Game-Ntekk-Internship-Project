@@ -4,6 +4,7 @@ using BlockSystemScripts.BlockScripts;
 using BlockSystemScripts.RowAndColumnScripts;
 using EventScripts;
 using ScriptableData;
+using UI.Hazard_Related;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,7 +17,13 @@ namespace BlockSystemScripts.BlockSpawnerScripts
     /// </summary>
     public class BlockSpawner : AlignmentManager
     {
+        [Header("UI Elements")]
+        [SerializeField] private GameObject imageToSpawn;
+        private GameObject _imgObj;
+        
+        [Header("Serialized Object Data")]
         [SerializeField] private BlockSpawnerSO blockData;
+        [SerializeField] private HazardSO hazardData;
         private GameObject _repeatingMainBlock;
 
         [Header("Spawn Validation References. To be private")]
@@ -88,21 +95,50 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         [ContextMenu("SPAWN BLOCK")]
         private void SpawnBlock()
         {
-            GameObject block;
             //Will only be true if the spawner tries to spawn while there is a sudden block on the topmost cell. 
             if (GridCells[0].CurrentBlock != null)
             {
                 if (GridCells[0].CurrentBlock.BlockType == BlockType.PowerUp)
                 {
                     GridCells[0].DestroyBlock();
-                    block = Instantiate(BlockToSpawn(), GridCells[0].gameObject.transform.position, quaternion.identity);
-                    block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
-                    TriggerCannotSpawn();
+                    OnSpawnBlock();
                 }
                 canSpawn = false; 
                 ValidateBlockSpawn();
                 return;
             }
+            OnSpawnBlock();
+        }
+        
+        private void OnSpawnBlock()
+        {
+            #region Hazard_Checking_Behavior
+            if (hazardData.IsBlackOutActive)
+            {
+                if (_imgObj == null)
+                {
+                    Camera mainCamera = Camera.main;
+                    Vector3 screenPos = mainCamera.WorldToScreenPoint(GridCells[0].transform.position);
+                    var obj = Instantiate(imageToSpawn, screenPos, quaternion.identity, GameManager.Instance.FetchCanvas().transform);
+                    _imgObj = obj;
+                    _imgObj.GetComponent<Animator>().SetTrigger("BlinkTrigger");
+                }
+                else
+                {
+                    if (_imgObj.activeSelf)
+                    {
+                        Debug.Log("Spawner Warning is Already Active");
+                    }
+                    else
+                    {
+                        _imgObj.SetActive(true);
+                        _imgObj.GetComponent<Animator>().SetTrigger("BlinkTrigger");
+                    }
+                }
+            }
+            #endregion
+            
+            GameObject block;
             block = Instantiate(BlockToSpawn(), GridCells[0].gameObject.transform.position, quaternion.identity);
             block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
             TriggerCannotSpawn();

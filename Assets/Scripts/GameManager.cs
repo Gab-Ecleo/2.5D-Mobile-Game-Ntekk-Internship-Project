@@ -21,9 +21,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerStatsSO initialPlayerStats;
     [SerializeField] private ScoresSO scoreSO;
     [SerializeField] private CurrencySO currencySo;
+    [SerializeField] private HazardSO hazardSo;
 
     [Header("Game Objects")] 
     [SerializeField] private GameObject playerObj;
+    [SerializeField] private GameObject canvas;
     
     [Header("UI Objects")]
     [SerializeField] private GameObject gameOverText;
@@ -102,9 +104,19 @@ public class GameManager : MonoBehaviour
         return currencySo;
     }
 
+    public HazardSO FetchHazardData()
+    {
+        return hazardSo;
+    }
+
     public GameObject FetchPlayer()
     {
         return playerObj;
+    }
+
+    public GameObject FetchCanvas()
+    {
+        return canvas;
     }
 
     #endregion

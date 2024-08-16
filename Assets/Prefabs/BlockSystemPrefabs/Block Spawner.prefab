@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridCells: []
+  imageToSpawn: {fileID: 610069892071490548, guid: 1d022a2b03eee1d4c8d7bb65a23f7386, type: 3}
   blockData: {fileID: 11400000, guid: e64c7510567a8fe49a64d8a5db5e8ca6, type: 2}
+  hazardData: {fileID: 11400000, guid: cb8ce9556aa3d304e926b8d5d5c4739c, type: 2}
   canSpawn: 1

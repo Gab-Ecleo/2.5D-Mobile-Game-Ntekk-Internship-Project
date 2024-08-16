@@ -45,6 +45,7 @@ public class BlackoutEffect : MonoBehaviour
     // Initiate a blackout which makes the screen go dark after [Hazard Duration].
     IEnumerator TriggerBlackout()
     {
+        _gameManager.FetchHazardData().IsBlackOutActive = true;
         blackOutAnimation.Play("FadeIn");
         var blackoutParticles = Instantiate(_blackoutParticles);
         whiteOutAnimation.Play("Flicker");
@@ -54,5 +55,6 @@ public class BlackoutEffect : MonoBehaviour
         Debug.Log("Hazard Duration Ended");
         blackoutParticles.SetActive(false);
         blackOutAnimation.Play("FadeOut");
+        _gameManager.FetchHazardData().IsBlackOutActive = false;
     }
 }
