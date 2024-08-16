@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using AudioScripts;
 using AudioScripts.AudioSettings;
+using EventScripts;
 using UnityEngine;
 
 public class BlackoutEffect : MonoBehaviour
@@ -46,13 +47,20 @@ public class BlackoutEffect : MonoBehaviour
     IEnumerator TriggerBlackout()
     {
         _gameManager.FetchHazardData().IsBlackOutActive = true;
+        
+        AudioEvents.ON_HAZARD_TRIGGER?.Invoke("blackout");
+        
         blackOutAnimation.Play("FadeIn");
         var blackoutParticles = Instantiate(_blackoutParticles);
         whiteOutAnimation.Play("Flicker");
         yield return new WaitForSeconds(hazardDuration / 2);
+        
         whiteOutAnimation.Play("Flicker");
+        
         yield return new WaitForSeconds(hazardDuration / 2);
+        
         Debug.Log("Hazard Duration Ended");
+        SfxScript.Instance.StopSFX();
         blackoutParticles.SetActive(false);
         blackOutAnimation.Play("FadeOut");
         _gameManager.FetchHazardData().IsBlackOutActive = false;

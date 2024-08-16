@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using AudioScripts;
 using AudioScripts.AudioSettings;
+using EventScripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -72,6 +73,8 @@ public class WindPressureEffect : MonoBehaviour
         _gameManager.FetchHazardData().IsWindActive = true;
         _isCorActive = true;
         
+        AudioEvents.ON_HAZARD_TRIGGER?.Invoke("wind");
+        
         //randomize wind direction
         _dir.x = PickDirection();
         
@@ -80,6 +83,7 @@ public class WindPressureEffect : MonoBehaviour
         
         yield return new WaitForSeconds(_hazardDuration);
         Debug.Log("End of Hazard Duration");
+        SfxScript.Instance.StopSFX();
         _windParticles.SetActive(false);
         _isCorActive = false;
         _gameManager.FetchHazardData().IsWindActive = false;

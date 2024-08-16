@@ -18,5 +18,7 @@ namespace EventScripts
         public static Action ON_PLAYER_DROP;
         public static Action ON_PLAYER_HIT;
         public static Action ON_PLAYER_DEATH;
+
+        public static Action<string> ON_HAZARD_TRIGGER;
     }
 }
