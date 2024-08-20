@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 214262388}
   - component: {fileID: 214262391}
   m_Layer: 5
-  m_Name: Upgrades Tab
+  m_Name: Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -788,6 +788,8 @@ MonoBehaviour:
   _tabGroup: {fileID: 569216873}
   Background: {fileID: 214262389}
   button: {fileID: 214262388}
+  tabIsOpen: 0
+  tabIsInteractable: 0
 --- !u!1 &228295584
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +929,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238729320}
   m_CullTransparentMesh: 1
+--- !u!1 &260178453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 260178454}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &260178454
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260178453}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 569216868}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &316202079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,6 +1432,7 @@ RectTransform:
   m_Children:
   - {fileID: 1271115312}
   - {fileID: 7860933674014732880}
+  - {fileID: 260178454}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1456,7 +1494,10 @@ MonoBehaviour:
   tabActive: {fileID: 21300000, guid: be11f056ee2eb3b488b9b4f6b289cba4, type: 3}
   tabHover: {fileID: 21300000, guid: 0f1ca7252c084ed4087b051e0ee7e9de, type: 3}
   tabExit: {fileID: 0}
-  _tabIsOpen: 0
+  tabIsOpen: 0
+  timerState: 0
+  cooldownTime: 1
+  index: 0
 --- !u!1 &618873392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,7 +1880,7 @@ GameObject:
   - component: {fileID: 688271758}
   - component: {fileID: 688271761}
   m_Layer: 5
-  m_Name: Home Tab
+  m_Name: Home
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1974,6 +2015,8 @@ MonoBehaviour:
   _tabGroup: {fileID: 569216873}
   Background: {fileID: 688271759}
   button: {fileID: 688271758}
+  tabIsOpen: 0
+  tabIsInteractable: 0
 --- !u!1 &727570989
 GameObject:
   m_ObjectHideFlags: 0
@@ -2609,37 +2652,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944381991}
   m_CullTransparentMesh: 1
---- !u!1 &945613541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 945613542}
-  m_Layer: 0
-  m_Name: empty
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &945613542
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945613541}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -58.7907, y: -0.67283607, z: 16.40524}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023374896
 GameObject:
   m_ObjectHideFlags: 0
@@ -3362,7 +3374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1019078153361977973, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1019078153361977973, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: _finalScore
@@ -3373,13 +3385,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 780177059}
     - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 569216864}
+    - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: scoreSO
       value: 
       objectReference: {fileID: 11400000, guid: aab198d4403120b4dbdd13d5aabbf717, type: 2}
     - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
+      propertyPath: hazardSo
+      value: 
+      objectReference: {fileID: 11400000, guid: cb8ce9556aa3d304e926b8d5d5c4739c, type: 2}
+    - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: playerObj
       value: 
-      objectReference: {fileID: 945613541}
+      objectReference: {fileID: 260178453}
     - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: currencySo
       value: 
@@ -3387,7 +3407,7 @@ PrefabInstance:
     - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: gameOverText
       value: 
-      objectReference: {fileID: 945613541}
+      objectReference: {fileID: 260178453}
     - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: playerCurrentStat
       value: 
@@ -3976,37 +3996,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d9fc197c88b3e54ab4ae789e9d54e00, type: 3}
---- !u!1 &1786868717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1786868718}
-  m_Layer: 0
-  m_Name: Tween
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1786868718
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786868717}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.665858, y: 48.602062, z: 105.56213}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1790638061
 GameObject:
   m_ObjectHideFlags: 0
@@ -11357,6 +11346,4 @@ SceneRoots:
   - {fileID: 1862393861}
   - {fileID: 1285231046}
   - {fileID: 2126333145}
-  - {fileID: 945613542}
-  - {fileID: 1786868718}
   - {fileID: 1814539786}

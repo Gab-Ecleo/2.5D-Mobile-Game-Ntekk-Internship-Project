@@ -61,7 +61,7 @@ public class PauseManager : MonoBehaviour
 
         if (_isPauseScreenOpen)
         {
-            Time.timeScale = 0;
+            Time.timeScale = 0; // this stops everything even when transitioning to next scene 
             AudioEvents.ON_STOP_SFX?.Invoke();
         }
         else
