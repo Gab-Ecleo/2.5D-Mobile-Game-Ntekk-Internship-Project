@@ -75,8 +75,7 @@ public class HazardManager : MonoBehaviour
                 GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
                 break;
         }
-
-        hazardCooldown = Random.Range(10, 17);
+        
         StartCoroutine(ShowWarning());
         
         yield return new WaitForSeconds(hazardCooldown);

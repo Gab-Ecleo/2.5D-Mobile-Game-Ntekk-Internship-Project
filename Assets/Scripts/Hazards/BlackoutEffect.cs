@@ -61,7 +61,7 @@ public class BlackoutEffect : MonoBehaviour
         
         Debug.Log("Hazard Duration Ended");
         SfxScript.Instance.StopSFX();
-        blackoutParticles.SetActive(false);
+        _blackoutParticles.SetActive(false);
         blackOutAnimation.Play("FadeOut");
         _gameManager.FetchHazardData().IsBlackOutActive = false;
     }
