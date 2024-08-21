@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 public class TabGroup : MonoBehaviour
 {
     public List<TabButton> tabButtons;
@@ -19,11 +21,22 @@ public class TabGroup : MonoBehaviour
     public ButtonTimerState timerState = ButtonTimerState.Ready;
     public float cooldownTime = 1f;
 
+    public int index;
+
     private void Start()
     {
-        if (tabButtons != null && tabButtons.Count > 0)
+        Time.timeScale = 1.0f; // delete when there's new toggle pause logic in pausemanager 
+        StartCoroutine(DelayedStart());
+    }
+
+    private IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(0.2f);
+        TabButton defaultButton = tabButtons.Find(button => button.name == "Home");
+        if (defaultButton != null)
         {
-            OnTabSelected(tabButtons[0]);
+            OnTabSelected(defaultButton);
+            
         }
     }
 
@@ -47,24 +60,29 @@ public class TabGroup : MonoBehaviour
         }
     }
 
+    private IEnumerator ButtonCooldown()
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        timerState = ButtonTimerState.Ready;
+    }
+
     public void OnTabSelected(TabButton button)
     {
         if (timerState != ButtonTimerState.Ready) return;
-
-        if (_selectedTab == button) return;
 
         _selectedTab = button;
         tabIsOpen = true;
         ResetButtons();
         button.Background.sprite = tabActive;
 
-        LeanTween.scale(button.gameObject, new Vector3(0.9f, 0.8f, 0.6f), 0.1f)
-                 .setDelay(0.1f).setEase(LeanTweenType.easeOutCubic);
-        LeanTween.moveLocalY(button.gameObject, -138f, 0.1f);
+        // tween animation
+        button.transform.DOScale(new Vector3(0.9f, 0.8f, 0.6f), 0.1f)
+            .SetEase(Ease.OutCubic)
+            .OnStepComplete(() => StartCoroutine(ButtonCooldown()));
+        button.transform.DOLocalMoveY(-138f, 0.1f);
 
-        ActivatePage(button);
-
-        StartCoroutine(ButtonCooldown());
+        PageActivation(button);
+        timerState = ButtonTimerState.Waiting;
     }
 
     public void ResetButtons()
@@ -74,35 +92,52 @@ public class TabGroup : MonoBehaviour
             if (_selectedTab != null && button == _selectedTab) continue;
             button.Background.sprite = tabIdle;
 
-            LeanTween.scale(button.gameObject, new Vector3(0.8f, 0.6f, 0.6f), 0.1f)
-                     .setDelay(0.1f).setEase(LeanTweenType.easeOutCubic);
-            LeanTween.moveLocalY(button.gameObject, -158f, 0.1f);
+            if (timerState == ButtonTimerState.Ready)
+            {
+                button.transform.DOScale(new Vector3(0.8f, 0.6f, 0.6f), 0.1f)
+                    .SetEase(Ease.OutCubic);
+                button.transform.DOLocalMoveY(-158f, 0.1f);
+            }
         }
     }
 
-    public void ActivatePage(TabButton button)
+    public void PageActivation(TabButton button)
     {
-        int index = button.transform.GetSiblingIndex();
+        switch (button.name)
+        {
+            case "Home":
+                ActivatePageByIndex(0);
+                break;
+            case "Upgrade":
+                ActivatePageByIndex(1);
+                break;
+            default:
+                Debug.LogWarning("Unknown Tab Selected");
+                break;
+        }
+    }
+
+    private void ActivatePageByIndex(int index)
+    {
         for (int i = 0; i < objectsToSwap.Count; i++)
         {
             if (i == index)
             {
-                LeanTween.moveLocalX(objectsToSwap[i], 0, 0.5f)
-                         .setEase(LeanTweenType.easeInQuint);
+                objectsToSwap[i].SetActive(true);
+                objectsToSwap[i].transform.DOLocalMoveX(0, 0.5f)
+                    .SetEase(Ease.InQuint)
+                    .OnStepComplete(() => Debug.Log($"Page {i} activated"));
             }
             else
             {
-                LeanTween.moveLocalX(objectsToSwap[i], 1400f, 0.1f)
-                         .setEase(LeanTweenType.easeInQuint);
+                objectsToSwap[i].transform.DOLocalMoveX(1400f, 0.1f)
+                    .SetEase(Ease.InQuint)
+                    .OnStepComplete(() =>
+                    {
+                        Debug.Log($"Page {i} deactivated");
+                    });
             }
         }
-    }
-
-    private IEnumerator ButtonCooldown()
-    {
-        timerState = ButtonTimerState.Waiting;
-        yield return new WaitForSeconds(cooldownTime);
-        timerState = ButtonTimerState.Ready;
     }
 }
 
@@ -112,4 +147,3 @@ public enum ButtonTimerState
     Waiting,
     Cooldown
 }
-
