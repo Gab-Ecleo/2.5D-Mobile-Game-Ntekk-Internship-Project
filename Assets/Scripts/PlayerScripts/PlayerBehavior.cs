@@ -16,7 +16,7 @@ namespace PlayerScripts
         //player's local stats
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private PlayerStatsSO currentPlayerStats;
-        [SerializeField] private GameObject deathScreen;
+        //[SerializeField] private GameObject deathScreen;
 
         [SerializeField] private Vector3 _playerPos;
         
@@ -87,7 +87,7 @@ namespace PlayerScripts
             //add death behavior
             AudioEvents.ON_PLAYER_DEATH?.Invoke();
             Debug.Log("Player Dead");
-            //deathScreen.SetActive(true);
+            GameEvents.TRIGGER_GAMEEND_SCREEN?.Invoke();
             GameEvents.IS_GAME_OVER?.Invoke(true);
             Time.timeScale = 0;
         }
