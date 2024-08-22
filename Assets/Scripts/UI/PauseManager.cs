@@ -14,8 +14,11 @@ public class PauseManager : MonoBehaviour
     private static PauseManager _instance;
     public static PauseManager Instance => _instance;
 
+
     [SerializeField] private GameObject _pauseScreenPanel;
+    [SerializeField] private GameObject _tutorialScreenPanel;
     private bool _isPauseScreenOpen;
+    private bool _isTutorialScreenOpen;
 
     [Header("BGM Audio")]
     [SerializeField] private Sprite _bgmOn;
@@ -50,7 +53,9 @@ public class PauseManager : MonoBehaviour
     private void Start()
     {
         _isPauseScreenOpen = false;
+        _isTutorialScreenOpen = false;
         _pauseScreenPanel.SetActive(_isPauseScreenOpen);
+        _tutorialScreenPanel.SetActive(_isTutorialScreenOpen);
     }
 
     #region Pause Screen
@@ -60,6 +65,22 @@ public class PauseManager : MonoBehaviour
         _pauseScreenPanel.SetActive(_isPauseScreenOpen);
 
         if (_isPauseScreenOpen)
+        {
+            Time.timeScale = 0; // this stops everything even when transitioning to next scene 
+            AudioEvents.ON_STOP_SFX?.Invoke();
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
+    private void ToggleTutorial()
+    {
+        _isTutorialScreenOpen = !_isTutorialScreenOpen;
+        _tutorialScreenPanel.SetActive(_isTutorialScreenOpen);
+
+        if (_isTutorialScreenOpen)
         {
             Time.timeScale = 0; // this stops everything even when transitioning to next scene 
             AudioEvents.ON_STOP_SFX?.Invoke();
@@ -103,6 +124,11 @@ public class PauseManager : MonoBehaviour
     public void OpenMenuButton()
     {
         GameEvents.ON_PAUSE?.Invoke();
+    }
+
+    public void OpenTutorial()
+    {
+        ToggleTutorial();
     }
 }
 
