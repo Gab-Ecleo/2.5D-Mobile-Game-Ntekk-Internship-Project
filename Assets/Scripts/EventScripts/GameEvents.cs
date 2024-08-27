@@ -19,7 +19,9 @@ public class GameEvents : MonoBehaviour
     public static Action<int,int, bool> ON_SCORE_CHANGES;
     public static Action ON_UI_CHANGES;
     public static Action ON_PAUSE;
-    
+
+    public static Action TRIGGER_TUTORIAL;
+
     //GAME END UI
     public static Action TRIGGER_GAMEEND_SCREEN;
 }
