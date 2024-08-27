@@ -85,6 +85,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         {
             rightButton.interactable = false;
             isTutorialDone = true;
+            Debug.Log("Tutorial Done");
         }
     }
 
