@@ -71,12 +71,12 @@ public class PauseManager : MonoBehaviour
         GameEvents.TRIGGER_TUTORIAL -= ToggleTutorial;
     }
 
-    private void Start()
+    private async void Start()
     {
         _isPauseScreenOpen = false;
         _isTutorialScreenOpen = false;
 
-        loadSceneFadePanel.alpha = 0f;
+        await FadeOutPanel();
     }
 
     #region Pause Screen
@@ -205,10 +205,15 @@ public class PauseManager : MonoBehaviour
             ToggleTutorial();
         }
 
-        loadSceneFadePanel.DOFade(1, 0.3f).SetUpdate(true);
-        yield return new WaitForSeconds(0.4f);
+        loadSceneFadePanel.DOFade(1, 0.2f).SetUpdate(true);
+        yield return new WaitForSeconds(0.2f);
 
         SceneController.Instance.LoadScene(sceneInt);
+    }
+
+    async Task FadeOutPanel()
+    {
+        await loadSceneFadePanel.DOFade(0, tweenDuration).SetUpdate(true).AsyncWaitForCompletion();
     }
     #endregion
 }
