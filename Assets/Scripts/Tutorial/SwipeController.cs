@@ -29,13 +29,27 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
     private Vector3 targetPos;
     private float dragThreshhold;
 
+    public bool isTutorialDone { get; private set; }
+
     private void Awake()
     {
         currPages = 1;
         targetPos = imgPagesRect.localPosition;
+
+        Debug.Log(imgPagesRect.localPosition);
         UpdateFooterImg();
         UpdateArrowButton();
     }
+
+    public void ResetContent()
+    {
+        currPages = 1;
+        targetPos = Vector3.zero; 
+        imgPagesRect.localPosition = targetPos; 
+        UpdateFooterImg();
+        UpdateArrowButton();
+    }
+
 
     #region Content Handler
     public void NextButton()
@@ -64,13 +78,16 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
 
         if (currPages == 1 )
         {
+            isTutorialDone = false;
             leftButton.interactable = false;
         }
         else if (currPages == maxPages)
         {
             rightButton.interactable = false;
+            isTutorialDone = true;
         }
     }
+
     private void MovePage()
     {
         UpdateFooterImg();

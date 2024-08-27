@@ -43,12 +43,16 @@ public class PauseManager : MonoBehaviour
 
     [SerializeField] private CanvasGroup loadSceneFadePanel;
 
+    [Header("Parent Game Object")]
+    public GameObject PauseMenu;
+    public GameObject TutorialMenu;
+
     private bool _isBgmOn;
     private bool _isSfxOn;
     private RectTransform pauseRectTrans;
     private RectTransform tutorialRectTrans;
     public AudioUIManager AudioUIManager;
-
+    public SwipeController[] SwipeController;
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -75,6 +79,8 @@ public class PauseManager : MonoBehaviour
     {
         _isPauseScreenOpen = false;
         _isTutorialScreenOpen = false;
+        PauseMenu.SetActive(false);
+        TutorialMenu.SetActive(false);
 
         await FadeOutPanel();
     }
@@ -83,7 +89,8 @@ public class PauseManager : MonoBehaviour
 
     public async void TogglePause()
     {
-        if(!_isPauseScreenOpen && !_isTutorialScreenOpen)
+        PauseMenu.SetActive(true);
+        if (!_isPauseScreenOpen && !_isTutorialScreenOpen)
         {
             _isPauseScreenOpen = true;
             Time.timeScale = 0;
@@ -99,6 +106,7 @@ public class PauseManager : MonoBehaviour
             pausefadePanel.interactable = false;
             pausefadePanel.blocksRaycasts = false;
             Time.timeScale = 1;
+            PauseMenu.SetActive(false);
         }
     }
 
@@ -119,6 +127,7 @@ public class PauseManager : MonoBehaviour
 
     public async void ToggleTutorial()
     {
+        TutorialMenu.SetActive(true);
         if (!_isTutorialScreenOpen && !_isPauseScreenOpen)
         {
             _isTutorialScreenOpen = true;
@@ -130,10 +139,17 @@ public class PauseManager : MonoBehaviour
         else
         {
             await TutorialPanelOutro();
+
+            foreach (var item in SwipeController)
+            {
+                item.ResetContent();
+            }
+
             _isTutorialScreenOpen = false;
             tutorialfadePanel.interactable = false;
             tutorialfadePanel.blocksRaycasts = false;
             Time.timeScale = 1;
+            TutorialMenu.SetActive(false);
         }
     }
 
