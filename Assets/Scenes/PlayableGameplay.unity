@@ -1465,6 +1465,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1853540168762068093, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
+      propertyPath: m_text
+      value: '00000
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 2121465883285678810, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1873,6 +1879,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5544865616549363078, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5564811861471972876, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_Name
       value: PLAYER CANVAS
@@ -1919,6 +1929,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6175612108216016573, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271836925913472432, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282596963287780505, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381694497339150110, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6550099749548844839, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
