@@ -17,7 +17,7 @@ namespace Input_System_Actions
         private InputAction _interactObject;
 
         private InputAction _pause;
-
+        private InputAction _tutorial;
         
         //initialize values
         private void Awake()
@@ -59,6 +59,10 @@ namespace Input_System_Actions
             _pause = _playerControls.Player.Pause;
             _pause.Enable();
             _pause.performed += Pause;
+
+            _tutorial = _playerControls.Player.Tutorial;
+            _tutorial.Enable();
+            _tutorial.performed += Tutorial;
         }
 
         //disable the listeners for the buttons
@@ -68,11 +72,16 @@ namespace Input_System_Actions
             _jump.Disable();
             _interactObject.Disable();
             _pause.Disable();
+            _tutorial.Disable();
         }
 
         private void Pause(InputAction.CallbackContext ctx)
         {
             GameEvents.ON_PAUSE?.Invoke();
+        }
+        private void Tutorial(InputAction.CallbackContext ctx)
+        {
+            GameEvents.TRIGGER_TUTORIAL?.Invoke();
         }
     }
 }

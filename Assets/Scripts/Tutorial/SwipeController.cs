@@ -36,6 +36,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         UpdateFooterImg();
         UpdateArrowButton();
     }
+
     #region Content Handler
     public void NextButton()
     {
@@ -74,10 +75,8 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
     {
         UpdateFooterImg();
         UpdateArrowButton();
-        imgPagesRect.DOLocalMove(targetPos, tweenTime).SetEase(tweenType);
+        imgPagesRect.DOLocalMove(targetPos, tweenTime).SetUpdate(true).SetEase(tweenType);
     }
-
-    
     #endregion
 
     #region Swipe Handler

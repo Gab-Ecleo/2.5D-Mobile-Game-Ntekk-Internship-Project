@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    private static SceneController _instance;
+    public static SceneController Instance => _instance;
+
+    private void Awake()
+    {
+        if (_instance == null) _instance = this;
+        else Destroy(this);
+    }
+
     public void LoadScene(int sceneInt)
     {
-        //DOTween.KillAll();
-        //DOTween.Clear();
         SceneManager.LoadScene(sceneInt);
     }
 
