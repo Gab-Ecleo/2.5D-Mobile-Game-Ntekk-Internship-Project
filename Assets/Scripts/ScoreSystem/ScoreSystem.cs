@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class ScoreSystem : MonoBehaviour
 {
@@ -23,16 +24,23 @@ public class ScoreSystem : MonoBehaviour
     }
     #endregion
 
+    private void Start()
+    {
+        ResetSore();
+    }
+
     // funcation being called by the action to update ui and add score
     public void PointSystem(int addedPoints, int multiplier, bool isPoweredUp)
     {
         if (isPoweredUp)
         {
             _playerScore.Points *= multiplier;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints * multiplier);
         }
         else
         {
             _playerScore.Points += addedPoints;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints);
         }
     }
 

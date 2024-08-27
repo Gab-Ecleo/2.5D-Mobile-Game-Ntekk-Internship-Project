@@ -22,4 +22,7 @@ public class GameEvents : MonoBehaviour
     
     //GAME END UI
     public static Action TRIGGER_GAMEEND_SCREEN;
+    
+    //IN-GAME CURRENCY EVENTS
+    public static Action<float> CONVERT_SCORE_TO_CURRENCY;
 }
