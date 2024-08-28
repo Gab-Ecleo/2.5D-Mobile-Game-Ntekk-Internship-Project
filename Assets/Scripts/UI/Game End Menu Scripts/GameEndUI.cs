@@ -20,7 +20,7 @@ namespace UI.Game_End_Menu_Scripts
         private void TriggerEndUI()
         {
             ScoreText.text = scoreData.Points.ToString();
-            CurrencyText.text = currencyData.coins.ToString(CultureInfo.InvariantCulture);
+            CurrencyText.text = currencyData.matchCoins.ToString(CultureInfo.InvariantCulture);
             GameEndUIObj.SetActive(true);
         }
 
