@@ -10,6 +10,8 @@ using AudioType = AudioScripts.AudioSettings.AudioType;
 using System.Threading.Tasks;
 using DG.Tweening;
 using Unity.VisualScripting;
+using Player_Statistics;
+using ScriptableData;
 
 public class PauseManager : MonoBehaviour
 {
@@ -51,8 +53,13 @@ public class PauseManager : MonoBehaviour
     private bool _isSfxOn;
     private RectTransform pauseRectTrans;
     private RectTransform tutorialRectTrans;
+    private PlayerStatsSO initialStat;
+
     public AudioUIManager AudioUIManager;
     public SwipeController[] SwipeController;
+
+    [Header("Check Scene")]
+    [SerializeField] private bool isInMainMenu;
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -60,7 +67,7 @@ public class PauseManager : MonoBehaviour
 
         GameEvents.ON_PAUSE += TogglePause;
 
-        GameEvents.TRIGGER_TUTORIAL += ToggleTutorial;
+        GameEvents.ON_TUTORIAL += ToggleTutorial;
 
         if (pausePanelGO != null)
             pauseRectTrans = pausePanelGO.GetComponent<RectTransform>();
@@ -69,24 +76,39 @@ public class PauseManager : MonoBehaviour
             tutorialRectTrans = tutorialPanelGO.GetComponent<RectTransform>();
 
         loadSceneFadePanel.gameObject.SetActive(true);
+
     }
 
     private void OnDestroy()
     {
         GameEvents.ON_PAUSE -= TogglePause;
-        GameEvents.TRIGGER_TUTORIAL -= ToggleTutorial;
+        GameEvents.ON_TUTORIAL -= ToggleTutorial;
     }
 
     private async void Start()
     {
+        initialStat = GameManager.Instance.FetchInitialPlayerStat();
         _isPauseScreenOpen = false;
         _isTutorialScreenOpen = false;
         PauseMenu.SetActive(false);
         TutorialMenu.SetActive(false);
 
         await FadeOutPanel();
+
+        if(!isInMainMenu)
+        {
+            FirstTutorial();
+        }
     }
 
+    private void FirstTutorial()
+    {
+        if (initialStat.stats.isPlayerFirstGame && !isInMainMenu)
+        {
+            Debug.Log("First Time Player");
+            GameEvents.ON_TUTORIAL?.Invoke();
+        }
+    }
     #region Pause Screen
 
     private async void TogglePause()
@@ -204,7 +226,7 @@ public class PauseManager : MonoBehaviour
 
     public void ToggleTutorialButton()
     {
-        GameEvents.TRIGGER_TUTORIAL?.Invoke();
+        GameEvents.ON_TUTORIAL?.Invoke();
     }
 
     public void GoToScene(int sceneInt)

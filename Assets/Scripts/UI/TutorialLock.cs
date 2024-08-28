@@ -5,22 +5,21 @@ using UnityEngine;
 using UnityEngine.UI;
 public class TutorialLock : MonoBehaviour
 {
+
     [Header("Arrange them the same")]
     [SerializeField] private SwipeController[] swipeController;
     [SerializeField] private Button[] buttons;
+    [SerializeField] private Button exitButton;
 
-    PlayerStatsSO currPlayerStats;
+    PlayerStatsSO initialPlayerStat;
 
     private bool _isPlayerFirstGame;
 
-    private bool _isHazardUnlocked;
-    private bool _isPowerupsUnlocked;
-    private bool _isBlocksUnlocked;
-    private bool _isWinLoseUnlocked;
-
     private void Start()
     {
-        currPlayerStats = GameManager.Instance.FetchCurrentPlayerStat();
+        initialPlayerStat = GameManager.Instance.FetchInitialPlayerStat();
+
+        if (!initialPlayerStat.stats.isPlayerFirstGame) { return; }
 
         foreach (var button in buttons)
         {
@@ -32,18 +31,23 @@ public class TutorialLock : MonoBehaviour
         {
             buttons[0].interactable = true;
         }
+
+        exitButton.interactable = false;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        UnlockTutorial(); // to be revised this is for testing only
+        GameEvents.ON_TUTORIAL_UNLOCKED += UnlockTutorial;
     }
+    private void OnDisable()
+    {
+        GameEvents.ON_TUTORIAL_UNLOCKED -= UnlockTutorial;
+    }
+
 
     private void UnlockTutorial()
-    {
-        _isPlayerFirstGame = currPlayerStats.stats.isPlayerFirstGame;
-
-        //if (_isPlayerFirstGame) { return; }
+    { 
+        if (!initialPlayerStat.stats.isPlayerFirstGame) { return; }
 
         for (int i = 0; i < swipeController.Length; i++)
         {
@@ -54,38 +58,28 @@ public class TutorialLock : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        _isHazardUnlocked = true;
                         buttons[1].interactable = true;
                         Debug.Log("Hazard unlocked, Powerups button interactable.");
                         break;
                     case 1:
-                        _isPowerupsUnlocked = true;
                         buttons[2].interactable = true;
                         Debug.Log("Powerups unlocked, Blocks button interactable.");
                         break;
                     case 2:
-                        _isBlocksUnlocked = true;
                         buttons[3].interactable = true;
                         Debug.Log("Blocks unlocked, Win/Lose button interactable.");
                         break;
                     case 3:
-                        _isWinLoseUnlocked = true;
                         Debug.Log("Win/Lose unlocked.");
+                        exitButton.interactable = true;
+                        initialPlayerStat.stats.isPlayerFirstGame = false;
+                        Debug.Log("isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame);
                         break;
                     default:
                         Debug.LogWarning("Something went wrong");
                         break;
                 }
-                UpdatePlayerStats();
             }
         }
-    }
-
-    private void UpdatePlayerStats()
-    {
-        currPlayerStats.stats.isHazardUnlocked = _isHazardUnlocked;
-        currPlayerStats.stats.isPowerupsUnlocked = _isPowerupsUnlocked;
-        currPlayerStats.stats.isBlocksUnlocked = _isBlocksUnlocked;
-        currPlayerStats.stats.isWinLoseUnlocked = _isWinLoseUnlocked;
     }
 }
