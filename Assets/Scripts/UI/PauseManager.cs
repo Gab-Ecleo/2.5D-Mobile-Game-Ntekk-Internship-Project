@@ -67,6 +67,8 @@ public class PauseManager : MonoBehaviour
 
         if (tutorialPanelGO != null)
             tutorialRectTrans = tutorialPanelGO.GetComponent<RectTransform>();
+
+        loadSceneFadePanel.gameObject.SetActive(true);
     }
 
     private void OnDestroy()
@@ -87,7 +89,7 @@ public class PauseManager : MonoBehaviour
 
     #region Pause Screen
 
-    public async void TogglePause()
+    private async void TogglePause()
     {
         PauseMenu.SetActive(true);
         if (!_isPauseScreenOpen && !_isTutorialScreenOpen)
@@ -125,7 +127,7 @@ public class PauseManager : MonoBehaviour
 
     #region Tutorial Screen
 
-    public async void ToggleTutorial()
+    private async void ToggleTutorial()
     {
         TutorialMenu.SetActive(true);
         if (!_isTutorialScreenOpen && !_isPauseScreenOpen)
@@ -205,12 +207,12 @@ public class PauseManager : MonoBehaviour
         GameEvents.TRIGGER_TUTORIAL?.Invoke();
     }
 
-    public void MainMenuButton(int sceneInt)
+    public void GoToScene(int sceneInt)
     {
-        StartCoroutine(GoToScene(sceneInt));
+        StartCoroutine(SceneTransition(sceneInt));
     }
 
-    IEnumerator GoToScene(int sceneInt)
+    IEnumerator SceneTransition(int sceneInt)
     {
         if(_isPauseScreenOpen)
         {

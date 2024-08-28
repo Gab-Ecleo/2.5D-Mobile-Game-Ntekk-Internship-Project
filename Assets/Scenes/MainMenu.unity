@@ -1657,7 +1657,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -4289,7 +4289,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: MuteSFX
         m_Mode: 1
@@ -4569,7 +4569,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: MuteBGM
         m_Mode: 1
@@ -4631,6 +4631,7 @@ GameObject:
   - component: {fileID: 569216865}
   - component: {fileID: 569216872}
   - component: {fileID: 569216873}
+  - component: {fileID: 569216874}
   m_Layer: 5
   m_Name: Main Menu Canvas
   m_TagString: Untagged
@@ -4763,6 +4764,38 @@ MonoBehaviour:
   timerState: 0
   cooldownTime: 1
   index: 0
+--- !u!114 &569216874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569216864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f3eeac554e05f3458826bd4e8864bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bgmOn: {fileID: 21300000, guid: 67fa4d37766433f428b9201bc57077d0, type: 3}
+  _bgmOff: {fileID: 21300000, guid: d5788ccb415eba94a83222e1c772b778, type: 3}
+  _bgmButton: {fileID: 519276313}
+  _sfxOn: {fileID: 21300000, guid: 7f41d32d8a3645d46955f11b8127dd3b, type: 3}
+  _sfxOff: {fileID: 21300000, guid: 84697ba20ccce684ea59e9991fd4d188, type: 3}
+  _sfxButton: {fileID: 490821814}
+  pausePanelGO: {fileID: 598581388}
+  pausefadePanel: {fileID: 2028492614}
+  pauseTopY: 1050
+  pauseMidY: 0
+  tweenDuration: 0.5
+  tutorialPanelGO: {fileID: 1189348000}
+  tutorialfadePanel: {fileID: 1289015856}
+  tutorialTopY: 1050
+  tutorialMidY: -170
+  loadSceneFadePanel: {fileID: 454118959}
+  PauseMenu: {fileID: 1834336053}
+  TutorialMenu: {fileID: 1801004390}
+  AudioUIManager: {fileID: 1643069036}
+  SwipeController: []
 --- !u!1 &578076184
 GameObject:
   m_ObjectHideFlags: 0
@@ -5806,7 +5839,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 569216874}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: TogglePauseButton
         m_Mode: 1
@@ -7554,7 +7587,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: MainMenuButton
         m_Mode: 3
@@ -14219,7 +14252,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
@@ -15995,7 +16028,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1834336054}
   - component: {fileID: 1834336058}
-  - component: {fileID: 1834336055}
   - component: {fileID: 1834336057}
   - component: {fileID: 1834336056}
   m_Layer: 5
@@ -16026,35 +16058,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1834336055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1834336053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f3eeac554e05f3458826bd4e8864bc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bgmOn: {fileID: 21300000, guid: 67fa4d37766433f428b9201bc57077d0, type: 3}
-  _bgmOff: {fileID: 21300000, guid: d5788ccb415eba94a83222e1c772b778, type: 3}
-  _bgmButton: {fileID: 519276313}
-  _sfxOn: {fileID: 21300000, guid: 7f41d32d8a3645d46955f11b8127dd3b, type: 3}
-  _sfxOff: {fileID: 21300000, guid: 84697ba20ccce684ea59e9991fd4d188, type: 3}
-  _sfxButton: {fileID: 490821814}
-  pausePanelGO: {fileID: 598581388}
-  pausefadePanel: {fileID: 2028492614}
-  pauseTopY: 1050
-  pauseMidY: 0
-  tweenDuration: 0.5
-  tutorialPanelGO: {fileID: 1189348000}
-  tutorialfadePanel: {fileID: 1289015856}
-  tutorialTopY: 1050
-  tutorialMidY: -170
-  loadSceneFadePanel: {fileID: 454118959}
-  AudioUIManager: {fileID: 1643069036}
 --- !u!114 &1834336056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16801,9 +16804,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 569216874}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: MainMenuButton
+        m_MethodName: GoToScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16933,7 +16936,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ToggleTutorialButton
         m_Mode: 1
@@ -17663,7 +17666,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1834336055}
+      - m_Target: {fileID: 569216874}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ToggleTutorialButton
         m_Mode: 1
