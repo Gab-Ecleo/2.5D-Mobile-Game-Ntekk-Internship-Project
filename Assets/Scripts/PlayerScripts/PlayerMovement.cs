@@ -78,56 +78,14 @@ namespace PlayerScripts
             float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, currentPlayerStats.stats.velPower) *
                                  Mathf.Sign(speedDiff);
 
-            //determines which type of aerial movement implementation will the player use
-            switch (movementState)
+            if (!IsGrounded())
             {
-                case PlayerMovementState.WithAerialMovement:
-                    _rb.AddForce(movement * Vector2.right);
-                    break;
-                case PlayerMovementState.ReducedAerialMovement:
-                {
-                    _rb.AddForce(movement * Vector2.right);
-                    if (!IsGrounded())
-                    {
-                        var velocity = _rb.velocity;
-                        velocity = new Vector3(velocity.x * currentPlayerStats.stats.aerialSpdReducer, velocity.y,
-                            velocity.z);
-                        _rb.velocity = velocity;
-                    }
-                    break;
-                }
-                case PlayerMovementState.ReducedFlippedMovement:
-                {
-                    if (!IsGrounded())
-                    {
-                        _rb.AddForce(movement * Vector2.right * currentPlayerStats.stats.aerialSpdReducer);
+                _rb.AddForce(movement * Vector2.right * currentPlayerStats.stats.aerialSpdReducer);
                         
-                    }
-                    else if (IsGrounded())
-                    {
-                        _rb.AddForce(movement * Vector2.right);
-                    }
-                    break;
-                }
-                case PlayerMovementState.NoAerialMovement:
-                {
-                    if (IsGrounded())
-                    {
-                        _rb.AddForce(movement * Vector2.right);
-                    }
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
-            #endregion
-
-            #region FRICTION
-            if (IsGrounded() && Mathf.Abs(_moveDirection.x) <= 0)
+            else if (IsGrounded())
             {
-                float amount = Mathf.Min(Mathf.Abs(_rb.velocity.x), Mathf.Abs(currentPlayerStats.stats.frictionAmount));
-                amount *= Mathf.Sign(_rb.velocity.x);
-                _rb.AddForce(Vector2.right*-amount, ForceMode.Impulse);
+                _rb.AddForce(movement * Vector2.right);
             }
             #endregion
         }
