@@ -47,7 +47,7 @@ public class ScoreSystem : MonoBehaviour
     // will change later if hud is finalized
     public void UpdateUI()
     {
-        uiText.text = _playerScore.Points.ToString();
+        uiText.text = _playerScore.Points.ToString("D5");
     }
 
     public void ResetSore()

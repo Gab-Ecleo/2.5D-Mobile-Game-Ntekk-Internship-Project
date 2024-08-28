@@ -34,5 +34,13 @@ namespace Player_Statistics
         public bool canRez = false;
 
         public Vector3 StartingPos;
+
+        [Header("Tutorial")]
+        public bool isPlayerFirstGame = true;
+
+        public bool isHazardUnlocked = true;
+        public bool isPowerupsUnlocked = false;
+        public bool isBlocksUnlocked = false;
+        public bool isWinLoseUnlocked = false;
     }
 }

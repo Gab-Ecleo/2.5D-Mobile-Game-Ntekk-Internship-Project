@@ -43,7 +43,7 @@ public class ScoreToCurrency : MonoBehaviour
         ConvertScore();
         
         if(currencyText == null) return;
-        currencyText.text = _currency.ToString();
+        currencyText.text = _currency.ToString("D5");
     }
 
     private void Update()

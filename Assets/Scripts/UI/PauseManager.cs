@@ -43,12 +43,16 @@ public class PauseManager : MonoBehaviour
 
     [SerializeField] private CanvasGroup loadSceneFadePanel;
 
+    [Header("Parent Game Object")]
+    public GameObject PauseMenu;
+    public GameObject TutorialMenu;
+
     private bool _isBgmOn;
     private bool _isSfxOn;
     private RectTransform pauseRectTrans;
     private RectTransform tutorialRectTrans;
     public AudioUIManager AudioUIManager;
-
+    public SwipeController[] SwipeController;
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -63,6 +67,8 @@ public class PauseManager : MonoBehaviour
 
         if (tutorialPanelGO != null)
             tutorialRectTrans = tutorialPanelGO.GetComponent<RectTransform>();
+
+        loadSceneFadePanel.gameObject.SetActive(true);
     }
 
     private void OnDestroy()
@@ -75,15 +81,18 @@ public class PauseManager : MonoBehaviour
     {
         _isPauseScreenOpen = false;
         _isTutorialScreenOpen = false;
+        PauseMenu.SetActive(false);
+        TutorialMenu.SetActive(false);
 
         await FadeOutPanel();
     }
 
     #region Pause Screen
 
-    public async void TogglePause()
+    private async void TogglePause()
     {
-        if(!_isPauseScreenOpen && !_isTutorialScreenOpen)
+        PauseMenu.SetActive(true);
+        if (!_isPauseScreenOpen && !_isTutorialScreenOpen)
         {
             _isPauseScreenOpen = true;
             Time.timeScale = 0;
@@ -99,6 +108,7 @@ public class PauseManager : MonoBehaviour
             pausefadePanel.interactable = false;
             pausefadePanel.blocksRaycasts = false;
             Time.timeScale = 1;
+            PauseMenu.SetActive(false);
         }
     }
 
@@ -117,8 +127,9 @@ public class PauseManager : MonoBehaviour
 
     #region Tutorial Screen
 
-    public async void ToggleTutorial()
+    private async void ToggleTutorial()
     {
+        TutorialMenu.SetActive(true);
         if (!_isTutorialScreenOpen && !_isPauseScreenOpen)
         {
             _isTutorialScreenOpen = true;
@@ -130,10 +141,17 @@ public class PauseManager : MonoBehaviour
         else
         {
             await TutorialPanelOutro();
+
+            foreach (var item in SwipeController)
+            {
+                item.ResetContent();
+            }
+
             _isTutorialScreenOpen = false;
             tutorialfadePanel.interactable = false;
             tutorialfadePanel.blocksRaycasts = false;
             Time.timeScale = 1;
+            TutorialMenu.SetActive(false);
         }
     }
 
@@ -189,12 +207,12 @@ public class PauseManager : MonoBehaviour
         GameEvents.TRIGGER_TUTORIAL?.Invoke();
     }
 
-    public void MainMenuButton(int sceneInt)
+    public void GoToScene(int sceneInt)
     {
-        StartCoroutine(GoToScene(sceneInt));
+        StartCoroutine(SceneTransition(sceneInt));
     }
 
-    IEnumerator GoToScene(int sceneInt)
+    IEnumerator SceneTransition(int sceneInt)
     {
         if(_isPauseScreenOpen)
         {

@@ -26,6 +26,7 @@ namespace AudioScripts.AudioSettings
             Volume = volume;
         }
     }
+
     public class AudioUIManager : MonoBehaviour
     {
         [SerializeField]private AudioSettingsSO audioData;
