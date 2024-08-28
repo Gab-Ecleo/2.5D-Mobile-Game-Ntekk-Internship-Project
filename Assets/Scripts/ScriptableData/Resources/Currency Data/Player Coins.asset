@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Player Coins
   m_EditorClassIdentifier: 
   coins: 0
+  matchCoins: 0

@@ -7,5 +7,6 @@ namespace ScriptableData
     {
         [Header("Currencies")] 
         public float coins = 0f;
+        public float matchCoins = 0f;
     }
 }

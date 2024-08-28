@@ -11118,6 +11118,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2026353609580093253, guid: 1478675f22e46a3478a5f23992557514, type: 3}
+      propertyPath: scoresStats
+      value: 
+      objectReference: {fileID: 11400000, guid: aab198d4403120b4dbdd13d5aabbf717, type: 2}
     - target: {fileID: 2616532477289065796, guid: 1478675f22e46a3478a5f23992557514, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.10691672
@@ -11534,7 +11538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1019078153361977973, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1019078153361977973, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: _finalScore
@@ -11616,7 +11620,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1019078153361977973, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
