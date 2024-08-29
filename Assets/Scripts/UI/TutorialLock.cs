@@ -1,46 +1,49 @@
+using DG.Tweening;
 using ScriptableData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-// Enable this only when player's first game 
-
-public class TutorialLock : MonoBehaviour, IPointerClickHandler
+public class TutorialLock : MonoBehaviour
 {
     [Header("Arrange them the same")]
     [SerializeField] private SwipeController[] swipeController;
-    [SerializeField] private Button[] buttons;
+
+    [SerializeField] private List<TutorialButtons> buttonsList;
     [SerializeField] private GameObject[] panelsGO;
     [SerializeField] private Button exitButton;
 
     [Header("Sprite")]
-    [SerializeField] private Sprite tabIdle;
-    [SerializeField] private Sprite tabActive;
-    [SerializeField] private Sprite tabHover;
+    [SerializeField] private Sprite buttonIdle;
+    [SerializeField] private Sprite buttonSelected;
+    [SerializeField] private Sprite buttonDisabled;
+    [SerializeField] private Sprite buttonHover;
 
     private PlayerStatsSO initialPlayerStat;
-
-    private bool _isPlayerFirstGame;
-
-    private bool _buttonIsActive;
+    private TutorialButtons _selectedTab;
 
     private void Start()
     {
         initialPlayerStat = GameManager.Instance.FetchInitialPlayerStat();
 
-        if (!initialPlayerStat.stats.isPlayerFirstGame) { return; }
+        if (!initialPlayerStat.stats.isPlayerFirstGame) return;
 
-        foreach (var button in buttons)
+        // Initialize buttons
+        foreach (var button in buttonsList)
         {
-            button.interactable = false;
+            button.SetInteractable(false);
+            button.Background.sprite = buttonDisabled;
         }
 
-        // the first in the array should be hazard and the only one interactable on every start
-        if (buttons.Length > 0)
+        // Set default button
+        TutorialButtons defaultButton = buttonsList.Find(button => button.name == "Hazard");
+        if (defaultButton != null)
         {
-            buttons[0].interactable = true;
+            OnTabSelected(defaultButton);
+            defaultButton.SetInteractable(true);
+            defaultButton.Background.sprite = buttonSelected;
         }
 
         exitButton.interactable = false;
@@ -50,15 +53,15 @@ public class TutorialLock : MonoBehaviour, IPointerClickHandler
     {
         GameEvents.ON_TUTORIAL_UNLOCKED += UnlockTutorial;
     }
+
     private void OnDisable()
     {
         GameEvents.ON_TUTORIAL_UNLOCKED -= UnlockTutorial;
     }
 
-
     private void UnlockTutorial()
-    { 
-        if (!initialPlayerStat.stats.isPlayerFirstGame) { return; }
+    {
+        if (!initialPlayerStat.stats.isPlayerFirstGame) return;
 
         for (int i = 0; i < swipeController.Length; i++)
         {
@@ -69,26 +72,21 @@ public class TutorialLock : MonoBehaviour, IPointerClickHandler
                 switch (i)
                 {
                     case 0:
-                        buttons[1].interactable = true;
+                        ActivateButton(1);
                         Debug.Log("Hazard unlocked, Powerups button interactable.");
                         break;
                     case 1:
-                        buttons[2].interactable = true;
+                        ActivateButton(2);
                         Debug.Log("Powerups unlocked, Blocks button interactable.");
                         break;
                     case 2:
-                        buttons[3].interactable = true;
+                        ActivateButton(3);
                         Debug.Log("Blocks unlocked, Win/Lose button interactable.");
                         break;
                     case 3:
-                        Debug.Log("Win/Lose unlocked.");
-
-                        // After the last tutorial you can exit the panel and update the stats
                         exitButton.interactable = true;
                         initialPlayerStat.stats.isPlayerFirstGame = false;
-
-                        // delete after testing 
-                        Debug.Log("isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame); 
+                        Debug.Log("Win/Lose unlocked. isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame);
                         break;
                     default:
                         Debug.LogWarning("Something went wrong");
@@ -97,31 +95,56 @@ public class TutorialLock : MonoBehaviour, IPointerClickHandler
             }
         }
     }
-
-
-    public void OnPointerClick(PointerEventData eventData)
+    private void ActivateButton(int index)
     {
-        Button clickedButton = eventData.pointerPress.GetComponent<Button>();
-
-        if (clickedButton != null)
+        if (index >= 0 && index < buttonsList.Count)
         {
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                if (buttons[i] == clickedButton)
-                {
-                    buttons[i].image.sprite = tabActive;
-                    panelsGO[i].gameObject.SetActive(true);
-                }
-                else
-                {
-                    buttons[i].image.sprite = tabIdle;
-                    if (i < panelsGO.Length)
-                    {
-                        panelsGO[i].gameObject.SetActive(false);
-                    }
-                }
-            }
+            buttonsList[index].SetInteractable(true);
+        }
+    }
+    public void OnTabEnter(TutorialButtons button)
+    {
+        if (_selectedTab == null || button != _selectedTab)
+        {
+            button.Background.sprite = buttonHover;
         }
     }
 
+
+    public void OnTabExit(TutorialButtons button)
+    {
+        if (_selectedTab != null && button != _selectedTab)
+        {
+            button.Background.sprite = buttonIdle;
+        }
+    }
+
+    public void OnTabSelected(TutorialButtons button)
+    {
+        _selectedTab = button;
+        ResetButtons();
+        button.Background.sprite = buttonSelected;
+        PageActivation(button);
+    }
+
+    public void ResetButtons()
+    {
+        foreach (TutorialButtons button in buttonsList)
+        {
+            if (_selectedTab != null && button == _selectedTab) continue;
+            button.Background.sprite = buttonIdle;
+        }
+    }
+
+    public void PageActivation(TutorialButtons button)
+    {
+        int index = buttonsList.IndexOf(button);
+        if (index >= 0 && index < panelsGO.Length)
+        {
+            for (int i = 0; i < panelsGO.Length; i++)
+            {
+                panelsGO[i].SetActive(i == index);
+            }
+        }
+    }
 }
