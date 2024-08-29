@@ -3,15 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+// Enable this only when player's first game 
+
 public class TutorialLock : MonoBehaviour
 {
-
     [Header("Arrange them the same")]
     [SerializeField] private SwipeController[] swipeController;
     [SerializeField] private Button[] buttons;
     [SerializeField] private Button exitButton;
 
-    PlayerStatsSO initialPlayerStat;
+    private PlayerStatsSO initialPlayerStat;
 
     private bool _isPlayerFirstGame;
 
@@ -71,9 +73,13 @@ public class TutorialLock : MonoBehaviour
                         break;
                     case 3:
                         Debug.Log("Win/Lose unlocked.");
+
+                        // After the last tutorial you can exit the panel and update the stats
                         exitButton.interactable = true;
                         initialPlayerStat.stats.isPlayerFirstGame = false;
-                        Debug.Log("isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame);
+
+                        // delete after testing 
+                        Debug.Log("isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame); 
                         break;
                     default:
                         Debug.LogWarning("Something went wrong");

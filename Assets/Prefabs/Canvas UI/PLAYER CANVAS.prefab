@@ -3222,7 +3222,7 @@ GameObject:
   - component: {fileID: 7948041308820626332}
   - component: {fileID: 7436281709285477452}
   - component: {fileID: 1223445859664127068}
-  - component: {fileID: 3663517546533702744}
+  - component: {fileID: 601441725691574043}
   m_Layer: 5
   m_Name: PLAYER CANVAS
   m_TagString: Untagged
@@ -3295,7 +3295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
@@ -3351,7 +3351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerCurrStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   _powerupText: {fileID: 992922588452859724}
---- !u!114 &3663517546533702744
+--- !u!114 &601441725691574043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3360,9 +3360,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5564811861471972876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f3eeac554e05f3458826bd4e8864bc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb6a156361ac04b9bbbe13230fda0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInMainMenu: 0
   _bgmOn: {fileID: 21300000, guid: 67fa4d37766433f428b9201bc57077d0, type: 3}
   _bgmOff: {fileID: 21300000, guid: d5788ccb415eba94a83222e1c772b778, type: 3}
   _bgmButton: {fileID: 8673185797589305165}
@@ -3373,12 +3374,12 @@ MonoBehaviour:
   pausefadePanel: {fileID: 7439058835903566540}
   pauseTopY: 1050
   pauseMidY: 0
-  tweenDuration: 0.5
+  tweenDuration: 0
   tutorialPanelGO: {fileID: 4555309232472797952}
   tutorialfadePanel: {fileID: 2792997690025175285}
   tutorialTopY: 1050
   tutorialMidY: 0
-  loadSceneFadePanel: {fileID: 6949371054404141209}
+  SceneFadePanel: {fileID: 2792997690025175285}
   PauseMenu: {fileID: 103633269298367836}
   TutorialMenu: {fileID: 2133049881774131256}
   AudioUIManager: {fileID: 71691784334659625}
@@ -3387,7 +3388,6 @@ MonoBehaviour:
   - {fileID: 8266680103070922612}
   - {fileID: 8587479356947603540}
   - {fileID: 6623965434722990142}
-  isInMainMenu: 0
 --- !u!1 &5567176375517451306
 GameObject:
   m_ObjectHideFlags: 0
@@ -4089,7 +4089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5066185570190904280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4794,7 +4794,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3663517546533702744}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: TogglePauseButton
         m_Mode: 1
@@ -5386,7 +5386,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3663517546533702744}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ToggleTutorialButton
         m_Mode: 1
@@ -5740,11 +5740,11 @@ PrefabInstance:
     - target: {fileID: 4999560019301948269, guid: e28e712153c5f4e4eb2f54934ece35da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3663517546533702744}
+      objectReference: {fileID: 0}
     - target: {fileID: 5082152815949431300, guid: e28e712153c5f4e4eb2f54934ece35da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3663517546533702744}
+      objectReference: {fileID: 0}
     - target: {fileID: 5082152815949431300, guid: e28e712153c5f4e4eb2f54934ece35da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GoToScene
@@ -5856,11 +5856,11 @@ PrefabInstance:
     - target: {fileID: 8018429914489015690, guid: e28e712153c5f4e4eb2f54934ece35da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3663517546533702744}
+      objectReference: {fileID: 0}
     - target: {fileID: 8228463028058940854, guid: e28e712153c5f4e4eb2f54934ece35da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3663517546533702744}
+      objectReference: {fileID: 0}
     - target: {fileID: 8550194207527844934, guid: e28e712153c5f4e4eb2f54934ece35da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -5868,7 +5868,7 @@ PrefabInstance:
     - target: {fileID: 8550194207527844934, guid: e28e712153c5f4e4eb2f54934ece35da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3663517546533702744}
+      objectReference: {fileID: 0}
     - target: {fileID: 8550194207527844934, guid: e28e712153c5f4e4eb2f54934ece35da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GoToScene
@@ -6198,10 +6198,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4749674322020522609, guid: d70bdc87684a7544d9cf0f7a19290598, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3663517546533702744}
     - target: {fileID: 5044960275529013130, guid: d70bdc87684a7544d9cf0f7a19290598, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

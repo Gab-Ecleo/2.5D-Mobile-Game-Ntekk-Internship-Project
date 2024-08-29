@@ -71,6 +71,7 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
             MovePage();
         }
     }
+
     private void UpdateArrowButton()
     {
         rightButton.interactable = true;
@@ -86,7 +87,9 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
             rightButton.interactable = false;
             isTutorialDone = true;
             Debug.Log("Tutorial Done");
-            GameEvents.ON_TUTORIAL_UNLOCKED?.Invoke();
+
+            // unlcok tutorial every last page of each tutorial section 
+            GameEvents.ON_TUTORIAL_UNLOCKED?.Invoke(); 
         }
     }
 
