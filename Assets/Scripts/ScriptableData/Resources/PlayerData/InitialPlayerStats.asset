@@ -18,7 +18,7 @@ MonoBehaviour:
     deceleration: 9
     velPower: 1.2
     frictionAmount: 0.2
-    aerialSpdReducer: 0
+    aerialSpdReducer: 0.1
     jumpHeight: 8
     jumpCutMultiplier: 0.7
     hasMultiplier: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
     timeSlow: 0
     expressDelivery: 0
     singleBlockRemover: 0
-    barrierDurability: 1
+    barrierDurability: 3
     canRez: 0
     StartingPos: {x: 0, y: 0, z: 0}
+    isPlayerFirstGame: 1
