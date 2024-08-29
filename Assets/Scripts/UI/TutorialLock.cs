@@ -3,19 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 // Enable this only when player's first game 
 
-public class TutorialLock : MonoBehaviour
+public class TutorialLock : MonoBehaviour, IPointerClickHandler
 {
     [Header("Arrange them the same")]
     [SerializeField] private SwipeController[] swipeController;
     [SerializeField] private Button[] buttons;
+    [SerializeField] private GameObject[] panelsGO;
     [SerializeField] private Button exitButton;
+
+    [Header("Sprite")]
+    [SerializeField] private Sprite tabIdle;
+    [SerializeField] private Sprite tabActive;
+    [SerializeField] private Sprite tabHover;
 
     private PlayerStatsSO initialPlayerStat;
 
     private bool _isPlayerFirstGame;
+
+    private bool _buttonIsActive;
 
     private void Start()
     {
@@ -88,4 +97,31 @@ public class TutorialLock : MonoBehaviour
             }
         }
     }
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Button clickedButton = eventData.pointerPress.GetComponent<Button>();
+
+        if (clickedButton != null)
+        {
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i] == clickedButton)
+                {
+                    buttons[i].image.sprite = tabActive;
+                    panelsGO[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    buttons[i].image.sprite = tabIdle;
+                    if (i < panelsGO.Length)
+                    {
+                        panelsGO[i].gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
+
 }

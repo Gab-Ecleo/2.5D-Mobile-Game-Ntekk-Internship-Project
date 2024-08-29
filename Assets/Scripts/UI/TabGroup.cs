@@ -16,6 +16,7 @@ public class TabGroup : MonoBehaviour
     public Sprite tabHover;
     public Sprite tabExit;
 
+    [Header("Tabs")]
     private TabButton _selectedTab;
     public bool tabIsOpen;
     public ButtonTimerState timerState = ButtonTimerState.Ready;
@@ -23,10 +24,12 @@ public class TabGroup : MonoBehaviour
 
     public int index;
 
+    [Header("Robot Animation")]
     public GameObject Robot;
     public float robotRotationAngle = 360f;
     public float robotRotationTime = 20f;
     private Tween rotationTween;
+
     private void Start()
     {
         Time.timeScale = 1.0f; // delete when there's new toggle pause logic in pausemanager 
