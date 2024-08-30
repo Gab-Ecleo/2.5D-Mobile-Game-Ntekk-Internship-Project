@@ -124,23 +124,24 @@ namespace PlayerScripts
             if (_moveDirection.x == 0f) return;
             switch (_moveDirection.x)
             {
-                case < 0f:
+                case -1:
                 {
                     var localRotation = transform.localEulerAngles;
                     localRotation = new Vector3(0, 180, 0);
-                    transform.localEulerAngles = localRotation;
+                    transform.localRotation = Quaternion.Euler(localRotation);
                     _isFacingRight = false;
                     break;
                 }
-                case > 0f:
+                case 1:
                 {
                     var localRotation = transform.localEulerAngles;
                     localRotation = new Vector3(0, 0, 0);
-                    transform.localEulerAngles = localRotation;
+                    transform.localRotation = Quaternion.Euler(localRotation);
                     _isFacingRight = true;
                     break;
                 }
             }
+            Debug.Log(transform.localRotation);
         }
         
         //returns True if raycast has detected groundLayer.
