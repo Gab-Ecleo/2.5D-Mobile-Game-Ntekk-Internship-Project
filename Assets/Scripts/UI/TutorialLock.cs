@@ -1,37 +1,50 @@
+using DG.Tweening;
 using ScriptableData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-// Enable this only when player's first game 
+using EventScripts;
 
 public class TutorialLock : MonoBehaviour
 {
     [Header("Arrange them the same")]
     [SerializeField] private SwipeController[] swipeController;
-    [SerializeField] private Button[] buttons;
+
+    [SerializeField] private List<TutorialButtons> buttonsList;
+    [SerializeField] private GameObject[] panelsGO;
     [SerializeField] private Button exitButton;
 
-    private PlayerStatsSO initialPlayerStat;
+    [Header("Sprite")]
+    [SerializeField] private Sprite buttonIdle;
+    [SerializeField] private Sprite buttonSelected;
+    [SerializeField] private Sprite buttonDisabled;
+    [SerializeField] private Sprite buttonHover;
 
-    private bool _isPlayerFirstGame;
+    private PlayerStatsSO initialPlayerStat;
+    private TutorialButtons _selectedTab;
 
     private void Start()
     {
         initialPlayerStat = GameManager.Instance.FetchInitialPlayerStat();
 
-        if (!initialPlayerStat.stats.isPlayerFirstGame) { return; }
+        if (!initialPlayerStat.stats.isPlayerFirstGame) return;
 
-        foreach (var button in buttons)
+        // Initialize buttons
+        foreach (var button in buttonsList)
         {
-            button.interactable = false;
+            button.SetInteractable(false);
+            button.Background.sprite = buttonDisabled;
         }
 
-        // the first in the array should be hazard and the only one interactable on every start
-        if (buttons.Length > 0)
+        // Set default button
+        TutorialButtons defaultButton = buttonsList.Find(button => button.name == "Hazard");
+        if (defaultButton != null)
         {
-            buttons[0].interactable = true;
+            OnTabSelected(defaultButton);
+            defaultButton.SetInteractable(true);
+            defaultButton.Background.sprite = buttonSelected;
         }
 
         exitButton.interactable = false;
@@ -41,15 +54,15 @@ public class TutorialLock : MonoBehaviour
     {
         GameEvents.ON_TUTORIAL_UNLOCKED += UnlockTutorial;
     }
+
     private void OnDisable()
     {
         GameEvents.ON_TUTORIAL_UNLOCKED -= UnlockTutorial;
     }
 
-
     private void UnlockTutorial()
-    { 
-        if (!initialPlayerStat.stats.isPlayerFirstGame) { return; }
+    {
+        if (!initialPlayerStat.stats.isPlayerFirstGame) return;
 
         for (int i = 0; i < swipeController.Length; i++)
         {
@@ -60,31 +73,79 @@ public class TutorialLock : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        buttons[1].interactable = true;
+                        ActivateButton(1);
                         Debug.Log("Hazard unlocked, Powerups button interactable.");
                         break;
                     case 1:
-                        buttons[2].interactable = true;
+                        ActivateButton(2);
                         Debug.Log("Powerups unlocked, Blocks button interactable.");
                         break;
                     case 2:
-                        buttons[3].interactable = true;
+                        ActivateButton(3);
                         Debug.Log("Blocks unlocked, Win/Lose button interactable.");
                         break;
                     case 3:
-                        Debug.Log("Win/Lose unlocked.");
-
-                        // After the last tutorial you can exit the panel and update the stats
                         exitButton.interactable = true;
                         initialPlayerStat.stats.isPlayerFirstGame = false;
-
-                        // delete after testing 
-                        Debug.Log("isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame); 
+                        LocalStorageEvents.OnSavePlayerStats?.Invoke();
+                        Debug.Log("Win/Lose unlocked. isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame);
                         break;
                     default:
                         Debug.LogWarning("Something went wrong");
                         break;
                 }
+            }
+        }
+    }
+    private void ActivateButton(int index)
+    {
+        if (index >= 0 && index < buttonsList.Count)
+        {
+            buttonsList[index].SetInteractable(true);
+        }
+    }
+    public void OnTabEnter(TutorialButtons button)
+    {
+        if (_selectedTab == null || button != _selectedTab)
+        {
+            button.Background.sprite = buttonHover;
+        }
+    }
+
+
+    public void OnTabExit(TutorialButtons button)
+    {
+        if (_selectedTab != null && button != _selectedTab)
+        {
+            button.Background.sprite = buttonIdle;
+        }
+    }
+
+    public void OnTabSelected(TutorialButtons button)
+    {
+        _selectedTab = button;
+        ResetButtons();
+        button.Background.sprite = buttonSelected;
+        PageActivation(button);
+    }
+
+    public void ResetButtons()
+    {
+        foreach (TutorialButtons button in buttonsList)
+        {
+            if (_selectedTab != null && button == _selectedTab) continue;
+            button.Background.sprite = buttonIdle;
+        }
+    }
+
+    public void PageActivation(TutorialButtons button)
+    {
+        int index = buttonsList.IndexOf(button);
+        if (index >= 0 && index < panelsGO.Length)
+        {
+            for (int i = 0; i < panelsGO.Length; i++)
+            {
+                panelsGO[i].SetActive(i == index);
             }
         }
     }
