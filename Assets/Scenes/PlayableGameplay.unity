@@ -1364,10 +1364,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 103633269298367836, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 230037904457274376, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1400,10 +1396,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 601441725691574043, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: SceneFadePanel
-      value: 
-      objectReference: {fileID: 1421341485}
     - target: {fileID: 1130883913435400436, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: _blockSpawners
       value: 
@@ -1423,18 +1415,6 @@ PrefabInstance:
     - target: {fileID: 1137804988258573465, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1165274096450747326, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1686753214}
-    - target: {fileID: 1165274096450747326, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TogglePauseButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 1165274096450747326, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1198277740828640253, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1506,7 +1486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2121465883285678810, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0016806234
+      value: -0.000091552734
       objectReference: {fileID: 0}
     - target: {fileID: 2213206543604036718, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1836,18 +1816,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4576460610454422817, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1686753214}
-    - target: {fileID: 4576460610454422817, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleTutorialButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 4576460610454422817, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 4713883339946330128, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1920,37 +1888,9 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5542638182632235263, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1686753214}
-    - target: {fileID: 5542638182632235263, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GoToScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 5542638182632235263, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 5564811861471972876, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_Name
       value: PLAYER CANVAS
-      objectReference: {fileID: 0}
-    - target: {fileID: 5593786383466050050, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 451183623}
-    - target: {fileID: 5696497560493603222, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1686753214}
-    - target: {fileID: 5696497560493603222, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MuteSFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 5696497560493603222, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5766058492822250434, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2048,18 +1988,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6639079194125501576, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1686753214}
-    - target: {fileID: 6639079194125501576, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleTutorialButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 6639079194125501576, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 6674340714558508731, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2091,18 +2019,6 @@ PrefabInstance:
     - target: {fileID: 7123918452204366339, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7289964981173268337, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1686753214}
-    - target: {fileID: 7289964981173268337, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Resume
-      objectReference: {fileID: 0}
-    - target: {fileID: 7289964981173268337, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7443416920584160828, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2168,54 +2084,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: PauseMenu
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: TutorialMenu
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: SwipeController
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: SwipeController.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: SwipeController.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: SwipeController.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: SwipeController.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: SwipeController.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8648302687186714276, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8673185797589305165, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1686753214}
-    - target: {fileID: 8673185797589305165, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MuteBGM
-      objectReference: {fileID: 0}
-    - target: {fileID: 8673185797589305165, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 8989679003087456724, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2231,29 +2099,12 @@ PrefabInstance:
     - target: {fileID: 8989679003087456724, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8990419970293358269, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1686753214}
-    - target: {fileID: 8990419970293358269, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GoToScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 8990419970293358269, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
---- !u!225 &1421341485 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 6949371054404141209, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-  m_PrefabInstance: {fileID: 1421341484}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1470077614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2486,17 +2337,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5564811861471972876, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
   m_PrefabInstance: {fileID: 1421341484}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1686753214 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 601441725691574043, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
-  m_PrefabInstance: {fileID: 1421341484}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686753206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93cb6a156361ac04b9bbbe13230fda0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1690377791
 GameObject:
   m_ObjectHideFlags: 0
