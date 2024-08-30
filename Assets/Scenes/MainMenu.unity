@@ -3277,7 +3277,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454118957}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -176.00002}
+  m_LocalPosition: {x: 0, y: 0, z: -500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3893,7 +3893,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530271469}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eee3f99b94a8ec147aae58c75bc152c2, type: 3}
   m_Name: 
@@ -3903,12 +3903,13 @@ MonoBehaviour:
   - {fileID: 1732131156}
   - {fileID: 835171821}
   - {fileID: 980472415}
-  buttons:
-  - {fileID: 966499330}
-  - {fileID: 975937045}
-  - {fileID: 1159205231}
-  - {fileID: 1041426608}
+  buttonsList: []
+  panelsGO: []
   exitButton: {fileID: 865031885}
+  buttonIdle: {fileID: 0}
+  buttonSelected: {fileID: 0}
+  buttonDisabled: {fileID: 0}
+  buttonHover: {fileID: 0}
 --- !u!222 &530271472
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4258,7 +4259,7 @@ MonoBehaviour:
   pausefadePanel: {fileID: 2028492614}
   pauseTopY: 1050
   pauseMidY: 0
-  tweenDuration: 0
+  tweenDuration: 0.5
   tutorialPanelGO: {fileID: 1968264918}
   tutorialfadePanel: {fileID: 1844296701}
   tutorialTopY: 1050
@@ -6333,7 +6334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 000000
+  m_text: 00000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12096,7 +12097,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1398556586}
   - component: {fileID: 1398556585}
-  - component: {fileID: 1398556584}
   - component: {fileID: 1398556583}
   m_Layer: 0
   m_Name: Canvas Camera
@@ -12149,14 +12149,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &1398556584
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1398556582}
-  m_Enabled: 1
 --- !u!20 &1398556585
 Camera:
   m_ObjectHideFlags: 0

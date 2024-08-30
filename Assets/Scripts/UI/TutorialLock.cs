@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EventScripts;
 
 public class TutorialLock : MonoBehaviour
 {
@@ -86,6 +87,7 @@ public class TutorialLock : MonoBehaviour
                     case 3:
                         exitButton.interactable = true;
                         initialPlayerStat.stats.isPlayerFirstGame = false;
+                        LocalStorageEvents.OnSavePlayerStats?.Invoke();
                         Debug.Log("Win/Lose unlocked. isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame);
                         break;
                     default:

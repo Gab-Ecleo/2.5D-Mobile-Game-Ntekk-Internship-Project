@@ -263,8 +263,9 @@ public class UIManager : MonoBehaviour
         }
 
         SceneFadePanel.DOFade(1, 0.2f).SetUpdate(true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.25f);
 
+        DOTween.KillAll();
         SceneController.Instance.LoadScene(sceneInt);
     }
 
