@@ -37,10 +37,5 @@ namespace Player_Statistics
 
         [Header("Tutorial")]
         public bool isPlayerFirstGame = true;
-
-        public bool isHazardUnlocked = true;
-        public bool isPowerupsUnlocked = false;
-        public bool isBlocksUnlocked = false;
-        public bool isWinLoseUnlocked = false;
     }
 }

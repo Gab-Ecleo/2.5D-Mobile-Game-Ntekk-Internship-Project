@@ -81,7 +81,7 @@ namespace Input_System_Actions
         }
         private void Tutorial(InputAction.CallbackContext ctx)
         {
-            GameEvents.TRIGGER_TUTORIAL?.Invoke();
+            GameEvents.ON_TUTORIAL?.Invoke();
         }
     }
 }

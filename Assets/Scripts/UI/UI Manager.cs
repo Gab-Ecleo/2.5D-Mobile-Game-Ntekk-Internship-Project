@@ -13,13 +13,14 @@ using Unity.VisualScripting;
 using Player_Statistics;
 using ScriptableData;
 
-public class PauseManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    private static PauseManager _instance;
-    public static PauseManager Instance => _instance;
+    private static UIManager _instance;
+    public static UIManager Instance => _instance;
 
-    private bool _isPauseScreenOpen;
-    private bool _isTutorialScreenOpen;
+    [Header("Check Scene")]
+    [SerializeField] private bool isInMainMenu;
+
 
     [Header("BGM Audio")]
     [SerializeField] private Sprite _bgmOn;
@@ -43,23 +44,23 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private float tutorialTopY;
     [SerializeField] private float tutorialMidY;
 
-    [SerializeField] private CanvasGroup loadSceneFadePanel;
+    [SerializeField] private CanvasGroup SceneFadePanel;
 
-    [Header("Parent Game Object")]
+    [Header("Ref")]
+    public Button TutorialButton;
     public GameObject PauseMenu;
     public GameObject TutorialMenu;
+    public AudioUIManager AudioUIManager;
+    public SwipeController[] SwipeController;
 
     private bool _isBgmOn;
     private bool _isSfxOn;
     private RectTransform pauseRectTrans;
     private RectTransform tutorialRectTrans;
     private PlayerStatsSO initialStat;
+    private bool _isPauseScreenOpen;
+    private bool _isTutorialScreenOpen;
 
-    public AudioUIManager AudioUIManager;
-    public SwipeController[] SwipeController;
-
-    [Header("Check Scene")]
-    [SerializeField] private bool isInMainMenu;
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -75,8 +76,6 @@ public class PauseManager : MonoBehaviour
         if (tutorialPanelGO != null)
             tutorialRectTrans = tutorialPanelGO.GetComponent<RectTransform>();
 
-        loadSceneFadePanel.gameObject.SetActive(true);
-
     }
 
     private void OnDestroy()
@@ -87,20 +86,30 @@ public class PauseManager : MonoBehaviour
 
     private async void Start()
     {
+        InitializePlayerStats();
+        InitializeUIStates();
+
+        await FadeOutPanel();
+
+        FirstTutorial();
+    }
+
+    private void InitializePlayerStats()
+    {
         initialStat = GameManager.Instance.FetchInitialPlayerStat();
+    }
+
+    private bool InitializeUIStates()
+    {
         _isPauseScreenOpen = false;
         _isTutorialScreenOpen = false;
         PauseMenu.SetActive(false);
         TutorialMenu.SetActive(false);
 
-        await FadeOutPanel();
-
-        if(!isInMainMenu)
-        {
-            FirstTutorial();
-        }
+        return !_isPauseScreenOpen && !_isTutorialScreenOpen && !PauseMenu.activeSelf && !TutorialMenu.activeSelf;
     }
 
+    // open tutorial when its player first time 
     private void FirstTutorial()
     {
         if (initialStat.stats.isPlayerFirstGame && !isInMainMenu)
@@ -108,7 +117,16 @@ public class PauseManager : MonoBehaviour
             Debug.Log("First Time Player");
             GameEvents.ON_TUTORIAL?.Invoke();
         }
+        else if (initialStat.stats.isPlayerFirstGame && isInMainMenu)
+        {
+            TutorialButton.interactable = false;
+        }
+        else if (!initialStat.stats.isPlayerFirstGame && isInMainMenu)
+        {
+            TutorialButton.interactable = true;
+        }
     }
+
     #region Pause Screen
 
     private async void TogglePause()
@@ -190,8 +208,7 @@ public class PauseManager : MonoBehaviour
     }
     #endregion
 
-
-    #region buttons
+    #region Buttons
 
     public void Resume()
     {
@@ -213,8 +230,8 @@ public class PauseManager : MonoBehaviour
         _isSfxOn = !_isSfxOn;
         _sfxButton.image.sprite = _isSfxOn ? _sfxOn : _sfxOff;
         AudioManager.Instance.AudioMute(!_isSfxOn, AudioType.Sfx);
-        
-        if(!_isSfxOn) {AudioUIManager.sfxSlider.interactable = false; }
+
+        if (!_isSfxOn) { AudioUIManager.sfxSlider.interactable = false; }
         else { AudioUIManager.sfxSlider.interactable = true; }
 
     }
@@ -236,7 +253,7 @@ public class PauseManager : MonoBehaviour
 
     IEnumerator SceneTransition(int sceneInt)
     {
-        if(_isPauseScreenOpen)
+        if (_isPauseScreenOpen)
         {
             TogglePause();
         }
@@ -245,7 +262,7 @@ public class PauseManager : MonoBehaviour
             ToggleTutorial();
         }
 
-        loadSceneFadePanel.DOFade(1, 0.2f).SetUpdate(true);
+        SceneFadePanel.DOFade(1, 0.2f).SetUpdate(true);
         yield return new WaitForSeconds(0.2f);
 
         SceneController.Instance.LoadScene(sceneInt);
@@ -253,9 +270,7 @@ public class PauseManager : MonoBehaviour
 
     async Task FadeOutPanel()
     {
-        await loadSceneFadePanel.DOFade(0, tweenDuration).SetUpdate(true).AsyncWaitForCompletion();
+        await SceneFadePanel.DOFade(0, tweenDuration).SetUpdate(true).AsyncWaitForCompletion();
     }
     #endregion
 }
-
-

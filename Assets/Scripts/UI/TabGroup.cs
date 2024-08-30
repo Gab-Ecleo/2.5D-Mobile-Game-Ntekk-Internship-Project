@@ -23,6 +23,10 @@ public class TabGroup : MonoBehaviour
 
     public int index;
 
+    public GameObject Robot;
+    public float robotRotationAngle = 360f;
+    public float robotRotationTime = 20f;
+    private Tween rotationTween;
     private void Start()
     {
         Time.timeScale = 1.0f; // delete when there's new toggle pause logic in pausemanager 
@@ -107,12 +111,17 @@ public class TabGroup : MonoBehaviour
         {
             case "Home":
                 ActivatePageByIndex(0);
+                rotationTween = Robot.transform.DORotate(new Vector3(0, robotRotationAngle, 0), robotRotationTime, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart); ;
                 break;
             case "Upgrade":
                 ActivatePageByIndex(1);
+                Robot.transform.rotation = Quaternion.identity;
+                rotationTween.Kill();
                 break;
             default:
                 Debug.LogWarning("Unknown Tab Selected");
+                Robot.transform.rotation = Quaternion.identity;
+                rotationTween.Kill();
                 break;
         }
     }

@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     [Header("UI Objects")]
     [SerializeField] private GameObject gameOverText;
     
-    
     private bool _gameEnd;
     
     private void Awake()
