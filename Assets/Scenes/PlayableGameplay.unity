@@ -1506,7 +1506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2121465883285678810, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000030517578
+      value: -0.0016806234
       objectReference: {fileID: 0}
     - target: {fileID: 2213206543604036718, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1936,6 +1936,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PLAYER CANVAS
       objectReference: {fileID: 0}
+    - target: {fileID: 5593786383466050050, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 451183623}
     - target: {fileID: 5696497560493603222, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2167,15 +2171,15 @@ PrefabInstance:
     - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: PauseMenu
       value: 
-      objectReference: {fileID: 306478356}
+      objectReference: {fileID: 0}
     - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: TutorialMenu
       value: 
-      objectReference: {fileID: 1979173461}
+      objectReference: {fileID: 0}
     - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: SwipeController
       value: 
-      objectReference: {fileID: 858793982}
+      objectReference: {fileID: 0}
     - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: SwipeController.Array.size
       value: 4
@@ -2183,19 +2187,19 @@ PrefabInstance:
     - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: SwipeController.Array.data[0]
       value: 
-      objectReference: {fileID: 1205006196}
+      objectReference: {fileID: 0}
     - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: SwipeController.Array.data[1]
       value: 
-      objectReference: {fileID: 1025450623}
+      objectReference: {fileID: 0}
     - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: SwipeController.Array.data[2]
       value: 
-      objectReference: {fileID: 258594671}
+      objectReference: {fileID: 0}
     - target: {fileID: 8574768198046906306, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: SwipeController.Array.data[3]
       value: 
-      objectReference: {fileID: 858793982}
+      objectReference: {fileID: 0}
     - target: {fileID: 8648302687186714276, guid: 85cc3045cb7fa2640bb030d29cc10d6a, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
