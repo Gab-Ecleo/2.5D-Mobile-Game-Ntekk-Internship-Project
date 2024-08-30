@@ -128,7 +128,7 @@ namespace PlayerScripts
                 {
                     var localRotation = transform.localEulerAngles;
                     localRotation = new Vector3(0, 180, 0);
-                    transform.localRotation = Quaternion.Euler(localRotation);
+                    transform.eulerAngles = localRotation;
                     _isFacingRight = false;
                     break;
                 }
@@ -136,12 +136,12 @@ namespace PlayerScripts
                 {
                     var localRotation = transform.localEulerAngles;
                     localRotation = new Vector3(0, 0, 0);
-                    transform.localRotation = Quaternion.Euler(localRotation);
+                    transform.eulerAngles = localRotation;
                     _isFacingRight = true;
                     break;
                 }
             }
-            Debug.Log(transform.localRotation);
+            Debug.Log(transform.eulerAngles);
         }
         
         //returns True if raycast has detected groundLayer.
