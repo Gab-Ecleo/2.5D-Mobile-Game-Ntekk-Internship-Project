@@ -31,6 +31,8 @@ namespace PlayerScripts
         [SerializeField] private float maxDistance = 1f;
         [SerializeField] private LayerMask groundLayer;
 
+        private int lastInput = 0;
+
         #region UNITY_DEFAULT_FUNCTIONS
         private void Awake()
         {
@@ -121,27 +123,23 @@ namespace PlayerScripts
         //flips the player's "facing" direction
         private void Flip()
         {
-            if (_moveDirection.x == 0f) return;
-            switch (_moveDirection.x)
+            //Debug.Log(transform.eulerAngles);
+            // if (_moveDirection.x == 0f) return;
+            if (_moveDirection.x == -1)
             {
-                case -1:
-                {
-                    var localRotation = transform.localEulerAngles;
-                    localRotation = new Vector3(0, 180, 0);
-                    transform.eulerAngles = localRotation;
-                    _isFacingRight = false;
-                    break;
-                }
-                case 1:
-                {
-                    var localRotation = transform.localEulerAngles;
-                    localRotation = new Vector3(0, 0, 0);
-                    transform.eulerAngles = localRotation;
-                    _isFacingRight = true;
-                    break;
-                }
+                lastInput = (int) _moveDirection.x;
+                gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
+                _isFacingRight = false;
+                Debug.Log(lastInput);
             }
-            Debug.Log(transform.eulerAngles);
+            else if (_moveDirection.x == 1)
+            {
+                lastInput = (int) _moveDirection.x;
+                gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+                _isFacingRight = true;
+                Debug.Log(lastInput);
+            }
+            
         }
         
         //returns True if raycast has detected groundLayer.
