@@ -39,12 +39,6 @@ namespace PlayerScripts
             InitializeScriptValues();
         }
 
-        private void Update()
-        {
-            Flip();
-            
-        }
-        
         private void FixedUpdate() //For Testing. Can be Deleted
         {
             //draws a ray for the groundCheck raycast
@@ -90,6 +84,8 @@ namespace PlayerScripts
                 _rb.AddForce(movement * Vector2.right);
             }
             #endregion
+            
+            Flip();
         }
 
         //jump
@@ -123,23 +119,23 @@ namespace PlayerScripts
         //flips the player's "facing" direction
         private void Flip()
         {
-            //Debug.Log(transform.eulerAngles);
-            // if (_moveDirection.x == 0f) return;
+            //if (_moveDirection.x == 0f) return;
             if (_moveDirection.x == -1)
             {
                 lastInput = (int) _moveDirection.x;
-                gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
+                var localRotation = transform.localEulerAngles;
+                localRotation = new Vector3(0, 180, 0);
+                _rb.rotation = Quaternion.Euler(localRotation);
                 _isFacingRight = false;
-                Debug.Log(lastInput);
             }
             else if (_moveDirection.x == 1)
             {
                 lastInput = (int) _moveDirection.x;
-                gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+                var localRotation = transform.localEulerAngles;
+                localRotation = new Vector3(0, 0, 0);
+                _rb.rotation = Quaternion.Euler(localRotation);
                 _isFacingRight = true;
-                Debug.Log(lastInput);
             }
-            
         }
         
         //returns True if raycast has detected groundLayer.
