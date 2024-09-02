@@ -16484,10 +16484,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Save Data Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 8351475634420693472, guid: acb100b4f2737204daab2746a9040fd9, type: 3}
-      propertyPath: audioSettings
-      value: 
-      objectReference: {fileID: 11400000, guid: 4571c298988b77a4aa74557a5829fdc0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
