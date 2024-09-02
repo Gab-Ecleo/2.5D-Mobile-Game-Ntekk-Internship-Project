@@ -16,5 +16,9 @@ namespace EventScripts
         //Currency Events
         public static Action OnLoadCurrencyData;
         public static Action OnSaveCurrencyData;
+        
+        //Audio Settings Events
+        public static Action OnLoadAudioSettingsData;
+        public static Action OnSaveAudioSettingsData;
     }
 }
