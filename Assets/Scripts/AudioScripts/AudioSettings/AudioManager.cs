@@ -25,6 +25,7 @@ namespace AudioScripts.AudioSettings
         
         private void Start()
         {
+            LocalStorageEvents.OnLoadAudioSettingsData?.Invoke();
             if (audioData == null) return;
             UpdateBGMVolume(audioData.bgmVolume);
             UpdateSfxVolume(audioData.sfxVolume);

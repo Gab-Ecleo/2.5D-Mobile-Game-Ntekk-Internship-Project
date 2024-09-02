@@ -39,6 +39,12 @@ namespace AudioScripts.AudioSettings
         [SerializeField] private TextMeshProUGUI bgmTxt;
         [SerializeField] private TextMeshProUGUI sfxTxt;
 
+        private void Start()
+        {
+            bgmSlider.value = audioData.bgmVolume;
+            sfxSlider.value = audioData.sfxVolume;
+        }
+
         //Everytime a slider changes value, this function gets called to update the UI and the Audio data
         private void OnsliderValueChanged(AudioType type, float value)
         {
@@ -65,9 +71,6 @@ namespace AudioScripts.AudioSettings
         {
             bgmSlider.onValueChanged.AddListener(value =>OnsliderValueChanged(AudioType.BGM,value));
             sfxSlider.onValueChanged.AddListener(value =>OnsliderValueChanged(AudioType.Sfx,value));
-            
-            bgmSlider.value = audioData.bgmVolume;
-            sfxSlider.value = audioData.sfxVolume;
         }
 
         private void OnDisable()
