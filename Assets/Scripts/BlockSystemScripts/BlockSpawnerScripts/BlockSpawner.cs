@@ -122,6 +122,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                     var obj = Instantiate(imageToSpawn, screenPos, quaternion.identity, GameManager.Instance.FetchCanvas().transform);
                     _imgObj = obj;
                     _imgObj.GetComponent<Animator>().SetTrigger("BlinkTrigger");
+                    _imgObj.GetComponent<BlackOutWarningTrigger>().InitializeImage();
                 }
                 else
                 {
