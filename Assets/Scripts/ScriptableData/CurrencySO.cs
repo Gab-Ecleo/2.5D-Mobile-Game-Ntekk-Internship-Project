@@ -6,7 +6,7 @@ namespace ScriptableData
     public class CurrencySO : ScriptableObject
     {
         [Header("Currencies")] 
-        public float coins = 0f;
-        public float matchCoins = 0f;
+        public int coins = 0;
+        public int matchCoins = 0;
     }
 }

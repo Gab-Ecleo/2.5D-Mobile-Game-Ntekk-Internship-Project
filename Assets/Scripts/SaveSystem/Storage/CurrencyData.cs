@@ -8,6 +8,6 @@ namespace SaveSystem.Storage
     public class CurrencyData
     {
         [Header("Currencies")] 
-        public float coins = 0f;
+        public int coins = 0;
     }
 }
