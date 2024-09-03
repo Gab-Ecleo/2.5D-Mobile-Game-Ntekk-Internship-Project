@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 5904609094953778102}
   - component: {fileID: 2827798416804891779}
   - component: {fileID: 6354397188121937195}
+  - component: {fileID: 3579532000642893275}
   - component: {fileID: 182711630544776900}
   - component: {fileID: 2894977604435187832}
   - component: {fileID: 58134610566313706}
@@ -592,6 +593,20 @@ MonoBehaviour:
   blockPlaceholder: {fileID: 4040168932507938031}
   collectedBlock: {fileID: 0}
   hasItem: 0
+--- !u!114 &3579532000642893275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476286341742904787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1112305a70142af9c1176019690bcea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableInd: {fileID: 0}
+  unInteractableInd: {fileID: 0}
 --- !u!114 &182711630544776900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,7 +635,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialPlayerStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
-  deathScreen: {fileID: 0}
   _playerPos: {x: 0, y: 0, z: 0}
 --- !u!114 &58134610566313706
 MonoBehaviour:

@@ -12,8 +12,7 @@ namespace Player_Statistics
         public float acceleration = 9f;
         public float deceleration = 9f;
         public float velPower = 1.2f;
-        public float frictionAmount = 0.2f;
-        
+
         [Tooltip("A rate multiplier that reduces the player's movement speed on-air. Will only be calculated if the Movement State is set to 'Reduced Aerial Movement")]
         [Range(0f, 1f)] public float aerialSpdReducer = 0.0f;
 

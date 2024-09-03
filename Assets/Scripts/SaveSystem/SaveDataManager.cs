@@ -17,6 +17,7 @@ namespace SaveSystem
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private CurrencySO playerCurrency;
         [SerializeField] private UpgradeItemsList itemList;
+        [SerializeField] private AudioSettingsSO audioSettings;
         
         private void Awake()
         {
@@ -34,6 +35,7 @@ namespace SaveSystem
             new UpgradeStorage().CreateUpgradeData();
             new StatStorages().CreateStatData();
             new CurrencyStorage().CreateCurrencyData();
+            new AudioStorage().CreateAudioData();
         }
 
         //called at the beginning of the scene
@@ -113,6 +115,28 @@ namespace SaveSystem
             new CurrencyStorage().SaveCurrencyData(tempCurrency);
         }
         #endregion
+
+        #region AUDIO_SETTINGS
+
+        private void LoadAudioSettingsData()
+        {
+            if (new AudioStorage().GetAudioData() == null) return;
+            Debug.Log("Loading Audio Data");
+            audioSettings.bgmVolume = new AudioStorage().GetAudioData().bgmVolume;
+            audioSettings.sfxVolume = new AudioStorage().GetAudioData().sfxVolume;
+        }
+
+        private void SaveAudioSettingsData()
+        {
+            Debug.Log("Saving Audio Data");
+            var tempData = new AudioData
+            {
+                bgmVolume = audioSettings.bgmVolume,
+                sfxVolume = audioSettings.sfxVolume
+            };
+            new AudioStorage().SaveAudioData(tempData);
+        }
+        #endregion
         
         //called when a scene has loaded out
         private void SaveAll(Scene current)
@@ -123,11 +147,13 @@ namespace SaveSystem
                 SavePlayerStats();
                 SaveCurrencyData();
                 SaveUpgrade();
+                SaveAudioSettingsData();
             }
             
             if (current.buildIndex != 0)
             {
                 SaveCurrencyData();
+                SaveAudioSettingsData();
             }
         }
         
@@ -139,11 +165,13 @@ namespace SaveSystem
                 SavePlayerStats();
                 SaveCurrencyData();
                 SaveUpgrade();
+                SaveAudioSettingsData();
             }
 
             if (SceneManager.GetActiveScene().buildIndex != 0)
             {
                 SaveCurrencyData();
+                SaveAudioSettingsData();
             }
         }
 
@@ -158,6 +186,8 @@ namespace SaveSystem
             LocalStorageEvents.OnLoadCurrencyData += LoadCurrencyData;
             LocalStorageEvents.OnSaveCurrencyData += SaveCurrencyData;
 
+            LocalStorageEvents.OnLoadAudioSettingsData += LoadAudioSettingsData;
+            LocalStorageEvents.OnSaveAudioSettingsData += SaveAudioSettingsData;
             
             SceneManager.sceneUnloaded += SaveAll;
             SceneManager.sceneLoaded += InitializeData;
@@ -173,6 +203,9 @@ namespace SaveSystem
             
             LocalStorageEvents.OnLoadCurrencyData -= LoadCurrencyData;
             LocalStorageEvents.OnSaveCurrencyData -= SaveCurrencyData;
+            
+            LocalStorageEvents.OnLoadAudioSettingsData -= LoadAudioSettingsData;
+            LocalStorageEvents.OnSaveAudioSettingsData -= SaveAudioSettingsData;
             
             SceneManager.sceneUnloaded -= SaveAll;
             SceneManager.sceneLoaded -= InitializeData;

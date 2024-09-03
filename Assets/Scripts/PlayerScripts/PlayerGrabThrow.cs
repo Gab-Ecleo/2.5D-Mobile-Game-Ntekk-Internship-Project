@@ -15,7 +15,9 @@ namespace PlayerScripts
         [Header("Test References. To be private")]
         [SerializeField] private BlockScript collectedBlock;//for testing purposes. Unserialize after testing
         [SerializeField] private bool hasItem; //for testing purposes. Unserialize after testing
-        
+
+        public bool HasItem => hasItem;
+
         private PlayerGrabCooldown _grabCooldown;
         private PlayerEyesight _eyeSight;
         

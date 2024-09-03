@@ -83,13 +83,13 @@ public class TabGroup : MonoBehaviour
         button.Background.sprite = tabActive;
 
         // tween animation
-        button.transform.DOScale(new Vector3(0.9f, 0.8f, 0.6f), 0.1f)
+        button.transform.DOScale(new Vector3(0.9f, 0.7f, 0.7f), 0.1f)
             .SetEase(Ease.OutCubic)
             .OnStepComplete(() => StartCoroutine(ButtonCooldown()));
-        button.transform.DOLocalMoveY(-138f, 0.1f);
+        //button.transform.DOLocalMoveY(-70f, 0.1f);
 
-        PageActivation(button);
         timerState = ButtonTimerState.Waiting;
+        PageActivation(button);
     }
 
     public void ResetButtons()
@@ -103,7 +103,7 @@ public class TabGroup : MonoBehaviour
             {
                 button.transform.DOScale(new Vector3(0.8f, 0.6f, 0.6f), 0.1f)
                     .SetEase(Ease.OutCubic);
-                button.transform.DOLocalMoveY(-158f, 0.1f);
+                button.transform.DOLocalMoveY(-84f, 0.1f);
             }
         }
     }
@@ -142,7 +142,7 @@ public class TabGroup : MonoBehaviour
             }
             else
             {
-                objectsToSwap[i].transform.DOLocalMoveX(1400f, 0.1f)
+                objectsToSwap[i].transform.DOLocalMoveX(2044f, 0.1f)
                     .SetEase(Ease.InQuint)
                     .OnStepComplete(() =>
                     {
