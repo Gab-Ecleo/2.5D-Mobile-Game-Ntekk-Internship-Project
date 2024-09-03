@@ -8,9 +8,9 @@ namespace UpgradeShop.ShopCurrency
     {
         [SerializeField] private TextMeshProUGUI currencyTxt;
         
-        public void UpdateCurrencyUI(float updatedValue)
+        public void UpdateCurrencyUI(int updatedValue)
         {
-            currencyTxt.text = updatedValue.ToString("n5");
+            currencyTxt.text = updatedValue.ToString("D5");
         }
     }
 }
