@@ -11910,7 +11910,7 @@ PrefabInstance:
     - target: {fileID: 7682208065412105170, guid: 1478675f22e46a3478a5f23992557514, type: 3}
       propertyPath: currencyTxt
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 885693043}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20662,11 +20662,11 @@ PrefabInstance:
     - target: {fileID: 1103045064094599648, guid: 4a88a4fd0266df34a92ab11c1788af73, type: 3}
       propertyPath: noMoneyUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7300126440630839298}
     - target: {fileID: 4154166247076806742, guid: 4a88a4fd0266df34a92ab11c1788af73, type: 3}
       propertyPath: contentList
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5934610420382975310}
     - target: {fileID: 5678186664265228066, guid: 4a88a4fd0266df34a92ab11c1788af73, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.10691672

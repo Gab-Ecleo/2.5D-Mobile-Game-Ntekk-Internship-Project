@@ -30,13 +30,13 @@ namespace UpgradeShop.ShopCurrency
             UIManager.UpdateCurrencyUI(currencyStats.coins);
         }
 
-        private void OnItemPurchase(float itemCost)
+        private void OnItemPurchase(int itemCost)
         {
             currencyStats.coins -= itemCost;
             UIManager.UpdateCurrencyUI(currencyStats.coins);
         }
 
-        private void OnItemSell(float itemCost)
+        private void OnItemSell(int itemCost)
         {
             currencyStats.coins += itemCost;
             UIManager.UpdateCurrencyUI(currencyStats.coins);
@@ -44,7 +44,7 @@ namespace UpgradeShop.ShopCurrency
         #endregion
 
         #region INGAME RELATED
-        private void UpdateInGameCurrency(float addedScore)
+        private void UpdateInGameCurrency(int addedScore)
         {
             var addedCoins = addedScore / currencyDividend;
             currencyStats.matchCoins += addedCoins;
