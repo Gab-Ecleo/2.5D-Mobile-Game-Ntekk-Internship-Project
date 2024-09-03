@@ -45,7 +45,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _gameEnd = false;
-        gameOverText.SetActive(false);
+        if(gameOverText == null) return;
+            gameOverText.SetActive(false);
     }
 
     private void OnDestroy()
