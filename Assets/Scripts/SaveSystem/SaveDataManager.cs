@@ -56,14 +56,14 @@ namespace SaveSystem
         }
 
         #region PLAYER_STATS
-        private void LoadPlayerStats()
+        public void LoadPlayerStats()
         {
             if (new StatStorages().GetStatData() == null) return;
             Debug.Log("Loading Player Stats");
             initialPlayerStats.stats = new StatStorages().GetStatData().stats;
         }
 
-        private void SavePlayerStats()
+        public void SavePlayerStats()
         {
             Debug.Log("Saving Player Stats");
             var tempStats = new StatData() { stats = initialPlayerStats.stats};
@@ -72,7 +72,7 @@ namespace SaveSystem
         #endregion
 
         #region UPGRADES
-        private void LoadUpgrade()
+        public void LoadUpgrade()
         {
             //called to update in-game data from the local storage
             if (new UpgradeStorage().GetUpgradeData() == null) return;
@@ -89,7 +89,7 @@ namespace SaveSystem
             }
         }
         
-        private void SaveUpgrade()
+        public void SaveUpgrade()
         {
             Debug.Log("Saving Upgrade Progress");
             var tempUpgrades = new UpgradeData
@@ -101,14 +101,14 @@ namespace SaveSystem
         #endregion
 
         #region CURRENCY
-        private void LoadCurrencyData()
+        public void LoadCurrencyData()
         {
             if (new CurrencyStorage().GetCurrencyData() == null) return;
             Debug.Log("Loading Currency");
             playerCurrency.coins = new CurrencyStorage().GetCurrencyData().coins;
         }
         
-        private void SaveCurrencyData()
+        public void SaveCurrencyData()
         {
             Debug.Log("Saving Currency");
             var tempCurrency = new CurrencyData { coins = playerCurrency.coins};
@@ -118,7 +118,7 @@ namespace SaveSystem
 
         #region AUDIO_SETTINGS
 
-        private void LoadAudioSettingsData()
+        public void LoadAudioSettingsData()
         {
             if (new AudioStorage().GetAudioData() == null) return;
             Debug.Log("Loading Audio Data");
@@ -126,7 +126,7 @@ namespace SaveSystem
             audioSettings.sfxVolume = new AudioStorage().GetAudioData().sfxVolume;
         }
 
-        private void SaveAudioSettingsData()
+        public void SaveAudioSettingsData()
         {
             Debug.Log("Saving Audio Data");
             var tempData = new AudioData
@@ -152,7 +152,7 @@ namespace SaveSystem
             
             if (current.buildIndex != 0)
             {
-                SaveCurrencyData();
+                Debug.Log("Unloading Scene. Saving Data");
                 SaveAudioSettingsData();
             }
         }
@@ -170,7 +170,7 @@ namespace SaveSystem
 
             if (SceneManager.GetActiveScene().buildIndex != 0)
             {
-                SaveCurrencyData();
+                Debug.Log("Quitting Application. Saving Data");
                 SaveAudioSettingsData();
             }
         }
