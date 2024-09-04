@@ -4535,7 +4535,7 @@ MonoBehaviour:
   tweenDuration: 0.8
   canvasGroup: {fileID: 841829558}
   rectTransform: {fileID: 1276791400}
-  easeIn: 2
+  easeIn: 28
   easeOut: 3
   midY: 0
   botY: 1000
