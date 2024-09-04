@@ -159,7 +159,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.Tetrisnt
-    Standalone: com.DefaultCompany.Base-Project
+    Standalone: com.DefaultCompany.Tetrisn-t
   buildNumber:
     Standalone: 0
     VisionOS: 0
