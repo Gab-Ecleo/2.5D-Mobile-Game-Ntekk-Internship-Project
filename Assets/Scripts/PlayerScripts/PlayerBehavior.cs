@@ -89,6 +89,7 @@ namespace PlayerScripts
             Debug.Log("Player Dead");
             GameEvents.TRIGGER_GAMEEND_SCREEN?.Invoke();
             GameEvents.IS_GAME_OVER?.Invoke(true);
+            LocalStorageEvents.OnSaveCurrencyData?.Invoke();
             Time.timeScale = 0;
         }
 

@@ -12,7 +12,6 @@ namespace SaveSystem
     public class SaveDataManager : MonoBehaviour
     {
         private static SaveDataManager _instance;
-        public static SaveDataManager Instance => _instance;
 
         [SerializeField] private PlayerStatsSO initialPlayerStats;
         [SerializeField] private CurrencySO playerCurrency;
@@ -21,12 +20,6 @@ namespace SaveSystem
         
         private void Awake()
         {
-            #region Singleton
-            if (_instance == null) _instance = this;
-            else if (_instance != this) Destroy(gameObject);
-            DontDestroyOnLoad(gameObject);
-            #endregion
-            
             InitializeFiles();
         }
 
@@ -36,6 +29,14 @@ namespace SaveSystem
             new StatStorages().CreateStatData();
             new CurrencyStorage().CreateCurrencyData();
             new AudioStorage().CreateAudioData();
+        }
+
+        public void ClearData()
+        {
+            new UpgradeStorage().DeleteUpgradeData();
+            new StatStorages().DeleteStatData();
+            new CurrencyStorage().DeleteCurrencyData();
+            new AudioStorage().DeleteAudioData();
         }
 
         //called at the beginning of the scene
@@ -48,10 +49,11 @@ namespace SaveSystem
                 LoadCurrencyData();
                 UpgradeShopEvents.OnUpdateCurrency?.Invoke();
             }
-
+            
+            //Can be called if there are no scripts manually loading these data
             if (scene.buildIndex != 0)
             {
-                
+                LoadCurrencyData();
             }
         }
 
@@ -138,42 +140,6 @@ namespace SaveSystem
         }
         #endregion
         
-        //called when a scene has loaded out
-        private void SaveAll(Scene current)
-        {
-            if (current.buildIndex == 0)
-            {
-                Debug.Log("Unloading Scene. Saving Data");
-                SavePlayerStats();
-                SaveCurrencyData();
-                SaveUpgrade();
-                SaveAudioSettingsData();
-            }
-            
-            if (current.buildIndex != 0)
-            {
-                Debug.Log("Unloading Scene. Saving Data");
-                SaveAudioSettingsData();
-            }
-        }
-        
-        private void OnApplicationQuit()
-        {
-            if (SceneManager.GetActiveScene().buildIndex == 0)
-            {
-                Debug.Log("Quitting Application. Saving Data");
-                SavePlayerStats();
-                SaveCurrencyData();
-                SaveUpgrade();
-                SaveAudioSettingsData();
-            }
-
-            if (SceneManager.GetActiveScene().buildIndex != 0)
-            {
-                Debug.Log("Quitting Application. Saving Data");
-                SaveAudioSettingsData();
-            }
-        }
 
         private void OnEnable()
         {
@@ -189,7 +155,6 @@ namespace SaveSystem
             LocalStorageEvents.OnLoadAudioSettingsData += LoadAudioSettingsData;
             LocalStorageEvents.OnSaveAudioSettingsData += SaveAudioSettingsData;
             
-            SceneManager.sceneUnloaded += SaveAll;
             SceneManager.sceneLoaded += InitializeData;
         }
 
@@ -207,7 +172,6 @@ namespace SaveSystem
             LocalStorageEvents.OnLoadAudioSettingsData -= LoadAudioSettingsData;
             LocalStorageEvents.OnSaveAudioSettingsData -= SaveAudioSettingsData;
             
-            SceneManager.sceneUnloaded -= SaveAll;
             SceneManager.sceneLoaded -= InitializeData;
         }
     }
