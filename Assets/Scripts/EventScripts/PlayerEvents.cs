@@ -11,5 +11,7 @@ namespace EventScripts
         public static Action OnPlayerDamage;
 
         public static Action OnPlayerPositionReset;
+
+        public static Action ON_BARRIER_HIT;
     }
 }

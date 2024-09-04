@@ -12,6 +12,7 @@ using DG.Tweening;
 using Unity.VisualScripting;
 using Player_Statistics;
 using ScriptableData;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class UIManager : MonoBehaviour
     [Header("Check Scene")]
     [SerializeField] private bool isInMainMenu;
 
+    [Header("Barrier")]
+    [SerializeField] TMP_Text barrierText;
 
     [Header("BGM Audio")]
     [SerializeField] private Sprite _bgmOn;
@@ -58,6 +61,7 @@ public class UIManager : MonoBehaviour
     private RectTransform pauseRectTrans;
     private RectTransform tutorialRectTrans;
     private PlayerStatsSO initialStat;
+    private PlayerStatsSO currStat;
     private bool _isPauseScreenOpen;
     private bool _isTutorialScreenOpen;
 
@@ -69,6 +73,8 @@ public class UIManager : MonoBehaviour
         GameEvents.ON_PAUSE += TogglePause;
 
         GameEvents.ON_TUTORIAL += ToggleTutorial;
+
+        PlayerEvents.ON_BARRIER_HIT += BarrierUpdate;
 
         if (pausePanelGO != null)
             pauseRectTrans = pausePanelGO.GetComponent<RectTransform>();
@@ -82,6 +88,7 @@ public class UIManager : MonoBehaviour
     {
         GameEvents.ON_PAUSE -= TogglePause;
         GameEvents.ON_TUTORIAL -= ToggleTutorial;
+        PlayerEvents.ON_BARRIER_HIT -= BarrierUpdate;
     }
 
     private async void Start()
@@ -92,11 +99,14 @@ public class UIManager : MonoBehaviour
         await FadeOutPanel();
 
         FirstTutorial();
+
+        barrierText.text = currStat.stats.barrierDurability.ToString();
     }
 
     private void InitializePlayerStats()
     {
         initialStat = GameManager.Instance.FetchInitialPlayerStat();
+        currStat = GameManager.Instance.FetchCurrentPlayerStat();
     }
 
     private bool InitializeUIStates()
@@ -125,6 +135,11 @@ public class UIManager : MonoBehaviour
         {
             TutorialButton.interactable = true;
         }
+    }
+
+    private void BarrierUpdate()
+    {
+        barrierText.text = currStat.stats.barrierDurability.ToString();
     }
 
     #region Pause Screen
