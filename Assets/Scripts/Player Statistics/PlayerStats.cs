@@ -36,5 +36,8 @@ namespace Player_Statistics
 
         [Header("Tutorial")]
         public bool isPlayerFirstGame = true;
+
+        [Header("Shop")]
+        public bool isDefaultHomeButton = true;
     }
 }

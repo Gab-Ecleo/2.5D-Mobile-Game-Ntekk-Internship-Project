@@ -4,12 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using ScriptableData;
 
 public class TabGroup : MonoBehaviour
 {
+    private static TabGroup _instance;
+    public static TabGroup Instance => _instance;
+
     public List<TabButton> tabButtons;
     public List<GameObject> objectsToSwap;
-
     [Header("Sprite")]
     public Sprite tabIdle;
     public Sprite tabActive;
@@ -28,10 +31,19 @@ public class TabGroup : MonoBehaviour
     public GameObject Robot;
     public float robotRotationAngle = 360f;
     public float robotRotationTime = 20f;
+
+    private PlayerStatsSO initialPlayerStat;
     private Tween rotationTween;
+
+    private void Awake()
+    {
+        if (_instance == null) _instance = this;
+        else Destroy(this);
+    }
 
     private void Start()
     {
+        initialPlayerStat = GameManager.Instance.FetchInitialPlayerStat();
         Time.timeScale = 1.0f; // delete when there's new toggle pause logic in pausemanager 
         StartCoroutine(DelayedStart());
     }
@@ -39,11 +51,17 @@ public class TabGroup : MonoBehaviour
     private IEnumerator DelayedStart()
     {
         yield return new WaitForSeconds(0.2f);
-        TabButton defaultButton = tabButtons.Find(button => button.name == "Home");
-        if (defaultButton != null)
+        TabButton homeButton = tabButtons.Find(button => button.name == "Home");
+        TabButton upgradeButton = tabButtons.Find(button => button.name == "Upgrade");
+
+        if (homeButton != null && initialPlayerStat.stats.isDefaultHomeButton)
         {
-            OnTabSelected(defaultButton);
-            
+            OnTabSelected(homeButton); 
+        }
+        
+        if(upgradeButton != null && !initialPlayerStat.stats.isDefaultHomeButton)
+        {
+            OnTabSelected(upgradeButton);
         }
     }
 
@@ -92,7 +110,7 @@ public class TabGroup : MonoBehaviour
         PageActivation(button);
     }
 
-    public void ResetButtons()
+    private void ResetButtons()
     {
         foreach (TabButton button in tabButtons)
         {
@@ -108,18 +126,15 @@ public class TabGroup : MonoBehaviour
         }
     }
 
-    public void PageActivation(TabButton button)
+    private void PageActivation(TabButton button)
     {
         switch (button.name)
         {
             case "Home":
-                ActivatePageByIndex(0);
-                rotationTween = Robot.transform.DORotate(new Vector3(0, robotRotationAngle, 0), robotRotationTime, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart); ;
+                OpenHomePage();
                 break;
             case "Upgrade":
-                ActivatePageByIndex(1);
-                Robot.transform.rotation = Quaternion.identity;
-                rotationTween.Kill();
+                OpenUpgradePage();
                 break;
             default:
                 Debug.LogWarning("Unknown Tab Selected");
@@ -152,6 +167,18 @@ public class TabGroup : MonoBehaviour
         }
     }
 
+    public void OpenHomePage()
+    {
+        ActivatePageByIndex(0);
+        rotationTween = Robot.transform.DORotate(new Vector3(0, robotRotationAngle, 0), robotRotationTime, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart); ;
+    }
+
+    public void OpenUpgradePage()
+    {
+        ActivatePageByIndex(1);
+        Robot.transform.rotation = Quaternion.identity;
+        rotationTween.Kill();
+    }
 
 }
 

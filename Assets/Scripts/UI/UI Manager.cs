@@ -246,12 +246,24 @@ public class UIManager : MonoBehaviour
         GameEvents.ON_TUTORIAL?.Invoke();
     }
 
-    public void GoToScene(int sceneInt)
+    public void GoToScene(int scene)
     {
-        StartCoroutine(SceneTransition(sceneInt));
+        StartCoroutine(SceneTransition(scene, true));
     }
 
-    IEnumerator SceneTransition(int sceneInt)
+    public void GoToHomeButton()
+    {
+        GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN.Invoke();
+        StartCoroutine(SceneTransition(0, true));
+    }
+
+    public void GoToUpgradeButton()
+    {
+        GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN.Invoke();
+        StartCoroutine(SceneTransition(0, false));
+    }
+
+    IEnumerator SceneTransition(int sceneInt, bool isDefaultHome)
     {
         if (_isPauseScreenOpen)
         {
@@ -266,7 +278,7 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         DOTween.KillAll();
-        SceneController.Instance.LoadScene(sceneInt);
+        SceneController.Instance.LoadScene(sceneInt, isDefaultHome);
     }
 
     async Task FadeOutPanel()

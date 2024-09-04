@@ -10,7 +10,6 @@ namespace Input_System_Actions
         private PlayerGrabThrow _playerGrabThrow;
         private PlayerPowerUps _playerPowerUps;
         private PlayerControls _playerControls;
-        [SerializeField] private PauseManager _playerPauseManager;
 
         private InputAction _move;
         private InputAction _jump;
