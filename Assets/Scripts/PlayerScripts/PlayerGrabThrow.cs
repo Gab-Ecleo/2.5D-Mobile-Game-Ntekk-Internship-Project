@@ -10,7 +10,7 @@ namespace PlayerScripts
     public class PlayerGrabThrow : MonoBehaviour
     {
         [Header("Collected Block Placeholder")]
-        [SerializeField] private GameObject blockPlaceholder;
+        [SerializeField] private BlockPlaceholder blockPlaceholder;
         
         [Header("Test References. To be private")]
         [SerializeField] private BlockScript collectedBlock;//for testing purposes. Unserialize after testing
@@ -85,7 +85,7 @@ namespace PlayerScripts
             //Adds the detected object as the collected block, disables it, then enables the block placeholder 
             collectedBlock = detectedObject;
             collectedBlock.gameObject.SetActive(false);
-            blockPlaceholder.SetActive(true);
+            blockPlaceholder.ToggleActive(collectedBlock);
             hasItem = true;
             
             //Plays the SFX correlating to the action
@@ -111,7 +111,7 @@ namespace PlayerScripts
             detectedCell.AssignedSpawner.TriggerCannotSpawn();
             
             //disable the placeholder, then start the grab cooldown timer
-            blockPlaceholder.SetActive(false);
+            blockPlaceholder.ToggleActive(null);
             _grabCooldown.StartTimer();
             hasItem = false;
             
