@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 1635692963373424203}
   - component: {fileID: 5719142036106946417}
   - component: {fileID: 7288134468295193990}
+  - component: {fileID: 940649644781453337}
   m_Layer: 0
   m_Name: Cube Placeholder
   m_TagString: Untagged
@@ -197,6 +198,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &940649644781453337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040168932507938031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bff4422a6e48528b31bdeebffa2527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 7288134468295193990}
 --- !u!1 &4108105939227575486
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43a9f79d5a748e1b44f30d13ffb488b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPlaceholder: {fileID: 4040168932507938031}
+  blockPlaceholder: {fileID: 940649644781453337}
   collectedBlock: {fileID: 0}
   hasItem: 0
 --- !u!114 &3579532000642893275
@@ -605,8 +619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1112305a70142af9c1176019690bcea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableInd: {fileID: 0}
-  unInteractableInd: {fileID: 0}
+  validIndicator: {fileID: 0}
+  invalidIndicator: {fileID: 0}
 --- !u!114 &182711630544776900
 MonoBehaviour:
   m_ObjectHideFlags: 0
