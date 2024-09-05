@@ -20735,17 +20735,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a88a4fd0266df34a92ab11c1788af73, type: 3}
---- !u!114 &2126333146 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4154166247076806742, guid: 4a88a4fd0266df34a92ab11c1788af73, type: 3}
-  m_PrefabInstance: {fileID: 2126333145}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c573ade8280745db85a592e9943ad994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2134786302
 GameObject:
   m_ObjectHideFlags: 0
@@ -24366,19 +24355,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3614633432500313590}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2126333146}
-        m_TargetAssemblyTypeName: UpgradeShop.UpgradeShopManager, Assembly-CSharp
-        m_MethodName: GenerateItems
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &8432068538090319129
 MonoBehaviour:
   m_ObjectHideFlags: 0

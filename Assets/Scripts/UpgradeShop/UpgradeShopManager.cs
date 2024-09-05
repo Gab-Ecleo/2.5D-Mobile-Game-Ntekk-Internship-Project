@@ -20,7 +20,12 @@ namespace UpgradeShop
         
         [Header("Content Container")]
         [SerializeField] private GameObject contentList;
-        
+
+        private void Start()
+        {
+            GenerateItems();
+        }
+
         public void GenerateItems()
         {
             //destroy existing child

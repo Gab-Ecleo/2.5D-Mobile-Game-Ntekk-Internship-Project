@@ -63,7 +63,8 @@ namespace PlayerScripts
                     //if player has shield, reduce shield by 1
                     case > 0:
                         --currentPlayerStats.stats.barrierDurability;
-                        Debug.Log($"Barrier Hits Left: {currentPlayerStats.stats.barrierDurability}");
+                        PlayerEvents.ON_BARRIER_HIT?.Invoke();
+                        //Debug.Log($"Barrier Hits Left: {currentPlayerStats.stats.barrierDurability}");
                         break;
                 }
             }
