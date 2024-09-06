@@ -108,7 +108,7 @@ public class HazardManager : MonoBehaviour
         if (GAMEMANAGER.IsGameOver()) yield break;
 
         //Debug.Log($"Loading {hazardType} hazard");
-        currentHazard.text = "Current Hazard: " + hazardTypes;
+        currentHazard.text = hazardTypes;
 
         switch (hazardTypes)
         {
@@ -123,6 +123,9 @@ public class HazardManager : MonoBehaviour
                 break;
             case "Wind":
                 GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
+                break;
+            case "Cooldown":
+                // turn off 
                 break;
         }
 

@@ -285,4 +285,33 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
             }
         }
     }
+
+    // debugging power up 
+    // delete later
+    public void PowerUpDebugging(bool isPoweredUp)
+    {
+        if (/*context.performed &&*/ isPoweredUp)
+        {
+            if (_currPlayerStatsSO.stats.hasMultiplier)
+            {
+                OnPowerUpReady(PowerTypes.Multiplier);
+            }
+            if (_currPlayerStatsSO.stats.springJump)
+            {
+                OnPowerUpReady(PowerTypes.Spring);
+            }
+            if (_currPlayerStatsSO.stats.timeSlow)
+            {
+                OnPowerUpReady(PowerTypes.TimeSlow);
+            }
+            if (_currPlayerStatsSO.stats.singleBlockRemover)
+            {
+                OnPowerUpReady(PowerTypes.SingleClear);
+            }
+            if (_currPlayerStatsSO.stats.expressDelivery)
+            {
+                OnPowerUpReady(PowerTypes.RowClear);
+            }
+        }
+    }
 }

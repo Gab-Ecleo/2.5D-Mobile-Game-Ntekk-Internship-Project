@@ -7,7 +7,7 @@ namespace UpgradeShop.ShopCurrency
     public class CurrencyUIManager : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI currencyTxt;
-        
+
         public void UpdateCurrencyUI(int updatedValue)
         {
             currencyTxt.text = updatedValue.ToString("D5");
