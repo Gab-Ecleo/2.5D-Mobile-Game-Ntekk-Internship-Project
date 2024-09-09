@@ -66,5 +66,24 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             SpawnEvents.OnSpawnTrigger -= TriggerBlockSpawn;
             SpawnEvents.onSpawnerListShuffle -= ShuffleSpawnList;
         }
+
+        #region FOR DEBUG ONLY. TBD
+        public void DebugTriggerBlockSpawn(bool isSpawnFailed)
+        {
+            if (isSpawnFailed)
+            {
+                _failCounter++;
+                if (_failCounter >= blockSpawners.Count)
+                {
+                    Debug.Log("TOO MANY FAILURES LAH");
+                    SpawnEvents.OnSpawnTimerReset?.Invoke();
+                    return;
+                }
+            }
+            var spawnerRandomValue = Random.Range(0, blockSpawners.Count);
+            _repeatingSpawner = blockSpawners[spawnerRandomValue];
+            blockSpawners[spawnerRandomValue].ValidateBlockSpawn();
+        }
+        #endregion
     }
 }

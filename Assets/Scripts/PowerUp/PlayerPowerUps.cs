@@ -228,12 +228,14 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
         _currentJumpHeight -= _jumpBoost;
         _currPlayerStatsSO.stats.jumpHeight = _initialPlayerStatsSO.stats.jumpHeight;
     }
+
     public void OnTimeSlowActivate()
     {
         _originalTimeScale = Time.timeScale;
         Time.timeScale = _slowMotionFactor;
         Time.fixedDeltaTime = Time.timeScale * 0.01f;
     }
+
     public void OnTimeSlowDeactivate()
     {
         Time.timeScale = _originalTimeScale;
@@ -286,12 +288,13 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
         }
     }
 
-    // debugging power up 
+    // debugging ui power up 
     // delete later
     public void PowerUpDebugging(bool isPoweredUp)
     {
-        if (/*context.performed &&*/ isPoweredUp)
+        if (isPoweredUp)
         {
+            // instead of calling the power up instantite the block
             if (_currPlayerStatsSO.stats.hasMultiplier)
             {
                 OnPowerUpReady(PowerTypes.Multiplier);
@@ -308,6 +311,7 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
             {
                 OnPowerUpReady(PowerTypes.SingleClear);
             }
+
             if (_currPlayerStatsSO.stats.expressDelivery)
             {
                 OnPowerUpReady(PowerTypes.RowClear);

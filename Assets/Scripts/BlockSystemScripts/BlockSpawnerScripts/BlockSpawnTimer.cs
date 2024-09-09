@@ -1,6 +1,9 @@
 ﻿using EventScripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UI;
+using UnityEngine.UI;
+using TMPro;
 
 
 namespace BlockSystemScripts.BlockSpawnerScripts
@@ -41,6 +44,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         {
             UpdateSpawnTimer();
             UpdateDifficultyTimer();
+
         }
 
         #region SPAWN_TIMER
@@ -133,5 +137,17 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         {
             SpawnEvents.OnSpawnTimerReset -= ResetSpawnTimer;
         }
+
+        #region FOR DEBUG ONLY. TBD
+        public void DebugSpawnTimer(Slider spawnTimer)
+        {
+            spawnTimeLeft = spawnTimer.value;
+        }
+
+        public void DebugSpawnTimerNumber(TMP_Text tmpText)
+        {
+            tmpText.text = spawnTimeLeft.ToString();
+        }
+        #endregion
     }
 }

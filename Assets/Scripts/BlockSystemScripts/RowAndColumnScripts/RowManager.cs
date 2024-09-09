@@ -103,7 +103,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
              }
         }
 
-        [ContextMenu("Test clear ")]
+        [ContextMenu("Test clear")]
         public void ScoreChanges() // for ui test
         {
             int pointsToAdd = _playerScore.PointsToAdd;
@@ -118,6 +118,8 @@ namespace BlockSystemScripts.RowAndColumnScripts
 
         private void ColorScore(int pointsToAdd)
         {
+            // instead of getting playerScore for color score jus create a var here
+
             int multiplier = _playerScore.Multiplier;
             bool hasMultiplier = _playerCurrStats.stats.hasMultiplier;
 
