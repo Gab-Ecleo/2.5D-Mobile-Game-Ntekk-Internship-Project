@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
 
         FirstTutorial();
 
-        barrierText.text = currStat.stats.barrierDurability.ToString();
+        barrierText.text = currStat.stats.barrierDurability.ToString("D4");
     }
 
     private void InitializePlayerStats()

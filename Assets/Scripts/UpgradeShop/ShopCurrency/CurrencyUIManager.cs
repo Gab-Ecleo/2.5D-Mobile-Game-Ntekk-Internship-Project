@@ -10,7 +10,7 @@ namespace UpgradeShop.ShopCurrency
         
         public void UpdateCurrencyUI(int updatedValue)
         {
-            currencyTxt.text = updatedValue.ToString("D5");
+            currencyTxt.text = updatedValue.ToString("D4");
         }
     }
 }
