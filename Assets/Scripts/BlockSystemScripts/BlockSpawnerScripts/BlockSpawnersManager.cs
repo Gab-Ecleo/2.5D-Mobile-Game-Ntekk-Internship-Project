@@ -41,6 +41,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                 {
                     Debug.Log("TOO MANY FAILURES LAH");
                     SpawnEvents.OnSpawnTimerReset?.Invoke();
+                    _failCounter = 0;
                     return;
                 }
             }
@@ -54,6 +55,27 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             blockSpawners.Remove(_repeatingSpawner);
             blockSpawners.Add(_repeatingSpawner);
         }
+
+        #region OVERLOAD FOR SPECIFIC BLOCK SPAWNS
+        //overload for specific block testing
+        public void TriggerBlockSpawn(GameObject objToSpawn)
+        {
+            // if (isSpawnFailed)
+            // {
+            //     _failCounter++;
+            //     if (_failCounter >= blockSpawners.Count)
+            //     {
+            //         Debug.Log("TOO MANY FAILURES LAH");
+            //         SpawnEvents.OnSpawnTimerReset?.Invoke();
+            //         _failCounter = 0;
+            //         return;
+            //     }
+            // }
+            var spawnerRandomValue = Random.Range(0, blockSpawners.Count);
+            _repeatingSpawner = blockSpawners[spawnerRandomValue];
+            blockSpawners[spawnerRandomValue].ValidateBlockSpawn(objToSpawn);
+        }
+        #endregion
 
         private void OnEnable()
         {
