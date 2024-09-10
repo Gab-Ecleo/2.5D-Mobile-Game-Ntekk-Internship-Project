@@ -1,4 +1,5 @@
-﻿using BlockSystemScripts;
+﻿using System;
+using BlockSystemScripts;
 using BlockSystemScripts.BlockScripts;
 using ScriptableData;
 using UnityEngine;
@@ -8,37 +9,22 @@ namespace PowerUp.PowerUps
     public class RowClearPUTest : PowerUpScript
     {
         [Header("Raycast References")]
-        [SerializeField] private float rayDistance = 1.05f;
-        [SerializeField] private LayerMask blockLayerDetected;
+        private BlockScript _blockScript;
         private RaycastHit _hit;
-        
-        private void FixedUpdate() //For Testing. Can be Deleted
+
+        private void Awake()
         {
-            //draws a ray for the groundCheck raycast
-            Debug.DrawRay(transform.position, -Vector3.up * rayDistance, Color.yellow);
+            _blockScript = GetComponent<BlockScript>();
         }
 
-        protected override void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 PlayerStatsSo.stats.expressDelivery = true;
-                if (BottomRayDetection())
-                {
-                    BottomRayDetection().AssignedRow.ClearRow();
-                }
-                base.OnTriggerEnter(other);
+                _blockScript.CurrentCell.AssignedRow.ClearRow();
+                BaseEffect();
             }
-        }
-
-        private GridCell BottomRayDetection()
-        {
-            Physics.Raycast(transform.position, -Vector3.up, out _hit, rayDistance, blockLayerDetected);
-            if (_hit.collider == null)
-            {
-                return null;
-            }
-            return _hit.collider.gameObject.GetComponent<GridCell>();
         }
     }
 }

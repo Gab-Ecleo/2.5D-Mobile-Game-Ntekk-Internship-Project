@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using EventScripts;
 using PlayerScripts;
 using ScriptableData;
 using UnityEngine;
@@ -23,8 +24,10 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
     public bool PowerUpInitialized => _powerUpInitialized;
 
     [Header("Time Slow Power-up")]
-    [SerializeField] private float _slowMotionFactor = 0.1f;
-    [SerializeField] private float _originalTimeScale;
+    [SerializeField] private BlockTimerSO blockTimerSo;
+    // [SerializeField] private float _slowMotionFactor = 0.1f;
+    // [SerializeField] private float _originalTimeScale;
+    // private float _originalDeltaTimeScale;
 
     [Header("Spring Power-Up")]
     [SerializeField] private float _currentJumpHeight;
@@ -67,6 +70,7 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
             if (_currPlayerStatsSO == null) {throw new Exception("PlayerStatsSO reference is not assigned.");}
 
             _powerUpInitialized = true;
+            blockTimerSo.ResetState();
         }
         catch (Exception e)
         {
@@ -230,13 +234,20 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
     }
     public void OnTimeSlowActivate()
     {
-        _originalTimeScale = Time.timeScale;
-        Time.timeScale = _slowMotionFactor;
-        Time.fixedDeltaTime = Time.timeScale * 0.01f;
+        blockTimerSo.blockTimerState = BlockTimerState.Slowed;
+        BlockEvents.OnSyncBlockFallTimers?.Invoke();
+        // _originalTimeScale = Time.timeScale;
+        // _originalDeltaTimeScale = Time.fixedDeltaTime;
+        // Time.timeScale = _slowMotionFactor;
+        // Time.fixedDeltaTime = _originalDeltaTimeScale * Time.timeScale;
+
     }
     public void OnTimeSlowDeactivate()
     {
-        Time.timeScale = _originalTimeScale;
+        blockTimerSo.blockTimerState = BlockTimerState.Normal;
+        BlockEvents.OnSyncBlockFallTimers?.Invoke();
+        // Time.timeScale = _originalTimeScale;
+        // Time.fixedDeltaTime = _originalDeltaTimeScale;
     }
 
     public void OnSingleClearActivate()

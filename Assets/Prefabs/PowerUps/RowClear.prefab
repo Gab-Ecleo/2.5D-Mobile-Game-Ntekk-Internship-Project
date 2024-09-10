@@ -151,5 +151,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbbbbbc2ec34500aa661c4c86e1fe77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialTimer: 0.5
+  blockSpawnTimerData: {fileID: 11400000, guid: ad7220b5d6c76fc4c96055193cbc9f92, type: 2}
   timeLeft: 0

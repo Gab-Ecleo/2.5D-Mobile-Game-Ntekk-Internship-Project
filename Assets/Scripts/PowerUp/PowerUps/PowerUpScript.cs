@@ -12,17 +12,15 @@ namespace PowerUp.PowerUps
 
         private void Start()
         {
-            PlayerStatsSo = Resources.Load("PlayerData/CurrentPlayerStats") as PlayerStatsSO;
-            _powerUps = GameObject.FindWithTag("Player").GetComponent<PlayerPowerUps>();
+            PlayerStatsSo = GameManager.Instance.FetchCurrentPlayerStat();
+            _powerUps = GameManager.Instance.FetchPlayer().GetComponent<PlayerPowerUps>();
         }
 
-        protected virtual void OnTriggerEnter(Collider other)
+        protected void BaseEffect()
         {
-            if (other.CompareTag("Player"))
-            {
-                _powerUps.PowerUp();
-                Destroy(gameObject);
-            }
+            _powerUps.PowerUp();
+            Destroy(gameObject);
         }
+        
     }
 }
