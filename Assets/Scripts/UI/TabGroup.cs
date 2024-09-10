@@ -53,7 +53,24 @@ public class TabGroup : MonoBehaviour
 
         if (homeButton != null && initialPlayerStat.stats.isDefaultHomeButton)
         {
-            OnTabSelected(homeButton); 
+            if (homeButton != null && initialPlayerStat.stats.isDefaultHomeButton)
+            {
+                Button buttonComponent = homeButton.GetComponent<Button>();
+                if (buttonComponent != null)
+                {
+                    // Access the current SpriteState
+                    SpriteState spriteState = buttonComponent.spriteState;
+
+                    // Optionally modify the sprites if needed (this step can be skipped if you just want the existing sprite)
+                    // spriteState.highlightedSprite = yourHighlightedSprite;
+
+                    // Reassign the updated SpriteState back to the button (this is necessary since SpriteState is a struct)
+                    buttonComponent.spriteState = spriteState;
+
+                    // Trigger the button to show the highlighted/selected state by calling the appropriate method
+                    OnTabSelected(homeButton); // Assuming this changes the visual state to selected
+                }
+            }
         }
         
         if(upgradeButton != null && !initialPlayerStat.stats.isDefaultHomeButton)
