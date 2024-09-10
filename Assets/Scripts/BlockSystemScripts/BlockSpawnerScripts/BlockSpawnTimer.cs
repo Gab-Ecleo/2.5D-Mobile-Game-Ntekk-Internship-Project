@@ -141,12 +141,14 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         #region FOR DEBUG ONLY. TBD
         public void DebugSpawnTimer(Slider spawnTimer)
         {
-            spawnTimeLeft = spawnTimer.value;
+            timeMinValue = spawnTimer.value;
+            timeMaxValue = spawnTimer.value;
+            ResetSpawnTimer();
         }
 
         public void DebugSpawnTimerNumber(TMP_Text tmpText)
         {
-            tmpText.text = spawnTimeLeft.ToString();
+            tmpText.text = timeMaxValue.ToString();
         }
         #endregion
     }

@@ -36,13 +36,10 @@ public class DebugManager : MonoBehaviour
         InitializeStats();
     }
 
-    private void Update()
+    public void ToggleDebug()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            isDebugMenuOpen = !isDebugMenuOpen; // Simplified toggle
-            DebugMenuScreen.SetActive(isDebugMenuOpen);
-        }
+        isDebugMenuOpen = !isDebugMenuOpen; // Simplified toggle
+        DebugMenuScreen.SetActive(isDebugMenuOpen);
     }
 
     private void InitializeDictionaries()

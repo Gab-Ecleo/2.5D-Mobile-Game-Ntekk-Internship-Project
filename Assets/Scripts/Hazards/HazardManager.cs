@@ -124,9 +124,6 @@ public class HazardManager : MonoBehaviour
             case "Wind":
                 GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
                 break;
-            case "Cooldown":
-                // turn off 
-                break;
         }
 
         hazardCooldown = Random.Range(10, 17);
