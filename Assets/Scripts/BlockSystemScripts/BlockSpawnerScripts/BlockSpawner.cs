@@ -145,6 +145,62 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             TriggerCannotSpawn();
         }
 
+        #region OVERLOAD FOR SPECIFIC BLOCK SPAWNS
+         //Called to validate the block spawn
+        public void ValidateBlockSpawn(GameObject objToSpawn)
+        {
+            SpawnBlock(objToSpawn);
+            SpawnEvents.onSpawnerListShuffle?.Invoke();
+            SpawnEvents.OnSpawnTimerReset?.Invoke();
+        }
+
+        //spawn a block and give it the proper references
+        private void SpawnBlock(GameObject objToSpawn)
+        {
+            //Forcefully destroys the block if it's hindering the spawn of this block
+            if (GridCells[0].CurrentBlock != null)
+            {
+                GridCells[0].DestroyBlock();
+            }
+            OnSpawnBlock(objToSpawn);
+        }
+        
+        private void OnSpawnBlock(GameObject objToSpawn)
+        {
+            #region Hazard_Checking_Behavior
+            if (hazardData.IsBlackOutActive)
+            {
+                if (_imgObj == null)
+                {
+                    Camera mainCamera = Camera.main;
+                    Vector3 screenPos = mainCamera.WorldToScreenPoint(GridCells[0].transform.position);
+                    var obj = Instantiate(imageToSpawn, screenPos, quaternion.identity, GameManager.Instance.FetchCanvas().transform);
+                    _imgObj = obj;
+                    _imgObj.GetComponent<Animator>().SetTrigger("BlinkTrigger");
+                    _imgObj.GetComponent<BlackOutWarningTrigger>().InitializeImage();
+                }
+                else
+                {
+                    if (_imgObj.activeSelf)
+                    {
+                        Debug.Log("Spawner Warning is Already Active");
+                    }
+                    else
+                    {
+                        _imgObj.SetActive(true);
+                        _imgObj.GetComponent<Animator>().SetTrigger("BlinkTrigger");
+                    }
+                }
+            }
+            #endregion
+            
+            GameObject block;
+            block = Instantiate(objToSpawn, GridCells[0].gameObject.transform.position, quaternion.identity);
+            block.GetComponent<BlockScript>().InitializeReferences(GridCells[0], this);
+            TriggerCannotSpawn();
+        }
+        #endregion
+
         #region BLOCK_RANDOMIZERS
         //returns a block prefab with the "type" depending on the random number generated. 
         private GameObject BlockToSpawn()
