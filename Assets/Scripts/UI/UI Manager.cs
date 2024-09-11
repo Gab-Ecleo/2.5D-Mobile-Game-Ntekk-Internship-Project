@@ -13,6 +13,7 @@ using Unity.VisualScripting;
 using Player_Statistics;
 using ScriptableData;
 using TMPro;
+using UnityEngine.InputSystem.OnScreen;
 
 public class UIManager : MonoBehaviour
 {
@@ -35,13 +36,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite _sfxOff;
     [SerializeField] private UnityEngine.UI.Button _sfxButton;
 
-    [Header("Tween Animation")]
+    [Header("Pause Tween Animation")]
     [SerializeField] private GameObject pausePanelGO;
     [SerializeField] private CanvasGroup pausefadePanel;
     [SerializeField] private float pauseTopY;
     [SerializeField] private float pauseMidY;
     [SerializeField, Range(0, 1)] private float tweenDuration;
 
+    [Header("Tutorial Tween Animation")]
     [SerializeField] private GameObject tutorialPanelGO;
     [SerializeField] private CanvasGroup tutorialfadePanel;
     [SerializeField] private float tutorialTopY;
@@ -55,6 +57,9 @@ public class UIManager : MonoBehaviour
     public GameObject TutorialMenu;
     public AudioUIManager AudioUIManager;
     public SwipeController[] SwipeController;
+
+    [Header("Panels")]
+    [SerializeField] private Image MovementPanel;
 
     private bool _isBgmOn;
     private bool _isSfxOn;
@@ -82,6 +87,18 @@ public class UIManager : MonoBehaviour
         if (tutorialPanelGO != null)
             tutorialRectTrans = tutorialPanelGO.GetComponent<RectTransform>();
 
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+
+
     }
 
     private void OnDestroy()
@@ -101,6 +118,11 @@ public class UIManager : MonoBehaviour
         FirstTutorial();
 
         barrierText.text = currStat.stats.barrierDurability.ToString("D4");
+
+        if (MovementPanel != null)
+        {
+            MovementPanel.enabled = false;
+        }
     }
 
     private void InitializePlayerStats()
@@ -113,8 +135,9 @@ public class UIManager : MonoBehaviour
     {
         _isPauseScreenOpen = false;
         _isTutorialScreenOpen = false;
-        PauseMenu.SetActive(false);
-        TutorialMenu.SetActive(false);
+
+        PauseMenu.SetActive(_isPauseScreenOpen);
+        TutorialMenu.SetActive(_isTutorialScreenOpen);
 
         return !_isPauseScreenOpen && !_isTutorialScreenOpen && !PauseMenu.activeSelf && !TutorialMenu.activeSelf;
     }
@@ -185,7 +208,7 @@ public class UIManager : MonoBehaviour
     private async void ToggleTutorial()
     {
         TutorialMenu.SetActive(true);
-        if (!_isTutorialScreenOpen && !_isPauseScreenOpen)
+        if (!_isTutorialScreenOpen && !_isPauseScreenOpen )
         {
             _isTutorialScreenOpen = true;
             Time.timeScale = 0;
@@ -223,6 +246,7 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+
     #region Buttons
 
     public void Resume()
@@ -259,6 +283,11 @@ public class UIManager : MonoBehaviour
     public void ToggleTutorialButton()
     {
         GameEvents.ON_TUTORIAL?.Invoke();
+    }
+
+    public void ToggleScreenControlButton()
+    {
+        GameEvents.ON_CONTROLS?.Invoke();
     }
 
     public void GoToScene(int scene)
