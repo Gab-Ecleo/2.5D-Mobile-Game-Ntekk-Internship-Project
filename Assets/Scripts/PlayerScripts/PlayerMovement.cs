@@ -77,11 +77,15 @@ namespace PlayerScripts
             if (!IsGrounded())
             {
                 _rb.AddForce(movement * Vector2.right * currentPlayerStats.stats.aerialSpdReducer);
+                
+                PlayerEvents.PLAYER_ISGROUNDED?.Invoke(false);
                         
             }
             else if (IsGrounded())
             {
                 _rb.AddForce(movement * Vector2.right);
+                
+                PlayerEvents.PLAYER_ISGROUNDED?.Invoke(true);
             }
             #endregion
             
@@ -96,6 +100,7 @@ namespace PlayerScripts
             {
                 // Plays SFX correlating to the action
                 AudioEvents.ON_PLAYER_JUMP?.Invoke();
+                PlayerEvents.ON_PLAYER_JUMP?.Invoke();
 
                 #region Jump Calculation
 

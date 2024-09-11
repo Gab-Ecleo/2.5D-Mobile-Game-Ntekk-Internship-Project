@@ -36,7 +36,7 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
     protected GameObject _playerGo;
     protected PlayerBehavior _playerBehaviour;
     protected bool _powerUpInitialized = false;
-    protected Animator _animator;
+    [SerializeField] protected Animator _animator;
     protected MeshRenderer _mesh;
     protected PowerState _powerState;
 
