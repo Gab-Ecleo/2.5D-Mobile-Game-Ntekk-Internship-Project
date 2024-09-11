@@ -1,3 +1,4 @@
+using EventScripts;
 using ScriptableData;
 using UnityEngine;
 
@@ -9,11 +10,9 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.stats.springJump = true;
+                PowerUpsEvents.ACTIVATE_SPRING_PU?.Invoke();
                 BaseEffect();
             }
-            //Box Decay Trigger
-
         }
   
     }

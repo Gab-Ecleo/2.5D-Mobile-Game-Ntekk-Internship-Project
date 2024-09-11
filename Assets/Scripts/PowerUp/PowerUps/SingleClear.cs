@@ -1,3 +1,4 @@
+using EventScripts;
 using UnityEngine;
 
 namespace PowerUp.PowerUps
@@ -8,7 +9,7 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.stats.singleBlockRemover = true;
+                PowerUpsEvents.ACTIVATE_SINGLECLEAR_PU?.Invoke();
                 BaseEffect();
             }
         }

@@ -8,7 +8,6 @@ namespace Input_System_Actions
     {
         private PlayerMovement _playerMovement;
         private PlayerGrabThrow _playerGrabThrow;
-        private PlayerPowerUps _playerPowerUps;
         private PlayerControls _playerControls;
 
         private InputAction _move;
@@ -36,7 +35,6 @@ namespace Input_System_Actions
             _playerControls = new PlayerControls();
             _playerMovement = GetComponent<PlayerMovement>();
             _playerGrabThrow = GetComponent<PlayerGrabThrow>();
-            _playerPowerUps = GetComponent<PlayerPowerUps>();
         }
 
         //enable the listeners for the buttons

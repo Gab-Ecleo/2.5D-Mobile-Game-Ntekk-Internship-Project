@@ -120,10 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643b6a37e6e843d5a9ac4c46c1d7aeb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDistance: 1
-  blockLayerDetected:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &-6478280422014051645
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using EventScripts;
 using UnityEngine;
 
 namespace PowerUp.PowerUps
@@ -12,7 +13,7 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.stats.timeSlow = true;
+                PowerUpsEvents.ACTIVATE_TIMESLOW_PU?.Invoke();
                 BaseEffect();
             }
         }

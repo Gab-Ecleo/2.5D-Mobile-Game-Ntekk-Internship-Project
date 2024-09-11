@@ -1,6 +1,7 @@
 ﻿using System;
 using BlockSystemScripts;
 using BlockSystemScripts.BlockScripts;
+using EventScripts;
 using ScriptableData;
 using UnityEngine;
 
@@ -21,8 +22,9 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.stats.expressDelivery = true;
+                PowerUpsEvents.ACTIVATE_ROWCLEAR_PU?.Invoke();
                 _blockScript.CurrentCell.AssignedRow.ClearRow();
+                PowerUpsEvents.DEACTIVATE_ROWCLEAR_PU?.Invoke();
                 BaseEffect();
             }
         }

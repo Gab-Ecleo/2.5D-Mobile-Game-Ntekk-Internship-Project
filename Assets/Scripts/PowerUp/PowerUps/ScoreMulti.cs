@@ -1,3 +1,4 @@
+using EventScripts;
 using ScriptableData;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace PowerUp.PowerUps
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.stats.hasMultiplier = true;
+                PowerUpsEvents.ACTIVATE_MULTIPLIER_PU?.Invoke();
                 BaseEffect();
             }
         }
