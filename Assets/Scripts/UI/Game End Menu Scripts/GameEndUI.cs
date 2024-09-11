@@ -43,17 +43,19 @@ namespace UI.Game_End_Menu_Scripts
 
         [Header("Buttons Anim")]
         [SerializeField] private RectTransform buttonsRectTrans;
-
+        private Sequence introTween;
         private void OnEnable()
         {
             GameEvents.TRIGGER_GAMEEND_SCREEN += PanelIntro;
             GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN += PlayOutro;
+            GameEvents.COMPLETE_TWEEN += CompleteAllTween;
         }
 
         private void OnDisable()
         {
             GameEvents.TRIGGER_GAMEEND_SCREEN -= PanelIntro;
             GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN -= PlayOutro;
+            GameEvents.COMPLETE_TWEEN -= CompleteAllTween;
         }
 
         private void Start()
@@ -71,7 +73,7 @@ namespace UI.Game_End_Menu_Scripts
             ScoreTitleText.maxVisibleCharacters = 0;
 
             Time.timeScale = 0;
-            Sequence introTween = DOTween.Sequence();
+            introTween = DOTween.Sequence();
 
             introTween.Append(canvasGroup.DOFade(1, tweenDuration).SetUpdate(true))
                       .Append(bgRectTransform.DOLocalMoveY(908, tweenDuration).SetUpdate(true).SetEase(easeIn))
@@ -136,5 +138,13 @@ namespace UI.Game_End_Menu_Scripts
         }
 
         #endregion
+
+        private void CompleteAllTween()
+        {
+            introTween.Complete(true);
+        }
+
     }
+
+
 }
