@@ -113,11 +113,6 @@ namespace BlockSystemScripts.RowAndColumnScripts
 
         private void ColorScore(int pointsToAdd)
         {
-            // instead of getting playerScore for color score jus create a var here
-
-            int multiplier = _playerScore.Multiplier;
-            bool hasMultiplier = _playerCurrStats.stats.hasMultiplier;
-
             GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd);
         }
     }
