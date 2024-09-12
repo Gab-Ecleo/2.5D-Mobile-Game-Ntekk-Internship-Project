@@ -377,7 +377,6 @@ GameObject:
   - component: {fileID: 3579532000642893275}
   - component: {fileID: 182711630544776900}
   - component: {fileID: 2894977604435187832}
-  - component: {fileID: 58134610566313706}
   - component: {fileID: 5022001309497998945}
   m_Layer: 0
   m_Name: Player
@@ -550,7 +549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cdf069d68784d9ba30f50c7e297e75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPauseManager: {fileID: 0}
 --- !u!114 &5904609094953778102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,30 +648,6 @@ MonoBehaviour:
   initialPlayerStats: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   _playerPos: {x: 0, y: 0, z: 0}
---- !u!114 &58134610566313706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6476286341742904787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 830476d994344964786b4a4b49309b5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUpReadyDelay: 0.1
-  powerUpActivateDuration: 3
-  powerUpDeactivateDelay: 0.5
-  powerUpCooldown: 5
-  _initialPlayerStatsSO: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
-  _currPlayerStatsSO: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
-  _playerScore: {fileID: 11400000, guid: aab198d4403120b4dbdd13d5aabbf717, type: 2}
-  _slowMotionFactor: 0.1
-  _originalTimeScale: 0
-  _currentJumpHeight: 0
-  _jumpBoost: 10
-  _multiplierAmount: 2
 --- !u!95 &5022001309497998945
 Animator:
   serializedVersion: 5

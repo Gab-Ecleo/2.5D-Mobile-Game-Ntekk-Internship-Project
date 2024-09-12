@@ -1,3 +1,4 @@
+using EventScripts;
 using ScriptableData;
 using UnityEngine;
 
@@ -5,15 +6,13 @@ namespace PowerUp.PowerUps
 {
     public class Spring : PowerUpScript
     {
-        protected override void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.stats.springJump = true;
-                base.OnTriggerEnter(other);
+                PowerUpsEvents.ACTIVATE_SPRING_PU?.Invoke();
+                BaseEffect();
             }
-            //Box Decay Trigger
-
         }
   
     }

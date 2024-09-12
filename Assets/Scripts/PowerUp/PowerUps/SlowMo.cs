@@ -1,3 +1,4 @@
+using EventScripts;
 using UnityEngine;
 
 namespace PowerUp.PowerUps
@@ -8,12 +9,12 @@ namespace PowerUp.PowerUps
         /// Slowmo breaks player controller still need fix. RIOT PLS FIX
         /// </summary>
     
-        protected override void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                PlayerStatsSo.stats.timeSlow = true;
-                base.OnTriggerEnter(other);
+                PowerUpsEvents.ACTIVATE_TIMESLOW_PU?.Invoke();
+                BaseEffect();
             }
         }
     }

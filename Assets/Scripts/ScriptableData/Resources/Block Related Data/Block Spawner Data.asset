@@ -23,6 +23,7 @@ MonoBehaviour:
   - {fileID: 4629124967111218583, guid: 7d77219b6073a374fa57b6c657bf2483, type: 3}
   - {fileID: 630370101307869008, guid: 31e0dd785876f95499857f9642659a44, type: 3}
   - {fileID: 1487277569331736682, guid: 1f2d8b29139af6b4f95f9dc4aa94c13f, type: 3}
+  - {fileID: 5272310852082761143, guid: 37c4784081bad8f4dadae0ee01bfcfab, type: 3}
   defaultRate: 90
   heavyRate: 95
   powerUpRate: 100
