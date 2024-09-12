@@ -208,6 +208,7 @@ public class UIControlManager : MonoBehaviour
             items = buttonSaveDataList
         };
         new ButtonStorage().SaveButtonData(tempData);
+        Debug.Log("Saving Button Data");
     }
     #endregion
 
