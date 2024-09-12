@@ -26,7 +26,7 @@ public class ScoreSystem : MonoBehaviour
 
     private void Start()
     {
-        ResetSore();
+        ResetScore();
     }
 
     // funcation being called by the action to update ui and add score
@@ -50,8 +50,9 @@ public class ScoreSystem : MonoBehaviour
         uiText.text = _playerScore.Points.ToString("D5");
     }
 
-    public void ResetSore()
+    public void ResetScore()
     {
         _playerScore.Points = 0;
+        UpdateUI();
     }
 }

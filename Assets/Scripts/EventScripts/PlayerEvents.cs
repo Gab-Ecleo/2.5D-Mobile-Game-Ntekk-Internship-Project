@@ -1,4 +1,5 @@
 ﻿using System;
+using ScriptableData;
 using UnityEngine;
 
 namespace EventScripts
@@ -13,5 +14,11 @@ namespace EventScripts
         public static Action OnPlayerPositionReset;
 
         public static Action ON_BARRIER_HIT;
+        
+        //Movement
+        public static Action ON_PLAYER_JUMP;
+        public static Action ON_PLAYER_PICKUP;
+        public static Action ON_PLAYER_DROP;
+        public static Action<bool> PLAYER_ISGROUNDED;
     }
 }

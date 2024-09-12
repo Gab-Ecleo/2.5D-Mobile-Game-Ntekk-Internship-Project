@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 1195121384932056391}
   - component: {fileID: 2980646794625310649}
   m_Layer: 5
-  m_Name: Decceleration
+  m_Name: Deceleration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -875,7 +875,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5485653175304736825}
-  - component: {fileID: 7339419714339129491}
   m_Layer: 5
   m_Name: Hazards
   m_TagString: Untagged
@@ -907,32 +906,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 482.25, y: 251.6}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &7339419714339129491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759017627632913500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 20
-    m_Right: 0
-    m_Top: 10
-    m_Bottom: 10
-  m_ChildAlignment: 0
-  m_Spacing: 10
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 1
-  m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
 --- !u!1 &810586816274439880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1029,7 @@ GameObject:
   - component: {fileID: 3869885271753212166}
   - component: {fileID: 4315031416094104596}
   m_Layer: 5
-  m_Name: Velocity Number
+  m_Name: aerialSpdReducer Number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1243,7 +1216,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Decceleration: '
+  m_text: 'Deceleration: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2353,7 +2326,7 @@ GameObject:
   - component: {fileID: 4266418813536989369}
   - component: {fileID: 8100886477451227032}
   m_Layer: 5
-  m_Name: Friction Slider
+  m_Name: velPower Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2441,7 +2414,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: frictionAmount
+          m_StringArgument: velPower
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2006999935519690076
@@ -4066,7 +4039,7 @@ GameObject:
   - component: {fileID: 8922779177635046048}
   - component: {fileID: 7749617650588072987}
   m_Layer: 5
-  m_Name: Velocity
+  m_Name: aerialSpdReducer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4736,13 +4709,13 @@ MonoBehaviour:
   - StatsName: acceleration
     slider: {fileID: 131964110215821876}
     Number: {fileID: 2841959752702007945}
-  - StatsName: decceleration
+  - StatsName: deceleration
     slider: {fileID: 2353101164822736606}
     Number: {fileID: 7271138626965896295}
-  - StatsName: velPower
+  - StatsName: aerialSpdReducer
     slider: {fileID: 3244284577563102380}
     Number: {fileID: 4315031416094104596}
-  - StatsName: frictionAmount
+  - StatsName: velPower
     slider: {fileID: 8100886477451227032}
     Number: {fileID: 3705669552680127932}
   - StatsName: jumpHeight
@@ -4751,7 +4724,7 @@ MonoBehaviour:
   - StatsName: jumpCutMultiplier
     slider: {fileID: 442167479811671923}
     Number: {fileID: 9069991137614176596}
-  - StatsName: barrierUpgrade
+  - StatsName: barrierDurability
     slider: {fileID: 6346239005657747194}
     Number: {fileID: 8100642949855595197}
   Toggles:
@@ -4769,18 +4742,11 @@ MonoBehaviour:
     toggle: {fileID: 5136325264641895880}
   - StatsName: isRezUpgraded
     toggle: {fileID: 1582769008487012596}
-  - StatsName: Blackout
-    toggle: {fileID: 0}
-  - StatsName: Rain
-    toggle: {fileID: 0}
-  - StatsName: Ice
-    toggle: {fileID: 0}
-  - StatsName: Wind
-    toggle: {fileID: 0}
   _playerScore: {fileID: 11400000, guid: 39bda95efd9b96848bc304fa62520d9a, type: 2}
   _playerCurrStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   _blockSpawners: {fileID: 0}
   DebugMenuScreen: {fileID: 3933861481896456882}
+  _powerUps: {fileID: 0}
 --- !u!1 &3581648691575102331
 GameObject:
   m_ObjectHideFlags: 0
@@ -9272,7 +9238,7 @@ GameObject:
   - component: {fileID: 8515849847291105437}
   - component: {fileID: 3705669552680127932}
   m_Layer: 5
-  m_Name: Friction Number
+  m_Name: velPower Number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9704,7 +9670,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Friction: '
+  m_text: 'velPower: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10764,7 +10730,7 @@ GameObject:
   - component: {fileID: 1907135025406518160}
   - component: {fileID: 7679065426831062155}
   m_Layer: 5
-  m_Name: Friction
+  m_Name: velPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12084,7 +12050,7 @@ GameObject:
   - component: {fileID: 1893544829224032157}
   - component: {fileID: 3244284577563102380}
   m_Layer: 5
-  m_Name: Velocity Slider
+  m_Name: aerialSpdReducer Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12172,7 +12138,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: velPower
+          m_StringArgument: aerialSpdReducer
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8152378090480570609
@@ -12187,7 +12153,7 @@ GameObject:
   - component: {fileID: 8710787231265172256}
   - component: {fileID: 7271138626965896295}
   m_Layer: 5
-  m_Name: Decceleration Number
+  m_Name: deceleration Number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12685,7 +12651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Velocity: '
+  m_text: 'Aerial Spd Reducer: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12765,7 +12731,7 @@ GameObject:
   - component: {fileID: 1289498767079600468}
   - component: {fileID: 2353101164822736606}
   m_Layer: 5
-  m_Name: Decceleration Slider
+  m_Name: deceleration Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12853,7 +12819,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: decceleration
+          m_StringArgument: deceleration
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8361342587829527636

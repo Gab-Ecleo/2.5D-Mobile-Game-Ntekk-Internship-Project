@@ -9,6 +9,9 @@ namespace UpgradeShop.ShopCurrency
     //handles the updates given to the currency in the upgrade shop
     public class CurrencyManager : MonoBehaviour
     {
+        private static CurrencyManager _instance;
+        public static CurrencyManager Instance => _instance;
+
         [Header("In Match Modifiers")]
         [SerializeField] private int currencyDividend = 2;
 
@@ -18,6 +21,11 @@ namespace UpgradeShop.ShopCurrency
         
         [Header("Script References")]
         [SerializeField] private CurrencyUIManager UIManager;
+        private void Awake()
+        {
+            if (_instance == null) _instance = this;
+            else Destroy(this);
+        }
 
         private void Start()
         {
@@ -52,9 +60,10 @@ namespace UpgradeShop.ShopCurrency
             UIManager.UpdateCurrencyUI(currencyStats.matchCoins);
         }
 
-        private void ResetMatchCoins()
+        public void ResetMatchCoins()
         {
             currencyStats.matchCoins = 0;
+            UIManager.UpdateCurrencyUI(currencyStats.matchCoins);
         }
         #endregion
 
