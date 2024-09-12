@@ -44,48 +44,61 @@ namespace UI.Game_End_Menu_Scripts
         [Header("Buttons Anim")]
         [SerializeField] private RectTransform buttonsRectTrans;
 
+        private Sequence introTween;
+        private bool isAnimating = false;
         private void OnEnable()
         {
             GameEvents.TRIGGER_GAMEEND_SCREEN += PanelIntro;
             GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN += PlayOutro;
+            GameEvents.COMPLETE_TWEEN += CompleteAllTween;
         }
 
         private void OnDisable()
         {
             GameEvents.TRIGGER_GAMEEND_SCREEN -= PanelIntro;
             GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN -= PlayOutro;
+            GameEvents.COMPLETE_TWEEN -= CompleteAllTween;
         }
 
         private void Start()
         {
-            GameOverGO.SetActive(false);
+            isAnimating = false;
+            GameOverGO.SetActive(isAnimating);
            // PanelIntro(); // for testing
         }
 
         #region tween anim
 
-        private void PanelIntro()
+        private void PanelIntro(bool _isAnimating)
         {
-            GameOverGO.SetActive(true);
-            panelTitleText.maxVisibleCharacters = 0;
-            ScoreTitleText.maxVisibleCharacters = 0;
+            if(_isAnimating)
+            {
+                isAnimating = _isAnimating;
+                GameOverGO.SetActive(isAnimating);
+                panelTitleText.maxVisibleCharacters = 0;
+                ScoreTitleText.maxVisibleCharacters = 0;
 
-            Time.timeScale = 0;
-            Sequence introTween = DOTween.Sequence();
+                Time.timeScale = 0;
+                introTween = DOTween.Sequence();
 
-            introTween.Append(canvasGroup.DOFade(1, tweenDuration).SetUpdate(true))
-                      .Append(bgRectTransform.DOLocalMoveY(908, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                      .Append(panelTitleHolder.DOLocalMoveY(1181, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                      .Append(TypewriterTween(panelTitleText))  
-                      .Append(finalScorePanel.DOLocalMoveY(1063, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                      .Append(TypewriterTween(ScoreTitleText))  
-                      .Append(ScoreNumberTextCanvasGrp.DOFade(1, tweenDuration).SetUpdate(true))
-                      .Append(currencyTrans.DOLocalMoveY(720, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                      .Append(buttonsRectTrans.DOLocalMoveY(550, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                      .OnComplete(() => {
-                          ScoreDisplay();
-                          CurrencyDisplay();
-                      }).SetUpdate(true);
+                introTween.Append(canvasGroup.DOFade(1, tweenDuration).SetUpdate(true))
+                          .Append(bgRectTransform.DOLocalMoveY(908, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(panelTitleHolder.DOLocalMoveY(1181, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(TypewriterTween(panelTitleText))
+                          .Append(finalScorePanel.DOLocalMoveY(1063, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(TypewriterTween(ScoreTitleText))
+                          .Append(ScoreNumberTextCanvasGrp.DOFade(1, tweenDuration).SetUpdate(true))
+                          .Append(currencyTrans.DOLocalMoveY(720, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(buttonsRectTrans.DOLocalMoveY(550, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .OnComplete(() => {
+                              ScoreDisplay();
+                              CurrencyDisplay();
+                          }).SetUpdate(true);
+            }
+            else
+            {
+                isAnimating = false;
+            }
         }
 
         private Tween TypewriterTween(TMP_Text _text)
@@ -136,5 +149,15 @@ namespace UI.Game_End_Menu_Scripts
         }
 
         #endregion
+
+        private void CompleteAllTween()
+        {
+            if(isAnimating) 
+                introTween.Complete(true);
+            
+        }
+
     }
+
+
 }

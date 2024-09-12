@@ -71,6 +71,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EndTween"",
+                    ""type"": ""Button"",
+                    ""id"": ""de9f6b73-64ad-4775-abfa-a45feeefd756"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -216,6 +225,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Tutorial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd47306c-efaf-4913-b4f3-5bac69d8c701"",
+                    ""path"": ""<Touchscreen>/touch8/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EndTween"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5dc0dc6-53e6-4c22-9e98-7dd9dfa6aef6"",
+                    ""path"": ""<Mouse>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EndTween"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -229,6 +260,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Tutorial = m_Player.FindAction("Tutorial", throwIfNotFound: true);
+        m_Player_EndTween = m_Player.FindAction("EndTween", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +327,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Tutorial;
+    private readonly InputAction m_Player_EndTween;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -304,6 +337,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Tutorial => m_Wrapper.m_Player_Tutorial;
+        public InputAction @EndTween => m_Wrapper.m_Player_EndTween;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -328,6 +362,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Tutorial.started += instance.OnTutorial;
             @Tutorial.performed += instance.OnTutorial;
             @Tutorial.canceled += instance.OnTutorial;
+            @EndTween.started += instance.OnEndTween;
+            @EndTween.performed += instance.OnEndTween;
+            @EndTween.canceled += instance.OnEndTween;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -347,6 +384,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Tutorial.started -= instance.OnTutorial;
             @Tutorial.performed -= instance.OnTutorial;
             @Tutorial.canceled -= instance.OnTutorial;
+            @EndTween.started -= instance.OnEndTween;
+            @EndTween.performed -= instance.OnEndTween;
+            @EndTween.canceled -= instance.OnEndTween;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -371,5 +411,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnTutorial(InputAction.CallbackContext context);
+        void OnEndTween(InputAction.CallbackContext context);
     }
 }

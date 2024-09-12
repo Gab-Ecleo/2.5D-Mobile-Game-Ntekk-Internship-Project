@@ -36,7 +36,6 @@ public class SwipeController : MonoBehaviour, IEndDragHandler
         currPages = 1;
         targetPos = imgPagesRect.localPosition;
 
-        Debug.Log(imgPagesRect.localPosition);
         UpdateFooterImg();
         UpdateArrowButton();
     }
