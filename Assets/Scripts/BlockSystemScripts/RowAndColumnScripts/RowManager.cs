@@ -106,14 +106,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
         [ContextMenu("Test clear ")]
         public void ScoreChanges() // for ui test
         {
-            int pointsToAdd = _playerScore.PointsToAdd;
-            int multiplier = _playerScore.Multiplier;
-            bool hasMultiplier = _playerCurrStats.stats.hasMultiplier; 
-
-            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
-            GameEvents.ON_UI_CHANGES?.Invoke();
-
-            //Debug.Log(_playerScore.Points);
+            GameEvents.ON_SCORE_CHANGES?.Invoke();
         }
 
         private void ColorScore(int pointsToAdd)
@@ -121,8 +114,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
             int multiplier = _playerScore.Multiplier;
             bool hasMultiplier = _playerCurrStats.stats.hasMultiplier;
 
-            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
-            GameEvents.ON_UI_CHANGES?.Invoke();
+            GameEvents.ON_SCORE_CHANGES?.Invoke();
         }
     }
 }

@@ -3,13 +3,17 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using Unity.VisualScripting;
+using ScriptableData;
+using System.Diagnostics;
 
 public class ScoreSystem : MonoBehaviour
 {
     public TMP_Text uiText;
 
     public ScoresSO _playerScore;
+    public PlayerStatsSO _playerCurrStats;
 
+    private bool _hasMultiplier;
     #region Action
     private void OnEnable()
     {
@@ -30,17 +34,19 @@ public class ScoreSystem : MonoBehaviour
     }
 
     // funcation being called by the action to update ui and add score
-    public void PointSystem(int addedPoints, int multiplier, bool isPoweredUp)
+    public void PointSystem()
     {
-        if (isPoweredUp)
+        if (_playerCurrStats.stats.hasMultiplier)
         {
-            _playerScore.Points *= multiplier;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints * multiplier);
+            _playerScore.Points *= _playerScore.Multiplier;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(_playerScore.PointsToAdd * _playerScore.Multiplier);
+            GameEvents.ON_UI_CHANGES?.Invoke();
         }
         else
         {
-            _playerScore.Points += addedPoints;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints);
+            _playerScore.Points += _playerScore.PointsToAdd;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(_playerScore.PointsToAdd);
+            GameEvents.ON_UI_CHANGES?.Invoke();
         }
     }
 

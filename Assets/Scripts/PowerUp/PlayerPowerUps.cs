@@ -210,12 +210,14 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
     #region PowerUpsBaseMethods
     public void OnMultiplierActivate()
     {
-        GameEvents.ON_SCORE_CHANGES?.Invoke(_playerScore.PointsToAdd, _multiplierAmount, true);
+        _currPlayerStatsSO.stats.hasMultiplier = true;
+        GameEvents.ON_SCORE_CHANGES?.Invoke();
     }
 
     public void OnMultiplierDeactivate()
     {
-        GameEvents.ON_SCORE_CHANGES?.Invoke(_playerScore.PointsToAdd, _multiplierAmount, false);
+        _currPlayerStatsSO.stats.hasMultiplier = false;
+        GameEvents.ON_SCORE_CHANGES?.Invoke();
     }
 
     public void OnSpringActivate()
