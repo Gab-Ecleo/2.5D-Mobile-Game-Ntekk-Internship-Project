@@ -166,7 +166,7 @@ public class DebugManager : MonoBehaviour
 
     public void GameOver()
     {
-        GameEvents.TRIGGER_GAMEEND_SCREEN?.Invoke();
+        GameEvents.TRIGGER_GAMEEND_SCREEN?.Invoke(true);
     }
 
     public void ResetPlayerPos()
