@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: InteractButton
   m_EditorClassIdentifier: 
   ButtonType: 3
-  InitPos: {x: 0, y: 0, z: 0}
-  CurrPos: {x: 0, y: 0, z: 0}
-  inIntialPos: 1
+  InitPos: {x: 2493.5718, y: 216.30096, z: 0}
+  CurrPos: {x: 2493.5718, y: 216.30096, z: 0}
+  inIntialPos: 0

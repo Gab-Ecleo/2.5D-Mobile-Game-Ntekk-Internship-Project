@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: JumpButton
   m_EditorClassIdentifier: 
   ButtonType: 0
-  InitPos: {x: 0, y: 0, z: 0}
-  CurrPos: {x: 0, y: 0, z: 0}
-  inIntialPos: 1
+  InitPos: {x: 2018.1188, y: 276.67596, z: 0}
+  CurrPos: {x: 2018.1188, y: 276.67596, z: 0}
+  inIntialPos: 0

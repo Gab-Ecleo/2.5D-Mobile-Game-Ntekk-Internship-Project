@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LeftMovementButton
   m_EditorClassIdentifier: 
   ButtonType: 0
-  InitPos: {x: 203.28253, y: 105.29378, z: 0}
-  CurrPos: {x: 235.55005, y: 120.84929, z: 0}
-  inIntialPos: 1
+  InitPos: {x: 436.44763, y: 231.6966, z: 0}
+  CurrPos: {x: 436.44763, y: 231.6966, z: 0}
+  inIntialPos: 0

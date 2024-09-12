@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RightMovementButton
   m_EditorClassIdentifier: 
   ButtonType: 0
-  InitPos: {x: 488.98456, y: 105.29378, z: 0}
-  CurrPos: {x: 460.46603, y: 118.25676, z: 0}
-  inIntialPos: 1
+  InitPos: {x: 985.8599, y: 231.6966, z: 0}
+  CurrPos: {x: 985.8599, y: 231.6966, z: 0}
+  inIntialPos: 0
