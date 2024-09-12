@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a40f809e6945d749a42e82da0f533dc, type: 3}
   m_Name: JumpButton
   m_EditorClassIdentifier: 
-  ButtonType: 0
+  ButtonType: 2
   InitPos: {x: 2018.1188, y: 276.67596, z: 0}
   CurrPos: {x: 2018.1188, y: 276.67596, z: 0}
   inIntialPos: 0

@@ -1,26 +1,25 @@
 using System;
 using UnityEngine;
 using TMPro;
-using System.Collections;
-using Unity.VisualScripting;
+using ScriptableData;
 
 public class ScoreSystem : MonoBehaviour
 {
     public TMP_Text uiText;
-
     public ScoresSO _playerScore;
+    public PlayerStatsSO _playerCurrStats;
+
+    private bool _hasMultiplier;
 
     #region Action
     private void OnEnable()
     {
         GameEvents.ON_SCORE_CHANGES += PointSystem;
-        GameEvents.ON_UI_CHANGES += UpdateUI;
     }
 
     private void OnDisable()
     {
         GameEvents.ON_SCORE_CHANGES -= PointSystem;
-        GameEvents.ON_UI_CHANGES -= UpdateUI;
     }
     #endregion
 
@@ -29,22 +28,28 @@ public class ScoreSystem : MonoBehaviour
         ResetScore();
     }
 
-    // funcation being called by the action to update ui and add score
-    public void PointSystem(int addedPoints, int multiplier, bool isPoweredUp)
+
+    public void PointSystem(int pointsToAdd)
     {
-        if (isPoweredUp)
+        GameManager.Instance.FetchCurrentPlayerStat();
+
+
+        _playerScore.PointsToAdd = pointsToAdd;
+        if (_playerCurrStats.stats.hasMultiplier)
         {
-            _playerScore.Points += addedPoints * multiplier;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints * multiplier);
+            var multiplier = _playerScore.PointsToAdd * _playerScore.Multiplier;
+            _playerScore.Points += multiplier;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(multiplier);
         }
         else
         {
-            _playerScore.Points += addedPoints;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints);
+            _playerScore.Points += _playerScore.PointsToAdd;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(_playerScore.PointsToAdd);
         }
+
+        UpdateUI();
     }
 
-    // will change later if hud is finalized
     public void UpdateUI()
     {
         uiText.text = _playerScore.Points.ToString("D5");

@@ -63,6 +63,7 @@ namespace BlockSystemScripts.RowAndColumnScripts
         [ContextMenu("CLEAR ROW!")]
         public void ClearRow()
         {
+            var cellCount = 0;
             var sameColorCount = 0;
             var colorType = BlockType.None;
             foreach (var cell in GridCells)
@@ -92,7 +93,8 @@ namespace BlockSystemScripts.RowAndColumnScripts
                 cell.DestroyBlock();
 
                 // add points and update ui when cleared
-                ScoreChanges();
+                cellCount++;
+                ScoreChanges(cellCount);
             }
             
             //Behavior for a homogenous color clear
@@ -104,27 +106,14 @@ namespace BlockSystemScripts.RowAndColumnScripts
         }
 
         [ContextMenu("Test clear")]
-        public void ScoreChanges() // for ui test
+        public void ScoreChanges(int pointsToAdd) // for ui test
         {
-            int pointsToAdd = _playerScore.PointsToAdd;
-            int multiplier = _playerScore.Multiplier;
-            bool hasMultiplier = _playerCurrStats.stats.hasMultiplier; 
-
-            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
-            GameEvents.ON_UI_CHANGES?.Invoke();
-
-            //Debug.Log(_playerScore.Points);
+            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd);
         }
 
         private void ColorScore(int pointsToAdd)
         {
-            // instead of getting playerScore for color score jus create a var here
-
-            int multiplier = _playerScore.Multiplier;
-            bool hasMultiplier = _playerCurrStats.stats.hasMultiplier;
-
-            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
-            GameEvents.ON_UI_CHANGES?.Invoke();
+            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd);
         }
     }
 }

@@ -196,12 +196,7 @@ public class DebugManager : MonoBehaviour
 
     public void Scoring()
     {
-        int pointsToAdd = _playerScore.PointsToAdd;
-        int multiplier = _playerScore.Multiplier;
-        bool hasMultiplier = _playerCurrStats.stats.hasMultiplier;
-
-        GameEvents.ON_SCORE_CHANGES?.Invoke(9, multiplier, hasMultiplier);
-        GameEvents.ON_UI_CHANGES?.Invoke();
+        GameEvents.ON_SCORE_CHANGES?.Invoke(9);
     }
 
     public void SpawnBlock()
