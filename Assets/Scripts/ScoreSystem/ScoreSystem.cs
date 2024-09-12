@@ -28,38 +28,28 @@ public class ScoreSystem : MonoBehaviour
         ResetScore();
     }
 
+
     public void PointSystem(int pointsToAdd)
     {
         GameManager.Instance.FetchCurrentPlayerStat();
 
+
         _playerScore.PointsToAdd = pointsToAdd;
         if (_playerCurrStats.stats.hasMultiplier)
         {
-            _playerScore.Points += addedPoints * multiplier;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints * multiplier);
+            var multiplier = _playerScore.PointsToAdd * _playerScore.Multiplier;
+            _playerScore.Points += multiplier;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(multiplier);
         }
         else
         {
-            _playerScore.Points += pointsToAdd;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(pointsToAdd);
+            _playerScore.Points += _playerScore.PointsToAdd;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(_playerScore.PointsToAdd);
         }
 
         UpdateUI();
     }
 
-    public void UpdateUI()
-    {
-        if (uiText != null)
-        {
-            uiText.text = _playerScore.Points.ToString("D5");
-        }
-        else
-        {
-            Debug.LogWarning("UI Text component is not assigned.");
-        }
-    }
-
-    // will change later if hud is finalized
     public void UpdateUI()
     {
         uiText.text = _playerScore.Points.ToString("D5");
