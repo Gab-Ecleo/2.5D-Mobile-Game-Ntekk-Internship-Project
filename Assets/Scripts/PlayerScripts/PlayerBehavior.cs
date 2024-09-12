@@ -88,7 +88,7 @@ namespace PlayerScripts
             //add death behavior
             AudioEvents.ON_PLAYER_DEATH?.Invoke();
             Debug.Log("Player Dead");
-            GameEvents.TRIGGER_GAMEEND_SCREEN?.Invoke();
+            GameEvents.TRIGGER_GAMEEND_SCREEN?.Invoke(true);
             GameEvents.IS_GAME_OVER?.Invoke(true);
             LocalStorageEvents.OnSaveCurrencyData?.Invoke();
             Time.timeScale = 0;

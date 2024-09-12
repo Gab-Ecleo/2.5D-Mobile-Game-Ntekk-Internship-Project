@@ -25,7 +25,7 @@ public class GameEvents : MonoBehaviour
     
 
     //GAME END UI
-    public static Action TRIGGER_GAMEEND_SCREEN;
+    public static Action<bool> TRIGGER_GAMEEND_SCREEN;
     public static Action TRIGGER_END_OF_GAMEEND_SCREEN;
     public static Action COMPLETE_TWEEN;
 

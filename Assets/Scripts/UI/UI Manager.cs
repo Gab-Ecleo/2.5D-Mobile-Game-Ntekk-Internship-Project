@@ -162,7 +162,7 @@ public class UIManager : MonoBehaviour
 
     private void BarrierUpdate()
     {
-        barrierText.text = currStat.stats.barrierDurability.ToString();
+        barrierText.text = currStat.stats.barrierDurability.ToString("D4");
     }
 
     #region Pause Screen

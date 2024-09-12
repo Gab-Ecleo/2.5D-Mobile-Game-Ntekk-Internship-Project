@@ -19,8 +19,6 @@ namespace Input_System_Actions
         private InputAction _tutorial;
         private InputAction _endTween;
 
-
-        public TweenManager tweenManager;
         //initialize values
         private void Awake()
         {
