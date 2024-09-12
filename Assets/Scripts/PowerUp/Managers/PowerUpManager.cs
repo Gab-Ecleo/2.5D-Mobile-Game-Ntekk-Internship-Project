@@ -1,9 +1,11 @@
-﻿using System;
-using ScriptableData;
+﻿using ScriptableData;
 using UnityEngine;
 
-namespace PowerUp.NewImplementation
+namespace PowerUp.Managers
 {
+    /// <summary>
+    /// This is the Base Power Up Manager. Inherit this for new Power Up Types
+    /// </summary>
     public class PowerUpManager : MonoBehaviour
     {
         [Header("Player Stats")]
@@ -24,7 +26,8 @@ namespace PowerUp.NewImplementation
             IsTimerActive = false;
             currentState = PowerUpState.Inactive;
         }
-
+    
+        //Base function on power up duration. Updated by an overload
         protected virtual void UpdatePowerUpDuration()
         {
             //if the timer is active and current duration is not yet zero, proceed to countdown
@@ -34,7 +37,7 @@ namespace PowerUp.NewImplementation
             }
         }
         
-        //Base function on power up activation
+        //Base function on power up activation. Triggered by an overload
         protected virtual void ActivatePowerUp()
         {
             currentState = PowerUpState.Active;
@@ -45,7 +48,7 @@ namespace PowerUp.NewImplementation
             currentDuration = initialDuration;
         }
         
-        //Base function on power up deactivation
+        //Base function on power up deactivation. Triggered by an overload
         protected virtual void DeactivatePowerUp()
         {
             currentState = PowerUpState.Inactive;

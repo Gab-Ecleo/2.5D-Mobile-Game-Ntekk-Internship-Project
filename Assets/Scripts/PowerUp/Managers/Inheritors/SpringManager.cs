@@ -1,9 +1,7 @@
 ﻿using EventScripts;
-using ScriptableData;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace PowerUp.NewImplementation.SpecificManagers
+namespace PowerUp.Managers.Inheritors
 {
     public class SpringManager : PowerUpManager
     {

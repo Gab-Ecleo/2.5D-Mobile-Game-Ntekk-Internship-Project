@@ -1,10 +1,8 @@
-﻿using System;
-using EventScripts;
-using UnityEngine;
+﻿using EventScripts;
 
-namespace PowerUp.NewImplementation.SpecificManagers
+namespace PowerUp.Managers.Inheritors
 {
-    public class SingleClearManager : PowerUpManager
+    public class RowClearManager : PowerUpManager
     {
         private void Update()
         {
@@ -26,26 +24,26 @@ namespace PowerUp.NewImplementation.SpecificManagers
 
         protected override void ActivatePowerUp()
         {
-            currentPlayerStats.stats.singleBlockRemover = true;
+            currentPlayerStats.stats.expressDelivery = true;
             base.ActivatePowerUp();
         }
 
         protected override void DeactivatePowerUp()
         {
-            currentPlayerStats.stats.singleBlockRemover = false;
+            currentPlayerStats.stats.expressDelivery = false;
             base.DeactivatePowerUp();
         }
 
         private void OnEnable()
         {
-            PowerUpsEvents.ACTIVATE_SINGLECLEAR_PU += ActivatePowerUp;
-            PowerUpsEvents.DEACTIVATE_SINGLECLEAR_PU += DeactivatePowerUp;
+            PowerUpsEvents.ACTIVATE_ROWCLEAR_PU += ActivatePowerUp;
+            PowerUpsEvents.DEACTIVATE_ROWCLEAR_PU += DeactivatePowerUp;
         }
 
         private void OnDisable()
         {
-            PowerUpsEvents.ACTIVATE_SINGLECLEAR_PU -= ActivatePowerUp;
-            PowerUpsEvents.DEACTIVATE_SINGLECLEAR_PU -= DeactivatePowerUp;
+            PowerUpsEvents.ACTIVATE_ROWCLEAR_PU -= ActivatePowerUp;
+            PowerUpsEvents.DEACTIVATE_ROWCLEAR_PU -= DeactivatePowerUp;
         }
     }
 }

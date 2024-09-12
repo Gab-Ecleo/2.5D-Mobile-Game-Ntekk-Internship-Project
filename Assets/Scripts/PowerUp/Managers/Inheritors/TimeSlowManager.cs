@@ -1,16 +1,18 @@
 ﻿using EventScripts;
+using ScriptableData;
 using UnityEngine;
 
-namespace PowerUp.NewImplementation.SpecificManagers
+namespace PowerUp.Managers.Inheritors
 {
-    public class ScoreMultiplierManager : PowerUpManager
+    
+    public class TimeSlowManager : PowerUpManager
     {
-        [Header("Score Multiplier References")]
-        [SerializeField] private ScoresSO playerScore;
-        [SerializeField] private int scoreMultiplier = 2;
+        [Header("Time Slow Power-up")]
+        [SerializeField] private BlockTimerSO blockTimerSo;
         
         protected override void Start()
         {
+            blockTimerSo.ResetState();
             base.Start();
         }
 
@@ -34,30 +36,34 @@ namespace PowerUp.NewImplementation.SpecificManagers
 
         protected override void ActivatePowerUp()
         {
-            currentPlayerStats.stats.hasMultiplier = true;
-            playerScore.Multiplier = scoreMultiplier;
-
+            currentPlayerStats.stats.timeSlow = true;
+            
+            blockTimerSo.blockTimerState = BlockTimerState.Slowed;
+            BlockEvents.OnSyncBlockFallTimers?.Invoke();
+            
             base.ActivatePowerUp();
         }
 
         protected override void DeactivatePowerUp()
         {
-            currentPlayerStats.stats.hasMultiplier = false;
-            playerScore.Multiplier = 1;
+            currentPlayerStats.stats.timeSlow = false;
+            
+            blockTimerSo.blockTimerState = BlockTimerState.Normal;
+            BlockEvents.OnSyncBlockFallTimers?.Invoke();
 
             base.DeactivatePowerUp();
         }
 
         private void OnEnable()
         {
-            PowerUpsEvents.ACTIVATE_MULTIPLIER_PU += ActivatePowerUp;
-            PowerUpsEvents.DEACTIVATE_MULTIPLIER_PU += DeactivatePowerUp;
+            PowerUpsEvents.ACTIVATE_TIMESLOW_PU += ActivatePowerUp;
+            PowerUpsEvents.DEACTIVATE_TIMESLOW_PU += ActivatePowerUp;
         }
 
         private void OnDisable()
         {
-            PowerUpsEvents.ACTIVATE_MULTIPLIER_PU -= ActivatePowerUp;
-            PowerUpsEvents.DEACTIVATE_MULTIPLIER_PU -= DeactivatePowerUp;
+            PowerUpsEvents.ACTIVATE_TIMESLOW_PU -= ActivatePowerUp;
+            PowerUpsEvents.DEACTIVATE_TIMESLOW_PU -= ActivatePowerUp;
         }
     }
 }
