@@ -88,8 +88,9 @@ namespace PlayerScripts
             blockPlaceholder.ToggleActive(collectedBlock);
             hasItem = true;
             
-            //Plays the SFX correlating to the action
+            //Plays events correlating to the action
             AudioEvents.ON_PLAYER_PICKUP?.Invoke();
+            PlayerEvents.ON_PLAYER_PICKUP?.Invoke();
         }
 
         private void ThrowBlock(GridCell detectedCell)
@@ -119,8 +120,9 @@ namespace PlayerScripts
             collectedBlock = null;
             //Debug.Log("Player has Thrown");
             
-            //Plays the SFX correlating to the action
+            //Plays the events correlating to the action
             AudioEvents.ON_PLAYER_DROP?.Invoke();
+            PlayerEvents.ON_PLAYER_DROP?.Invoke();
         }
 
         //Triggered if player has the Single Block Clear Powerup
@@ -129,7 +131,7 @@ namespace PlayerScripts
             if (detectedBlock.BlockType == BlockType.PowerUp) return;
             if (detectedBlock.BlockState != BlockState.CanPickUp) return;
             Destroy(detectedBlock.gameObject);
-            _playerStats.stats.singleBlockRemover = false;
+            PowerUpsEvents.DEACTIVATE_SINGLECLEAR_PU?.Invoke();
         }
         #endregion
     }

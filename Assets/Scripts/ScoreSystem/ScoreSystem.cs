@@ -25,7 +25,7 @@ public class ScoreSystem : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.FetchCurrentPlayerStat();
+        ResetScore();
     }
 
     public void PointSystem(int pointsToAdd)
@@ -35,9 +35,8 @@ public class ScoreSystem : MonoBehaviour
         _playerScore.PointsToAdd = pointsToAdd;
         if (_playerCurrStats.stats.hasMultiplier)
         {
-            int totalPoints = pointsToAdd * _playerScore.Multiplier;
-            _playerScore.Points += totalPoints;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(totalPoints);
+            _playerScore.Points += addedPoints * multiplier;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints * multiplier);
         }
         else
         {
@@ -60,10 +59,15 @@ public class ScoreSystem : MonoBehaviour
         }
     }
 
-    // Resets the score to zero
+    // will change later if hud is finalized
+    public void UpdateUI()
+    {
+        uiText.text = _playerScore.Points.ToString("D5");
+    }
+
     public void ResetScore()
     {
         _playerScore.Points = 0;
-        UpdateUI(); // Optionally update UI after resetting
+        UpdateUI();
     }
 }

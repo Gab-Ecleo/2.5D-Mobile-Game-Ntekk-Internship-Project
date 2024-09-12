@@ -105,15 +105,21 @@ namespace BlockSystemScripts.RowAndColumnScripts
              }
         }
 
-        [ContextMenu("Test clear ")]
-        public void ScoreChanges(int pointsToAdd) // for ui test
+        [ContextMenu("Test clear")]
+        public void ScoreChanges() // for ui test
         {
             GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd);
         }
 
         private void ColorScore(int pointsToAdd)
         {
-            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd);
+            // instead of getting playerScore for color score jus create a var here
+
+            int multiplier = _playerScore.Multiplier;
+            bool hasMultiplier = _playerCurrStats.stats.hasMultiplier;
+
+            GameEvents.ON_SCORE_CHANGES?.Invoke(pointsToAdd, multiplier, hasMultiplier);
+            GameEvents.ON_UI_CHANGES?.Invoke();
         }
     }
 }
