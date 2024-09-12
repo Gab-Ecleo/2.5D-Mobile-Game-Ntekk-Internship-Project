@@ -20,5 +20,9 @@ namespace EventScripts
         //Audio Settings Events
         public static Action OnLoadAudioSettingsData;
         public static Action OnSaveAudioSettingsData;
+        
+        //Button Settings Events
+        public static Action OnLoadButtonSettingsData;
+        public static Action OnSaveButtonSettingsData;
     }
 }

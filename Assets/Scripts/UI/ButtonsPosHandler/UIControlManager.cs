@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SaveSystem.Storage;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.OnScreen;
@@ -90,6 +91,8 @@ public class UIControlManager : MonoBehaviour
 
     private void Start()
     {
+        LoadButtonData();
+        
         if (RightPanel != null && LeftPanel != null)
         {
             RightPanel.enabled = false;
@@ -163,6 +166,27 @@ public class UIControlManager : MonoBehaviour
         GameEvents.ON_CONTROLS -= ToggleControlScreen;
     }
 
+    #region SAVING_AND_LOADING
+    private void LoadButtonData()
+    {
+        if (new ButtonStorage().GetButtonData() == null) return;
+        Debug.Log("Loading Button Data");
+        
+        //runs through each item from the json file
+        foreach (var dataItem in new ButtonStorage().GetButtonData().items)
+        {
+            //runs through each item from the in-game list
+            foreach (var item in buttonSaveDataList)
+            {
+                //if same button type, give the object the position data from the json file
+                if (dataItem.buttonType == item.buttonType)
+                {
+                    item.Position = dataItem.Position;
+                }
+            }
+        }
+    }
+
     private void SaveButtonData()
     {
         buttonSaveDataList.Clear();
@@ -177,7 +201,15 @@ public class UIControlManager : MonoBehaviour
             };
             buttonSaveDataList.Add(saveData);
         }
+
+        //Save data to Json
+        var tempData = new ButtonData
+        {
+            items = buttonSaveDataList
+        };
+        new ButtonStorage().SaveButtonData(tempData);
     }
+    #endregion
 
     public void OnButtonsSave()
     {
