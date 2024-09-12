@@ -21,10 +21,13 @@ public class GameEvents : MonoBehaviour
     public static Action ON_PAUSE;
     public static Action ON_TUTORIAL_UNLOCKED;
     public static Action ON_TUTORIAL;
+    public static Action ON_CONTROLS;
+    
 
     //GAME END UI
-    public static Action TRIGGER_GAMEEND_SCREEN;
+    public static Action<bool> TRIGGER_GAMEEND_SCREEN;
     public static Action TRIGGER_END_OF_GAMEEND_SCREEN;
+    public static Action COMPLETE_TWEEN;
 
     //IN-GAME CURRENCY EVENTS
     public static Action<int> CONVERT_SCORE_TO_CURRENCY;

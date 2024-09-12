@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "EndTween",
+                    "type": "Button",
+                    "id": "de9f6b73-64ad-4775-abfa-a45feeefd756",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -192,6 +201,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Tutorial",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd47306c-efaf-4913-b4f3-5bac69d8c701",
+                    "path": "<Touchscreen>/touch8/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EndTween",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a5dc0dc6-53e6-4c22-9e98-7dd9dfa6aef6",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EndTween",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -16,7 +16,8 @@ namespace Input_System_Actions
 
         private InputAction _pause;
         private InputAction _tutorial;
-        
+        private InputAction _endTween;
+
         //initialize values
         private void Awake()
         {
@@ -60,6 +61,10 @@ namespace Input_System_Actions
             _tutorial = _playerControls.Player.Tutorial;
             _tutorial.Enable();
             _tutorial.performed += Tutorial;
+
+            _endTween = _playerControls.Player.EndTween;
+            _endTween.Enable();
+            _endTween.performed += EndAnimation;
         }
 
         //disable the listeners for the buttons
@@ -70,6 +75,7 @@ namespace Input_System_Actions
             _interactObject.Disable();
             _pause.Disable();
             _tutorial.Disable();
+            _endTween.Disable();
         }
 
         private void Pause(InputAction.CallbackContext ctx)
@@ -79,6 +85,11 @@ namespace Input_System_Actions
         private void Tutorial(InputAction.CallbackContext ctx)
         {
             GameEvents.ON_TUTORIAL?.Invoke();
+        }
+
+        private void EndAnimation(InputAction.CallbackContext ctx)
+        {
+            GameEvents.COMPLETE_TWEEN?.Invoke();
         }
     }
 }

@@ -14,10 +14,7 @@ public class TabGroup : MonoBehaviour
     public List<TabButton> tabButtons;
     public List<GameObject> objectsToSwap;
     [Header("Sprite")]
-    public Sprite tabIdle;
-    public Sprite tabActive;
-    public Sprite tabHover;
-    public Sprite tabExit;
+
 
     [Header("Tabs")]
     private TabButton _selectedTab;
@@ -32,6 +29,7 @@ public class TabGroup : MonoBehaviour
     public float robotRotationAngle = 360f;
     public float robotRotationTime = 20f;
 
+
     private PlayerStatsSO initialPlayerStat;
     private Tween rotationTween;
 
@@ -44,7 +42,6 @@ public class TabGroup : MonoBehaviour
     private void Start()
     {
         initialPlayerStat = GameManager.Instance.FetchInitialPlayerStat();
-        Time.timeScale = 1.0f; // delete when there's new toggle pause logic in pausemanager 
         StartCoroutine(DelayedStart());
     }
 
@@ -72,7 +69,7 @@ public class TabGroup : MonoBehaviour
             ResetButtons();
             if (_selectedTab == null || button != _selectedTab)
             {
-                button.Background.sprite = tabHover;
+                
             }
         }
     }
@@ -98,10 +95,9 @@ public class TabGroup : MonoBehaviour
         _selectedTab = button;
         tabIsOpen = true;
         ResetButtons();
-        button.Background.sprite = tabActive;
 
         // tween animation
-        button.transform.DOScale(new Vector3(0.9f, 0.7f, 0.7f), 0.1f)
+        button.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f) // selected scale size
             .SetEase(Ease.OutCubic)
             .OnStepComplete(() => StartCoroutine(ButtonCooldown()));
         //button.transform.DOLocalMoveY(-70f, 0.1f);
@@ -115,13 +111,12 @@ public class TabGroup : MonoBehaviour
         foreach (TabButton button in tabButtons)
         {
             if (_selectedTab != null && button == _selectedTab) continue;
-            button.Background.sprite = tabIdle;
 
             if (timerState == ButtonTimerState.Ready)
             {
-                button.transform.DOScale(new Vector3(0.8f, 0.6f, 0.6f), 0.1f)
+                button.transform.DOScale(new Vector3(0.7f, 0.7f, 0.7f), 0.1f) // reset scale size
                     .SetEase(Ease.OutCubic);
-                button.transform.DOLocalMoveY(-84f, 0.1f);
+                //button.transform.DOLocalMoveY(-84f, 0.1f);
             }
         }
     }
