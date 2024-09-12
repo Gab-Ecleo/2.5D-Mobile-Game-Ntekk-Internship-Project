@@ -131,7 +131,7 @@ namespace PlayerScripts
             if (detectedBlock.BlockType == BlockType.PowerUp) return;
             if (detectedBlock.BlockState != BlockState.CanPickUp) return;
             Destroy(detectedBlock.gameObject);
-            _playerStats.stats.singleBlockRemover = false;
+            PowerUpsEvents.DEACTIVATE_SINGLECLEAR_PU?.Invoke();
         }
         #endregion
     }

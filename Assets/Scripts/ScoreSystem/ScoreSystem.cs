@@ -34,7 +34,7 @@ public class ScoreSystem : MonoBehaviour
     {
         if (isPoweredUp)
         {
-            _playerScore.Points *= multiplier;
+            _playerScore.Points += addedPoints * multiplier;
             GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(addedPoints * multiplier);
         }
         else

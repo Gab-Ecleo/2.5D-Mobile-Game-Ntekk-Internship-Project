@@ -656,23 +656,18 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6476286341742904787}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 830476d994344964786b4a4b49309b5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUpReadyDelay: 0.1
-  powerUpActivateDuration: 8
-  powerUpDeactivateDelay: 0.5
-  powerUpCooldown: 5
-  _initialPlayerStatsSO: {fileID: 11400000, guid: 7ccee732f8b7b594b8a9aee27bb1d38b, type: 2}
-  _currPlayerStatsSO: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
-  _playerScore: {fileID: 11400000, guid: aab198d4403120b4dbdd13d5aabbf717, type: 2}
-  _slowMotionFactor: 0.1
-  _originalTimeScale: 0
-  _currentJumpHeight: 0
-  _jumpBoost: 10
-  _multiplierAmount: 2
-  _animator: {fileID: 3731436308341354661}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8777780105729578082
 GameObject:
   m_ObjectHideFlags: 0
