@@ -17,7 +17,6 @@ using System.Collections.Generic;
 public class DebugManager : MonoBehaviour
 {
     public SliderPrefab[] Sliders;
-    public TogglePrefab[] Toggles;
 
     [Header("Ref")]
     [SerializeField] private ScoresSO _playerScore;
@@ -93,14 +92,6 @@ public class DebugManager : MonoBehaviour
                 sliderGO.Number.text = _playerFloatStatsDict[sliderGO.StatsName].ToString("0.0");
             }
         }
-
-        foreach (TogglePrefab toggleGO in Toggles)
-        {
-            if (toggleGO != null && _playerBoolStatsDict.ContainsKey(toggleGO.StatsName))
-            {
-                toggleGO.toggle.isOn = _playerBoolStatsDict[toggleGO.StatsName];
-            }
-        }
     }
 
     public void UpdateUISliderStats(string Name)
@@ -127,24 +118,6 @@ public class DebugManager : MonoBehaviour
 
     }
 
-    public void UpdateUIToggleStats(string Name)
-    {
-        StartCoroutine(startPowerUp(Name));
-    }
-
-    private IEnumerator startPowerUp(string Name)
-    {
-        TogglePrefab togglePrefab = System.Array.Find(Toggles, toggle => toggle.StatsName == Name);
-        if (togglePrefab != null && _playerBoolStatsDict.ContainsKey(Name))
-        {
-            _playerCurrStats.stats.GetType().GetField(Name).SetValue(_playerCurrStats.stats, togglePrefab.toggle.isOn);
-            _playerBoolStatsDict[Name] = togglePrefab.toggle.isOn;
-        }
-
-        yield return new WaitForSeconds(1f);
-
-        togglePrefab.toggle.isOn = false;
-    }
     #endregion
 
     #region buttons
@@ -172,6 +145,11 @@ public class DebugManager : MonoBehaviour
     public void SpawnBlock()
     {
         SpawnEvents.OnSpawnTrigger?.Invoke(false);
+    }
+
+    public void GameOver()
+    {
+        GameEvents.IS_GAME_OVER.Invoke(true);
     }
 
     #endregion
