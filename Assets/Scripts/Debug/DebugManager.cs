@@ -170,10 +170,7 @@ public class DebugManager : MonoBehaviour
 
     public void Scoring() // for ui test
     {
-        GameEvents.ON_SCORE_CHANGES?.Invoke();
-        GameEvents.ON_UI_CHANGES?.Invoke();
-
-        //Debug.Log(_playerScore.Points);
+        GameEvents.ON_SCORE_CHANGES?.Invoke(9);
     }
 
     public void SpawnBlock()

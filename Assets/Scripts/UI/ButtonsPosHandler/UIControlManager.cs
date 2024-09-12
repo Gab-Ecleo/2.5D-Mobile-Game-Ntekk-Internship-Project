@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UI;
@@ -26,6 +27,9 @@ public class UIControlManager : MonoBehaviour
 
     private bool isControllerMenuOpen = false;
     public GameObject ControlMenu;
+
+    // after testing private this list
+    [SerializeField] private List<ButtonSaveData> buttonSaveDataList;
 
     private void Awake()
     {
@@ -158,4 +162,35 @@ public class UIControlManager : MonoBehaviour
     {
         GameEvents.ON_CONTROLS -= ToggleControlScreen;
     }
+
+    private void SaveButtonData()
+    {
+        buttonSaveDataList.Clear();
+
+        foreach (var uiControl in buttonUIControls)
+        {
+            uiControl.SaveData();
+            var saveData = new ButtonSaveData
+            {
+                Position = uiControl.buttonSO.CurrPos,
+                buttonType = uiControl.buttonSO.ButtonType,
+            };
+            buttonSaveDataList.Add(saveData);
+        }
+    }
+
+    public void OnButtonsSave()
+    {
+        if (buttonSOs.Count == 4)
+        {
+            SaveButtonData();
+        }
+    }
+}
+
+[System.Serializable]
+public class ButtonSaveData
+{
+    public Vector3 Position;
+    public ButtonType buttonType;
 }

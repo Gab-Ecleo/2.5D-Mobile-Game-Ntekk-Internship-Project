@@ -1,63 +1,69 @@
 using System;
 using UnityEngine;
 using TMPro;
-using System.Collections;
-using Unity.VisualScripting;
 using ScriptableData;
-using System.Diagnostics;
 
 public class ScoreSystem : MonoBehaviour
 {
     public TMP_Text uiText;
-
     public ScoresSO _playerScore;
     public PlayerStatsSO _playerCurrStats;
 
     private bool _hasMultiplier;
+
     #region Action
     private void OnEnable()
     {
         GameEvents.ON_SCORE_CHANGES += PointSystem;
-        GameEvents.ON_UI_CHANGES += UpdateUI;
     }
 
     private void OnDisable()
     {
         GameEvents.ON_SCORE_CHANGES -= PointSystem;
-        GameEvents.ON_UI_CHANGES -= UpdateUI;
     }
     #endregion
 
     private void Start()
     {
-        ResetSore();
+        GameManager.Instance.FetchCurrentPlayerStat();
     }
 
-    // funcation being called by the action to update ui and add score
-    public void PointSystem()
+    public void PointSystem(int pointsToAdd)
     {
+        GameManager.Instance.FetchCurrentPlayerStat();
+
+        _playerScore.PointsToAdd = pointsToAdd;
         if (_playerCurrStats.stats.hasMultiplier)
         {
-            _playerScore.Points *= _playerScore.Multiplier;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(_playerScore.PointsToAdd * _playerScore.Multiplier);
-            GameEvents.ON_UI_CHANGES?.Invoke();
+            int totalPoints = pointsToAdd * _playerScore.Multiplier;
+            _playerScore.Points += totalPoints;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(totalPoints);
         }
         else
         {
-            _playerScore.Points += _playerScore.PointsToAdd;
-            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(_playerScore.PointsToAdd);
-            GameEvents.ON_UI_CHANGES?.Invoke();
+            _playerScore.Points += pointsToAdd;
+            GameEvents.CONVERT_SCORE_TO_CURRENCY?.Invoke(pointsToAdd);
+        }
+
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        if (uiText != null)
+        {
+            uiText.text = _playerScore.Points.ToString("D5");
+        }
+        else
+        {
+            Debug.LogWarning("UI Text component is not assigned.");
         }
     }
 
-    // will change later if hud is finalized
-    public void UpdateUI()
-    {
-        uiText.text = _playerScore.Points.ToString("D5");
-    }
-
-    public void ResetSore()
+    // Resets the score to zero
+    public void ResetScore()
     {
         _playerScore.Points = 0;
+        UpdateUI(); // Optionally update UI after resetting
     }
 }

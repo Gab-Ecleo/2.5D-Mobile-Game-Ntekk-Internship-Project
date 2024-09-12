@@ -211,13 +211,13 @@ public class PlayerPowerUps : MonoBehaviour, PowerUpsBaseMethods
     public void OnMultiplierActivate()
     {
         _currPlayerStatsSO.stats.hasMultiplier = true;
-        GameEvents.ON_SCORE_CHANGES?.Invoke();
+        _playerScore.Multiplier += 2;
     }
 
     public void OnMultiplierDeactivate()
     {
         _currPlayerStatsSO.stats.hasMultiplier = false;
-        GameEvents.ON_SCORE_CHANGES?.Invoke();
+        _playerScore.Multiplier = 2;
     }
 
     public void OnSpringActivate()

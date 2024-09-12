@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a40f809e6945d749a42e82da0f533dc, type: 3}
   m_Name: LeftMovementButton
   m_EditorClassIdentifier: 
-  ButtonType: 0
+  ButtonType: 1
   InitPos: {x: 436.44763, y: 231.6966, z: 0}
   CurrPos: {x: 436.44763, y: 231.6966, z: 0}
   inIntialPos: 0
