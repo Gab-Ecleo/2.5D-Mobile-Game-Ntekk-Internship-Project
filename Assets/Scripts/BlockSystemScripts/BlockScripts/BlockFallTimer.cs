@@ -1,4 +1,7 @@
 ﻿using System;
+using BlockSystemScripts.BlockSpawnerScripts;
+using EventScripts;
+using ScriptableData;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,7 +16,7 @@ namespace BlockSystemScripts.BlockScripts
         private BlockScript _blockScript;
         
         [Header("Timer Data")] 
-        [SerializeField] private float initialTimer = 0.5f;
+        [SerializeField] private BlockTimerSO blockSpawnTimerData;
         private bool _isTimerActivated;
         
         [Header("Active Timers. To be private")]
@@ -22,7 +25,11 @@ namespace BlockSystemScripts.BlockScripts
         private void Awake()
         {
             _blockScript = GetComponent<BlockScript>();
-            timeLeft = initialTimer;
+        }
+
+        private void Start()
+        {
+            timeLeft = blockSpawnTimerData.blockTimerState == BlockTimerState.Normal ? blockSpawnTimerData.initialTimer : blockSpawnTimerData.slowedTimer;
         }
 
         private void Update()
@@ -52,7 +59,7 @@ namespace BlockSystemScripts.BlockScripts
         //Method to activate the timer
         public void StartTimer()
         {
-            timeLeft = initialTimer;
+            timeLeft = blockSpawnTimerData.blockTimerState == BlockTimerState.Normal ? blockSpawnTimerData.initialTimer : blockSpawnTimerData.slowedTimer;
             _isTimerActivated = true;
         }
         
@@ -62,6 +69,20 @@ namespace BlockSystemScripts.BlockScripts
             _isTimerActivated = false;
         }
 
+        private void SyncTimer()
+        {
+            timeLeft = blockSpawnTimerData.blockTimerState == BlockTimerState.Normal ? blockSpawnTimerData.initialTimer : blockSpawnTimerData.slowedTimer;
+        }
         #endregion
+
+        private void OnEnable()
+        {
+            BlockEvents.OnSyncBlockFallTimers += SyncTimer;
+        }
+
+        private void OnDisable()
+        {
+            BlockEvents.OnSyncBlockFallTimers -= SyncTimer;
+        }
     }
 }
