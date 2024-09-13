@@ -31,7 +31,7 @@ public class UIControlManager : MonoBehaviour
     private bool isControllerMenuOpen = false;
     public GameObject ControlMenu;
 
-    private List<ButtonSaveData> buttonSaveDataList;
+    [SerializeField] private List<ButtonSaveData> buttonSaveDataList;
 
     private void Awake()
     {
