@@ -6,7 +6,8 @@ using EventScripts;
 using ScriptableData;
 using UnityEngine;
 using UnityEngine.Serialization;
-
+using UnityEngine.UI;
+using TMPro;
 public class RainEffect : MonoBehaviour
 {
     [SerializeField] private float _hazardDuration = 5f;
@@ -39,8 +40,9 @@ public class RainEffect : MonoBehaviour
     }
 
     #endregion
-    
-    private void TriggerRainHazard()
+
+    //private once debugging is complete
+    public void TriggerRainHazard()
     {
         if (_isCorActive || _gameManager.IsGameOver()) return;
 
@@ -70,4 +72,15 @@ public class RainEffect : MonoBehaviour
         
         _gameManager.FetchHazardData().IsRainActive = false;
     }
+
+    #region for debuggin pls delete later
+    public void SliderDuration(Slider duration)
+    {
+        _hazardDuration = duration.value;
+    }
+    public void TextDuration(TMP_Text text)
+    {
+        text.text = _hazardDuration.ToString();
+    }
+    #endregion
 }
