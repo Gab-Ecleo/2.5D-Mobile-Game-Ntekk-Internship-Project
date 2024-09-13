@@ -170,9 +170,5 @@ public class DebugManager : MonoBehaviour
         SpawnEvents.OnSpawnTrigger?.Invoke(false);
     }
 
-    public void HazardButton(string Hazard)
-    {
-        HazardManager.Instance.TriggerHazard(Hazard);
-    }
     #endregion
 }

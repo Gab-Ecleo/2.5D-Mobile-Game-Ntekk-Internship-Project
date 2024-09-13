@@ -39,8 +39,9 @@ public class RainEffect : MonoBehaviour
     }
 
     #endregion
-    
-    private void TriggerRainHazard()
+
+    // public for debugging
+    public void TriggerRainHazard()
     {
         if (_isCorActive || _gameManager.IsGameOver()) return;
 

@@ -59,7 +59,8 @@ public class WindPressureEffect : MonoBehaviour
     
     #endregion
     
-    private void TriggerWindHazard()
+    // public for debugging
+    public void TriggerWindHazard()
     {
         if (_isCorActive || _gameManager.IsGameOver()) return;
 

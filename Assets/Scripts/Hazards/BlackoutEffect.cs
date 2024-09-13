@@ -35,7 +35,8 @@ public class BlackoutEffect : MonoBehaviour
 
     #endregion
 
-    private void TriggerBoHazard()
+    // public for debugging
+    public void TriggerBoHazard()
     {
         if (_isCorActive || _gameManager.IsGameOver()) return;
 
