@@ -3,10 +3,8 @@ using System.Collections;
 using AudioScripts;
 using AudioScripts.AudioSettings;
 using EventScripts;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
@@ -58,18 +56,17 @@ public class WindPressureEffect : MonoBehaviour
         if (_isCorActive)
             BlowWind();
     }
-
+    
     #endregion
-
-    //private once debugging is complete
-    public void TriggerWindHazard()
+    
+    private void TriggerWindHazard()
     {
         if (_isCorActive || _gameManager.IsGameOver()) return;
 
         StartCoroutine(EnableWind());
         // Plays SFX correlating to the action
     }
-
+    
     //Start Hazard timer
     private IEnumerator EnableWind()
     {
@@ -128,16 +125,5 @@ public class WindPressureEffect : MonoBehaviour
     }
 
     #endregion
-
-
-    #region for debuggin pls delete later
-    public void SliderDuration(Slider duration)
-    {
-        _hazardDuration = duration.value;
-    }
-    public void TextDuration(TMP_Text text)
-    {
-        text.text = _hazardDuration.ToString();
-    }
-    #endregion
+    
 }
