@@ -67,7 +67,7 @@ namespace UI.Game_End_Menu_Scripts
 
         #region tween anim
 
-        private void PanelIntro(bool _isAnimating)
+        public void PanelIntro(bool _isAnimating)
         {
             if(_isAnimating)
             {
