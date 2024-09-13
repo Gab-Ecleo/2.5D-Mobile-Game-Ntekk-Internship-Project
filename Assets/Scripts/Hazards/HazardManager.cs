@@ -102,43 +102,5 @@ public class HazardManager : MonoBehaviour
         textWarning.gameObject.SetActive(true);
     }
 
-    #region for Debugger
-    public void TriggerHazard(string hazard)
-    {
-        StartCoroutine(TriggerHazardButton(hazard));
-    }
-    private IEnumerator TriggerHazardButton(string hazardTypes)
-    {
-        _isCorActive = true;
-        textWarning.gameObject.SetActive(false);
 
-        if (GAMEMANAGER.IsGameOver()) yield break;
-
-        //Debug.Log($"Loading {hazardType} hazard");
-
-        switch (hazardTypes)
-        {
-            case "Rain":
-                GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
-                break;
-            case "Blackout":
-                GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
-                break;
-            case "Ice":
-                GameEvents.TRIGGER_ICE_HAZARD?.Invoke();
-                break;
-            case "Wind":
-                GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
-                break;
-        }
-
-        hazardCooldown = Random.Range(10, 17);
-        StartCoroutine(ShowWarning());
-
-        yield return new WaitForSeconds(hazardCooldown);
-        _isCorActive = false;
-
-        InitiateHazardSeq();
-    }
-    #endregion
 }
