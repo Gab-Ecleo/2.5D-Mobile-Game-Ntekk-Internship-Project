@@ -19,6 +19,9 @@ namespace BlockSystemScripts.BlockScripts
         [SerializeField] private BlockTimerSO blockSpawnTimerData;
         private bool _isTimerActivated;
         
+        [Header("Pause Data")] 
+        [SerializeField] private PauseSO pauseSo;
+        
         [Header("Active Timers. To be private")]
         [SerializeField] private float timeLeft;
 
@@ -34,6 +37,7 @@ namespace BlockSystemScripts.BlockScripts
 
         private void Update()
         {
+            if (pauseSo.isPaused) return;
             UpdateTimer();
         }
 
