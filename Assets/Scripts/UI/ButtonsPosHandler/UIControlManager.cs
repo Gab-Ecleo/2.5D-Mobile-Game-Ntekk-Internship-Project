@@ -22,6 +22,8 @@ public class UIControlManager : MonoBehaviour
     [SerializeField] private Image RightPanel;
     [SerializeField] private Image LeftPanel;
 
+    [SerializeField] private RectTransform[] _confiners;
+
     private List<RectTransform> buttonRects;
     private List<uiControls> buttonUIControls;
     private List<OnScreenButton> onScreenButtons;
@@ -29,8 +31,7 @@ public class UIControlManager : MonoBehaviour
     private bool isControllerMenuOpen = false;
     public GameObject ControlMenu;
 
-    // after testing private this list
-    [SerializeField] private List<ButtonSaveData> buttonSaveDataList;
+    private List<ButtonSaveData> buttonSaveDataList;
 
     private void Awake()
     {
@@ -92,7 +93,7 @@ public class UIControlManager : MonoBehaviour
     private void Start()
     {
         LoadButtonData();
-        
+
         if (RightPanel != null && LeftPanel != null)
         {
             RightPanel.enabled = false;
@@ -116,7 +117,6 @@ public class UIControlManager : MonoBehaviour
         if (buttonSO.inIntialPos)
         {
             buttonSO.inIntialPos = false;
-            buttonSO.InitPos = rectTrans.position;
             buttonSO.CurrPos = rectTrans.position;
         }
         else
@@ -129,7 +129,8 @@ public class UIControlManager : MonoBehaviour
     {
         for (int i = 0; i < buttonSOs.Count; i++)
         {
-            buttonRects[i].position = buttonSOs[i].InitPos;
+            buttonRects[i].localPosition = buttonSOs[i].InitPos;
+            buttonSOs[i].inIntialPos=true;
         }
     }
 
@@ -156,6 +157,25 @@ public class UIControlManager : MonoBehaviour
         }
     }
 
+    public void SwitchSide(bool isItLeftSide)
+    {
+        var posZero = _confiners[0].localPosition; // R Button
+        var posOne = _confiners[1].localPosition;  // L Button
+        var posTwo = _confiners[2].localPosition;  // J Button
+        var posThree = _confiners[3].localPosition; // P/D Button
+
+        if (!isItLeftSide)
+        {
+            _confiners[2].localPosition = posThree;
+            _confiners[3].localPosition = posTwo;
+        }
+        else
+        {
+            _confiners[0].localPosition = posOne;
+            _confiners[1].localPosition = posZero;
+        }
+    }
+
     private void OnEnable()
     {
         GameEvents.ON_CONTROLS += ToggleControlScreen;
@@ -165,7 +185,7 @@ public class UIControlManager : MonoBehaviour
     {
         GameEvents.ON_CONTROLS -= ToggleControlScreen;
     }
-
+    
     #region SAVING_AND_LOADING
     private void LoadButtonData()
     {
@@ -211,7 +231,7 @@ public class UIControlManager : MonoBehaviour
         Debug.Log("Saving Button Data");
     }
     #endregion
-
+    
     public void OnButtonsSave()
     {
         if (buttonSOs.Count == 4)

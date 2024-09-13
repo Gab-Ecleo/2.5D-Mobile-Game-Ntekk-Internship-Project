@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class HazardManager : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class HazardManager : MonoBehaviour
 
     [SerializeField] private float hazardCooldown;
     [SerializeField] private List<string> hazardTag;
-    [SerializeField] private TextMeshProUGUI textWarning;
-    [SerializeField] private TextMeshProUGUI currentHazard;
+    [SerializeField] private Image textWarning;
+    [SerializeField] private Image currentHazard;
+
+    [SerializeField] private Sprite rainSprite;
+    [SerializeField] private Sprite blackoutSprite;
+    [SerializeField] private Sprite windSprite;
 
     private GameManager GAMEMANAGER;
     private bool _isCorActive;
@@ -61,18 +66,20 @@ public class HazardManager : MonoBehaviour
         string hazardType = hazardTag[hazardIndex];
         
         //Debug.Log($"Loading {hazardType} hazard");
-        currentHazard.text = hazardType;
 
         switch (hazardType)
         {
             case "Rain":
                 GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
+                currentHazard.sprite = rainSprite;
                 break;
             case "Blackout":
                 GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
+                currentHazard.sprite = blackoutSprite;
                 break;
             case "Wind":
                 GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
+                currentHazard.sprite = windSprite;
                 break;
         }
         
@@ -108,7 +115,6 @@ public class HazardManager : MonoBehaviour
         if (GAMEMANAGER.IsGameOver()) yield break;
 
         //Debug.Log($"Loading {hazardType} hazard");
-        currentHazard.text = hazardTypes;
 
         switch (hazardTypes)
         {

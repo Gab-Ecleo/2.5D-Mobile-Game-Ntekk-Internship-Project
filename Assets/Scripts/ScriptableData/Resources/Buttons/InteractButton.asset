@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a40f809e6945d749a42e82da0f533dc, type: 3}
   m_Name: InteractButton
   m_EditorClassIdentifier: 
-  ButtonType: 3
-  InitPos: {x: 2493.5718, y: 216.30096, z: 0}
-  CurrPos: {x: 2493.5718, y: 216.30096, z: 0}
+  buttonType: 3
+  CurrPos: {x: 1927.4163, y: 187.46051, z: 0}
   inIntialPos: 0
