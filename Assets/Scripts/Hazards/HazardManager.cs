@@ -17,6 +17,7 @@ public class HazardManager : MonoBehaviour
     [SerializeField] private Image textWarning;
     [SerializeField] private Image currentHazard;
 
+    [SerializeField] private Sprite defaultSprite;
     [SerializeField] private Sprite rainSprite;
     [SerializeField] private Sprite blackoutSprite;
     [SerializeField] private Sprite windSprite;
@@ -86,6 +87,7 @@ public class HazardManager : MonoBehaviour
         StartCoroutine(ShowWarning());
         
         yield return new WaitForSeconds(hazardCooldown);
+        currentHazard.sprite = defaultSprite;
         _isCorActive = false;
         Destroy(GameObject.FindWithTag("HazardFX"));
         
