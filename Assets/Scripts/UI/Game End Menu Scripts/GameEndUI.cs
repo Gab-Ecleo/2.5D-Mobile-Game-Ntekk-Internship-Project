@@ -47,14 +47,12 @@ namespace UI.Game_End_Menu_Scripts
         private void OnEnable()
         {
             GameEvents.TRIGGER_GAMEEND_SCREEN += PanelIntro;
-            GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN += PlayOutro;
             GameEvents.COMPLETE_TWEEN += CompleteAllTween;
         }
 
         private void OnDisable()
         {
             GameEvents.TRIGGER_GAMEEND_SCREEN -= PanelIntro;
-            GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN -= PlayOutro;
             GameEvents.COMPLETE_TWEEN -= CompleteAllTween;
         }
 
@@ -125,20 +123,6 @@ namespace UI.Game_End_Menu_Scripts
             {
                 CurrencyText.text = y.ToString("D4"); 
             }).SetUpdate(true);
-        }
-
-
-        public async void PlayOutro()
-        {
-            await PanelOutro();
-        }
-
-        async Task PanelOutro()
-        {
-            Time.timeScale = 1;
-            canvasGroup.alpha = 1f;
-            canvasGroup.DOFade(0, tweenDuration).SetUpdate(true);
-            await mainRectTrans.DOMoveY(-1721f, tweenDuration).SetUpdate(true).SetEase(easeOut).AsyncWaitForCompletion();
         }
 
         #endregion

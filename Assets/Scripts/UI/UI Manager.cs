@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using ScriptableData;
 using TMPro;
-
 public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
@@ -276,10 +275,13 @@ public class UIManager : MonoBehaviour
     {
         GameEvents.ON_CONTROLS?.Invoke();
     }
+    public void GoToScene(int scene)
+    {
+        SceneController.Instance.LoadScene(scene, true);
+    }
 
     public void RestartScene()
     {
-        Time.timeScale = 1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -295,18 +297,11 @@ public class UIManager : MonoBehaviour
 
     IEnumerator SceneTransition(int sceneInt, bool isDefaultHome)
     {
-        if (_isPauseScreenOpen)
-        {
-            TogglePause();
-        }
-        else if (_isTutorialScreenOpen)
-        {
-            ToggleTutorial();
-        }
+        TogglePause();
+        ToggleTutorial();
 
         yield return new WaitForSeconds(0.25f);
 
-        DOTween.KillAll();
         SceneController.Instance.LoadScene(sceneInt, isDefaultHome);
     }
 

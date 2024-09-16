@@ -8521,7 +8521,6 @@ MonoBehaviour:
   tutorialfadePanel: {fileID: 2792997689159588825}
   tutorialTopY: 2100
   tutorialMidY: 0
-  SceneFadePanel: {fileID: 6949371055149675445}
   TutorialButton: {fileID: 6639079195529869220}
   PauseMenu: {fileID: 103633268565802608}
   TutorialMenu: {fileID: 2133049881045105428}
@@ -14101,7 +14100,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7816219081218007756}
   m_HandleRect: {fileID: 4491075349956652366}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 0.000000039449347
   m_Size: 0.16920546
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -25802,7 +25801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6296607628544359018
 GameObject:
   m_ObjectHideFlags: 0
@@ -27482,7 +27481,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6282596962403401653}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -33950,9 +33949,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601441726418535479}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: RestartScene
+      - m_Target: {fileID: 6550472501827665923}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: ReloadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
