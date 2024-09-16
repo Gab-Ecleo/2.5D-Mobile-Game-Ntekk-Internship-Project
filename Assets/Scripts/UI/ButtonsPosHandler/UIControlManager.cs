@@ -49,7 +49,6 @@ public class UIControlManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: Keep this object across scenes.
         }
         else
         {

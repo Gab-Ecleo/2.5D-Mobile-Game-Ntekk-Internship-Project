@@ -1,19 +1,14 @@
 using AudioScripts.AudioSettings;
 using EventScripts;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using AudioType = AudioScripts.AudioSettings.AudioType;
 using System.Threading.Tasks;
 using DG.Tweening;
-using Unity.VisualScripting;
-using Player_Statistics;
 using ScriptableData;
 using TMPro;
-using UnityEngine.InputSystem.OnScreen;
 
 public class UIManager : MonoBehaviour
 {
@@ -48,8 +43,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CanvasGroup tutorialfadePanel;
     [SerializeField] private float tutorialTopY;
     [SerializeField] private float tutorialMidY;
-
-    [SerializeField] private CanvasGroup SceneFadePanel;
 
     [Header("Ref")]
     public Button TutorialButton;
@@ -95,9 +88,6 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-
-
     }
 
     private void OnDestroy()
@@ -107,12 +97,10 @@ public class UIManager : MonoBehaviour
         PlayerEvents.ON_BARRIER_HIT -= BarrierUpdate;
     }
 
-    private async void Start()
+    private void Start()
     {
         InitializePlayerStats();
         InitializeUIStates();
-
-        await FadeOutPanel();
 
         FirstTutorial();
 
@@ -289,20 +277,19 @@ public class UIManager : MonoBehaviour
         GameEvents.ON_CONTROLS?.Invoke();
     }
 
-    public void GoToScene(int scene)
+    public void RestartScene()
     {
-        StartCoroutine(SceneTransition(scene, true));
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToHomeButton()
     {
-        GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN.Invoke();
         StartCoroutine(SceneTransition(0, true));
     }
 
     public void GoToUpgradeButton()
     {
-        GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN.Invoke();
         StartCoroutine(SceneTransition(0, false));
     }
 
@@ -317,16 +304,11 @@ public class UIManager : MonoBehaviour
             ToggleTutorial();
         }
 
-        SceneFadePanel.DOFade(1, 0.2f).SetUpdate(true);
         yield return new WaitForSeconds(0.25f);
 
         DOTween.KillAll();
         SceneController.Instance.LoadScene(sceneInt, isDefaultHome);
     }
 
-    async Task FadeOutPanel()
-    {
-        await SceneFadePanel.DOFade(0, tweenDuration).SetUpdate(true).AsyncWaitForCompletion();
-    }
     #endregion
 }
