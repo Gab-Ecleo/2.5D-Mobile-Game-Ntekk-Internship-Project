@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ccd3dd3b9b495e9d7cdcb7601ab858, type: 3}
   m_Name: Pause Data
   m_EditorClassIdentifier: 
-  isPaused: 1
+  isPaused: 0
