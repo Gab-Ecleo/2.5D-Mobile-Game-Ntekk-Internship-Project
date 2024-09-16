@@ -29,7 +29,6 @@ public class DebugManager : MonoBehaviour
 
     private bool isDebugMenuOpen;
     [SerializeField] private GameObject DebugMenuScreen;
-    //[SerializeField] private PlayerPowerUps _powerUps;
 
     private void Start()
     {
@@ -46,7 +45,6 @@ public class DebugManager : MonoBehaviour
         DebugMenuScreen.SetActive(isDebugMenuOpen);
     }
 
-    #region Stats
     private void InitializeDictionaries()
     {
         _playerFloatStatsDict = new Dictionary<string, float>();
@@ -114,13 +112,33 @@ public class DebugManager : MonoBehaviour
 
                 if (_playerIntStatsDict.ContainsKey("barrierDurability")) { PlayerEvents.ON_BARRIER_HIT?.Invoke(); }
             }
+            else
+            {
+                Debug.LogError($"Field '{Name}' does not exist in the player's stats.");
+            }
+        }
+        else
+        {
+            Debug.LogError($"Slider with name '{Name}' not found.");
         }
 
     }
 
-    #endregion
-
     #region buttons
+    public void LevelSelector(int GoToScene)
+    {
+        SceneManager.LoadScene(GoToScene);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GameOver()
+    {
+        GameEvents.TRIGGER_GAMEEND_SCREEN?.Invoke(true);
+    }
 
     public void ResetPlayerPos()
     {
@@ -137,6 +155,11 @@ public class DebugManager : MonoBehaviour
         CurrencyManager.Instance.ResetMatchCoins();
     }
 
+    public void PauseMenu()
+    {
+        UIManager.Instance.TogglePauseButton();
+    }
+
     public void Scoring()
     {
         GameEvents.ON_SCORE_CHANGES?.Invoke(9);
@@ -145,11 +168,6 @@ public class DebugManager : MonoBehaviour
     public void SpawnBlock()
     {
         SpawnEvents.OnSpawnTrigger?.Invoke(false);
-    }
-
-    public void GameOver()
-    {
-        GameEvents.IS_GAME_OVER.Invoke(true);
     }
 
     #endregion

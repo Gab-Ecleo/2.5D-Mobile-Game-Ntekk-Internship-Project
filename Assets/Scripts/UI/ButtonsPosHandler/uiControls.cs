@@ -10,7 +10,6 @@ public class uiControls : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
 
     [SerializeField] private Canvas canvas;
     [SerializeField] private RectTransform confiner;
-    [SerializeField] private RectTransform[] otherButton;
 
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
@@ -48,8 +47,6 @@ public class uiControls : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         viewPos.y = Mathf.Clamp(viewPos.y, minBound.y + halfHeight, maxBound.y - halfHeight);
 
         rectTransform.position = viewPos;
-
-        CheckOverlapWithOtherButtons();
     }
 
     private void SendDataToSO(Vector3 pos)
@@ -71,24 +68,11 @@ public class uiControls : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        buttonSO.inIntialPos = false;
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1;
     }
 
-    private void CheckOverlapWithOtherButtons()
-    {
-        foreach (RectTransform otherButton in otherButton)
-        {
-            if (otherButton == rectTransform) continue;
-
-            if (RectOverlaps(rectTransform, otherButton))
-            {
-                rectTransform.position = buttonSO.InitPos; 
-                ConfineToBounds();
-                break;
-            }
-        }
-    }
 
     private bool RectOverlaps(RectTransform rect1, RectTransform rect2)
     {

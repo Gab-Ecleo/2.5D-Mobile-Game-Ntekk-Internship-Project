@@ -4,8 +4,6 @@ using AudioScripts;
 using AudioScripts.AudioSettings;
 using EventScripts;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class BlackoutEffect : MonoBehaviour
 {
@@ -37,7 +35,7 @@ public class BlackoutEffect : MonoBehaviour
 
     #endregion
 
-    //private once debugging is complete
+    // public for debugging
     public void TriggerBoHazard()
     {
         if (_isCorActive || _gameManager.IsGameOver()) return;
@@ -68,15 +66,4 @@ public class BlackoutEffect : MonoBehaviour
         blackOutAnimation.Play("FadeOut");
         _gameManager.FetchHazardData().IsBlackOutActive = false;
     }
-
-    #region for debuggin pls delete later
-    public void SliderDuration(Slider duration)
-    {
-        hazardDuration = duration.value;
-    }
-    public void TextDuration(TMP_Text text)
-    {
-        text.text = hazardDuration.ToString();
-    }
-    #endregion
 }

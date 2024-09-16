@@ -29,6 +29,7 @@ namespace SaveSystem
             new StatStorages().CreateStatData();
             new CurrencyStorage().CreateCurrencyData();
             new AudioStorage().CreateAudioData();
+            new ButtonStorage().CreateButtonData();
         }
 
         public void ClearData()
@@ -37,6 +38,7 @@ namespace SaveSystem
             new StatStorages().DeleteStatData();
             new CurrencyStorage().DeleteCurrencyData();
             new AudioStorage().DeleteAudioData();
+            new ButtonStorage().DeleteButtonData();
         }
 
         //called at the beginning of the scene
@@ -139,7 +141,19 @@ namespace SaveSystem
             new AudioStorage().SaveAudioData(tempData);
         }
         #endregion
+
+        #region BUTTON_SETTINGS
+        public void LoadButtons()
+        {
+            //Add code if needed
+        }
         
+        public void SaveButtons()
+        {
+            //Saving progress is in UIControlManager
+            //Add code if needed
+        }
+        #endregion
 
         private void OnEnable()
         {
@@ -154,6 +168,9 @@ namespace SaveSystem
 
             LocalStorageEvents.OnLoadAudioSettingsData += LoadAudioSettingsData;
             LocalStorageEvents.OnSaveAudioSettingsData += SaveAudioSettingsData;
+
+            LocalStorageEvents.OnLoadButtonSettingsData += LoadButtons;
+            LocalStorageEvents.OnSaveButtonSettingsData += SaveButtons;
             
             SceneManager.sceneLoaded += InitializeData;
         }
@@ -171,6 +188,9 @@ namespace SaveSystem
             
             LocalStorageEvents.OnLoadAudioSettingsData -= LoadAudioSettingsData;
             LocalStorageEvents.OnSaveAudioSettingsData -= SaveAudioSettingsData;
+            
+            LocalStorageEvents.OnLoadButtonSettingsData -= LoadButtons;
+            LocalStorageEvents.OnSaveButtonSettingsData -= SaveButtons;
             
             SceneManager.sceneLoaded -= InitializeData;
         }

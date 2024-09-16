@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using DG.Tweening;
 using System.Collections;
+using UnityEngine.UI;
 
 namespace UI.Game_End_Menu_Scripts
 {
@@ -26,13 +27,10 @@ namespace UI.Game_End_Menu_Scripts
 
         [Header("Title Anim")]
         [SerializeField] private RectTransform panelTitleHolder;
-        [SerializeField] private TMP_Text panelTitleText;
         [SerializeField] private float titleDuration = 2f;
 
         [Header("Score Anim")]
-        [SerializeField] private RectTransform finalScorePanel;
-        [SerializeField] private TextMeshProUGUI ScoreTitleText;
-        [SerializeField] private CanvasGroup ScoreNumberTextCanvasGrp;
+        [SerializeField] private RectTransform scoreRectTrans;
         [SerializeField] private TextMeshProUGUI ScoreText;
         [SerializeField] private int currentScore;
 
@@ -64,7 +62,7 @@ namespace UI.Game_End_Menu_Scripts
         {
             isAnimating = false;
             GameOverGO.SetActive(isAnimating);
-           // PanelIntro(); // for testing
+            //PanelIntro(true); // for testing
         }
 
         #region tween anim
@@ -75,21 +73,16 @@ namespace UI.Game_End_Menu_Scripts
             {
                 isAnimating = _isAnimating;
                 GameOverGO.SetActive(isAnimating);
-                panelTitleText.maxVisibleCharacters = 0;
-                ScoreTitleText.maxVisibleCharacters = 0;
 
                 Time.timeScale = 0;
                 introTween = DOTween.Sequence();
 
                 introTween.Append(canvasGroup.DOFade(1, tweenDuration).SetUpdate(true))
-                          .Append(bgRectTransform.DOLocalMoveY(908, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                          .Append(panelTitleHolder.DOLocalMoveY(1181, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                          .Append(TypewriterTween(panelTitleText))
-                          .Append(finalScorePanel.DOLocalMoveY(1063, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                          .Append(TypewriterTween(ScoreTitleText))
-                          .Append(ScoreNumberTextCanvasGrp.DOFade(1, tweenDuration).SetUpdate(true))
-                          .Append(currencyTrans.DOLocalMoveY(720, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                          .Append(buttonsRectTrans.DOLocalMoveY(550, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(bgRectTransform.DOLocalMoveY(950, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(panelTitleHolder.DOLocalMoveY(1191, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(scoreRectTrans.DOLocalMoveY(1140, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(currencyTrans.DOLocalMoveY(940, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(buttonsRectTrans.DOLocalMoveY(560, tweenDuration).SetUpdate(true).SetEase(easeIn))
                           .OnComplete(() => {
                               ScoreDisplay();
                               CurrencyDisplay();
@@ -122,7 +115,7 @@ namespace UI.Game_End_Menu_Scripts
         {
             DOVirtual.Int(currentScore, scoreData.Points, 1, (x) =>
             {
-                ScoreText.text = x.ToString("D5");
+                ScoreText.text = x.ToString("D4");
             }).SetUpdate(true);
         }
 
@@ -130,7 +123,7 @@ namespace UI.Game_End_Menu_Scripts
         {
             DOVirtual.Int(currentCurrency, currencyData.matchCoins, 1, (y) =>
             {
-                CurrencyText.text = y.ToString("D5"); 
+                CurrencyText.text = y.ToString("D4"); 
             }).SetUpdate(true);
         }
 
@@ -145,7 +138,7 @@ namespace UI.Game_End_Menu_Scripts
             Time.timeScale = 1;
             canvasGroup.alpha = 1f;
             canvasGroup.DOFade(0, tweenDuration).SetUpdate(true);
-            await mainRectTrans.DOMoveY(-1249f, tweenDuration).SetUpdate(true).SetEase(easeOut).AsyncWaitForCompletion();
+            await mainRectTrans.DOMoveY(-1721f, tweenDuration).SetUpdate(true).SetEase(easeOut).AsyncWaitForCompletion();
         }
 
         #endregion
