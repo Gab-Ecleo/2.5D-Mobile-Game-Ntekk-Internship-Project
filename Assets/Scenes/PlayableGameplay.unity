@@ -8521,7 +8521,6 @@ MonoBehaviour:
   tutorialfadePanel: {fileID: 2792997689159588825}
   tutorialTopY: 2100
   tutorialMidY: 0
-  SceneFadePanel: {fileID: 6949371055149675445}
   TutorialButton: {fileID: 6639079195529869220}
   PauseMenu: {fileID: 103633268565802608}
   TutorialMenu: {fileID: 2133049881045105428}
@@ -14101,8 +14100,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7816219081218007756}
   m_HandleRect: {fileID: 4491075349956652366}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.16920547
+  m_Value: 0.000000039449347
+  m_Size: 0.16920546
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -23625,8 +23624,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 601441726418535479}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: GoToScene
-        m_Mode: 3
+        m_MethodName: GoToHomeButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
