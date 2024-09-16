@@ -4,6 +4,7 @@ using ScriptableData;
 using UnityEngine;
 using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UI;
+
 public class UIControlManager : MonoBehaviour
 {
     private static UIControlManager _instance;
@@ -26,17 +27,17 @@ public class UIControlManager : MonoBehaviour
     [SerializeField] private RectTransform[] _confiners;
 
     public GameObject ControlMenu;
-
     public Button rightSwitchButton;
     public Button leftSwitchButton;
+
     private List<RectTransform> buttonRects;
     private List<uiControls> buttonUIControls;
     private List<OnScreenButton> onScreenButtons;
 
-    private bool isControllerMenuOpen = false;
+    private bool isControllerMenuOpen;
     private PlayerStatsSO playerStatsSO;
-    private bool isRightHudSwitched = false;
-    private bool isLeftHudSwitched = false;
+    private bool isRightHudSwitched;
+    private bool isLeftHudSwitched;
 
     private Vector3 posZero;
     private Vector3 posOne;
@@ -48,51 +49,30 @@ public class UIControlManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: Keep this object across scenes.
         }
-        else if (_instance != this)
+        else
         {
             Destroy(gameObject);
-            return;
         }
 
         playerStatsSO = GameManager.Instance.FetchCurrentPlayerStat();
         controlfadePanel.alpha = 0;
     }
 
-    private void InitializeButtons()
-    {
-        buttonRects = new List<RectTransform>();
-        buttonUIControls = new List<uiControls>();
-        onScreenButtons = new List<OnScreenButton>();
-        buttonSOs = new List<ButtonSO>();
-
-        foreach (var buttonGO in buttonGOs) 
-        {
-            if (buttonGO != null)
-            {
-                var rectTrans = buttonGO.GetComponent<RectTransform>();
-                var uiControl = buttonGO.GetComponent<uiControls>();
-                var onScreenButton = buttonGO.GetComponent<OnScreenButton>();
-
-                if (rectTrans != null && uiControl != null && onScreenButton != null)
-                {
-                    buttonRects.Add(rectTrans);
-                    buttonUIControls.Add(uiControl);
-                    onScreenButtons.Add(onScreenButton);
-                    buttonSOs.Add(uiControl.buttonSO);
-                }
-            }
-        }
-    }
-
     private void Start()
     {
-        if (buttonSOs == null || buttonRects == null || _confiners == null)
-        {
-            InitializeButtons();
-        }
+        InitializeUI();
 
-        LoadButtonData();
+        rightSwitchButton.onClick.AddListener(OnRightButtonClick);
+        leftSwitchButton.onClick.AddListener(OnLeftButtonClick);
+    }
+
+    private void InitializeUI()
+    {
+        InitializeButtons();
+        InitializeButtonPositions();
+        InitializeConfinerPositions();
 
         if (RightPanel != null && LeftPanel != null)
         {
@@ -101,14 +81,32 @@ public class UIControlManager : MonoBehaviour
         }
 
         ControlMenu.SetActive(false);
-
-        InitializeButtonPositions();
-        InitializeConfinerPositions();
-
-        rightSwitchButton.onClick.AddListener(OnRightButtonClick);
-        leftSwitchButton.onClick.AddListener(OnLeftButtonClick);
     }
 
+    private void InitializeButtons()
+    {
+        buttonRects = new List<RectTransform>(buttonGOs.Count);
+        buttonUIControls = new List<uiControls>(buttonGOs.Count);
+        onScreenButtons = new List<OnScreenButton>(buttonGOs.Count);
+        buttonSOs = new List<ButtonSO>(buttonGOs.Count);
+
+        foreach (var buttonGO in buttonGOs)
+        {
+            if (buttonGO == null) continue;
+
+            var rectTrans = buttonGO.GetComponent<RectTransform>();
+            var uiControl = buttonGO.GetComponent<uiControls>();
+            var onScreenButton = buttonGO.GetComponent<OnScreenButton>();
+
+            if (rectTrans != null && uiControl != null && onScreenButton != null)
+            {
+                buttonRects.Add(rectTrans);
+                buttonUIControls.Add(uiControl);
+                onScreenButtons.Add(onScreenButton);
+                buttonSOs.Add(uiControl.buttonSO);
+            }
+        }
+    }
 
     private void InitializeButtonPositions()
     {
@@ -118,8 +116,10 @@ public class UIControlManager : MonoBehaviour
         }
     }
 
-    public void InitializeConfinerPositions()
+    private void InitializeConfinerPositions()
     {
+        if (_confiners.Length < 4) return;
+
         posZero = _confiners[0].localPosition;
         posOne = _confiners[1].localPosition;
         posTwo = _confiners[2].localPosition;
@@ -134,6 +134,7 @@ public class UIControlManager : MonoBehaviour
             buttonSO.CurrPos = rectTrans.position;
         }
     }
+
     private void ToggleControlScreen()
     {
         controlfadePanel.alpha = 1;
@@ -157,6 +158,7 @@ public class UIControlManager : MonoBehaviour
             onScreenButton.enabled = !isControllerMenuOpen;
         }
     }
+
     public void ResetPositions()
     {
         for (int i = 0; i < buttonSOs.Count; i++)
@@ -165,10 +167,13 @@ public class UIControlManager : MonoBehaviour
             buttonSOs[i].inIntialPos = true;
         }
 
-        _confiners[0].localPosition = posZero;
-        _confiners[1].localPosition = posOne;
-        _confiners[2].localPosition = posTwo;
-        _confiners[3].localPosition = posThree;
+        if (_confiners.Length >= 4)
+        {
+            _confiners[0].localPosition = posZero;
+            _confiners[1].localPosition = posOne;
+            _confiners[2].localPosition = posTwo;
+            _confiners[3].localPosition = posThree;
+        }
 
         isRightHudSwitched = false;
         isLeftHudSwitched = false;
@@ -180,14 +185,13 @@ public class UIControlManager : MonoBehaviour
         {
             _confiners[2].localPosition = posTwo;
             _confiners[3].localPosition = posThree;
-            isRightHudSwitched = true;
         }
         else
         {
             _confiners[2].localPosition = posThree;
             _confiners[3].localPosition = posTwo;
-            isRightHudSwitched = false;
         }
+        isRightHudSwitched = !isRightHudSwitched;
     }
 
     public void OnLeftButtonClick()
@@ -196,19 +200,14 @@ public class UIControlManager : MonoBehaviour
         {
             _confiners[0].localPosition = posZero;
             _confiners[1].localPosition = posOne;
-            isLeftHudSwitched = true;
         }
         else
         {
-
             _confiners[0].localPosition = posOne;
             _confiners[1].localPosition = posZero;
-            
-            isLeftHudSwitched = false;
         }
+        isLeftHudSwitched = !isLeftHudSwitched;
     }
-
-
 
     private void OnEnable()
     {
@@ -219,7 +218,8 @@ public class UIControlManager : MonoBehaviour
     {
         GameEvents.ON_CONTROLS -= ToggleControlScreen;
     }
-    
+
+
     #region SAVING_AND_LOADING
     private void LoadButtonData()
     {
