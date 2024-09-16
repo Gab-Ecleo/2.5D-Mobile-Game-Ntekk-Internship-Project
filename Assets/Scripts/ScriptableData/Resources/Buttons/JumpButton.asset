@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: JumpButton
   m_EditorClassIdentifier: 
   buttonType: 2
-  CurrPos: {x: 1514.1663, y: 187.46051, z: 0}
-  inIntialPos: 0
+  CurrPos: {x: 1686.4379, y: 183.42398, z: 0}
+  inIntialPos: 1

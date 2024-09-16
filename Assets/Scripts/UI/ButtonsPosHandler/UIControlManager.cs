@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using SaveSystem.Storage;
-using Unity.VisualScripting;
+using ScriptableData;
 using UnityEngine;
 using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UI;
-
 public class UIControlManager : MonoBehaviour
 {
     private static UIControlManager _instance;
     public static UIControlManager Instance => _instance;
+
+    [SerializeField] private List<ButtonSaveData> buttonSaveDataList;
 
     [Header("Control Tween Animation")]
     [SerializeField] private GameObject controlPanelGO;
@@ -24,14 +25,23 @@ public class UIControlManager : MonoBehaviour
 
     [SerializeField] private RectTransform[] _confiners;
 
+    public GameObject ControlMenu;
+
+    public Button rightSwitchButton;
+    public Button leftSwitchButton;
     private List<RectTransform> buttonRects;
     private List<uiControls> buttonUIControls;
     private List<OnScreenButton> onScreenButtons;
 
     private bool isControllerMenuOpen = false;
-    public GameObject ControlMenu;
+    private PlayerStatsSO playerStatsSO;
+    private bool isRightHudSwitched = false;
+    private bool isLeftHudSwitched = false;
 
-    [SerializeField] private List<ButtonSaveData> buttonSaveDataList;
+    private Vector3 posZero;
+    private Vector3 posOne;
+    private Vector3 posTwo;
+    private Vector3 posThree;
 
     private void Awake()
     {
@@ -45,7 +55,8 @@ public class UIControlManager : MonoBehaviour
             return;
         }
 
-        InitializeButtons();
+        playerStatsSO = GameManager.Instance.FetchCurrentPlayerStat();
+        controlfadePanel.alpha = 0;
     }
 
     private void InitializeButtons()
@@ -55,43 +66,32 @@ public class UIControlManager : MonoBehaviour
         onScreenButtons = new List<OnScreenButton>();
         buttonSOs = new List<ButtonSO>();
 
-        for (int i = 0; i < buttonGOs.Count; i++)
+        foreach (var buttonGO in buttonGOs) 
         {
-            if (buttonGOs[i] != null)
+            if (buttonGO != null)
             {
-                var rectTrans = buttonGOs[i].GetComponent<RectTransform>();
-                var uiControl = buttonGOs[i].GetComponent<uiControls>();
-                var onScreenButton = buttonGOs[i].GetComponent<OnScreenButton>();
+                var rectTrans = buttonGO.GetComponent<RectTransform>();
+                var uiControl = buttonGO.GetComponent<uiControls>();
+                var onScreenButton = buttonGO.GetComponent<OnScreenButton>();
 
                 if (rectTrans != null && uiControl != null && onScreenButton != null)
                 {
                     buttonRects.Add(rectTrans);
                     buttonUIControls.Add(uiControl);
                     onScreenButtons.Add(onScreenButton);
-
-                    if (uiControl.buttonSO != null)
-                    {
-                        buttonSOs.Add(uiControl.buttonSO);
-                    }
-                    else
-                    {
-                        Debug.LogError($"Missing ButtonSO reference in uiControls for {buttonGOs[i].name}");
-                    }
+                    buttonSOs.Add(uiControl.buttonSO);
                 }
-                else
-                {
-                    Debug.LogError($"Missing components for button {buttonGOs[i].name}");
-                }
-            }
-            else
-            {
-                Debug.LogError("Missing button GameObject reference");
             }
         }
     }
 
     private void Start()
     {
+        if (buttonSOs == null || buttonRects == null || _confiners == null)
+        {
+            InitializeButtons();
+        }
+
         LoadButtonData();
 
         if (RightPanel != null && LeftPanel != null)
@@ -99,10 +99,16 @@ public class UIControlManager : MonoBehaviour
             RightPanel.enabled = false;
             LeftPanel.enabled = false;
         }
+
         ControlMenu.SetActive(false);
 
         InitializeButtonPositions();
+        InitializeConfinerPositions();
+
+        rightSwitchButton.onClick.AddListener(OnRightButtonClick);
+        leftSwitchButton.onClick.AddListener(OnLeftButtonClick);
     }
+
 
     private void InitializeButtonPositions()
     {
@@ -112,30 +118,25 @@ public class UIControlManager : MonoBehaviour
         }
     }
 
+    public void InitializeConfinerPositions()
+    {
+        posZero = _confiners[0].localPosition;
+        posOne = _confiners[1].localPosition;
+        posTwo = _confiners[2].localPosition;
+        posThree = _confiners[3].localPosition;
+    }
+
     private void InitializeButtonPosition(ButtonSO buttonSO, RectTransform rectTrans)
     {
-        if (buttonSO.inIntialPos)
+        if (buttonSO.inIntialPos && !playerStatsSO.stats.isPlayerFirstGame)
         {
             buttonSO.inIntialPos = false;
             buttonSO.CurrPos = rectTrans.position;
         }
-        else
-        {
-            rectTrans.position = buttonSO.CurrPos;
-        }
     }
-
-    public void ResetPositions()
-    {
-        for (int i = 0; i < buttonSOs.Count; i++)
-        {
-            buttonRects[i].localPosition = buttonSOs[i].InitPos;
-            buttonSOs[i].inIntialPos=true;
-        }
-    }
-
     private void ToggleControlScreen()
     {
+        controlfadePanel.alpha = 1;
         isControllerMenuOpen = !isControllerMenuOpen;
 
         Time.timeScale = isControllerMenuOpen ? 0 : 1;
@@ -156,25 +157,58 @@ public class UIControlManager : MonoBehaviour
             onScreenButton.enabled = !isControllerMenuOpen;
         }
     }
-
-    public void SwitchSide(bool isItLeftSide)
+    public void ResetPositions()
     {
-        var posZero = _confiners[0].localPosition; // R Button
-        var posOne = _confiners[1].localPosition;  // L Button
-        var posTwo = _confiners[2].localPosition;  // J Button
-        var posThree = _confiners[3].localPosition; // P/D Button
-
-        if (!isItLeftSide)
+        for (int i = 0; i < buttonSOs.Count; i++)
         {
-            _confiners[2].localPosition = posThree;
-            _confiners[3].localPosition = posTwo;
+            buttonRects[i].localPosition = buttonSOs[i].InitPos;
+            buttonSOs[i].inIntialPos = true;
+        }
+
+        _confiners[0].localPosition = posZero;
+        _confiners[1].localPosition = posOne;
+        _confiners[2].localPosition = posTwo;
+        _confiners[3].localPosition = posThree;
+
+        isRightHudSwitched = false;
+        isLeftHudSwitched = false;
+    }
+
+    public void OnRightButtonClick()
+    {
+        if (!isRightHudSwitched)
+        {
+            _confiners[2].localPosition = posTwo;
+            _confiners[3].localPosition = posThree;
+            isRightHudSwitched = true;
         }
         else
         {
-            _confiners[0].localPosition = posOne;
-            _confiners[1].localPosition = posZero;
+            _confiners[2].localPosition = posThree;
+            _confiners[3].localPosition = posTwo;
+            isRightHudSwitched = false;
         }
     }
+
+    public void OnLeftButtonClick()
+    {
+        if (!isLeftHudSwitched)
+        {
+            _confiners[0].localPosition = posZero;
+            _confiners[1].localPosition = posOne;
+            isLeftHudSwitched = true;
+        }
+        else
+        {
+
+            _confiners[0].localPosition = posOne;
+            _confiners[1].localPosition = posZero;
+            
+            isLeftHudSwitched = false;
+        }
+    }
+
+
 
     private void OnEnable()
     {

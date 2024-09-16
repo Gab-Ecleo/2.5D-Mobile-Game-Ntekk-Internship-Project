@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonType: 0
   CurrPos: {x: 868.6949, y: 187.46051, z: 0}
-  inIntialPos: 0
+  inIntialPos: 1

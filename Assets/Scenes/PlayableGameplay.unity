@@ -3181,19 +3181,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1204787342}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8648302688588926345}
-        m_TargetAssemblyTypeName: UIControlManager, Assembly-CSharp
-        m_MethodName: SwitchSide
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1204787342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3376,7 +3364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 58.5668}
+  m_AnchoredPosition: {x: 0, y: 66}
   m_SizeDelta: {x: 720, y: 303.2381}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1274076328
@@ -4131,19 +4119,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1408431910}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8648302688588926345}
-        m_TargetAssemblyTypeName: UIControlManager, Assembly-CSharp
-        m_MethodName: SwitchSide
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1408431910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8582,12 +8558,12 @@ MonoBehaviour:
   _sfxButton: {fileID: 5696497561241537210}
   pausePanelGO: {fileID: 3915224535449406182}
   pausefadePanel: {fileID: 7439058834640118240}
-  pauseTopY: 1050
+  pauseTopY: 2100
   pauseMidY: 0
   tweenDuration: 0
   tutorialPanelGO: {fileID: 4555309233875107884}
   tutorialfadePanel: {fileID: 2792997689159588825}
-  tutorialTopY: 1050
+  tutorialTopY: 2100
   tutorialMidY: 0
   SceneFadePanel: {fileID: 6949371055149675445}
   TutorialButton: {fileID: 6639079195529869220}
@@ -14432,7 +14408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1050}
+  m_AnchoredPosition: {x: 0, y: 2043}
   m_SizeDelta: {x: 720, y: 638.9668}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2221931187186039753
@@ -14579,7 +14555,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7816219081218007756}
   m_HandleRect: {fileID: 4491075349956652366}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 0.000000039449347
   m_Size: 0.16920546
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -15531,8 +15507,8 @@ RectTransform:
   - {fileID: 2312310618568700098}
   - {fileID: 8443347894975199799}
   - {fileID: 2275031622915376587}
-  - {fileID: 493559370}
   - {fileID: 500408520206720881}
+  - {fileID: 493559370}
   - {fileID: 1202424250}
   - {fileID: 281228649443951570}
   - {fileID: 5532673906683793744}
@@ -15645,8 +15621,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -420.9441, y: -105}
-  m_SizeDelta: {x: 640, y: 180}
+  m_AnchoredPosition: {x: -420.9441, y: -105.26145}
+  m_SizeDelta: {x: 640, y: 253.9869}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &2523232104661179494
 RectTransform:
@@ -26993,7 +26969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1046}
+  m_AnchoredPosition: {x: 0, y: 2039}
   m_SizeDelta: {x: 1940, y: 856}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &6316261209640401039
@@ -34399,6 +34375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50431a0bf767ec44b7fd82eafaa39fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonSaveDataList: []
   controlPanelGO: {fileID: 1274076325}
   controlfadePanel: {fileID: 1714006575}
   buttonGOs:
@@ -34414,7 +34391,8 @@ MonoBehaviour:
   - {fileID: 1808597474}
   - {fileID: 1207504660}
   ControlMenu: {fileID: 493559369}
-  buttonSaveDataList: []
+  rightSwitchButton: {fileID: 1204787341}
+  leftSwitchButton: {fileID: 1408431909}
 --- !u!222 &8650987644803474955
 CanvasRenderer:
   m_ObjectHideFlags: 0

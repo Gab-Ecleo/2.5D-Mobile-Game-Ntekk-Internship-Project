@@ -69,7 +69,6 @@ public class UIManager : MonoBehaviour
     private PlayerStatsSO currStat;
     private bool _isPauseScreenOpen;
     private bool _isTutorialScreenOpen;
-
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -162,7 +161,7 @@ public class UIManager : MonoBehaviour
 
     private void BarrierUpdate()
     {
-        barrierText.text = currStat.stats.barrierDurability.ToString();
+        barrierText.text = ((int)currStat.stats.barrierDurability).ToString("d4");
     }
 
     #region Pause Screen
