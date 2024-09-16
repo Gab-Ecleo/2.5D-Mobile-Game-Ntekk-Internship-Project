@@ -14,13 +14,23 @@ namespace BlockSystemScripts
     {
         #region VARIABLES
         //DO NOT MODIFY IN INSPECTOR. Displays the assigned row and column manager to this object
-        [Header("Test References. To be private")]
+        [Header("Assigned Scripts. DO NOT MODIFY")]
         [SerializeField] private BlockScript currentBlock;
         [SerializeField] private RowManager assignedRow;
         [SerializeField] private ColumnManager assignedColumn;
         [SerializeField] private BlockSpawner assignedSpawner;
-        [SerializeField] private int rowIndex, columnIndex;
-        [SerializeField] private GridCell previousCell, nextCell;
+        
+        [Header("Assigned Indexes. DO NOT MODIFY")]
+        [SerializeField] private int rowIndex;
+        [SerializeField] private int columnIndex;
+        
+        [Header("Column Neighbors. DO NOT MODIFY")]
+        [SerializeField] private GridCell previousYCell;
+        [SerializeField] private GridCell nextYCell;
+        
+        [Header("Row Neighbors. DO NOT MODIFY")]
+        [SerializeField] private GridCell previousXCell;
+        [SerializeField] private GridCell nextXCell;
 
         public BlockScript CurrentBlock => currentBlock;
         public RowManager AssignedRow => assignedRow;
@@ -28,8 +38,11 @@ namespace BlockSystemScripts
         public BlockSpawner AssignedSpawner  => assignedSpawner;
         public int RowIndex => rowIndex;
         public int ColumnIndex => columnIndex;
-        public GridCell PreviousCell => previousCell;
-        public GridCell NextCell => nextCell;
+        public GridCell PreviousYCell => previousYCell;
+        public GridCell NextYCell => nextYCell;
+        
+        public GridCell PreviousXCell => previousXCell;
+        public GridCell NextXCell => nextXCell;
         #endregion
         
 
@@ -47,15 +60,33 @@ namespace BlockSystemScripts
         //Triggered once after the generation of the grid has been completed
         private void InitializePrevAndNextCell()
         {
+            #region UP AND DOWN NEIGHBORS
+
             if (rowIndex != 0)
             {
-                previousCell = assignedColumn.GridCells[rowIndex - 1];
+                previousYCell = assignedColumn.GridCells[rowIndex - 1];
             }
 
             if (rowIndex != assignedColumn.GridCells.Count - 1)
             {
-                nextCell = assignedColumn.GridCells[rowIndex + 1];
+                nextYCell = assignedColumn.GridCells[rowIndex + 1];
             }
+
+            #endregion
+
+            #region LEFT AND RIGHT NEIGBORS
+
+            if (columnIndex != 0)
+            {
+                previousXCell = assignedRow.GridCells[columnIndex - 1];
+            }
+            
+            if (columnIndex != assignedRow.GridCells.Count - 1)
+            {
+                nextXCell = assignedRow.GridCells[columnIndex + 1];
+            }
+
+            #endregion
         }
 
         public void FillCellSlot(BlockScript block)

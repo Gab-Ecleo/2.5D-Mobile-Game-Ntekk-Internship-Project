@@ -16,4 +16,10 @@
         Landed,
         CanPickUp
     }
+
+    public enum PlacementScoreState
+    {
+        ScoreNotYetTriggered,
+        ScoreTriggered
+    }
 }
