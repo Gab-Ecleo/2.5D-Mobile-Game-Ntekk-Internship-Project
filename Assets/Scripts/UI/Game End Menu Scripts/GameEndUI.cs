@@ -78,11 +78,11 @@ namespace UI.Game_End_Menu_Scripts
                 introTween = DOTween.Sequence();
 
                 introTween.Append(canvasGroup.DOFade(1, tweenDuration).SetUpdate(true))
-                          .Append(bgRectTransform.DOLocalMoveY(908, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                          .Append(panelTitleHolder.DOLocalMoveY(1181, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                          .Append(scoreRectTrans.DOLocalMoveY(1150, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                          .Append(currencyTrans.DOLocalMoveY(950, tweenDuration).SetUpdate(true).SetEase(easeIn))
-                          .Append(buttonsRectTrans.DOLocalMoveY(550, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(bgRectTransform.DOLocalMoveY(950, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(panelTitleHolder.DOLocalMoveY(1191, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(scoreRectTrans.DOLocalMoveY(1140, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(currencyTrans.DOLocalMoveY(940, tweenDuration).SetUpdate(true).SetEase(easeIn))
+                          .Append(buttonsRectTrans.DOLocalMoveY(560, tweenDuration).SetUpdate(true).SetEase(easeIn))
                           .OnComplete(() => {
                               ScoreDisplay();
                               CurrencyDisplay();
@@ -138,7 +138,7 @@ namespace UI.Game_End_Menu_Scripts
             Time.timeScale = 1;
             canvasGroup.alpha = 1f;
             canvasGroup.DOFade(0, tweenDuration).SetUpdate(true);
-            await mainRectTrans.DOMoveY(-1249f, tweenDuration).SetUpdate(true).SetEase(easeOut).AsyncWaitForCompletion();
+            await mainRectTrans.DOMoveY(-1721f, tweenDuration).SetUpdate(true).SetEase(easeOut).AsyncWaitForCompletion();
         }
 
         #endregion
