@@ -119,7 +119,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
                 {
                     Camera mainCamera = Camera.main;
                     Vector3 screenPos = mainCamera.WorldToScreenPoint(GridCells[0].transform.position);
-                    var obj = Instantiate(imageToSpawn, screenPos, quaternion.identity, GameManager.Instance.FetchCanvas().transform);
+                    var obj = Instantiate(imageToSpawn, screenPos, quaternion.identity, GameManager.Instance.FetchWarningParent().transform);
                     _imgObj = obj;
                     _imgObj.GetComponent<Animator>().SetTrigger("BlinkTrigger");
                     _imgObj.GetComponent<BlackOutWarningTrigger>().InitializeImage();

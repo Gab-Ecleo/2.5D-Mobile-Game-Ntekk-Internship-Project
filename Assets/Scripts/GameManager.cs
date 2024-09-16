@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Objects")] 
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameObject canvas;
+    [SerializeField] private GameObject warningParent;
     
     [Header("UI Objects")]
     [SerializeField] private GameObject gameOverText;
@@ -117,6 +118,11 @@ public class GameManager : MonoBehaviour
     public GameObject FetchCanvas()
     {
         return canvas;
+    }
+
+    public GameObject FetchWarningParent()
+    {
+        return warningParent;
     }
 
     #endregion
