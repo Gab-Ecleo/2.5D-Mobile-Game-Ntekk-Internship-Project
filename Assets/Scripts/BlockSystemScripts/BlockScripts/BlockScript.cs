@@ -10,6 +10,7 @@ namespace BlockSystemScripts.BlockScripts
         [Header("Block States")]
         [SerializeField] private BlockType blockType;
         private BlockState _blockState;
+        private PlacementScoreState _placementScoreState;
 
         [Header("Block Fall Timer")]
         private BlockFallTimer _fallTimer;
@@ -20,6 +21,7 @@ namespace BlockSystemScripts.BlockScripts
 
         public BlockType BlockType => blockType;
         public BlockState BlockState => _blockState;
+        public PlacementScoreState PlacementScoreState => _placementScoreState;
         public GridCell CurrentCell => currentCell;
 
         #endregion
@@ -31,6 +33,7 @@ namespace BlockSystemScripts.BlockScripts
                 gameObject.AddComponent<BlockFallTimer>();
             }
             _fallTimer = GetComponent<BlockFallTimer>();
+            _placementScoreState = PlacementScoreState.ScoreNotYetTriggered;
         }
 
         #region BLOCK_MANIPULATION
@@ -66,16 +69,17 @@ namespace BlockSystemScripts.BlockScripts
                     currentCell.AssignedColumn.ValidateColumn();
                 }
                 _blockState = BlockState.CanPickUp;
+                CheckNeighbors();
                 return;
             }
             //Signals the block above that it can fall down
             SignalTopBlock();
             
             //checks if nextCell has a value
-            if (currentCell.NextCell != null)
+            if (currentCell.NextYCell != null)
             {
                 currentCell.EmptyCellSlot();
-                currentCell = currentCell.NextCell;
+                currentCell = currentCell.NextYCell;
                 currentCell.FillCellSlot(this);
                 transform.position = currentCell.transform.position;
                 _fallTimer.StartTimer();
@@ -96,18 +100,18 @@ namespace BlockSystemScripts.BlockScripts
         //Determines if there is a block or a platform below
         private BlockState BlockStateChecker()
         {
-            if (currentCell.NextCell == null)
+            if (currentCell.NextYCell == null)
             {
                 _blockState = BlockState.Landed;
                 return _blockState;
             }
             
-            if (currentCell.NextCell.CurrentBlock != null)
+            if (currentCell.NextYCell.CurrentBlock != null)
             {
                 //if the next cell's current block is a powerUp, destroy it and replace its position
-                if (currentCell.NextCell.CurrentBlock.BlockType == BlockType.PowerUp)
+                if (currentCell.NextYCell.CurrentBlock.BlockType == BlockType.PowerUp)
                 {
-                    currentCell.NextCell.DestroyBlock();
+                    currentCell.NextYCell.DestroyBlock();
                     _blockState = BlockState.Falling;
                     return _blockState;
                 }
@@ -122,17 +126,53 @@ namespace BlockSystemScripts.BlockScripts
         //Determines if there is a block above
         public BlockScript TopBlockDetection()
         {
-            if (currentCell.PreviousCell == null)
+            if (currentCell.PreviousYCell == null)
             {
                 return null;
             }
-            if (currentCell.PreviousCell.CurrentBlock == null)
+            if (currentCell.PreviousYCell.CurrentBlock == null)
             {
                 return null;
             }
-            return currentCell.PreviousCell.CurrentBlock;
+            return currentCell.PreviousYCell.CurrentBlock;
         }
 
+        #endregion
+
+        #region BLOCK EVENTS
+        //Checks if the left and right cells have the same color as this block
+        private void CheckNeighbors()
+        {
+            if (_placementScoreState == PlacementScoreState.ScoreTriggered) return;
+
+            //Left Cell checker
+            if (currentCell.PreviousXCell != null)
+            {
+                if (currentCell.PreviousXCell.CurrentBlock != null)
+                {
+                    var previousXBlock = currentCell.PreviousXCell.CurrentBlock;
+                    if (previousXBlock.BlockState == BlockState.CanPickUp && previousXBlock.BlockType == blockType)
+                    {
+                        Debug.Log("Previous Block has the same color. Add Points!");
+                        _placementScoreState = PlacementScoreState.ScoreTriggered;
+                    }
+                }
+            }
+            
+            //Right Cell checker
+            if (currentCell.NextXCell != null)
+            {
+                if (currentCell.NextXCell.CurrentBlock != null)
+                {
+                    var nextXBlock = currentCell.NextXCell.CurrentBlock;
+                    if (nextXBlock.BlockState == BlockState.CanPickUp && nextXBlock.BlockType == blockType)
+                    {
+                        Debug.Log("Next Block has the same color. Add Points!");
+                        _placementScoreState = PlacementScoreState.ScoreTriggered;
+                    }
+                }
+            }
+        }
         #endregion
 
         private void OnDisable()
