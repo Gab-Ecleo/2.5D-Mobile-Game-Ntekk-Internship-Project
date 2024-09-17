@@ -52,12 +52,14 @@ namespace SaveSystem
                 LoadUpgrade();
                 LoadPlayerStats();
                 LoadCurrencyData();
+                LoadGameStateData();
                 UpgradeShopEvents.OnUpdateCurrency?.Invoke();
             }
             
             //Can be called if there are no scripts manually loading these data
             if (scene.buildIndex != 0)
             {
+                LoadGameStateData();
                 LoadCurrencyData();
             }
         }
