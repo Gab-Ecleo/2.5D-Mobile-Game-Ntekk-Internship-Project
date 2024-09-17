@@ -36,7 +36,7 @@ namespace PowerUp.Managers.Inheritors
 
         protected override void ActivatePowerUp()
         {
-            currentPlayerStats.stats.springJump = true;
+            GameManager.Instance.FetchPowerUps().springJump = true;
             currentPlayerStats.stats.jumpHeight += jumpBoost;
 
             base.ActivatePowerUp();
@@ -44,7 +44,7 @@ namespace PowerUp.Managers.Inheritors
 
         protected override void DeactivatePowerUp()
         {
-            currentPlayerStats.stats.springJump = false;
+            GameManager.Instance.FetchPowerUps().springJump = false;
             currentPlayerStats.stats.jumpHeight = _initialJumpHeight;
             
             base.DeactivatePowerUp();

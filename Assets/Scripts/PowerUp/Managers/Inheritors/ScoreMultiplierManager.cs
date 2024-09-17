@@ -34,7 +34,7 @@ namespace PowerUp.Managers.Inheritors
 
         protected override void ActivatePowerUp()
         {
-            currentPlayerStats.stats.hasMultiplier = true;
+            GameManager.Instance.FetchPowerUps().hasMultiplier = true;
             playerScore.Multiplier = scoreMultiplier;
 
             base.ActivatePowerUp();
@@ -42,7 +42,7 @@ namespace PowerUp.Managers.Inheritors
 
         protected override void DeactivatePowerUp()
         {
-            currentPlayerStats.stats.hasMultiplier = false;
+            GameManager.Instance.FetchPowerUps().hasMultiplier = false;
             playerScore.Multiplier = 1;
 
             base.DeactivatePowerUp();

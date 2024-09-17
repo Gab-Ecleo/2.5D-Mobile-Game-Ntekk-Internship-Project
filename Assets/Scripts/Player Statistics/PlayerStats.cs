@@ -19,14 +19,6 @@ namespace Player_Statistics
         [Header("Jumping Stats")]
         public float jumpHeight = 8f;
         [Range(0, 1)]public float jumpCutMultiplier = 0.7f;
-        
-        //tentative list
-        [Header("Activated Power-ups")]
-        public bool hasMultiplier = false;
-        public bool springJump = false;
-        public bool timeSlow = false;
-        public bool expressDelivery = false;
-        public bool singleBlockRemover = false;
 
         [Header("Base upgrade stats")]
         public int barrierDurability = 0;

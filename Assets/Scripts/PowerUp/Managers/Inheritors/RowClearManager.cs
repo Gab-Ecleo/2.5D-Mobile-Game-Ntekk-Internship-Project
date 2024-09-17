@@ -24,13 +24,13 @@ namespace PowerUp.Managers.Inheritors
 
         protected override void ActivatePowerUp()
         {
-            currentPlayerStats.stats.expressDelivery = true;
+            GameManager.Instance.FetchPowerUps().expressDelivery = true;
             base.ActivatePowerUp();
         }
 
         protected override void DeactivatePowerUp()
         {
-            currentPlayerStats.stats.expressDelivery = false;
+            GameManager.Instance.FetchPowerUps().expressDelivery = false;
             base.DeactivatePowerUp();
         }
 
