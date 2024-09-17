@@ -7,7 +7,6 @@ public class ScoreSystem : MonoBehaviour
 {
     public TMP_Text uiText;
     public ScoresSO _playerScore;
-    public PlayerStatsSO _playerCurrStats;
 
     private bool _hasMultiplier;
 
@@ -35,7 +34,7 @@ public class ScoreSystem : MonoBehaviour
 
 
         _playerScore.PointsToAdd = pointsToAdd;
-        if (_playerCurrStats.stats.hasMultiplier)
+        if (GameManager.Instance.FetchPowerUps().hasMultiplier)
         {
             var multiplier = _playerScore.PointsToAdd * _playerScore.Multiplier;
             _playerScore.Points += multiplier;

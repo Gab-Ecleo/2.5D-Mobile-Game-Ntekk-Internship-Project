@@ -1,10 +1,12 @@
-﻿using EventScripts;
+﻿using System;
+using EventScripts;
 using ScriptableData;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UI;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 
 namespace BlockSystemScripts.BlockSpawnerScripts
@@ -26,12 +28,11 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         
         private bool _difficultyTimerActive;
 
-        [Header("Pause Data")] 
-        [SerializeField] private PauseSO pauseSo;
-        
         [Header("Active Timers. To be private")]
         [SerializeField] private float spawnTimeLeft;
         [SerializeField] private float difficultyTimeLeft;
+        
+        private GameStateSO _gameState;
         #endregion
 
         private void Awake()
@@ -44,9 +45,14 @@ namespace BlockSystemScripts.BlockSpawnerScripts
             _difficultyTimerActive = true;
         }
 
+        private void Start()
+        {
+            _gameState = GameManager.Instance.FetchGameStateData();
+        }
+
         private void Update()
         {
-            if (pauseSo.isPaused) return;
+            if (_gameState.isPaused) return;
             UpdateSpawnTimer();
             UpdateDifficultyTimer();
 

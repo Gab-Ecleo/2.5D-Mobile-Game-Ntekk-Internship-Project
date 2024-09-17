@@ -24,13 +24,13 @@ namespace PowerUp.Managers.Inheritors
 
         protected override void ActivatePowerUp()
         {
-            currentPlayerStats.stats.singleBlockRemover = true;
+            GameManager.Instance.FetchPowerUps().singleBlockRemover = true;
             base.ActivatePowerUp();
         }
 
         protected override void DeactivatePowerUp()
         {
-            currentPlayerStats.stats.singleBlockRemover = false;
+            GameManager.Instance.FetchPowerUps().singleBlockRemover = false;
             base.DeactivatePowerUp();
         }
 
