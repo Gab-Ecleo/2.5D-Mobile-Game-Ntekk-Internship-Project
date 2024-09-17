@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402298, g: 0.49316323, b: 0.5722333, a: 1}
+  m_IndirectSpecularColor: {r: 0.4440237, g: 0.4931634, b: 0.57223135, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23900,7 +23900,7 @@ MonoBehaviour:
   currencyData: {fileID: 11400000, guid: 2664018984b24a54ca9b1003bbcc846e, type: 2}
   tweenDuration: 0.8
   canvasGroup: {fileID: 7718586754006120110}
-  bgRectTransform: {fileID: 0}
+  bgRectTransform: {fileID: 3601603}
   mainRectTrans: {fileID: 5240657679277183845}
   easeIn: 28
   easeOut: 3
