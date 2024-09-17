@@ -23,10 +23,13 @@ namespace PlayerScripts
         private AudioClipsSO _audioClip;
         private AudioManager _audioManager;
 
+        private GameStateSO _gameStateSo;
+
         private void Start()
         {
             LocalStorageEvents.OnLoadPlayerStats?.Invoke();
             // get starting positon
+            _gameStateSo = GameManager.Instance.FetchGameStateData();
             GetPlayerPosition();
 
             //initializes the data. UPDATE THIS ONCE MORE DATA IS USED.
@@ -74,12 +77,12 @@ namespace PlayerScripts
         private void GetPlayerPosition()
         {
             _playerPos = this.gameObject.transform.position;
-            currentPlayerStats.stats.StartingPos = _playerPos;
+            _gameStateSo.StartingPos = _playerPos;
         }
 
         private void ResetPlayerPosition()
         {
-            this.gameObject.transform.position = currentPlayerStats.stats.StartingPos;
+            this.gameObject.transform.position = _gameStateSo.StartingPos;
         }
         #endregion 
 
