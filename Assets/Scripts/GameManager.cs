@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScoresSO scoreSO;
     [SerializeField] private CurrencySO currencySo;
     [SerializeField] private HazardSO hazardSo;
+    [SerializeField] private GameStateSO gameStateSo;
 
     [Header("Game Objects")] 
     [SerializeField] private GameObject playerObj;
@@ -114,6 +115,11 @@ public class GameManager : MonoBehaviour
     public PowerUpsSO FetchPowerUps()
     {
         return PowerUpsSo;
+    }
+
+    public GameStateSO FetchGameStateData()
+    {
+        return gameStateSo;
     }
 
     public GameObject FetchPlayer()

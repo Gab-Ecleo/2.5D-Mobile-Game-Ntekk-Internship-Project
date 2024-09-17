@@ -1523,6 +1523,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2664018984b24a54ca9b1003bbcc846e, type: 2}
     - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
+      propertyPath: gameStateSo
+      value: 
+      objectReference: {fileID: 11400000, guid: d1bd2192ea3ab30418ce9f5ef1a50b03, type: 2}
+    - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: gameOverText
       value: 
       objectReference: {fileID: 7138377756982924809}
@@ -2123,7 +2127,6 @@ MonoBehaviour:
   difficultyCountdown: 30
   minDecrement: 0.2
   maxDecrement: 0.2
-  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   spawnTimeLeft: 0
   difficultyTimeLeft: 0
 --- !u!1 &686967965

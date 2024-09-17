@@ -18,12 +18,11 @@ namespace BlockSystemScripts.BlockScripts
         [Header("Timer Data")] 
         [SerializeField] private BlockTimerSO blockSpawnTimerData;
         private bool _isTimerActivated;
-        
-        [Header("Pause Data")] 
-        [SerializeField] private PauseSO pauseSo;
-        
+
         [Header("Active Timers. To be private")]
         [SerializeField] private float timeLeft;
+        
+        private GameStateSO _gameState;
 
         private void Awake()
         {
@@ -32,12 +31,13 @@ namespace BlockSystemScripts.BlockScripts
 
         private void Start()
         {
+            _gameState = GameManager.Instance.FetchGameStateData();
             timeLeft = blockSpawnTimerData.blockTimerState == BlockTimerState.Normal ? blockSpawnTimerData.initialTimer : blockSpawnTimerData.slowedTimer;
         }
 
         private void Update()
         {
-            if (pauseSo.isPaused) return;
+            if (_gameState.isPaused) return;
             UpdateTimer();
         }
 
