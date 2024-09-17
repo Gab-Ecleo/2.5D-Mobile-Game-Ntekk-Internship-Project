@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class HazardManager : MonoBehaviour
 {
@@ -13,8 +14,13 @@ public class HazardManager : MonoBehaviour
 
     [SerializeField] private float hazardCooldown;
     [SerializeField] private List<string> hazardTag;
-    [SerializeField] private TextMeshProUGUI textWarning;
-    [SerializeField] private TextMeshProUGUI currentHazard;
+    [SerializeField] private Image textWarning;
+    [SerializeField] private Image currentHazard;
+
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private Sprite rainSprite;
+    [SerializeField] private Sprite blackoutSprite;
+    [SerializeField] private Sprite windSprite;
 
     private GameManager GAMEMANAGER;
     private bool _isCorActive;
@@ -61,24 +67,27 @@ public class HazardManager : MonoBehaviour
         string hazardType = hazardTag[hazardIndex];
         
         //Debug.Log($"Loading {hazardType} hazard");
-        currentHazard.text = hazardType;
 
         switch (hazardType)
         {
             case "Rain":
                 GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
+                currentHazard.sprite = rainSprite;
                 break;
             case "Blackout":
                 GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
+                currentHazard.sprite = blackoutSprite;
                 break;
             case "Wind":
                 GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
+                currentHazard.sprite = windSprite;
                 break;
         }
         
         StartCoroutine(ShowWarning());
         
         yield return new WaitForSeconds(hazardCooldown);
+        currentHazard.sprite = defaultSprite;
         _isCorActive = false;
         Destroy(GameObject.FindWithTag("HazardFX"));
         
@@ -95,44 +104,5 @@ public class HazardManager : MonoBehaviour
         textWarning.gameObject.SetActive(true);
     }
 
-    #region for Debugger
-    public void TriggerHazard(string hazard)
-    {
-        StartCoroutine(TriggerHazardButton(hazard));
-    }
-    private IEnumerator TriggerHazardButton(string hazardTypes)
-    {
-        _isCorActive = true;
-        textWarning.gameObject.SetActive(false);
 
-        if (GAMEMANAGER.IsGameOver()) yield break;
-
-        //Debug.Log($"Loading {hazardType} hazard");
-        currentHazard.text = hazardTypes;
-
-        switch (hazardTypes)
-        {
-            case "Rain":
-                GameEvents.TRIGGER_RAIN_HAZARD?.Invoke();
-                break;
-            case "Blackout":
-                GameEvents.TRIGGER_BLACKOUT_HAZARD?.Invoke();
-                break;
-            case "Ice":
-                GameEvents.TRIGGER_ICE_HAZARD?.Invoke();
-                break;
-            case "Wind":
-                GameEvents.TRIGGER_WIND_HAZARD?.Invoke();
-                break;
-        }
-
-        hazardCooldown = Random.Range(10, 17);
-        StartCoroutine(ShowWarning());
-
-        yield return new WaitForSeconds(hazardCooldown);
-        _isCorActive = false;
-
-        InitiateHazardSeq();
-    }
-    #endregion
 }

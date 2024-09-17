@@ -27,6 +27,8 @@ public class SceneController : MonoBehaviour
         initialPlayerStat.stats.isDefaultHomeButton = isDefaultHome;
         LocalStorageEvents.OnSavePlayerStats?.Invoke();
         SceneManager.LoadScene(sceneInt);
+        DOTween.KillAll();
+        Time.timeScale = 1.0f;
     }
 
     public void ReloadScene()

@@ -1,20 +1,14 @@
 using AudioScripts.AudioSettings;
 using EventScripts;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using AudioType = AudioScripts.AudioSettings.AudioType;
 using System.Threading.Tasks;
 using DG.Tweening;
-using Unity.VisualScripting;
-using Player_Statistics;
 using ScriptableData;
 using TMPro;
-using UnityEngine.InputSystem.OnScreen;
-
 public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
@@ -49,8 +43,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float tutorialTopY;
     [SerializeField] private float tutorialMidY;
 
-    [SerializeField] private CanvasGroup SceneFadePanel;
-
     [Header("Ref")]
     public Button TutorialButton;
     public GameObject PauseMenu;
@@ -69,7 +61,6 @@ public class UIManager : MonoBehaviour
     private PlayerStatsSO currStat;
     private bool _isPauseScreenOpen;
     private bool _isTutorialScreenOpen;
-
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -96,9 +87,6 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-
-
     }
 
     private void OnDestroy()
@@ -108,16 +96,14 @@ public class UIManager : MonoBehaviour
         PlayerEvents.ON_BARRIER_HIT -= BarrierUpdate;
     }
 
-    private async void Start()
+    private void Start()
     {
         InitializePlayerStats();
         InitializeUIStates();
 
-        await FadeOutPanel();
-
         FirstTutorial();
 
-        barrierText.text = currStat.stats.barrierDurability.ToString("D4");
+        barrierText.text = currStat.stats.barrierDurability.ToString();
 
         if (MovementPanel != null)
         {
@@ -162,7 +148,7 @@ public class UIManager : MonoBehaviour
 
     private void BarrierUpdate()
     {
-        barrierText.text = currStat.stats.barrierDurability.ToString("D4");
+        barrierText.text = currStat.stats.barrierDurability.ToString("d4");
     }
 
     #region Pause Screen
@@ -289,45 +275,35 @@ public class UIManager : MonoBehaviour
     {
         GameEvents.ON_CONTROLS?.Invoke();
     }
-
     public void GoToScene(int scene)
     {
-        StartCoroutine(SceneTransition(scene, true));
+        SceneController.Instance.LoadScene(scene, true);
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToHomeButton()
     {
-        GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN.Invoke();
         StartCoroutine(SceneTransition(0, true));
     }
 
     public void GoToUpgradeButton()
     {
-        GameEvents.TRIGGER_END_OF_GAMEEND_SCREEN.Invoke();
         StartCoroutine(SceneTransition(0, false));
     }
 
     IEnumerator SceneTransition(int sceneInt, bool isDefaultHome)
     {
-        if (_isPauseScreenOpen)
-        {
-            TogglePause();
-        }
-        else if (_isTutorialScreenOpen)
-        {
-            ToggleTutorial();
-        }
+        TogglePause();
+        ToggleTutorial();
 
-        SceneFadePanel.DOFade(1, 0.2f).SetUpdate(true);
         yield return new WaitForSeconds(0.25f);
 
-        DOTween.KillAll();
         SceneController.Instance.LoadScene(sceneInt, isDefaultHome);
     }
 
-    async Task FadeOutPanel()
-    {
-        await SceneFadePanel.DOFade(0, tweenDuration).SetUpdate(true).AsyncWaitForCompletion();
-    }
     #endregion
 }

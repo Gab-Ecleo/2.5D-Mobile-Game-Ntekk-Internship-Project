@@ -6,9 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ButtonSO", menuName = "ButtonSO")]
 public class ButtonSO : ScriptableObject
 {
-    public ButtonType ButtonType;
+    [SerializeField] private ButtonType buttonType;
+    public ButtonType ButtonType => buttonType;
 
-    public Vector3 InitPos;
+    private Vector3 _initPos = Vector3.zero;
+    public Vector3 InitPos { get => _initPos; private set => _initPos = value;}
+
     public Vector3 CurrPos;
 
     public bool inIntialPos = true;
