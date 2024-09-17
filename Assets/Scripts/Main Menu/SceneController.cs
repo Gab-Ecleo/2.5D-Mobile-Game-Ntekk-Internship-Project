@@ -10,7 +10,7 @@ public class SceneController : MonoBehaviour
     private static SceneController _instance;
     public static SceneController Instance => _instance;
 
-    private PlayerStatsSO initialPlayerStat;
+    private GameStateSO gameStateSO;
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -19,15 +19,15 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
-        initialPlayerStat = GameManager.Instance.FetchInitialPlayerStat();
+        gameStateSO = GameManager.Instance.FetchGameStateData();
     }
 
     public void LoadScene(int sceneInt, bool isDefaultHome)
     {
         DOTween.KillAll();
 
-        initialPlayerStat.stats.isDefaultHomeButton = isDefaultHome;
-        LocalStorageEvents.OnSavePlayerStats?.Invoke();
+        gameStateSO.isDefaultHomeButton = isDefaultHome;
+        LocalStorageEvents.OnSaveGameStateData?.Invoke();
         SceneManager.LoadScene(sceneInt);
         Time.timeScale = 1.0f;
     }

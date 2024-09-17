@@ -22,14 +22,14 @@ public class TutorialLock : MonoBehaviour
     [SerializeField] private Sprite buttonDisabled;
     [SerializeField] private Sprite buttonHover;
 
-    private PlayerStatsSO initialPlayerStat;
+    private GameStateSO gameStateSO;
     private TutorialButtons _selectedTab;
 
     private void Start()
     {
-        initialPlayerStat = GameManager.Instance.FetchInitialPlayerStat();
+        gameStateSO = GameManager.Instance.FetchGameStateData();
 
-        if (!initialPlayerStat.stats.isPlayerFirstGame) return;
+        if (!gameStateSO.isPlayerFirstGame) return;
 
         // Initialize buttons
         foreach (var button in buttonsList)
@@ -62,7 +62,7 @@ public class TutorialLock : MonoBehaviour
 
     private void UnlockTutorial()
     {
-        if (!initialPlayerStat.stats.isPlayerFirstGame) return;
+        if (!gameStateSO.isPlayerFirstGame) return;
 
         for (int i = 0; i < swipeController.Length; i++)
         {
@@ -86,9 +86,8 @@ public class TutorialLock : MonoBehaviour
                         break;
                     case 3:
                         exitButton.interactable = true;
-                        initialPlayerStat.stats.isPlayerFirstGame = false;
-                        LocalStorageEvents.OnSavePlayerStats?.Invoke();
-                        Debug.Log("Win/Lose unlocked. isPlayerFirstGame: " + initialPlayerStat.stats.isPlayerFirstGame);
+                        gameStateSO.isPlayerFirstGame = false;
+                        LocalStorageEvents.OnSaveGameStateData?.Invoke();
                         break;
                     default:
                         Debug.LogWarning("Something went wrong");
