@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using ScriptableData;
+using UnityEngine.UI;
 
 public class UIpowerUp : MonoBehaviour
 {
