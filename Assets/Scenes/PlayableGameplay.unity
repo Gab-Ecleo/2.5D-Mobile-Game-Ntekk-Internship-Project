@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4440237, g: 0.4931634, b: 0.57223135, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657594, g: 0.49640948, b: 0.57481396, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1423,6 +1423,7 @@ Transform:
   - {fileID: 1470077615}
   - {fileID: 1960604143}
   - {fileID: 1355287446}
+  - {fileID: 1548286865}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &678555520
@@ -1489,6 +1490,7 @@ MonoBehaviour:
   difficultyCountdown: 30
   minDecrement: 0.2
   maxDecrement: 0.2
+  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   spawnTimeLeft: 0
   difficultyTimeLeft: 0
 --- !u!1 &686967965
@@ -13515,8 +13517,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7816219081218007756}
   m_HandleRect: {fileID: 4491075349956652366}
   m_Direction: 0
-  m_Value: 0.00000003944935
-  m_Size: 0.16920547
+  m_Value: 0.000000039449343
+  m_Size: 0.16920546
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
