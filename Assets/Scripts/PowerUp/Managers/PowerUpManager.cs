@@ -16,6 +16,9 @@ namespace PowerUp.Managers
         [SerializeField] protected float initialDuration = 10f;
         protected bool IsTimerActive;
         
+        [Header("Pause Data")] 
+        [SerializeField] protected PauseSO pauseSo;
+        
         [Header("In-Game Stats. DO NOT MODIFY")]
         [SerializeField] protected PowerUpState currentState = PowerUpState.Inactive;
         [SerializeField] protected float currentDuration;
@@ -30,6 +33,7 @@ namespace PowerUp.Managers
         //Base function on power up duration. Updated by an overload
         protected virtual void UpdatePowerUpDuration()
         {
+            if (pauseSo.isPaused) return;
             //if the timer is active and current duration is not yet zero, proceed to countdown
             if (currentDuration > 0)
             {

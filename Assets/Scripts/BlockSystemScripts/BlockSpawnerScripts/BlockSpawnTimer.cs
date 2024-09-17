@@ -1,4 +1,5 @@
 ﻿using EventScripts;
+using ScriptableData;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UI;
@@ -24,6 +25,9 @@ namespace BlockSystemScripts.BlockSpawnerScripts
         [SerializeField][Range(0,10)] private float maxDecrement;
         
         private bool _difficultyTimerActive;
+
+        [Header("Pause Data")] 
+        [SerializeField] private PauseSO pauseSo;
         
         [Header("Active Timers. To be private")]
         [SerializeField] private float spawnTimeLeft;
@@ -42,6 +46,7 @@ namespace BlockSystemScripts.BlockSpawnerScripts
 
         private void Update()
         {
+            if (pauseSo.isPaused) return;
             UpdateSpawnTimer();
             UpdateDifficultyTimer();
 
