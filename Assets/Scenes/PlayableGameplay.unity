@@ -2119,6 +2119,7 @@ MonoBehaviour:
   difficultyCountdown: 30
   minDecrement: 0.2
   maxDecrement: 0.2
+  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   spawnTimeLeft: 0
   difficultyTimeLeft: 0
 --- !u!1 &686967965
@@ -13544,7 +13545,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7816219081218007756}
   m_HandleRect: {fileID: 4491075349956652366}
   m_Direction: 0
-  m_Value: 0.000000039449347
+  m_Value: 0.000000039449343
   m_Size: 0.16920546
   m_NumberOfSteps: 0
   m_OnValueChanged:

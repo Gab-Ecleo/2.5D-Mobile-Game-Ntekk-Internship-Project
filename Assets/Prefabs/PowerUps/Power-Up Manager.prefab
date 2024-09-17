@@ -51,6 +51,7 @@ MonoBehaviour:
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   shouldHaveDuration: 1
   initialDuration: 10
+  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   currentState: 1
   currentDuration: 0
 --- !u!114 &4585079935172710572
@@ -68,6 +69,7 @@ MonoBehaviour:
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   shouldHaveDuration: 0
   initialDuration: 10
+  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   currentState: 1
   currentDuration: 0
 --- !u!114 &4688734600207450581
@@ -85,6 +87,7 @@ MonoBehaviour:
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   shouldHaveDuration: 1
   initialDuration: 5
+  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   currentState: 1
   currentDuration: 0
   jumpBoost: 3
@@ -103,6 +106,7 @@ MonoBehaviour:
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   shouldHaveDuration: 1
   initialDuration: 15
+  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   currentState: 1
   currentDuration: 0
   blockTimerSo: {fileID: 11400000, guid: ad7220b5d6c76fc4c96055193cbc9f92, type: 2}
@@ -121,6 +125,7 @@ MonoBehaviour:
   currentPlayerStats: {fileID: 11400000, guid: 1b158e270f3495b49b4d52f6d7fd8edf, type: 2}
   shouldHaveDuration: 1
   initialDuration: 30
+  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   currentState: 1
   currentDuration: 0
   playerScore: {fileID: 11400000, guid: aab198d4403120b4dbdd13d5aabbf717, type: 2}
