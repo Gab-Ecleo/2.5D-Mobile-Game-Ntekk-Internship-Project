@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [Header("Scriptable")]
     [SerializeField] private PlayerStatsSO playerCurrentStat;
     [SerializeField] private PlayerStatsSO initialPlayerStats;
+    [SerializeField] private PowerUpsSO PowerUpsSo;
     [SerializeField] private ScoresSO scoreSO;
     [SerializeField] private CurrencySO currencySo;
     [SerializeField] private HazardSO hazardSo;
@@ -108,6 +109,11 @@ public class GameManager : MonoBehaviour
     public HazardSO FetchHazardData()
     {
         return hazardSo;
+    }
+
+    public PowerUpsSO FetchPowerUps()
+    {
+        return PowerUpsSo;
     }
 
     public GameObject FetchPlayer()

@@ -20,8 +20,6 @@ namespace PlayerScripts
 
         private PlayerGrabCooldown _grabCooldown;
         private PlayerEyesight _eyeSight;
-        
-        private PlayerStatsSO _playerStats;
 
         private void Awake()
         {
@@ -30,7 +28,6 @@ namespace PlayerScripts
 
         private void InitializeScriptValues()
         {
-            _playerStats = Resources.Load("PlayerData/CurrentPlayerStats") as PlayerStatsSO;
             _eyeSight = GetComponent<PlayerEyesight>();
             _grabCooldown = GetComponent<PlayerGrabCooldown>();
         }
@@ -51,7 +48,7 @@ namespace PlayerScripts
             //detects object in front of player; eyesight level first, then waist level
             if (_eyeSight.FirstBlockDetection() != null)
             {
-                if (_playerStats.stats.singleBlockRemover)
+                if (GameManager.Instance.FetchPowerUps().singleBlockRemover)
                 {
                     DestroySingleBlock(_eyeSight.FirstBlockDetection());
                     return;
@@ -60,7 +57,7 @@ namespace PlayerScripts
             }
             else if (_eyeSight.SecondBlockDetection() != null)
             {
-                if (_playerStats.stats.singleBlockRemover)
+                if (GameManager.Instance.FetchPowerUps().singleBlockRemover)
                 {
                     DestroySingleBlock(_eyeSight.SecondBlockDetection());
                     return;

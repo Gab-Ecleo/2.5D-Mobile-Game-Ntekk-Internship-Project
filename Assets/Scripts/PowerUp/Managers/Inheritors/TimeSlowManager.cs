@@ -36,7 +36,7 @@ namespace PowerUp.Managers.Inheritors
 
         protected override void ActivatePowerUp()
         {
-            currentPlayerStats.stats.timeSlow = true;
+            GameManager.Instance.FetchPowerUps().timeSlow = true;
             
             blockTimerSo.blockTimerState = BlockTimerState.Slowed;
             BlockEvents.OnSyncBlockFallTimers?.Invoke();
@@ -46,7 +46,7 @@ namespace PowerUp.Managers.Inheritors
 
         protected override void DeactivatePowerUp()
         {
-            currentPlayerStats.stats.timeSlow = false;
+            GameManager.Instance.FetchPowerUps().timeSlow = false;
             
             blockTimerSo.blockTimerState = BlockTimerState.Normal;
             BlockEvents.OnSyncBlockFallTimers?.Invoke();

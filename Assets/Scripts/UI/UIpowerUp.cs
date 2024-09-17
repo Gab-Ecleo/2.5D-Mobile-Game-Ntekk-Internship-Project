@@ -14,23 +14,23 @@ public class UIpowerUp : MonoBehaviour
     {
         if(_playerCurrStats != null)
         {
-            if (_playerCurrStats.stats.hasMultiplier)
+            if (GameManager.Instance.FetchPowerUps().hasMultiplier)
             {
                 _powerupText.text = "Multiplier";
             }
-            else if(_playerCurrStats.stats.springJump)
+            else if(GameManager.Instance.FetchPowerUps().springJump)
             {
                 _powerupText.text = "Spring Jump";
             }
-            else if(_playerCurrStats.stats.timeSlow)
+            else if(GameManager.Instance.FetchPowerUps().timeSlow)
             {
                 _powerupText.text = "Time Slow";
             }
-            else if (_playerCurrStats.stats.expressDelivery)
+            else if (GameManager.Instance.FetchPowerUps().expressDelivery)
             {
                 _powerupText.text = "Express Delivery";
             }
-            else if(_playerCurrStats.stats.singleBlockRemover)
+            else if(GameManager.Instance.FetchPowerUps().singleBlockRemover)
             {
                 _powerupText.text = "Single Block";
             }
