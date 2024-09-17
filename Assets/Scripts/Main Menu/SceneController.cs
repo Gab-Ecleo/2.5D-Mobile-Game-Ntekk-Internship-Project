@@ -24,21 +24,12 @@ public class SceneController : MonoBehaviour
 
     public void LoadScene(int sceneInt, bool isDefaultHome)
     {
+        DOTween.KillAll();
+
         initialPlayerStat.stats.isDefaultHomeButton = isDefaultHome;
         LocalStorageEvents.OnSavePlayerStats?.Invoke();
         SceneManager.LoadScene(sceneInt);
-        DOTween.KillAll();
         Time.timeScale = 1.0f;
-    }
-
-    public void ReloadScene()
-    {
-        LoadScene(SceneManager.GetActiveScene().buildIndex, true);
-    }
-
-    public void NextLevel()
-    {
-        LoadScene(SceneManager.GetActiveScene().buildIndex + 1, true);
     }
 
     public void Exit()
