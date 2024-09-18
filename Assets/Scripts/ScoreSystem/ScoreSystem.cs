@@ -24,14 +24,14 @@ public class ScoreSystem : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.FetchPowerUps();
         ResetScore();
     }
 
 
     public void PointSystem(int pointsToAdd)
     {
-        GameManager.Instance.FetchCurrentPlayerStat();
-
+        GameManager.Instance.FetchPowerUps();
 
         _playerScore.PointsToAdd = pointsToAdd;
         if (GameManager.Instance.FetchPowerUps().hasMultiplier)
