@@ -10,4 +10,5 @@ public class ScoresSO : ScriptableObject
     public int PointsToAdd = 2;
 
     public int Multiplier = 2;
+    public int PlacementScore = 2;
 }
