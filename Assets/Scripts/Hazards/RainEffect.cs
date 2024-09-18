@@ -1,21 +1,22 @@
-using System;
 using System.Collections;
 using AudioScripts;
-using AudioScripts.AudioSettings;
 using EventScripts;
 using ScriptableData;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RainEffect : MonoBehaviour
 {
+    [Header("Parameters")]
     [SerializeField] private float _hazardDuration = 5f;
     [SerializeField] private float _hazardModifier = 2;
+    
+    [Header("Dependency")]
     [SerializeField] public GameObject _rainParticles;
 
+    private float _movSpeed;
     private PlayerStatsSO _playerStat;
     private GameManager _gameManager;
-    private bool _isCorActive;
+    private bool _isHazardActive;
 
     #region UNITY METHODS
 
@@ -31,19 +32,21 @@ public class RainEffect : MonoBehaviour
 
     private void Start()
     {
-        _gameManager = GameManager.Instance;
-        _playerStat = _gameManager.FetchCurrentPlayerStat();
-        _isCorActive = false;
-        
-        //Set current speed from the player stat speed value
+        SetParameters();
     }
 
     #endregion
-
-    // public for debugging
+    
+    private void SetParameters()
+    {
+        _isHazardActive = false;
+        _gameManager = GameManager.Instance;
+        _playerStat = _gameManager.FetchCurrentPlayerStat();
+    }
+    
     public void TriggerRainHazard()
     {
-        if (_isCorActive || _gameManager.IsGameOver()) return;
+        if (_isHazardActive || _gameManager.IsGameOver()) return;
 
         StartCoroutine(SlowPlayerMovement());
     }
@@ -51,24 +54,43 @@ public class RainEffect : MonoBehaviour
     //Halves the player's speed for [Hazard Duration], then returns to the original value
     IEnumerator SlowPlayerMovement()
     {
-        _gameManager.FetchHazardData().IsRainActive = true;
-        _isCorActive = true;
-        var rainParticles = Instantiate(_rainParticles);
+        SetHazardCondition(true);
         
+        //Set Visual Effects
+        var rainParticles = Instantiate(_rainParticles);
         AudioEvents.ON_HAZARD_TRIGGER?.Invoke("rain");
         
-        _playerStat.stats.movementSpeed /= _hazardModifier;
+        ModifyPlayerMovement("activate");
 
         yield return new WaitForSeconds(_hazardDuration);
-        Debug.Log("End of Hazard Duration");
         
-        SfxScript.Instance.StopSFX();
-        rainParticles.SetActive(false);
-        
-        _playerStat.stats.movementSpeed *= _hazardModifier;
+        ModifyPlayerMovement("deactivate");
 
-        _isCorActive = false;
+        //Remove Visual Effects
+        rainParticles.SetActive(false); //vfx
+        SfxScript.Instance.StopSFX();   //sfx
         
-        _gameManager.FetchHazardData().IsRainActive = false;
+        
+        SetHazardCondition(false);
+    }
+
+    private void SetHazardCondition(bool condition)
+    {
+        _isHazardActive = condition;
+        _gameManager.FetchHazardData().IsRainActive = condition;
+    }
+
+    private void ModifyPlayerMovement(string condition)
+    {
+        switch (condition)
+        {
+            case "activate":
+                _playerStat.stats.movementSpeed /= _hazardModifier;
+                break;
+            
+            case "deactivate":
+                _playerStat.stats.movementSpeed *= _hazardModifier;
+                break;
+        }
     }
 }
