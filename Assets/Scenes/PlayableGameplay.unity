@@ -461,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1522544122296608528, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
       propertyPath: _hazardDuration
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1522544122296608528, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
       propertyPath: _windParticlesL
@@ -796,6 +796,10 @@ PrefabInstance:
       propertyPath: invalidIndicator
       value: 
       objectReference: {fileID: 1248648597}
+    - target: {fileID: 3731436308341354661, guid: daccb568f323aaf429d9d1777464e8dd, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5212742583501448224, guid: daccb568f323aaf429d9d1777464e8dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
