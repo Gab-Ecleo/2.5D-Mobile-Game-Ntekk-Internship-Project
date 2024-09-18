@@ -95,6 +95,9 @@ namespace PlayerScripts
         //jump
         public void Jump(InputAction.CallbackContext ctx)
         {
+            if (Time.timeScale == 0) return;
+            if (GameManager.Instance.FetchGameStateData().isPaused) return;
+            
             //checks if the raycast hits an object before jumping
             if (IsGrounded() && ctx.ReadValueAsButton())
             {

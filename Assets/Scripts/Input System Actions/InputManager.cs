@@ -27,6 +27,8 @@ namespace Input_System_Actions
 
         private void Update()
         {
+            if (Time.timeScale == 0) return;
+            if (GameManager.Instance.FetchGameStateData().isPaused) return;
             //forwards the values of the player's movement inputs to the movement script
             _playerMovement.ProcessMove(_move.ReadValue<Vector2>());
         }
