@@ -13,20 +13,15 @@ MonoBehaviour:
   m_Name: CurrentPlayerStats
   m_EditorClassIdentifier: 
   stats:
-    movementSpeed: 5.5
+    movementSpeed: 2.75
     acceleration: 9
     deceleration: 9
     velPower: 1.2
     aerialSpdReducer: 0.1
     jumpHeight: 8
     jumpCutMultiplier: 0.7
-    hasMultiplier: 0
-    springJump: 0
-    timeSlow: 1
-    expressDelivery: 0
-    singleBlockRemover: 0
     barrierDurability: 0
     canRez: 0
     StartingPos: {x: 0, y: 0, z: 0}
-    isPlayerFirstGame: 1
+    isPlayerFirstGame: 0
     isDefaultHomeButton: 1
