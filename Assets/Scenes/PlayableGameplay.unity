@@ -4505,6 +4505,10 @@ PrefabInstance:
     - target: {fileID: 7682208065412105170, guid: 1478675f22e46a3478a5f23992557514, type: 3}
       propertyPath: currencyTxt
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682208065412105170, guid: 1478675f22e46a3478a5f23992557514, type: 3}
+      propertyPath: matchCurrencyTxt
+      value: 
       objectReference: {fileID: 94451274}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
