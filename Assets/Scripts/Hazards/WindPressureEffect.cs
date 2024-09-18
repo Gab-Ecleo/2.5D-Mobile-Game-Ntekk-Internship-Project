@@ -49,7 +49,8 @@ public class WindPressureEffect : MonoBehaviour
     private void FixedUpdate()
     {
         if (_gameManager.IsGameOver()) return;
-        
+        if (_gameManager.FetchGameStateData().isPaused) return;
+
         if (_isHazardActive)
             BlowWind();
     }
@@ -110,11 +111,9 @@ public class WindPressureEffect : MonoBehaviour
 
     void BlowWind()
     {
-        if (Time.timeScale == 0) return;
-        
         Vector3 windForce = _windStrength * _dir;
         
-        _playerRB.AddForce(windForce * Time.deltaTime, ForceMode.VelocityChange);
+        _playerRB.AddForce(windForce * Time.unscaledTime);
     }
     
     private int PickDirection()
