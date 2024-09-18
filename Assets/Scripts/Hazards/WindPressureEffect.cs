@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
 using AudioScripts;
-using AudioScripts.AudioSettings;
 using EventScripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
@@ -27,7 +24,7 @@ public class WindPressureEffect : MonoBehaviour
     [SerializeField] private Rigidbody _playerRB;
 
     private Vector3 _dir;
-    private bool _isCorActive;
+    private bool _isHazardActive;
     private GameObject _windParticles;
     private GameManager _gameManager;
 
@@ -46,14 +43,14 @@ public class WindPressureEffect : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
-        _isCorActive = false;
+        _isHazardActive = false;
     }
 
     private void FixedUpdate()
     {
         if (_gameManager.IsGameOver()) return;
         
-        if (_isCorActive)
+        if (_isHazardActive)
             BlowWind();
     }
     
@@ -62,35 +59,38 @@ public class WindPressureEffect : MonoBehaviour
     // public for debugging
     public void TriggerWindHazard()
     {
-        if (_isCorActive || _gameManager.IsGameOver()) return;
+        if (_isHazardActive || _gameManager.IsGameOver()) return;
 
         StartCoroutine(EnableWind());
-        // Plays SFX correlating to the action
     }
     
     //Start Hazard timer
     private IEnumerator EnableWind()
     {
-        _gameManager.FetchHazardData().IsWindActive = true;
-        _isCorActive = true;
+        SetBoolCondition(true);
         
+        // Plays SFX correlating to the action
         AudioEvents.ON_HAZARD_TRIGGER?.Invoke("wind");
         
         //randomize wind direction
         _dir.x = PickDirection();
-        
-        //Display Wind Direction in Inspector (For testing only, can be removed if needed)
-        SetLabel();
+        SetWindDirection();
         
         yield return new WaitForSeconds(_hazardDuration);
-        Debug.Log("End of Hazard Duration");
+        
         SfxScript.Instance.StopSFX();
+        
         _windParticles.SetActive(false);
-        _isCorActive = false;
-        _gameManager.FetchHazardData().IsWindActive = false;
+        SetBoolCondition(false);
+    }
+    
+    private void SetBoolCondition(bool condition)
+    {
+        _gameManager.FetchHazardData().IsWindActive = condition;
+        _isHazardActive = condition;
     }
 
-    private void SetLabel()
+    private void SetWindDirection()
     {
         switch (_dir.x)
         {
@@ -110,6 +110,8 @@ public class WindPressureEffect : MonoBehaviour
 
     void BlowWind()
     {
+        if (Time.timeScale == 0) return;
+        
         Vector3 windForce = _windStrength * _dir;
         
         _playerRB.AddForce(windForce * Time.deltaTime, ForceMode.VelocityChange);
