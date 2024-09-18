@@ -57,14 +57,15 @@ namespace UpgradeShop.ShopCurrency
             var addedCoins = addedScore / currencyDividend;
             currencyStats.matchCoins += addedCoins;
             currencyStats.coins += addedCoins;
-            UIManager.UpdateCurrencyUI(currencyStats.matchCoins);
+            UIManager.UpdateMatchCurrencyUI(currencyStats.matchCoins);
         }
 
         public void ResetMatchCoins()
         {
             currencyStats.matchCoins = 0;
-            UIManager.UpdateCurrencyUI(currencyStats.matchCoins);
+            UIManager.UpdateMatchCurrencyUI(currencyStats.matchCoins);
         }
+
         #endregion
 
         private void OnEnable()
