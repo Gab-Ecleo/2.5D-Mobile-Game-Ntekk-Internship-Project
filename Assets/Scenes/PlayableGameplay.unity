@@ -796,6 +796,10 @@ PrefabInstance:
       propertyPath: invalidIndicator
       value: 
       objectReference: {fileID: 1248648597}
+    - target: {fileID: 3731436308341354661, guid: daccb568f323aaf429d9d1777464e8dd, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5212742583501448224, guid: daccb568f323aaf429d9d1777464e8dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
