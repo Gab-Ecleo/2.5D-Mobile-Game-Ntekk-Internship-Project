@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
     private RectTransform tutorialRectTrans;
     private PlayerStatsSO initialStat;
     private PlayerStatsSO currStat;
+    private GameStateSO gameStateSO;
     private bool _isPauseScreenOpen;
     private bool _isTutorialScreenOpen;
     private void Awake()
@@ -103,7 +104,7 @@ public class UIManager : MonoBehaviour
 
         FirstTutorial();
 
-        barrierText.text = currStat.stats.barrierDurability.ToString();
+        barrierText.text = currStat.stats.barrierDurability.ToString("D4");
 
         if (MovementPanel != null)
         {
@@ -115,6 +116,7 @@ public class UIManager : MonoBehaviour
     {
         initialStat = GameManager.Instance.FetchInitialPlayerStat();
         currStat = GameManager.Instance.FetchCurrentPlayerStat();
+        gameStateSO = GameManager.Instance.FetchGameStateData();
     }
 
     private bool InitializeUIStates()
@@ -131,16 +133,16 @@ public class UIManager : MonoBehaviour
     // open tutorial when its player first time 
     private void FirstTutorial()
     {
-        if (initialStat.stats.isPlayerFirstGame && !isInMainMenu)
+        if (gameStateSO.isPlayerFirstGame && !isInMainMenu)
         {
             Debug.Log("First Time Player");
             GameEvents.ON_TUTORIAL?.Invoke();
         }
-        else if (initialStat.stats.isPlayerFirstGame && isInMainMenu)
+        else if (gameStateSO.isPlayerFirstGame && isInMainMenu)
         {
             TutorialButton.interactable = false;
         }
-        else if (!initialStat.stats.isPlayerFirstGame && isInMainMenu)
+        else if (!gameStateSO.isPlayerFirstGame && isInMainMenu)
         {
             TutorialButton.interactable = true;
         }
@@ -148,7 +150,7 @@ public class UIManager : MonoBehaviour
 
     private void BarrierUpdate()
     {
-        barrierText.text = currStat.stats.barrierDurability.ToString("d4");
+        barrierText.text = currStat.stats.barrierDurability.ToString("D4");
     }
 
     #region Pause Screen

@@ -12506,9 +12506,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1814559464}
     - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
+      propertyPath: PowerUpsSo
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ed9cd81fe03f2141abab1f2c590f13c, type: 2}
+    - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: currencySo
       value: 
       objectReference: {fileID: 11400000, guid: 2664018984b24a54ca9b1003bbcc846e, type: 2}
+    - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
+      propertyPath: gameStateSo
+      value: 
+      objectReference: {fileID: 11400000, guid: d1bd2192ea3ab30418ce9f5ef1a50b03, type: 2}
     - target: {fileID: 7904581667062681712, guid: 0ebfb0158ea8fe940a929ab54385b263, type: 3}
       propertyPath: gameOverText
       value: 
@@ -17462,6 +17470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Save Data Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 8351475634420693472, guid: acb100b4f2737204daab2746a9040fd9, type: 3}
+      propertyPath: gameStates
+      value: 
+      objectReference: {fileID: 11400000, guid: d1bd2192ea3ab30418ce9f5ef1a50b03, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

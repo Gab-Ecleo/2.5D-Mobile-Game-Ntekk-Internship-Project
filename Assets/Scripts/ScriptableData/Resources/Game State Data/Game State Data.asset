@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Game State Data
   m_EditorClassIdentifier: 
   isPaused: 0
+  isPlayerFirstGame: 1
+  isDefaultHomeButton: 1
+  StartingPos: {x: 0, y: 0, z: 0}
