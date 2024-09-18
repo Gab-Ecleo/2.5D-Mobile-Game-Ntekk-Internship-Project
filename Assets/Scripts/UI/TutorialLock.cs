@@ -9,6 +9,7 @@ using EventScripts;
 
 public class TutorialLock : MonoBehaviour
 {
+
     [Header("Arrange them the same")]
     [SerializeField] private SwipeController[] swipeController;
 
@@ -22,7 +23,8 @@ public class TutorialLock : MonoBehaviour
     [SerializeField] private Sprite buttonDisabled;
     [SerializeField] private Sprite buttonHover;
 
-    private GameStateSO gameStateSO;
+    [SerializeField] private GameStateSO gameStateSO;
+    public TutorialButtons defaultButton;
     private TutorialButtons _selectedTab;
 
     private void Start()
@@ -38,14 +40,7 @@ public class TutorialLock : MonoBehaviour
             button.Background.sprite = buttonDisabled;
         }
 
-        // Set default button
-        TutorialButtons defaultButton = buttonsList.Find(button => button.name == "Hazard");
-        if (defaultButton != null)
-        {
-            OnTabSelected(defaultButton);
-            defaultButton.SetInteractable(true);
-            defaultButton.Background.sprite = buttonSelected;
-        }
+        defaultButton.Background.sprite = buttonSelected;
 
         exitButton.interactable = false;
     }
@@ -53,16 +48,29 @@ public class TutorialLock : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.ON_TUTORIAL_UNLOCKED += UnlockTutorial;
+        defaultButton.Background.sprite = buttonSelected;
     }
 
     private void OnDisable()
     {
         GameEvents.ON_TUTORIAL_UNLOCKED -= UnlockTutorial;
+        for (int i = 0; i < buttonsList.Count; i++)
+        {
+            defaultButton.Background.sprite = buttonIdle;
+        }
     }
 
     private void UnlockTutorial()
     {
-        if (!gameStateSO.isPlayerFirstGame) return;
+        if (!gameStateSO.isPlayerFirstGame)
+        {
+            for (int i = 0; i < buttonsList.Count; i++)
+            {
+                ActivateButton(i);
+            }
+            Debug.Log("Unlock All Buttons");
+            exitButton.interactable = true;
+        }
 
         for (int i = 0; i < swipeController.Length; i++)
         {
@@ -96,6 +104,7 @@ public class TutorialLock : MonoBehaviour
             }
         }
     }
+
     private void ActivateButton(int index)
     {
         if (index >= 0 && index < buttonsList.Count)

@@ -202,6 +202,7 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0;
             tutorialfadePanel.interactable = true;
             tutorialfadePanel.blocksRaycasts = true;
+            GameEvents.ON_TUTORIAL_UNLOCKED?.Invoke();
             TutorialPanelIntro();
         }
         else
