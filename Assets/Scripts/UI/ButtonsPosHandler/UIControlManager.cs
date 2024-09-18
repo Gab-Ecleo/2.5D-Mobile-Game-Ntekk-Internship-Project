@@ -36,6 +36,7 @@ public class UIControlManager : MonoBehaviour
 
     private bool isControllerMenuOpen;
     private PlayerStatsSO playerStatsSO;
+    private GameStateSO gameStateSO;
     private bool isRightHudSwitched;
     private bool isLeftHudSwitched;
 
@@ -56,11 +57,13 @@ public class UIControlManager : MonoBehaviour
         }
 
         playerStatsSO = GameManager.Instance.FetchCurrentPlayerStat();
+        gameStateSO = GameManager.Instance.FetchGameStateData();
         controlfadePanel.alpha = 0;
     }
 
     private void Start()
     {
+        LoadButtonData();
         InitializeUI();
 
         rightSwitchButton.onClick.AddListener(OnRightButtonClick);
@@ -127,7 +130,7 @@ public class UIControlManager : MonoBehaviour
 
     private void InitializeButtonPosition(ButtonSO buttonSO, RectTransform rectTrans)
     {
-        if (buttonSO.inIntialPos && !playerStatsSO.stats.isPlayerFirstGame)
+        if (buttonSO.inIntialPos && !gameStateSO.isPlayerFirstGame)
         {
             buttonSO.inIntialPos = false;
             buttonSO.CurrPos = rectTrans.position;

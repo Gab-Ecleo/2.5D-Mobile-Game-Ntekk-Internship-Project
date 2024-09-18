@@ -5,10 +5,6 @@ namespace PowerUp.Managers.Inheritors
 {
     public class ScoreMultiplierManager : PowerUpManager
     {
-        [Header("Score Multiplier References")]
-        [SerializeField] private ScoresSO playerScore;
-        [SerializeField] private int scoreMultiplier = 2;
-        
         protected override void Start()
         {
             base.Start();
@@ -35,7 +31,6 @@ namespace PowerUp.Managers.Inheritors
         protected override void ActivatePowerUp()
         {
             GameManager.Instance.FetchPowerUps().hasMultiplier = true;
-            playerScore.Multiplier = scoreMultiplier;
 
             base.ActivatePowerUp();
         }
@@ -43,7 +38,6 @@ namespace PowerUp.Managers.Inheritors
         protected override void DeactivatePowerUp()
         {
             GameManager.Instance.FetchPowerUps().hasMultiplier = false;
-            playerScore.Multiplier = 1;
 
             base.DeactivatePowerUp();
         }

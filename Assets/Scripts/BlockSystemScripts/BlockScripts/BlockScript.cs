@@ -153,7 +153,7 @@ namespace BlockSystemScripts.BlockScripts
                     var previousXBlock = currentCell.PreviousXCell.CurrentBlock;
                     if (previousXBlock.BlockState == BlockState.CanPickUp && previousXBlock.BlockType == blockType)
                     {
-                        Debug.Log("Previous Block has the same color. Add Points!");
+                        GameEvents.ON_SCORE_CHANGES?.Invoke(GameManager.Instance.FetchScores().PlacementScore);
                         _placementScoreState = PlacementScoreState.ScoreTriggered;
                     }
                 }
@@ -167,7 +167,7 @@ namespace BlockSystemScripts.BlockScripts
                     var nextXBlock = currentCell.NextXCell.CurrentBlock;
                     if (nextXBlock.BlockState == BlockState.CanPickUp && nextXBlock.BlockType == blockType)
                     {
-                        Debug.Log("Next Block has the same color. Add Points!");
+                        GameEvents.ON_SCORE_CHANGES?.Invoke(GameManager.Instance.FetchScores().PlacementScore);
                         _placementScoreState = PlacementScoreState.ScoreTriggered;
                     }
                 }

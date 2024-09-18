@@ -29,7 +29,7 @@ public class TabGroup : MonoBehaviour
     public float robotRotationAngle = 360f;
     public float robotRotationTime = 20f;
 
-
+    private GameStateSO gameStateSO;
     private PlayerStatsSO initialPlayerStat;
     private Tween rotationTween;
 
@@ -42,6 +42,7 @@ public class TabGroup : MonoBehaviour
     private void Start()
     {
         initialPlayerStat = GameManager.Instance.FetchInitialPlayerStat();
+        gameStateSO = GameManager.Instance.FetchGameStateData();
         StartCoroutine(DelayedStart());
     }
 
@@ -51,12 +52,12 @@ public class TabGroup : MonoBehaviour
         TabButton homeButton = tabButtons.Find(button => button.name == "Home");
         TabButton upgradeButton = tabButtons.Find(button => button.name == "Upgrade");
 
-        if (homeButton != null && initialPlayerStat.stats.isDefaultHomeButton)
+        if (homeButton != null && gameStateSO.isDefaultHomeButton)
         {
             OnTabSelected(homeButton); 
         }
         
-        if(upgradeButton != null && !initialPlayerStat.stats.isDefaultHomeButton)
+        if(upgradeButton != null && !gameStateSO.isDefaultHomeButton)
         {
             OnTabSelected(upgradeButton);
         }

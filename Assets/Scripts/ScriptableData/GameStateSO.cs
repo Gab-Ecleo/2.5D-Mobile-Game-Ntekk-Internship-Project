@@ -7,6 +7,15 @@ namespace ScriptableData
     {
         public bool isPaused;
         
+        [Header("Tutorial")]
+        public bool isPlayerFirstGame = true;
+
+        [Header("Shop")]
+        public bool isDefaultHomeButton = true;
+
+        [Header("Player")]
+        public Vector3 StartingPos;
+        
         public void ResetPause()
         {
             isPaused = false;

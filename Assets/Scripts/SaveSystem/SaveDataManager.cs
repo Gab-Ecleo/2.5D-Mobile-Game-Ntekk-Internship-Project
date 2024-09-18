@@ -17,6 +17,7 @@ namespace SaveSystem
         [SerializeField] private CurrencySO playerCurrency;
         [SerializeField] private UpgradeItemsList itemList;
         [SerializeField] private AudioSettingsSO audioSettings;
+        [SerializeField] private GameStateSO gameStates;
         
         private void Awake()
         {
@@ -30,6 +31,7 @@ namespace SaveSystem
             new CurrencyStorage().CreateCurrencyData();
             new AudioStorage().CreateAudioData();
             new ButtonStorage().CreateButtonData();
+            new GameStateStorage().CreateGameStateData();
         }
 
         public void ClearData()
@@ -39,6 +41,7 @@ namespace SaveSystem
             new CurrencyStorage().DeleteCurrencyData();
             new AudioStorage().DeleteAudioData();
             new ButtonStorage().DeleteButtonData();
+            new GameStateStorage().DeleteGameStateData();
         }
 
         //called at the beginning of the scene
@@ -49,12 +52,14 @@ namespace SaveSystem
                 LoadUpgrade();
                 LoadPlayerStats();
                 LoadCurrencyData();
+                LoadGameStateData();
                 UpgradeShopEvents.OnUpdateCurrency?.Invoke();
             }
             
             //Can be called if there are no scripts manually loading these data
             if (scene.buildIndex != 0)
             {
+                LoadGameStateData();
                 LoadCurrencyData();
             }
         }
@@ -155,6 +160,31 @@ namespace SaveSystem
         }
         #endregion
 
+        #region GAME_STATES
+        public void LoadGameStateData()
+        {
+            if (new GameStateStorage().GetGameStateData() == null) return;
+            Debug.Log("Loading Game State Data");
+            gameStates.isPaused = new GameStateStorage().GetGameStateData().isPaused;
+            gameStates.isPlayerFirstGame = new GameStateStorage().GetGameStateData().isPlayerFirstGame;
+            gameStates.isDefaultHomeButton = new GameStateStorage().GetGameStateData().isDefaultHomeButton;
+            gameStates.StartingPos = new GameStateStorage().GetGameStateData().StartingPos;
+        }
+
+        public void SaveGameStateData()
+        {
+            Debug.Log("Saving Game State Data");
+            var tempdData = new GameStateData()
+            {
+                isPaused = gameStates.isPaused,
+                isPlayerFirstGame = gameStates.isPlayerFirstGame,
+                isDefaultHomeButton = gameStates.isDefaultHomeButton,
+                StartingPos = gameStates.StartingPos
+            };
+            new GameStateStorage().SaveGameStateData(tempdData);
+        }
+        #endregion
+
         private void OnEnable()
         {
             LocalStorageEvents.OnLoadPlayerStats += LoadPlayerStats;
@@ -171,6 +201,9 @@ namespace SaveSystem
 
             LocalStorageEvents.OnLoadButtonSettingsData += LoadButtons;
             LocalStorageEvents.OnSaveButtonSettingsData += SaveButtons;
+
+            LocalStorageEvents.OnLoadGameStateData += LoadGameStateData;
+            LocalStorageEvents.OnSaveGameStateData += SaveGameStateData;
             
             SceneManager.sceneLoaded += InitializeData;
         }
@@ -191,6 +224,9 @@ namespace SaveSystem
             
             LocalStorageEvents.OnLoadButtonSettingsData -= LoadButtons;
             LocalStorageEvents.OnSaveButtonSettingsData -= SaveButtons;
+            
+            LocalStorageEvents.OnLoadGameStateData -= LoadGameStateData;
+            LocalStorageEvents.OnSaveGameStateData -= SaveGameStateData;
             
             SceneManager.sceneLoaded -= InitializeData;
         }

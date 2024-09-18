@@ -23,13 +23,5 @@ namespace Player_Statistics
         [Header("Base upgrade stats")]
         public int barrierDurability = 0;
         public bool canRez = false;
-
-        public Vector3 StartingPos;
-
-        [Header("Tutorial")]
-        public bool isPlayerFirstGame = true;
-
-        [Header("Shop")]
-        public bool isDefaultHomeButton = true;
     }
 }

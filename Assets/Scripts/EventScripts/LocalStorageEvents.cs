@@ -24,5 +24,9 @@ namespace EventScripts
         //Button Settings Events
         public static Action OnLoadButtonSettingsData;
         public static Action OnSaveButtonSettingsData;
+        
+        //Game State Events
+        public static Action OnLoadGameStateData;
+        public static Action OnSaveGameStateData;
     }
 }
