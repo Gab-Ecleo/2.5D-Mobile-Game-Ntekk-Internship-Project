@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        PowerUpsSo.ResetValues();
+        
         _gameEnd = false;
         if(gameOverText == null) return;
             gameOverText.SetActive(false);
