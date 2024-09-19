@@ -65,17 +65,11 @@ public class UIControlManager : MonoBehaviour
     {
         LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
 
-        InitializeUI();
+        InitializeButtons();
+        InitializeConfinerPositions();
 
         rightSwitchButton.onClick.AddListener(OnRightButtonClick);
         leftSwitchButton.onClick.AddListener(OnLeftButtonClick);
-    }
-
-    private void InitializeUI()
-    {
-        InitializeButtons();
-        InitializeButtonPositions();
-        InitializeConfinerPositions();
 
         if (RightPanel != null && LeftPanel != null)
         {
@@ -86,8 +80,20 @@ public class UIControlManager : MonoBehaviour
         ControlMenu.SetActive(false);
     }
 
+
+    private void InitializeConfinerPositions()
+    {
+        if (_confiners.Length < 4) return;
+
+        posZero = _confiners[0].localPosition;
+        posOne = _confiners[1].localPosition;
+        posTwo = _confiners[2].localPosition;
+        posThree = _confiners[3].localPosition;
+    }
+
     private void InitializeButtons()
     {
+        LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
         buttonRects = new List<RectTransform>(buttonGOs.Count);
         buttonUIControls = new List<uiControls>(buttonGOs.Count);
         onScreenButtons = new List<OnScreenButton>(buttonGOs.Count);
@@ -107,36 +113,13 @@ public class UIControlManager : MonoBehaviour
                 buttonUIControls.Add(uiControl);
                 onScreenButtons.Add(onScreenButton);
                 buttonSOs.Add(uiControl.buttonSO);
+                
             }
         }
+
     }
 
-    private void InitializeButtonPositions()
-    {
-        for (int i = 0; i < buttonSOs.Count; i++)
-        {
-            InitializeButtonPosition(buttonSOs[i], buttonRects[i]);
-        }
-    }
-
-    private void InitializeConfinerPositions()
-    {
-        if (_confiners.Length < 4) return;
-
-        posZero = _confiners[0].localPosition;
-        posOne = _confiners[1].localPosition;
-        posTwo = _confiners[2].localPosition;
-        posThree = _confiners[3].localPosition;
-    }
-
-    private void InitializeButtonPosition(ButtonSO buttonSO, RectTransform rectTrans)
-    {
-        if (buttonSO.inIntialPos && !gameStateSO.isPlayerFirstGame)
-        {
-            buttonSO.inIntialPos = false;
-            buttonSO.CurrPos = rectTrans.position;
-        }
-    }
+   
 
     private void ToggleControlScreen()
     {
