@@ -94,6 +94,7 @@ public class UIControlManager : MonoBehaviour
     private void InitializeButtons()
     {
         LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
+
         buttonRects = new List<RectTransform>(buttonGOs.Count);
         buttonUIControls = new List<uiControls>(buttonGOs.Count);
         onScreenButtons = new List<OnScreenButton>(buttonGOs.Count);
@@ -113,7 +114,11 @@ public class UIControlManager : MonoBehaviour
                 buttonUIControls.Add(uiControl);
                 onScreenButtons.Add(onScreenButton);
                 buttonSOs.Add(uiControl.buttonSO);
-                
+
+                if (!uiControl.buttonSO.inIntialPos)
+                {
+                    rectTrans.position = uiControl.buttonSO.CurrPos;
+                }
             }
         }
 
