@@ -1,4 +1,5 @@
-﻿using ScriptableData;
+﻿using EventScripts;
+using ScriptableData;
 using UnityEngine;
 
 namespace PowerUp.Managers
@@ -38,6 +39,8 @@ namespace PowerUp.Managers
             if (currentDuration > 0)
             {
                 currentDuration -= Time.deltaTime;
+                // Trigger UI Change
+                PowerUpsEvents.TRIGGER_POWERUPS_UI?.Invoke(currentDuration);
             }
         }
         
@@ -61,6 +64,9 @@ namespace PowerUp.Managers
             if (!shouldHaveDuration) return;
             IsTimerActive = false;
             currentDuration = 0;
+
+            // Trigger UI Change
+            PowerUpsEvents.TRIGGER_POWERUPS_UI?.Invoke(currentDuration);
         }
     }
 }
