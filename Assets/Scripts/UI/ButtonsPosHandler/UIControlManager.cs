@@ -10,8 +10,6 @@ public class UIControlManager : MonoBehaviour
     private static UIControlManager _instance;
     public static UIControlManager Instance => _instance;
 
-    [SerializeField] private List<ButtonSaveData> buttonSaveDataList;
-
     [Header("Control Tween Animation")]
     [SerializeField] private GameObject controlPanelGO;
     [SerializeField] private CanvasGroup controlfadePanel;
@@ -61,7 +59,6 @@ public class UIControlManager : MonoBehaviour
 
     private void Start()
     {
-        LoadButtonData();
         InitializeUI();
 
         rightSwitchButton.onClick.AddListener(OnRightButtonClick);
@@ -218,59 +215,5 @@ public class UIControlManager : MonoBehaviour
     {
         GameEvents.ON_CONTROLS -= ToggleControlScreen;
     }
-
-
-    #region SAVING_AND_LOADING
-    private void LoadButtonData()
-    {
-        if (new ButtonStorage().GetButtonData() == null) return;
-        Debug.Log("Loading Button Data");
-        
-        //runs through each item from the json file
-        foreach (var dataItem in new ButtonStorage().GetButtonData().items)
-        {
-            //runs through each item from the in-game list
-            foreach (var item in buttonSaveDataList)
-            {
-                //if same button type, give the object the position data from the json file
-                if (dataItem.buttonType == item.buttonType)
-                {
-                    item.Position = dataItem.Position;
-                }
-            }
-        }
-    }
-
-    private void SaveButtonData()
-    {
-        buttonSaveDataList.Clear();
-
-        foreach (var uiControl in buttonUIControls)
-        {
-            uiControl.SaveData();
-            var saveData = new ButtonSaveData
-            {
-                Position = uiControl.buttonSO.CurrPos,
-                buttonType = uiControl.buttonSO.ButtonType,
-            };
-            buttonSaveDataList.Add(saveData);
-        }
-
-        //Save data to Json
-        var tempData = new ButtonData
-        {
-            items = buttonSaveDataList
-        };
-        new ButtonStorage().SaveButtonData(tempData);
-        Debug.Log("Saving Button Data");
-    }
-    #endregion
-    
 }
 
-[System.Serializable]
-public class ButtonSaveData
-{
-    public Vector3 Position;
-    public ButtonType buttonType;
-}
