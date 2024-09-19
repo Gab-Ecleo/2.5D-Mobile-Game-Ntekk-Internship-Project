@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using SaveSystem;
 using SaveSystem.Storage;
 using ScriptableData;
 using UnityEngine;
 using UnityEngine.InputSystem.OnScreen;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using SaveSystem;
+using EventScripts;
 
 public class UIControlManager : MonoBehaviour
 {
@@ -59,6 +63,8 @@ public class UIControlManager : MonoBehaviour
 
     private void Start()
     {
+        LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
+
         InitializeUI();
 
         rightSwitchButton.onClick.AddListener(OnRightButtonClick);
