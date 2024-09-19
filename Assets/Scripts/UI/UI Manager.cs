@@ -140,6 +140,7 @@ public class UIManager : MonoBehaviour
         }
         else if (gameStateSO.isPlayerFirstGame && isInMainMenu)
         {
+            gameStateSO.isPlayerFirstGame = true;
             TutorialButton.interactable = false;
         }
         else if (!gameStateSO.isPlayerFirstGame && isInMainMenu)
