@@ -104,7 +104,7 @@ public class UIManager : MonoBehaviour
 
         FirstTutorial();
 
-        barrierText.text = currStat.stats.barrierDurability.ToString("D4");
+        PlayerEvents.ON_BARRIER_HIT?.Invoke();
 
         if (MovementPanel != null)
         {
@@ -150,7 +150,10 @@ public class UIManager : MonoBehaviour
 
     private void BarrierUpdate()
     {
-        barrierText.text = currStat.stats.barrierDurability.ToString("D4");
+        if (isInMainMenu)
+            barrierText.text = currStat.stats.barrierDurability.ToString("D4");
+        else
+            barrierText.text = currStat.stats.barrierDurability.ToString("D1");
     }
 
     #region Pause Screen

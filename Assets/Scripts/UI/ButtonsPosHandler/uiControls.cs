@@ -49,11 +49,6 @@ public class uiControls : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         rectTransform.position = viewPos;
     }
 
-    private void SendDataToSO(Vector3 pos)
-    {
-        buttonSO.CurrPos = pos;
-    }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = false;
@@ -93,12 +88,18 @@ public class uiControls : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         return new Rect(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y);
     }
 
+
+    private void SaveCurrPos()
+    {
+        buttonSO.CurrPos = rectTransform.position;
+    }
+
     /// <summary>
-    /// Save button position 
-    /// for now is handled by a button
+    /// Delete this and call SendDataToSOS instead
     /// </summary>
     public void SaveData()
     {
-        SendDataToSO(rectTransform.position);
+        //SendDataToSO(rectTransform.position);
     }
+
 }

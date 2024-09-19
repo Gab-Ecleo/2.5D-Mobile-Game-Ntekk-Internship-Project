@@ -35,7 +35,6 @@ public class UIControlManager : MonoBehaviour
     private List<OnScreenButton> onScreenButtons;
 
     private bool isControllerMenuOpen;
-    private PlayerStatsSO playerStatsSO;
     private GameStateSO gameStateSO;
     private bool isRightHudSwitched;
     private bool isLeftHudSwitched;
@@ -56,7 +55,6 @@ public class UIControlManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        playerStatsSO = GameManager.Instance.FetchCurrentPlayerStat();
         gameStateSO = GameManager.Instance.FetchGameStateData();
         controlfadePanel.alpha = 0;
     }
@@ -268,13 +266,6 @@ public class UIControlManager : MonoBehaviour
     }
     #endregion
     
-    public void OnButtonsSave()
-    {
-        if (buttonSOs.Count == 4)
-        {
-            SaveButtonData();
-        }
-    }
 }
 
 [System.Serializable]
