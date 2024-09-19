@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EventScripts;
 using Player_Statistics;
 using SaveSystem.Storage;
@@ -18,7 +19,8 @@ namespace SaveSystem
         [SerializeField] private UpgradeItemsList itemList;
         [SerializeField] private AudioSettingsSO audioSettings;
         [SerializeField] private GameStateSO gameStates;
-        
+        [SerializeField] private List<ButtonSO> buttonScriptableList;
+
         private void Awake()
         {
             InitializeFiles();
@@ -59,6 +61,7 @@ namespace SaveSystem
             //Can be called if there are no scripts manually loading these data
             if (scene.buildIndex != 0)
             {
+                LoadButtons();
                 LoadGameStateData();
                 LoadCurrencyData();
             }
@@ -150,13 +153,32 @@ namespace SaveSystem
         #region BUTTON_SETTINGS
         public void LoadButtons()
         {
-            //Add code if needed
+            if (new ButtonStorage().GetButtonData() == null) return;
+
+            foreach (var ScriptableData in buttonScriptableList)
+            {
+                var dataButtonList = new ButtonStorage().GetButtonData().ButtonTypes;
+                for (var i = 0; i < dataButtonList.Count; i++)
+                {
+                    if (ScriptableData.ButtonType == dataButtonList[i])
+                    {
+                        Debug.Log($"Loading Button Data: {new ButtonStorage().GetButtonData().ButtonTypes[i]}");
+                        ScriptableData.CurrPos = new ButtonStorage().GetButtonData().CurrPos[i];
+                    }
+                }
+            }
         }
         
         public void SaveButtons()
         {
-            //Saving progress is in UIControlManager
-            //Add code if needed
+            Debug.Log("Saving Button Data");
+            var tempData = new ButtonData();
+            foreach (var scriptableData in buttonScriptableList)
+            {
+                tempData.ButtonTypes.Add(scriptableData.ButtonType);
+                tempData.CurrPos.Add(scriptableData.CurrPos);
+            }
+            new ButtonStorage().SaveButtonData(tempData);
         }
         #endregion
 

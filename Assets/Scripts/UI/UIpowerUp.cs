@@ -1,43 +1,87 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using ScriptableData;
 using UnityEngine.UI;
+using EventScripts;
 
 public class UIpowerUp : MonoBehaviour
 {
-    // for testing purposes only
-    [SerializeField] private PlayerStatsSO _playerCurrStats;
-    [SerializeField] private TMP_Text _powerupText;
-    void Update()
+    // UI Elements
+    [SerializeField] private Image image;
+
+    // Sprites Icon
+    [SerializeField] private Sprite defaultIcon;
+    [SerializeField] private Sprite MultiplierIcon;
+    [SerializeField] private Sprite SpringIcon;
+    [SerializeField] private Sprite TimeSlowIcon;
+    [SerializeField] private Sprite ExpressIcon;
+    [SerializeField] private Sprite SingleIcon;
+
+    private float initialDuration;
+
+    private void OnEnable()
     {
-        if(_playerCurrStats != null)
+        PowerUpsEvents.TRIGGER_POWERUPS_UI += PowerUpUIManger;
+    }
+
+    private void OnDisable()
+    {
+        PowerUpsEvents.TRIGGER_POWERUPS_UI -= PowerUpUIManger;
+    }
+
+    public void PowerUpUIManger(float currentDuration)
+    {
+        var powerUps = GameManager.Instance.FetchPowerUps();
+
+        if (initialDuration == 0) 
         {
-            if (GameManager.Instance.FetchPowerUps().hasMultiplier)
-            {
-                _powerupText.text = "Multiplier";
-            }
-            else if(GameManager.Instance.FetchPowerUps().springJump)
-            {
-                _powerupText.text = "Spring Jump";
-            }
-            else if(GameManager.Instance.FetchPowerUps().timeSlow)
-            {
-                _powerupText.text = "Time Slow";
-            }
-            else if (GameManager.Instance.FetchPowerUps().expressDelivery)
-            {
-                _powerupText.text = "Express Delivery";
-            }
-            else if(GameManager.Instance.FetchPowerUps().singleBlockRemover)
-            {
-                _powerupText.text = "Single Block";
-            }
-            else
-            {
-                _powerupText.text = "Power-up";
-            }
+            initialDuration = currentDuration;
         }
+
+        if (powerUps.hasMultiplier)
+        {
+            image.sprite = MultiplierIcon;
+            UpdateDurationUI(currentDuration);
+        }
+        else if (powerUps.springJump)
+        {
+            image.sprite = SpringIcon;
+            UpdateDurationUI(currentDuration);
+        }
+        else if (powerUps.timeSlow)
+        {
+            image.sprite = TimeSlowIcon;
+            UpdateDurationUI(currentDuration);
+        }
+        else if (powerUps.expressDelivery)
+        {
+            image.sprite = ExpressIcon;
+            UpdateDurationUI(currentDuration);
+        }
+        else if (powerUps.singleBlockRemover)
+        {
+            image.sprite = SingleIcon;
+            UpdateDurationUI(currentDuration);
+        }
+        else
+        {
+            image.sprite = defaultIcon;
+            ResetDuration();
+        }
+    }
+
+    private void UpdateDurationUI(float currentDuration)
+    {
+        if (initialDuration > 0)
+        {
+            image.fillAmount = currentDuration / initialDuration; 
+        }
+    }
+
+    public void ResetDuration()
+    {
+        initialDuration = 0;
+        image.fillAmount = 1;
     }
 }

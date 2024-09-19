@@ -31,14 +31,14 @@ namespace PowerUp.Managers.Inheritors
         protected override void ActivatePowerUp()
         {
             GameManager.Instance.FetchPowerUps().hasMultiplier = true;
-
+            Debug.Log("Activate Multiplier");
             base.ActivatePowerUp();
         }
 
         protected override void DeactivatePowerUp()
         {
             GameManager.Instance.FetchPowerUps().hasMultiplier = false;
-
+            Debug.Log("Deactivate Multiplier");
             base.DeactivatePowerUp();
         }
 

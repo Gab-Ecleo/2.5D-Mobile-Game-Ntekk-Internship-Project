@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: InteractButton
   m_EditorClassIdentifier: 
   buttonType: 3
-  CurrPos: {x: 1686.4379, y: 183.42398, z: 0}
+  CurrPos: {x: 1739.0559, y: 210.03781, z: 0}
   inIntialPos: 1

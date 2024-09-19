@@ -17,5 +17,7 @@ namespace EventScripts
         public static Action DEACTIVATE_SPRING_PU;
         public static Action DEACTIVATE_MULTIPLIER_PU;
         public static Action DEACTIVATE_TIMESLOW_PU;
+
+        public static Action<float> TRIGGER_POWERUPS_UI;
     }
 }

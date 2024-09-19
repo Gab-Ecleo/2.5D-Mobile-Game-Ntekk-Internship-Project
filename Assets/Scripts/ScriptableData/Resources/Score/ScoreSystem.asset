@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae0d58243f2ed247a882f51aa29cc6d, type: 3}
   m_Name: ScoreSystem
   m_EditorClassIdentifier: 
-  Points: 0
-  PointsToAdd: 2
+  Points: 54
+  PointsToAdd: 9
   Multiplier: 2
-  PowerUpDuration: 3
+  PlacementScore: 2

@@ -1,16 +1,18 @@
 using System.Collections.Generic;
+using SaveSystem;
 using SaveSystem.Storage;
 using ScriptableData;
 using UnityEngine;
 using UnityEngine.InputSystem.OnScreen;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using SaveSystem;
+using EventScripts;
 
 public class UIControlManager : MonoBehaviour
 {
     private static UIControlManager _instance;
     public static UIControlManager Instance => _instance;
-
-    [SerializeField] private List<ButtonSaveData> buttonSaveDataList;
 
     [Header("Control Tween Animation")]
     [SerializeField] private GameObject controlPanelGO;
@@ -35,7 +37,6 @@ public class UIControlManager : MonoBehaviour
     private List<OnScreenButton> onScreenButtons;
 
     private bool isControllerMenuOpen;
-    private PlayerStatsSO playerStatsSO;
     private GameStateSO gameStateSO;
     private bool isRightHudSwitched;
     private bool isLeftHudSwitched;
@@ -56,25 +57,19 @@ public class UIControlManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        playerStatsSO = GameManager.Instance.FetchCurrentPlayerStat();
         gameStateSO = GameManager.Instance.FetchGameStateData();
         controlfadePanel.alpha = 0;
     }
 
     private void Start()
     {
-        LoadButtonData();
-        InitializeUI();
+        LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
+
+        InitializeButtons();
+        InitializeConfinerPositions();
 
         rightSwitchButton.onClick.AddListener(OnRightButtonClick);
         leftSwitchButton.onClick.AddListener(OnLeftButtonClick);
-    }
-
-    private void InitializeUI()
-    {
-        InitializeButtons();
-        InitializeButtonPositions();
-        InitializeConfinerPositions();
 
         if (RightPanel != null && LeftPanel != null)
         {
@@ -85,8 +80,20 @@ public class UIControlManager : MonoBehaviour
         ControlMenu.SetActive(false);
     }
 
+
+    private void InitializeConfinerPositions()
+    {
+        if (_confiners.Length < 4) return;
+
+        posZero = _confiners[0].localPosition;
+        posOne = _confiners[1].localPosition;
+        posTwo = _confiners[2].localPosition;
+        posThree = _confiners[3].localPosition;
+    }
+
     private void InitializeButtons()
     {
+        LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
         buttonRects = new List<RectTransform>(buttonGOs.Count);
         buttonUIControls = new List<uiControls>(buttonGOs.Count);
         onScreenButtons = new List<OnScreenButton>(buttonGOs.Count);
@@ -106,36 +113,13 @@ public class UIControlManager : MonoBehaviour
                 buttonUIControls.Add(uiControl);
                 onScreenButtons.Add(onScreenButton);
                 buttonSOs.Add(uiControl.buttonSO);
+                
             }
         }
+
     }
 
-    private void InitializeButtonPositions()
-    {
-        for (int i = 0; i < buttonSOs.Count; i++)
-        {
-            InitializeButtonPosition(buttonSOs[i], buttonRects[i]);
-        }
-    }
-
-    private void InitializeConfinerPositions()
-    {
-        if (_confiners.Length < 4) return;
-
-        posZero = _confiners[0].localPosition;
-        posOne = _confiners[1].localPosition;
-        posTwo = _confiners[2].localPosition;
-        posThree = _confiners[3].localPosition;
-    }
-
-    private void InitializeButtonPosition(ButtonSO buttonSO, RectTransform rectTrans)
-    {
-        if (buttonSO.inIntialPos && !gameStateSO.isPlayerFirstGame)
-        {
-            buttonSO.inIntialPos = false;
-            buttonSO.CurrPos = rectTrans.position;
-        }
-    }
+   
 
     private void ToggleControlScreen()
     {
@@ -220,66 +204,5 @@ public class UIControlManager : MonoBehaviour
     {
         GameEvents.ON_CONTROLS -= ToggleControlScreen;
     }
-
-
-    #region SAVING_AND_LOADING
-    private void LoadButtonData()
-    {
-        if (new ButtonStorage().GetButtonData() == null) return;
-        Debug.Log("Loading Button Data");
-        
-        //runs through each item from the json file
-        foreach (var dataItem in new ButtonStorage().GetButtonData().items)
-        {
-            //runs through each item from the in-game list
-            foreach (var item in buttonSaveDataList)
-            {
-                //if same button type, give the object the position data from the json file
-                if (dataItem.buttonType == item.buttonType)
-                {
-                    item.Position = dataItem.Position;
-                }
-            }
-        }
-    }
-
-    private void SaveButtonData()
-    {
-        buttonSaveDataList.Clear();
-
-        foreach (var uiControl in buttonUIControls)
-        {
-            uiControl.SaveData();
-            var saveData = new ButtonSaveData
-            {
-                Position = uiControl.buttonSO.CurrPos,
-                buttonType = uiControl.buttonSO.ButtonType,
-            };
-            buttonSaveDataList.Add(saveData);
-        }
-
-        //Save data to Json
-        var tempData = new ButtonData
-        {
-            items = buttonSaveDataList
-        };
-        new ButtonStorage().SaveButtonData(tempData);
-        Debug.Log("Saving Button Data");
-    }
-    #endregion
-    
-    public void OnButtonsSave()
-    {
-        if (buttonSOs.Count == 4)
-        {
-            SaveButtonData();
-        }
-    }
 }
 
-[System.Serializable]
-public class ButtonSaveData
-{
-    public Vector3 Position;
-    public ButtonType buttonType;
-}
