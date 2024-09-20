@@ -123,8 +123,6 @@ public class UIControlManager : MonoBehaviour
 
     }
 
-   
-
     private void ToggleControlScreen()
     {
         controlfadePanel.alpha = 1;

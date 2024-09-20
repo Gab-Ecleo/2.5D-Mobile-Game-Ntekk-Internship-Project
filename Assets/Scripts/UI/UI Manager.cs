@@ -110,6 +110,8 @@ public class UIManager : MonoBehaviour
         {
             MovementPanel.enabled = false;
         }
+
+        BarrierUpdate();
     }
 
     private void InitializePlayerStats()
