@@ -61,7 +61,7 @@ namespace SaveSystem
             //Can be called if there are no scripts manually loading these data
             if (scene.buildIndex != 0)
             {
-                LoadButtons();
+                //LoadButtons();
                 LoadGameStateData();
                 LoadCurrencyData();
             }
