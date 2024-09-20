@@ -27,7 +27,15 @@ namespace PlayerScripts
 
         private void Start()
         {
-            LocalStorageEvents.OnLoadPlayerStats?.Invoke();
+            if (GameManager.Instance.FetchGameStateData().isPlayerFirstGame)
+            {
+                LocalStorageEvents.OnSavePlayerStats?.Invoke();
+            }
+            else
+            {
+                LocalStorageEvents.OnLoadPlayerStats?.Invoke();
+            }
+            
             // get starting positon
             _gameStateSo = GameManager.Instance.FetchGameStateData();
             GetPlayerPosition();
