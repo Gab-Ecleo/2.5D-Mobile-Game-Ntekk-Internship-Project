@@ -31,6 +31,7 @@ public class UIControlManager : MonoBehaviour
     public GameObject ControlMenu;
     public Button rightSwitchButton;
     public Button leftSwitchButton;
+    public SaveDataManager saveDataManager;
 
     private List<RectTransform> buttonRects;
     private List<uiControls> buttonUIControls;
@@ -63,8 +64,6 @@ public class UIControlManager : MonoBehaviour
 
     private void Start()
     {
-        LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
-
         InitializeButtons();
         InitializeConfinerPositions();
 
@@ -93,7 +92,7 @@ public class UIControlManager : MonoBehaviour
 
     private void InitializeButtons()
     {
-        LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
+        saveDataManager.LoadButtons();
 
         buttonRects = new List<RectTransform>(buttonGOs.Count);
         buttonUIControls = new List<uiControls>(buttonGOs.Count);
