@@ -9,6 +9,7 @@ namespace PowerUp.PowerUps
     {
         protected void BaseEffect()
         {
+            GameEvents.ON_SCORE_CHANGES(GameManager.Instance.FetchScores().PUPickUpScore);
             Destroy(gameObject);
         }
     }
