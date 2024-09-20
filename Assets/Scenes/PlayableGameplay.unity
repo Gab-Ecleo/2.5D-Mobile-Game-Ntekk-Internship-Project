@@ -31109,6 +31109,7 @@ MonoBehaviour:
   ControlMenu: {fileID: 493559369}
   rightSwitchButton: {fileID: 1204787341}
   leftSwitchButton: {fileID: 1408431909}
+  saveDataManager: {fileID: 1960604144}
 --- !u!114 &8651618644013949540
 MonoBehaviour:
   m_ObjectHideFlags: 0

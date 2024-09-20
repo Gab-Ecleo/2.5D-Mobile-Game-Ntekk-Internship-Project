@@ -136,7 +136,7 @@ public class UIManager : MonoBehaviour
         if (gameStateSO.isPlayerFirstGame && !isInMainMenu)
         {
             Debug.Log("First Time Player");
-            GameEvents.ON_TUTORIAL?.Invoke();
+            ToggleTutorialButton();
         }
         else if (gameStateSO.isPlayerFirstGame && isInMainMenu)
         {
