@@ -40,24 +40,17 @@ public class TutorialLock : MonoBehaviour
             button.Background.sprite = buttonDisabled;
         }
 
-        defaultButton.Background.sprite = buttonSelected;
-
         exitButton.interactable = false;
     }
 
     private void OnEnable()
     {
         GameEvents.ON_TUTORIAL_UNLOCKED += UnlockTutorial;
-        defaultButton.Background.sprite = buttonSelected;
     }
 
     private void OnDisable()
     {
         GameEvents.ON_TUTORIAL_UNLOCKED -= UnlockTutorial;
-        for (int i = 0; i < buttonsList.Count; i++)
-        {
-            defaultButton.Background.sprite = buttonIdle;
-        }
     }
 
     private void UnlockTutorial()
@@ -81,6 +74,7 @@ public class TutorialLock : MonoBehaviour
                 switch (i)
                 {
                     case 0:
+                        ActivateButton(0);
                         ActivateButton(1);
                         Debug.Log("Hazard unlocked, Powerups button interactable.");
                         break;
@@ -131,6 +125,10 @@ public class TutorialLock : MonoBehaviour
 
     public void OnTabSelected(TutorialButtons button)
     {
+        if (defaultButton != button)
+        {
+            defaultButton.Background.sprite = buttonIdle;
+        }
         _selectedTab = button;
         ResetButtons();
         button.Background.sprite = buttonSelected;
@@ -144,6 +142,19 @@ public class TutorialLock : MonoBehaviour
             if (_selectedTab != null && button == _selectedTab) continue;
             button.Background.sprite = buttonIdle;
         }
+    }
+
+    public void ResetButtonAndPage()
+    {
+        ResetButtons();
+
+        OnTabSelected(defaultButton);
+
+        for (int i = 0; i < panelsGO.Length; i++)
+        {
+            panelsGO[i].SetActive(false);
+        }
+        panelsGO[0].SetActive(true);
     }
 
     public void PageActivation(TutorialButtons button)

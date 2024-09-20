@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
     public GameObject TutorialMenu;
     public AudioUIManager AudioUIManager;
     public SwipeController[] SwipeController;
-
+    public TutorialLock tutorialLock;
     [Header("Panels")]
     [SerializeField] private Image MovementPanel;
 
@@ -207,6 +207,7 @@ public class UIManager : MonoBehaviour
             tutorialfadePanel.interactable = true;
             tutorialfadePanel.blocksRaycasts = true;
             GameEvents.ON_TUTORIAL_UNLOCKED?.Invoke();
+            tutorialLock.ResetButtonAndPage();
             TutorialPanelIntro();
         }
         else
@@ -222,7 +223,7 @@ public class UIManager : MonoBehaviour
             tutorialfadePanel.interactable = false;
             tutorialfadePanel.blocksRaycasts = false;
             Time.timeScale = 1;
-            TutorialMenu.SetActive(false);
+            //TutorialMenu.SetActive(false);
         }
     }
 
