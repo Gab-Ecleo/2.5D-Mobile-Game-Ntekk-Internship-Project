@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402298, g: 0.49316323, b: 0.5722333, a: 1}
+  m_IndirectSpecularColor: {r: 0.4440237, g: 0.4931634, b: 0.57223135, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -321,7 +321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &86515217
 RectTransform:
   m_ObjectHideFlags: 0
@@ -590,7 +590,7 @@ PrefabInstance:
       objectReference: {fileID: 1004810484}
     - target: {fileID: 1522544122296608528, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
       propertyPath: _windStrength
-      value: 30
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1522544122296608528, guid: d065304f767c6f942bf33b17a17961b3, type: 3}
       propertyPath: _hazardDuration
@@ -11974,7 +11974,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1009580986115893998}
   m_HandleRect: {fileID: 7797043098452993977}
   m_Direction: 0
-  m_Value: 0.000000039449347
+  m_Value: 0
   m_Size: 0.16920546
   m_NumberOfSteps: 0
   m_OnValueChanged:

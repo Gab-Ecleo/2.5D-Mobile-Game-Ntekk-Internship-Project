@@ -111,9 +111,11 @@ public class WindPressureEffect : MonoBehaviour
 
     void BlowWind()
     {
-        Vector3 windForce = _windStrength * _dir;
+        var FORCE_MULTIPLIER = 1000;
         
-        _playerRB.AddForce(windForce * Time.unscaledTime);
+        Vector3 windForce = (_windStrength * FORCE_MULTIPLIER) * _dir;
+        
+        _playerRB.AddForce(windForce * Time.deltaTime);
     }
     
     private int PickDirection()

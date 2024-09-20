@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
@@ -20,6 +21,13 @@ public class SceneController : MonoBehaviour
     private void Start()
     {
         gameStateSO = GameManager.Instance.FetchGameStateData();
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().buildIndex != 0) return;
+            if(Input.GetKey(KeyCode.Escape))
+                Exit();
     }
 
     public void LoadScene(int sceneInt, bool isDefaultHome)
