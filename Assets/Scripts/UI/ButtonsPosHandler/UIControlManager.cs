@@ -26,6 +26,8 @@ public class UIControlManager : MonoBehaviour
     [SerializeField] private Image RightPanel;
     [SerializeField] private Image LeftPanel;
 
+    [Header("Confiners")] 
+    [SerializeField] private ButtonConfinerSO confinerSO;
     [SerializeField] private RectTransform[] _confiners;
 
     public GameObject ControlMenu;
@@ -64,7 +66,6 @@ public class UIControlManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeButtons();
         InitializeConfinerPositions();
 
         rightSwitchButton.onClick.AddListener(OnRightButtonClick);
@@ -79,15 +80,32 @@ public class UIControlManager : MonoBehaviour
         ControlMenu.SetActive(false);
     }
 
-
-    private void InitializeConfinerPositions()
+        private void InitializeConfinerPositions()
     {
         if (_confiners.Length < 4) return;
 
-        posZero = _confiners[0].localPosition;
-        posOne = _confiners[1].localPosition;
-        posTwo = _confiners[2].localPosition;
-        posThree = _confiners[3].localPosition;
+        posZero.x = _confiners[0].localPosition.x;
+        posOne.x = _confiners[1].localPosition.x;
+        posTwo.x = _confiners[2].localPosition.x;
+        posThree.x = _confiners[3].localPosition.x;
+
+
+        #region DATA LOAD FROM SCRIPTABLE OBJECT
+        if (confinerSO.buttonConfiners.movementConfinerPos1.x == 0)
+        {
+            ResetPositions();
+            return;
+        }
+        _confiners[0].localPosition = confinerSO.buttonConfiners.movementConfinerPos1;
+        _confiners[1].localPosition = confinerSO.buttonConfiners.movementConfinerPos2;
+
+        _confiners[2].localPosition = confinerSO.buttonConfiners.actionConfinerPos1;
+        _confiners[3].localPosition = confinerSO.buttonConfiners.actionConfinerPos2;
+
+        isRightHudSwitched = confinerSO.buttonConfiners.isRightHudSwitched;
+        isLeftHudSwitched = confinerSO.buttonConfiners.isLeftHudSwitched;
+        #endregion
+        InitializeButtons();
     }
 
     private void InitializeButtons()
@@ -109,6 +127,7 @@ public class UIControlManager : MonoBehaviour
 
             if (rectTrans != null && uiControl != null && onScreenButton != null)
             {
+                uiControl.ConfineToBounds();
                 buttonRects.Add(rectTrans);
                 buttonUIControls.Add(uiControl);
                 onScreenButtons.Add(onScreenButton);
@@ -163,40 +182,61 @@ public class UIControlManager : MonoBehaviour
             _confiners[1].localPosition = posOne;
             _confiners[2].localPosition = posTwo;
             _confiners[3].localPosition = posThree;
+
+            confinerSO.buttonConfiners.movementConfinerPos1 = posZero;
+            confinerSO.buttonConfiners.movementConfinerPos2 = posOne;
+            confinerSO.buttonConfiners.actionConfinerPos1 = posTwo;
+            confinerSO.buttonConfiners.actionConfinerPos2 = posThree;
         }
 
         isRightHudSwitched = false;
         isLeftHudSwitched = false;
+        confinerSO.buttonConfiners.isRightHudSwitched = false;
+        confinerSO.buttonConfiners.isLeftHudSwitched = false;
     }
 
     public void OnRightButtonClick()
     {
-        if (!isRightHudSwitched)
+        if (isRightHudSwitched)
         {
             _confiners[2].localPosition = posTwo;
             _confiners[3].localPosition = posThree;
+
+            confinerSO.buttonConfiners.actionConfinerPos1 = posTwo;
+            confinerSO.buttonConfiners.actionConfinerPos2 = posThree;
         }
         else
         {
             _confiners[2].localPosition = posThree;
             _confiners[3].localPosition = posTwo;
+            
+            confinerSO.buttonConfiners.actionConfinerPos1 = posThree;
+            confinerSO.buttonConfiners.actionConfinerPos2 = posTwo;
         }
         isRightHudSwitched = !isRightHudSwitched;
+        confinerSO.buttonConfiners.isRightHudSwitched = isRightHudSwitched;
     }
 
     public void OnLeftButtonClick()
     {
-        if (!isLeftHudSwitched)
+        if (isLeftHudSwitched)
         {
             _confiners[0].localPosition = posZero;
             _confiners[1].localPosition = posOne;
+            
+            confinerSO.buttonConfiners.movementConfinerPos1 = posZero;
+            confinerSO.buttonConfiners.movementConfinerPos2 = posOne;
         }
         else
         {
             _confiners[0].localPosition = posOne;
             _confiners[1].localPosition = posZero;
+            
+            confinerSO.buttonConfiners.movementConfinerPos1 = posOne;
+            confinerSO.buttonConfiners.movementConfinerPos2 = posZero;
         }
         isLeftHudSwitched = !isLeftHudSwitched;
+        confinerSO.buttonConfiners.isLeftHudSwitched = isLeftHudSwitched;
     }
 
     private void OnEnable()

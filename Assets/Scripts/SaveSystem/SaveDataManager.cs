@@ -20,6 +20,7 @@ namespace SaveSystem
         [SerializeField] private AudioSettingsSO audioSettings;
         [SerializeField] private GameStateSO gameStates;
         [SerializeField] private List<ButtonSO> buttonScriptableList;
+        [SerializeField] private ButtonConfinerSO buttonConfinerStats;
 
         private void Awake()
         {
@@ -167,6 +168,7 @@ namespace SaveSystem
                     }
                 }
             }
+            buttonConfinerStats.buttonConfiners = new ButtonStorage().GetButtonData().buttonConfiners;
         }
         
         public void SaveButtons()
@@ -178,6 +180,8 @@ namespace SaveSystem
                 tempData.ButtonTypes.Add(scriptableData.ButtonType);
                 tempData.CurrPos.Add(scriptableData.CurrPos);
             }
+
+            tempData.buttonConfiners = buttonConfinerStats.buttonConfiners;
             new ButtonStorage().SaveButtonData(tempData);
         }
         #endregion
