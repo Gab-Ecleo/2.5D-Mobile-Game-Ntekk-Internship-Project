@@ -66,7 +66,6 @@ public class UIControlManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeButtons();
         InitializeConfinerPositions();
 
         rightSwitchButton.onClick.AddListener(OnRightButtonClick);
@@ -81,8 +80,7 @@ public class UIControlManager : MonoBehaviour
         ControlMenu.SetActive(false);
     }
 
-
-    private void InitializeConfinerPositions()
+        private void InitializeConfinerPositions()
     {
         if (_confiners.Length < 4) return;
 
@@ -107,6 +105,7 @@ public class UIControlManager : MonoBehaviour
         isRightHudSwitched = confinerSO.buttonConfiners.isRightHudSwitched;
         isLeftHudSwitched = confinerSO.buttonConfiners.isLeftHudSwitched;
         #endregion
+        InitializeButtons();
     }
 
     private void InitializeButtons()
@@ -128,6 +127,7 @@ public class UIControlManager : MonoBehaviour
 
             if (rectTrans != null && uiControl != null && onScreenButton != null)
             {
+                uiControl.ConfineToBounds();
                 buttonRects.Add(rectTrans);
                 buttonUIControls.Add(uiControl);
                 onScreenButtons.Add(onScreenButton);

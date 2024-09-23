@@ -28,10 +28,9 @@ public class uiControls : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
     private void Start()
     {
         if (buttonSO == null || rectTransform == null) { return; }
-        // ConfineToBounds();
     }
 
-    private void ConfineToBounds()
+    public void ConfineToBounds()
     {
         Vector3[] confinerCorners = new Vector3[4];
         confiner.GetWorldCorners(confinerCorners);
