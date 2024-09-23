@@ -285,7 +285,7 @@ public class UIManager : MonoBehaviour
     }
     public void GoToScene(int scene)
     {
-        SceneController.Instance.LoadScene(scene, true);
+        StartCoroutine(SceneTransition(scene));
     }
 
     public void RestartScene()
@@ -293,24 +293,18 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void GoToHomeButton()
-    {
-        StartCoroutine(SceneTransition(0, true));
-    }
 
-    public void GoToUpgradeButton()
+    IEnumerator SceneTransition(int sceneInt)
     {
-        StartCoroutine(SceneTransition(0, false));
-    }
-
-    IEnumerator SceneTransition(int sceneInt, bool isDefaultHome)
-    {
-        TogglePause();
-        ToggleTutorial();
+        if(_isPauseScreenOpen && _isTutorialScreenOpen)
+        {
+            TogglePause();
+            ToggleTutorial();
+        }
 
         yield return new WaitForSeconds(0.25f);
 
-        SceneController.Instance.LoadScene(sceneInt, isDefaultHome);
+        SceneController.Instance.LoadScene(sceneInt);
     }
 
     #endregion
