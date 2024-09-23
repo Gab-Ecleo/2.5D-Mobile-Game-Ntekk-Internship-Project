@@ -30,7 +30,7 @@ public class uiControls : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         if (buttonSO == null || rectTransform == null) { return; }
     }
 
-    private void ConfineToBounds()
+    public void ConfineToBounds()
     {
         Vector3[] confinerCorners = new Vector3[4];
         confiner.GetWorldCorners(confinerCorners);
