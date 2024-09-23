@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4440237, g: 0.4931634, b: 0.57223135, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657594, g: 0.49640948, b: 0.57481396, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2575,7 +2575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 140, y: 0.0000038147}
+  m_AnchoredPosition: {x: 140, y: 0}
   m_SizeDelta: {x: 280, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &889663964
@@ -6851,6 +6851,10 @@ PrefabInstance:
       propertyPath: gameStates
       value: 
       objectReference: {fileID: 11400000, guid: d1bd2192ea3ab30418ce9f5ef1a50b03, type: 2}
+    - target: {fileID: 8351475634420693472, guid: acb100b4f2737204daab2746a9040fd9, type: 3}
+      propertyPath: buttonConfinerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 32b40d1596449ee47adf7b3b79b425d1, type: 2}
     - target: {fileID: 8351475634420693472, guid: acb100b4f2737204daab2746a9040fd9, type: 3}
       propertyPath: buttonScriptableList.Array.size
       value: 4
@@ -11975,7 +11979,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7797043098452993977}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.16920546
+  m_Size: 0.16920547
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -31101,6 +31105,7 @@ MonoBehaviour:
   - {fileID: 2600419519646534613}
   RightPanel: {fileID: 3283394445247077914}
   LeftPanel: {fileID: 8574652806351971778}
+  confinerSO: {fileID: 11400000, guid: 32b40d1596449ee47adf7b3b79b425d1, type: 2}
   _confiners:
   - {fileID: 2047730800}
   - {fileID: 855371170}

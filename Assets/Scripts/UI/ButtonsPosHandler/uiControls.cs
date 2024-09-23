@@ -28,6 +28,7 @@ public class uiControls : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
     private void Start()
     {
         if (buttonSO == null || rectTransform == null) { return; }
+        // ConfineToBounds();
     }
 
     private void ConfineToBounds()

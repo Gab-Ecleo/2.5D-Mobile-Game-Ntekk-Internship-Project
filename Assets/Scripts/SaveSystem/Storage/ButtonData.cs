@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ScriptableData;
 using UnityEngine;
 
 namespace SaveSystem.Storage
@@ -9,5 +10,7 @@ namespace SaveSystem.Storage
     {
         public List<ButtonType> ButtonTypes = new List<ButtonType>();
         public List<Vector3> CurrPos = new List<Vector3>();
+
+        public ButtonConfiners buttonConfiners = new ButtonConfiners();
     }
 }
