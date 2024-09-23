@@ -12,6 +12,9 @@ namespace UpgradeShop
         public string identifier;
         public string upgradeName;
         public string description;
+        
+        [Header("Upgrade Sprite")]
+        public Sprite upgradeSprite;
 
         [Header("Stat to be Upgraded")]
         public Upgradables affectedStat;

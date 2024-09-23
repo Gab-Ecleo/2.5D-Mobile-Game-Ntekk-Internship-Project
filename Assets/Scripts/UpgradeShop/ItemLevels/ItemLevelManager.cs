@@ -29,6 +29,11 @@ namespace UpgradeShop.ItemLevels
             levelSlots.Add(itemLevel);
         }
 
+        public void ResetLevelSlotList()
+        {
+            levelSlots.Clear();
+        }
+
         public void RenderList(UpgradeItem item, UpgradeItemIdentifier identifier)
         {
             _currentItem = item;

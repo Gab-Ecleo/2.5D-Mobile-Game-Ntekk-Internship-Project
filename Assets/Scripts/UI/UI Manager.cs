@@ -285,26 +285,12 @@ public class UIManager : MonoBehaviour
     }
     public void GoToScene(int scene)
     {
-        StartCoroutine(SceneTransition(scene));
+        SceneController.Instance.LoadScene(scene);
     }
 
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-
-    IEnumerator SceneTransition(int sceneInt)
-    {
-        if(_isPauseScreenOpen && _isTutorialScreenOpen)
-        {
-            TogglePause();
-            ToggleTutorial();
-        }
-
-        yield return new WaitForSeconds(0.25f);
-
-        SceneController.Instance.LoadScene(sceneInt);
     }
 
     #endregion
