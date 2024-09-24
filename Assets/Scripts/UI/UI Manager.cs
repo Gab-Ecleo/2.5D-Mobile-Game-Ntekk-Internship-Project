@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Check Scene")]
     [SerializeField] private bool isInMainMenu;
+    [SerializeField] private bool isInUpgradeShop;
 
     [Header("Barrier")]
     [SerializeField] TMP_Text barrierText;
@@ -99,16 +100,19 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        InitializePlayerStats();
-        InitializeUIStates();
-
-        FirstTutorial();
-
-        PlayerEvents.ON_BARRIER_HIT?.Invoke();
-
-        if (MovementPanel != null)
+        if(!isInUpgradeShop)
         {
-            MovementPanel.enabled = false;
+            InitializePlayerStats();
+            InitializeUIStates();
+
+            FirstTutorial();
+
+            PlayerEvents.ON_BARRIER_HIT?.Invoke();
+
+            if (MovementPanel != null)
+            {
+                MovementPanel.enabled = false;
+            }
         }
     }
 
@@ -146,6 +150,10 @@ public class UIManager : MonoBehaviour
         else if (!gameStateSO.isPlayerFirstGame && isInMainMenu)
         {
             TutorialButton.interactable = true;
+        }
+        else if(isInUpgradeShop)
+        {
+            return;
         }
     }
 
