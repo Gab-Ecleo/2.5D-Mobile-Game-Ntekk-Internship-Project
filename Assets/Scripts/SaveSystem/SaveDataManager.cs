@@ -52,15 +52,24 @@ namespace SaveSystem
         {
             if (scene.buildIndex == 0)
             {
+                //LoadUpgrade();
+                LoadPlayerStats();
+                LoadCurrencyData();
+                LoadGameStateData();
+                UpgradeShopEvents.OnUpdateCurrency?.Invoke();
+            }
+
+            if (scene.buildIndex == 1)
+            {
                 LoadUpgrade();
                 LoadPlayerStats();
                 LoadCurrencyData();
                 LoadGameStateData();
                 UpgradeShopEvents.OnUpdateCurrency?.Invoke();
             }
-            
+
             //Can be called if there are no scripts manually loading these data
-            if (scene.buildIndex != 0)
+            if (scene.buildIndex == 2)
             {
                 //LoadButtons();
                 LoadGameStateData();
