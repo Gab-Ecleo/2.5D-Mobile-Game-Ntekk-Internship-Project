@@ -30,12 +30,9 @@ public class SceneController : MonoBehaviour
                 Exit();
     }
 
-    public void LoadScene(int sceneInt, bool isDefaultHome)
+    public void LoadScene(int sceneInt)
     {
         DOTween.KillAll();
-
-        gameStateSO.isDefaultHomeButton = isDefaultHome;
-        LocalStorageEvents.OnSaveGameStateData?.Invoke();
         SceneManager.LoadScene(sceneInt);
         Time.timeScale = 1.0f;
     }

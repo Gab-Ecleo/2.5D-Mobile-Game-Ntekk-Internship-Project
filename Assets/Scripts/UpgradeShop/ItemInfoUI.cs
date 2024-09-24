@@ -15,7 +15,7 @@ namespace UpgradeShop
         
         [Header("Item Info Text")]
         [SerializeField] private TextMeshProUGUI title;
-        [SerializeField] private TextMeshProUGUI description;
+        [SerializeField] private Image powerUpSprite;
         [SerializeField] private TextMeshProUGUI nextCostTxt;
         [SerializeField] private TextMeshProUGUI currentLvlStatTxt;
         [SerializeField] private TextMeshProUGUI nextLvlStatTxt;
@@ -27,8 +27,8 @@ namespace UpgradeShop
         public void UpdateNewItemName(UpgradeItem item)
         {
             //update the new item's name and description
+            powerUpSprite.sprite = item.upgradeSprite;
             title.text = item.upgradeName;
-            description.text = item.description;
         }
 
         public void UpdateDetailsUI(string nextCost, string currLvl, string nextLvl,StatSign statSign, bool maxLevel)

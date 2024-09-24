@@ -22,6 +22,8 @@ namespace UpgradeShop.ItemLevels
                 Destroy(child.gameObject);
             }
             
+            itemLevelManager.ResetLevelSlotList();
+            
             //generate new level slots/cells for this item
             for (var currentCellCount = 0; currentCellCount < item.maxLevelCount; currentCellCount++)
             {

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - identifier: upgrade-barrier
-    upgradeName: Barrier TEST
+    upgradeName: barrier
     description: Yippeee
+    upgradeSprite: {fileID: 21300000, guid: e0f0b52f2b5701f49b79f41570839edf, type: 3}
     affectedStat: 0
     statSign: 0
     maxLevelCount: 6
@@ -30,8 +31,9 @@ MonoBehaviour:
     - 5
     - 6
   - identifier: upgrade-movement
-    upgradeName: Movement TEST
+    upgradeName: movement speed
     description: Yahoo!
+    upgradeSprite: {fileID: 21300000, guid: e08d291f0d1179c47be2728b13cb9d74, type: 3}
     affectedStat: 1
     statSign: 1
     maxLevelCount: 5
@@ -45,8 +47,9 @@ MonoBehaviour:
     - 7.5
     - 8
   - identifier: upgrade-aerial-movement
-    upgradeName: Aerial Movement Test
+    upgradeName: aerial movement speed
     description: Tentenenten
+    upgradeSprite: {fileID: 21300000, guid: b279a7e9b40e143458a1cf49432e6e92, type: 3}
     affectedStat: 2
     statSign: 1
     maxLevelCount: 3

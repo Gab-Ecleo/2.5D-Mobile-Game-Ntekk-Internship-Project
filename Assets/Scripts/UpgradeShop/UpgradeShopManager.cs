@@ -14,43 +14,50 @@ namespace UpgradeShop
     {
         [SerializeField] private UpgradeItemsList itemList;
         [SerializeField] private List<UpgradeItemIdentifier> itemIdentifiers;
-        
-        [Header("Prefab references")]
-        [SerializeField] private GameObject itemPrefab;
-        
-        [Header("Content Container")]
-        [SerializeField] private GameObject contentList;
+        [SerializeField] private ItemGenerator itemGenerator;
+
+        [Header("Upgrade UI Reference")] 
+        [SerializeField] private UpgradeShopUIManager upgradeUI;
+
+        [Header("TO BE PRIVATE")]
+        [SerializeField]private int _currentPage = 0;
 
         private void Start()
         {
-            GenerateItems();
+            GenerateItems(0);
+            upgradeUI.InitializeIntList(itemList);
         }
 
-        public void GenerateItems()
+        public void TurnPage(int addend)
         {
-            //destroy existing child
-            foreach (Transform child in contentList.transform)
+            _currentPage += addend;
+
+            #region PAGE_CALCULATION
+            if (_currentPage < 0)
             {
-                Destroy(child.gameObject);
+                _currentPage = itemList.items.Count - 1;
             }
-            
-            //generate new items and provide their proper references
-            foreach (var item in itemList.items)
+            else if (_currentPage > itemList.items.Count - 1)
             {
-                foreach (var id in itemIdentifiers)
+                _currentPage = 0;
+            }
+            #endregion
+            
+            GenerateItems(_currentPage);
+            upgradeUI.SyncPagePosition(_currentPage);
+        }
+
+        public void GenerateItems(int currentPage)
+        {
+            foreach (var id in itemIdentifiers)
+            {
+                if (itemList.items[currentPage].identifier != id.identifier)
                 {
-                    if (item.identifier != id.identifier)
-                    {
-                        continue;
-                    }
-                    var newItem = Instantiate(itemPrefab, contentList.transform);
-
-                    var newItemComponent = newItem.GetComponent<ItemGenerator>();
-
-                    newItem.name = item.upgradeName;
-                
-                    newItemComponent.UpdateItemValues(item, id);
+                    continue;
                 }
+                
+                itemGenerator.name = itemList.items[currentPage].upgradeName;
+                itemGenerator.UpdateItemValues(itemList.items[currentPage], id);
             }
         }
     }
