@@ -15,12 +15,9 @@ namespace UpgradeShop
         [SerializeField] private UpgradeItemsList itemList;
         [SerializeField] private List<UpgradeItemIdentifier> itemIdentifiers;
         [SerializeField] private ItemGenerator itemGenerator;
-        
-        [Header("Prefab references")]
-        [SerializeField] private GameObject itemPrefab;
-        
-        [Header("Content Container")]
-        [SerializeField] private GameObject contentList;
+
+        [Header("Upgrade UI Reference")] 
+        [SerializeField] private UpgradeShopUIManager upgradeUI;
 
         [Header("TO BE PRIVATE")]
         [SerializeField]private int _currentPage = 0;
@@ -28,6 +25,7 @@ namespace UpgradeShop
         private void Start()
         {
             GenerateItems(0);
+            upgradeUI.InitializeIntList(itemList);
         }
 
         public void TurnPage(int addend)
@@ -46,25 +44,18 @@ namespace UpgradeShop
             #endregion
             
             GenerateItems(_currentPage);
+            upgradeUI.SyncPagePosition(_currentPage);
         }
 
         public void GenerateItems(int currentPage)
         {
-            //destroy existing child
-            // foreach (Transform child in contentList.transform)
-            // {
-            //     Destroy(child.gameObject);
-            // }
-
             foreach (var id in itemIdentifiers)
             {
                 if (itemList.items[currentPage].identifier != id.identifier)
                 {
                     continue;
                 }
-
-                //var newItem = Instantiate(itemPrefab, contentList.transform);
-                //var newItemComponent = newItem.GetComponent<ItemGenerator>();
+                
                 itemGenerator.name = itemList.items[currentPage].upgradeName;
                 itemGenerator.UpdateItemValues(itemList.items[currentPage], id);
             }

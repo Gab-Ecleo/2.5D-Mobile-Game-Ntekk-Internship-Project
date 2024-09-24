@@ -82,6 +82,7 @@ namespace UpgradeShop.ItemLevels
                         UpgradeShopEvents.OnPurchaseLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel + 1]);
                         _currentItem.currentLevel++;
                         UpdateStats();
+                        UpgradeShopEvents.OnUpdateItemLevel?.Invoke(1);
                         return;
                         
                     default:
@@ -106,6 +107,7 @@ namespace UpgradeShop.ItemLevels
                         UpgradeShopEvents.OnSellLevel?.Invoke(_currentItem.costPerLevel[_currentItem.currentLevel]);
                         _currentItem.currentLevel--;
                         UpdateStats();
+                        UpgradeShopEvents.OnUpdateItemLevel?.Invoke(-1);
                         return;
                         
                     default:
