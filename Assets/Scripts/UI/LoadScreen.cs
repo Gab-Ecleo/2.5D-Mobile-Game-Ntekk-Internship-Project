@@ -21,7 +21,6 @@ public class LoadScreen : MonoBehaviour
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
         
-        //Start loading bar
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress /.9f);
@@ -31,6 +30,5 @@ public class LoadScreen : MonoBehaviour
 
             yield return null;
         }
-
     }
 }
