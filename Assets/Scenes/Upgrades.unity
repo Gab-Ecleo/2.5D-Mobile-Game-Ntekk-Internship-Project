@@ -474,7 +474,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.5194092, y: -1.3289719}
+  m_AnchoredPosition: {x: -0.51953125, y: -1.3289795}
   m_SizeDelta: {x: 0.099975586, y: -2.6699982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &84837527
@@ -749,10 +749,10 @@ RectTransform:
   - {fileID: 1993604880}
   m_Father: {fileID: 1365482827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 220.36499}
-  m_SizeDelta: {x: 950, y: 440.72998}
+  m_AnchorMin: {x: 0.05570057, y: 0.064}
+  m_AnchorMax: {x: 0.947, y: 0.41323355}
+  m_AnchoredPosition: {x: -1.5, y: -0.6199951}
+  m_SizeDelta: {x: 3, y: 4.700012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &231936419
 GameObject:
@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1909521016}
         m_TargetAssemblyTypeName: UpgradeShopPrompt, Assembly-CSharp
         m_MethodName: YesOrNoPopupButton
         m_Mode: 1
@@ -4388,7 +4388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.99554443, y: 0.8800049}
+  m_AnchoredPosition: {x: 0.99560547, y: 0.8800049}
   m_SizeDelta: {x: -57.19995, y: -22.119995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1222225700
@@ -5465,7 +5465,7 @@ RectTransform:
   m_GameObject: {fileID: 1365482826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -333}
-  m_LocalScale: {x: 0.78787, y: 0.78787, z: 0.78787}
+  m_LocalScale: {x: 0.64163345, y: 0.64163345, z: 0.64163345}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1535286351}
@@ -5938,10 +5938,10 @@ RectTransform:
   - {fileID: 851457695}
   m_Father: {fileID: 1365482827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -310.635}
-  m_SizeDelta: {x: 950, y: 621.27}
+  m_AnchorMin: {x: 0.05570057, y: 0.41323355}
+  m_AnchorMax: {x: 0.947, y: 0.9492336}
+  m_AnchoredPosition: {x: -1, y: 1.4899902}
+  m_SizeDelta: {x: 4, y: -0.47998047}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1580933028
 GameObject:
@@ -6652,7 +6652,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1909521016}
         m_TargetAssemblyTypeName: UpgradeShopPrompt, Assembly-CSharp
         m_MethodName: FirstLayerButton
         m_Mode: 6
@@ -6784,7 +6784,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1909521016}
         m_TargetAssemblyTypeName: UpgradeShopPrompt, Assembly-CSharp
         m_MethodName: FirstLayerButton
         m_Mode: 6
@@ -7860,7 +7860,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1909521016}
         m_TargetAssemblyTypeName: UpgradeShopPrompt, Assembly-CSharp
         m_MethodName: Resume
         m_Mode: 1
