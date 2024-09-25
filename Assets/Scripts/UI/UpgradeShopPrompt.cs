@@ -65,11 +65,11 @@ public class UpgradeShopPrompt : MonoBehaviour
     {
         if (isThisHomeButton)
         {
-            SceneController.Instance.LoadScene(0);
+            //SceneController.Instance.GotToLoadScreen(0);
         }
         else
         {
-            SceneController.Instance.LoadScene(2); 
+            //SceneController.Instance.GotToLoadScreen(0); 
         }
     }
 

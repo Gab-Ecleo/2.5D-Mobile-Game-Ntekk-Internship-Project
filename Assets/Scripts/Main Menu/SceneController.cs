@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using EventScripts;
@@ -12,6 +13,8 @@ public class SceneController : MonoBehaviour
     public static SceneController Instance => _instance;
 
     private GameStateSO gameStateSO;
+    
+    LoadScreen loadScreen;
     private void Awake()
     {
         if (_instance == null) _instance = this;
@@ -30,12 +33,35 @@ public class SceneController : MonoBehaviour
                 Exit();
     }
 
-    public void LoadScene(int sceneInt)
+    public async void LoadScene(int sceneInt)
     {
-        DOTween.KillAll();
-        SceneManager.LoadScene(sceneInt);
-        Time.timeScale = 1.0f;
+        DOTween.KillAll(); 
+        
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(3);
+    
+
+        while (!loadOperation.isDone)
+        {
+            await Task.Yield(); 
+        }
+
+        Canvas canvas = GameObject.FindObjectOfType<Canvas>();
+
+        if (canvas != null)
+        {
+
+            loadScreen = canvas.GetComponentInChildren<LoadScreen>();
+
+            if (loadScreen != null)
+            {
+
+                loadScreen.LoadScene(sceneInt);
+            }
+
+            Time.timeScale = 1.0f; 
+        }
     }
+
 
     public void Exit()
     {

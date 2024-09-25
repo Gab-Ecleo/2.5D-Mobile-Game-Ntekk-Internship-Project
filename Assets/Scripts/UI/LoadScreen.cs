@@ -4,20 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;    
-
+using DG.Tweening;
+using ScriptableData;
 public class LoadScreen : MonoBehaviour
 {
     [Header("Loading Screen")]
     [SerializeField] private Slider progressBar;
-    [SerializeField] private TMP_Text progressCount;  
+    [SerializeField] private TMP_Text progressCount;
+    public int sceneInt;
     
+    private GameStateSO gameStateSO;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(LoadSceneAsync(2));
+        gameStateSO = GameManager.Instance.FetchGameStateData();
+    }
+    public void LoadScene(int sceneInt)
+    {
+        StartCoroutine(LoadSceneAsync(sceneInt));
     }
     
-    IEnumerator LoadSceneAsync(int scene)
+    private IEnumerator LoadSceneAsync(int scene)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
         
