@@ -8485,7 +8485,7 @@ MonoBehaviour:
   powerUpSprite: {fileID: 1443781011}
   nextCostTxt: {fileID: 499846613}
   currentLvlStatTxt: {fileID: 2011478650}
-  nextLvlStatTxt: {fileID: 2011478650}
+  nextLvlStatTxt: {fileID: 933332233}
   upgradeButton: {fileID: 1666098050}
   degradeButton: {fileID: 1580933030}
 --- !u!114 &2094592770
