@@ -25,6 +25,10 @@ namespace SaveSystem
         private void Awake()
         {
             InitializeFiles();
+            if (SceneManager.GetActiveScene().name == "PlayableGameplay")
+            {
+                Debug.Log("SAVE DATA MANAGER ON PLAYABLE GAMEPLAY SCENE");
+            }
         }
 
         private void InitializeFiles()
@@ -50,30 +54,15 @@ namespace SaveSystem
         //called at the beginning of the scene
         private void InitializeData(Scene scene, LoadSceneMode mode)
         {
-            if (scene.buildIndex == 0)
-            {
-                //LoadUpgrade();
-                LoadPlayerStats();
-                LoadCurrencyData();
-                LoadGameStateData();
-                UpgradeShopEvents.OnUpdateCurrency?.Invoke();
-            }
-
-            if (scene.buildIndex == 1)
+            if (scene.name == "MainMenu")
             {
                 LoadUpgrade();
                 LoadPlayerStats();
                 LoadCurrencyData();
                 LoadGameStateData();
+                LoadAudioSettingsData();
+                LoadButtons();
                 UpgradeShopEvents.OnUpdateCurrency?.Invoke();
-            }
-
-            //Can be called if there are no scripts manually loading these data
-            if (scene.buildIndex == 2)
-            {
-                //LoadButtons();
-                LoadGameStateData();
-                LoadCurrencyData();
             }
         }
 
@@ -81,15 +70,15 @@ namespace SaveSystem
         public void LoadPlayerStats()
         {
             if (new StatStorages().GetStatData() == null) return;
-            Debug.Log("Loading Player Stats");
             initialPlayerStats.stats = new StatStorages().GetStatData().stats;
+            Debug.Log("Loaded Player Stats");
         }
 
         public void SavePlayerStats()
         {
-            Debug.Log("Saving Player Stats");
             var tempStats = new StatData() { stats = initialPlayerStats.stats};
             new StatStorages().SaveStatData(tempStats);
+            Debug.Log("Saved Player Stats");
         }
         #endregion
 
@@ -98,7 +87,6 @@ namespace SaveSystem
         {
             //called to update in-game data from the local storage
             if (new UpgradeStorage().GetUpgradeData() == null) return;
-            Debug.Log("Loading Upgrade Progress");
             foreach (var dataItem in new UpgradeStorage().GetUpgradeData().items)
             {
                 foreach (var item in itemList.items)
@@ -109,16 +97,18 @@ namespace SaveSystem
                     }
                 }
             }
+            Debug.Log("Loaded Upgrade Progress");
         }
         
         public void SaveUpgrade()
         {
-            Debug.Log("Saving Upgrade Progress");
             var tempUpgrades = new UpgradeData
             {
                 items = itemList.items
             };
             new UpgradeStorage().SaveUpgradeData(tempUpgrades);
+            
+            Debug.Log("Saved Upgrade Progress");
         }
         #endregion
 
@@ -126,15 +116,15 @@ namespace SaveSystem
         public void LoadCurrencyData()
         {
             if (new CurrencyStorage().GetCurrencyData() == null) return;
-            Debug.Log("Loading Currency");
             playerCurrency.coins = new CurrencyStorage().GetCurrencyData().coins;
+            Debug.Log("Loaded Currency");
         }
         
         public void SaveCurrencyData()
         {
-            Debug.Log("Saving Currency");
             var tempCurrency = new CurrencyData { coins = playerCurrency.coins};
             new CurrencyStorage().SaveCurrencyData(tempCurrency);
+            Debug.Log("Saved Currency");
         }
         #endregion
 
@@ -143,20 +133,20 @@ namespace SaveSystem
         public void LoadAudioSettingsData()
         {
             if (new AudioStorage().GetAudioData() == null) return;
-            Debug.Log("Loading Audio Data");
             audioSettings.bgmVolume = new AudioStorage().GetAudioData().bgmVolume;
             audioSettings.sfxVolume = new AudioStorage().GetAudioData().sfxVolume;
+            Debug.Log("Loaded Audio Data");
         }
 
         public void SaveAudioSettingsData()
         {
-            Debug.Log("Saving Audio Data");
             var tempData = new AudioData
             {
                 bgmVolume = audioSettings.bgmVolume,
                 sfxVolume = audioSettings.sfxVolume
             };
             new AudioStorage().SaveAudioData(tempData);
+            Debug.Log("Saved Audio Data");
         }
         #endregion
 
@@ -172,17 +162,17 @@ namespace SaveSystem
                 {
                     if (ScriptableData.ButtonType == dataButtonList[i])
                     {
-                        Debug.Log($"Loading Button Data: {new ButtonStorage().GetButtonData().ButtonTypes[i]}");
                         ScriptableData.CurrPos = new ButtonStorage().GetButtonData().CurrPos[i];
                     }
                 }
             }
             buttonConfinerStats.buttonConfiners = new ButtonStorage().GetButtonData().buttonConfiners;
+            
+            Debug.Log($"Loaded Button Data");
         }
         
         public void SaveButtons()
         {
-            Debug.Log("Saving Button Data");
             var tempData = new ButtonData();
             foreach (var scriptableData in buttonScriptableList)
             {
@@ -192,6 +182,7 @@ namespace SaveSystem
 
             tempData.buttonConfiners = buttonConfinerStats.buttonConfiners;
             new ButtonStorage().SaveButtonData(tempData);
+            Debug.Log("Saved Button Data");
         }
         #endregion
 
@@ -199,11 +190,11 @@ namespace SaveSystem
         public void LoadGameStateData()
         {
             if (new GameStateStorage().GetGameStateData() == null) return;
-            Debug.Log("Loading Game State Data");
             gameStates.isPaused = new GameStateStorage().GetGameStateData().isPaused;
             gameStates.isPlayerFirstGame = new GameStateStorage().GetGameStateData().isPlayerFirstGame;
             gameStates.isDefaultHomeButton = new GameStateStorage().GetGameStateData().isDefaultHomeButton;
             gameStates.StartingPos = new GameStateStorage().GetGameStateData().StartingPos;
+            Debug.Log("Loaded Game State Data");
         }
 
         public void SaveGameStateData()
@@ -217,6 +208,7 @@ namespace SaveSystem
                 StartingPos = gameStates.StartingPos
             };
             new GameStateStorage().SaveGameStateData(tempdData);
+            Debug.Log("Saved Game State Data");
         }
         #endregion
 

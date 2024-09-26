@@ -48,3 +48,10 @@ MonoBehaviour:
   playerCurrency: {fileID: 11400000, guid: 2664018984b24a54ca9b1003bbcc846e, type: 2}
   itemList: {fileID: 11400000, guid: a63d035f678e47f49a7b7b37f7cf5e94, type: 2}
   audioSettings: {fileID: 11400000, guid: 4571c298988b77a4aa74557a5829fdc0, type: 2}
+  gameStates: {fileID: 11400000, guid: d1bd2192ea3ab30418ce9f5ef1a50b03, type: 2}
+  buttonScriptableList:
+  - {fileID: 11400000, guid: 0126be1fc8e9bef41955df8477128abc, type: 2}
+  - {fileID: 11400000, guid: 577934c961c22f442991f403e6728188, type: 2}
+  - {fileID: 11400000, guid: c0ba8aba32c32bf4a805200c8b77dc96, type: 2}
+  - {fileID: 11400000, guid: 73f843dd1612916408708311a6e4c5e5, type: 2}
+  buttonConfinerStats: {fileID: 11400000, guid: 32b40d1596449ee47adf7b3b79b425d1, type: 2}
