@@ -69,7 +69,7 @@ public class UpgradeShopPrompt : MonoBehaviour
         }
         else
         {
-            SceneController.Instance.LoadScene(2); 
+            SceneController.Instance.LoadScene(2);
         }
     }
 

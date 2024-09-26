@@ -31,11 +31,7 @@ namespace PlayerScripts
             {
                 LocalStorageEvents.OnSavePlayerStats?.Invoke();
             }
-            else
-            {
-                LocalStorageEvents.OnLoadPlayerStats?.Invoke();
-            }
-            
+
             // get starting positon
             _gameStateSo = GameManager.Instance.FetchGameStateData();
             GetPlayerPosition();

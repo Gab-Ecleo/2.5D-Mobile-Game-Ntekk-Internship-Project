@@ -20,13 +20,5 @@ MonoBehaviour:
     aerialSpdReducer: 0.1
     jumpHeight: 8
     jumpCutMultiplier: 0.7
-    hasMultiplier: 0
-    springJump: 0
-    timeSlow: 1
-    expressDelivery: 0
-    singleBlockRemover: 0
-    barrierDurability: 0
-    canRez: 0
-    StartingPos: {x: 0, y: 0, z: 0}
-    isPlayerFirstGame: 0
-    isDefaultHomeButton: 1
+    barrierDurability: 6
+    canRez: 1
