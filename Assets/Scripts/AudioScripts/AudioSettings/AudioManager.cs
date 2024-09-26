@@ -62,12 +62,10 @@ namespace AudioScripts.AudioSettings
                 case AudioType.BGM:
                     audioData.bgmVolume = settingsPayload.Volume;
                     UpdateBGMVolume(settingsPayload.Volume);
-                    LocalStorageEvents.OnSaveAudioSettingsData?.Invoke();
                     break;
                 case AudioType.Sfx:
                     audioData.sfxVolume = settingsPayload.Volume;
                     UpdateSfxVolume(settingsPayload.Volume);
-                    LocalStorageEvents.OnSaveAudioSettingsData?.Invoke();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

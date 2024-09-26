@@ -110,7 +110,7 @@ public class UIControlManager : MonoBehaviour
 
     private void InitializeButtons()
     {
-        saveDataManager.LoadButtons();
+        //saveDataManager.LoadButtons();
 
         buttonRects = new List<RectTransform>(buttonGOs.Count);
         buttonUIControls = new List<uiControls>(buttonGOs.Count);

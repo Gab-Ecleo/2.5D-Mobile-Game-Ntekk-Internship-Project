@@ -41,7 +41,7 @@ namespace AudioScripts.AudioSettings
 
         private void Start()
         {
-            LocalStorageEvents.OnLoadAudioSettingsData?.Invoke();
+            //LocalStorageEvents.OnLoadAudioSettingsData?.Invoke();
             bgmSlider.value = audioData.bgmVolume;
             sfxSlider.value = audioData.sfxVolume;
         }

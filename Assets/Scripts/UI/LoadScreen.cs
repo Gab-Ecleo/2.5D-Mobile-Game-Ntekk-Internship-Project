@@ -4,24 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;    
-
+using DG.Tweening;
+using EventScripts;
+using SaveSystem;
+using ScriptableData;
 public class LoadScreen : MonoBehaviour
 {
     [Header("Loading Screen")]
     [SerializeField] private Slider progressBar;
-    [SerializeField] private TMP_Text progressCount;  
+    [SerializeField] private TMP_Text progressCount;
+    public int sceneInt;
+
+    [Header("Save System Referneces")] 
+    [SerializeField] private SaveDataManager saveDataManager;
     
-    // Start is called before the first frame update
-    void Start()
+    public void LoadScene(int sceneInt)
     {
-        StartCoroutine(LoadSceneAsync(2));
+        StartCoroutine(LoadSceneAsync(sceneInt));
     }
     
-    IEnumerator LoadSceneAsync(int scene)
+    private IEnumerator LoadSceneAsync(int scene)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
-        
-        //Start loading bar
+
+        if (scene is 2 or 1)
+        {
+            LocalStorageEvents.OnLoadUpgradeData?.Invoke();
+            LocalStorageEvents.OnLoadPlayerStats?.Invoke();
+            LocalStorageEvents.OnLoadCurrencyData?.Invoke();
+            LocalStorageEvents.OnLoadGameStateData?.Invoke();
+            LocalStorageEvents.OnLoadButtonSettingsData?.Invoke();
+            LocalStorageEvents.OnLoadAudioSettingsData?.Invoke();
+        }
+
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress /.9f);
@@ -31,6 +46,5 @@ public class LoadScreen : MonoBehaviour
 
             yield return null;
         }
-
     }
 }
