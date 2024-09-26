@@ -38,8 +38,7 @@ public class SceneController : MonoBehaviour
         DOTween.KillAll(); 
         
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(3);
-    
-
+        
         while (!loadOperation.isDone)
         {
             await Task.Yield(); 
@@ -49,7 +48,6 @@ public class SceneController : MonoBehaviour
 
         if (canvas != null)
         {
-
             loadScreen = canvas.GetComponentInChildren<LoadScreen>();
 
             if (loadScreen != null)
