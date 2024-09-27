@@ -114,6 +114,8 @@ public class UIManager : MonoBehaviour
                 MovementPanel.enabled = false;
             }
         }
+        
+        BarrierUpdate();
     }
 
     private void InitializePlayerStats()
@@ -159,8 +161,10 @@ public class UIManager : MonoBehaviour
 
     private void BarrierUpdate()
     {
-        if (isInMainMenu)
+        if(isInMainMenu)
             barrierText.text = currStat.stats.barrierDurability.ToString("D4");
+        else if(isInUpgradeShop)
+            return;
         else
             barrierText.text = currStat.stats.barrierDurability.ToString("D1");
     }
