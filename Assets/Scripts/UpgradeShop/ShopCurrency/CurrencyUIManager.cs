@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace UpgradeShop.ShopCurrency
         [SerializeField] private TextMeshProUGUI currencyTxt;
         [SerializeField] private TextMeshProUGUI matchCurrencyTxt;
         
+
         //called for the shop currency
         public void UpdateCurrencyUI(int updatedValue)
         {

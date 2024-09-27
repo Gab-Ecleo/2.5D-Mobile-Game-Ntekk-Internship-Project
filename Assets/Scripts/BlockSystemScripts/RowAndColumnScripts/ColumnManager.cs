@@ -1,4 +1,5 @@
 ﻿using BlockSystemScripts.BlockScripts;
+using EventScripts;
 using UnityEngine;
 
 namespace BlockSystemScripts.RowAndColumnScripts
@@ -36,6 +37,10 @@ namespace BlockSystemScripts.RowAndColumnScripts
         private void FullColumn()
         {
             Debug.Log("Column Full. GAME OVER. Restart the game");
+            AudioEvents.ON_PLAYER_DEATH?.Invoke();
+            GameEvents.TRIGGER_GAMEEND_SCREEN?.Invoke(true);
+            GameEvents.IS_GAME_OVER?.Invoke(true);
+            LocalStorageEvents.OnSaveCurrencyData?.Invoke();
             Time.timeScale = 0;
         }
     }

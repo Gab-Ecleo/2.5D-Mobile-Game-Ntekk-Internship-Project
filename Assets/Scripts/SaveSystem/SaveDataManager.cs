@@ -62,7 +62,6 @@ namespace SaveSystem
                 LoadGameStateData();
                 LoadAudioSettingsData();
                 LoadButtons();
-                UpgradeShopEvents.OnUpdateCurrency?.Invoke();
             }
         }
 

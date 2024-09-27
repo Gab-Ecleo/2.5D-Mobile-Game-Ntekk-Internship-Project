@@ -30,6 +30,8 @@ namespace UpgradeShop.ShopCurrency
         private void Start()
         {
             ResetMatchCoins();
+
+            InitializeCurrency();
         }
 
         #region SHOP RELATED
