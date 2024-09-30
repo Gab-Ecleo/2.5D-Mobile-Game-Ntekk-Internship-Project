@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private bool isInUpgradeShop;
 
     [Header("Barrier")]
-    [SerializeField] TMP_Text barrierText;
+    [SerializeField] private TMP_Text barrierText;
 
     [Header("BGM Audio")]
     [SerializeField] private Sprite _bgmOn;
@@ -100,12 +100,14 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        InitializePlayerStats();
+        InitializeTutorialMenu();
+        FirstTutorial();
+        BarrierUpdate();
+        
         if(!isInUpgradeShop)
         {
-            InitializePlayerStats();
-            InitializeUIStates();
-
-            FirstTutorial();
+            InitializePauseMenu();
 
             PlayerEvents.ON_BARRIER_HIT?.Invoke();
 
@@ -114,8 +116,6 @@ public class UIManager : MonoBehaviour
                 MovementPanel.enabled = false;
             }
         }
-        
-        BarrierUpdate();
     }
 
     private void InitializePlayerStats()
@@ -124,18 +124,23 @@ public class UIManager : MonoBehaviour
         currStat = GameManager.Instance.FetchCurrentPlayerStat();
         gameStateSO = GameManager.Instance.FetchGameStateData();
     }
-
-    private bool InitializeUIStates()
+    
+    private bool InitializePauseMenu()
     {
         _isPauseScreenOpen = false;
-        _isTutorialScreenOpen = false;
-
         PauseMenu.SetActive(_isPauseScreenOpen);
-        TutorialMenu.SetActive(_isTutorialScreenOpen);
-
-        return !_isPauseScreenOpen && !_isTutorialScreenOpen && !PauseMenu.activeSelf && !TutorialMenu.activeSelf;
+        
+        return !_isPauseScreenOpen && !PauseMenu.activeSelf;
     }
 
+    private bool InitializeTutorialMenu()
+    {
+        _isTutorialScreenOpen = false;
+        TutorialMenu.SetActive(_isTutorialScreenOpen);
+
+        return !_isTutorialScreenOpen && !TutorialMenu.activeSelf;
+    }
+    
     // open tutorial when its player first time 
     private void FirstTutorial()
     {
@@ -143,6 +148,7 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("First Time Player");
             ToggleTutorialButton();
+            if(TutorialButton == null) { return;}
         }
         else if (gameStateSO.isPlayerFirstGame && isInMainMenu)
         {
@@ -153,10 +159,6 @@ public class UIManager : MonoBehaviour
         {
             TutorialButton.interactable = true;
         }
-        else if(isInUpgradeShop)
-        {
-            return;
-        }
     }
 
     private void BarrierUpdate()
@@ -165,7 +167,7 @@ public class UIManager : MonoBehaviour
             barrierText.text = currStat.stats.barrierDurability.ToString("D4");
         else if(isInUpgradeShop)
             return;
-        else
+        else if(!isInMainMenu && !isInUpgradeShop)
             barrierText.text = currStat.stats.barrierDurability.ToString("D1");
     }
 
@@ -214,12 +216,16 @@ public class UIManager : MonoBehaviour
         TutorialMenu.SetActive(true);
         if (!_isTutorialScreenOpen && !_isPauseScreenOpen )
         {
+            if (!isInUpgradeShop)
+            {
+                GameEvents.ON_TUTORIAL_UNLOCKED?.Invoke();
+                tutorialLock.ResetButtonAndPage();
+            }
+            
             _isTutorialScreenOpen = true;
             Time.timeScale = 0;
             tutorialfadePanel.interactable = true;
             tutorialfadePanel.blocksRaycasts = true;
-            GameEvents.ON_TUTORIAL_UNLOCKED?.Invoke();
-            tutorialLock.ResetButtonAndPage();
             TutorialPanelIntro();
         }
         else
