@@ -64,7 +64,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 72a20459915b0c14ebec44a43e461071, type: 2}
+  - {fileID: 2100000, guid: 58a029ddf45111e4b96e11ab78021821, type: 2}
+  - {fileID: 2100000, guid: e109ae846c13a24439b103723016984d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135,5 +136,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockSpawnTimerData: {fileID: 11400000, guid: ad7220b5d6c76fc4c96055193cbc9f92, type: 2}
-  pauseSo: {fileID: 11400000, guid: 9c2493518247b4a42b84ff26b05cca5b, type: 2}
   timeLeft: 0
