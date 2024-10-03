@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Block Spawner Data
   m_EditorClassIdentifier: 
   mainBlockList:
-  - {fileID: 3014360087961761113, guid: 1a911b3b8c19cbc4b99f8437b71a7239, type: 3}
-  - {fileID: 3014360087961761113, guid: 4ed55609c4e2ae549b7675c7d0cb6d99, type: 3}
-  - {fileID: 3014360087961761113, guid: 7699ee9221ffa9c4c92046be38abeaaa, type: 3}
+  - {fileID: 3035025374825305350, guid: 4e8f1f1bd41447d4c8fc10e5d816c220, type: 3}
+  - {fileID: 5450838500533785551, guid: 5726180eae7f13840b3c45c11b378e93, type: 3}
+  - {fileID: 3035025374825305350, guid: 3b18cef2ec3905c4f927cc515414572a, type: 3}
   specialBlockList:
-  - {fileID: 3014360087961761113, guid: cc3e05f7ce873fd49be1618a7c4af936, type: 3}
+  - {fileID: 3914895860709591721, guid: 5836c4524cbc60a46aa5b1a689515546, type: 3}
   powerUpBlockList:
   - {fileID: 9003241988300482068, guid: 32feac7bcd990e746800fd5956745645, type: 3}
   - {fileID: 4629124967111218583, guid: 7d77219b6073a374fa57b6c657bf2483, type: 3}
