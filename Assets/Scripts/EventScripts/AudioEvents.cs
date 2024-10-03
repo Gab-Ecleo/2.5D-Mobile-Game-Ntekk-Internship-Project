@@ -20,5 +20,6 @@ namespace EventScripts
         public static Action ON_PLAYER_DEATH;
 
         public static Action<string> ON_HAZARD_TRIGGER;
+        public static Action<int> RANDOMIZE_AUDIO;
     }
 }

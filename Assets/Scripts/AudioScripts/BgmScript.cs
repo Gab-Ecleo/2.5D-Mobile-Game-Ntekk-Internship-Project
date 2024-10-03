@@ -15,24 +15,26 @@ namespace AudioScripts
     {
         [Header("AudioSources")]
         [SerializeField] private AudioSource _audioSource;
-
-        private AudioClipsSO _audioClips;
+        [SerializeField] private AudioClipsSO _audioClips;
 
         private void Awake()
         {
             AudioEvents.ON_PLAYER_DEATH += PlayDeathBGM;
+            AudioEvents.RANDOMIZE_AUDIO += LoadClip;
         }
 
         private void OnDestroy()
         {
             AudioEvents.ON_PLAYER_DEATH -= PlayDeathBGM;
+            AudioEvents.RANDOMIZE_AUDIO -= LoadClip;
         }
 
         private void Start()
         {
             _audioClips = AudioManager.Instance.FetchAudioClips();
             
-            PlayBGM();
+            if(SceneManager.GetActiveScene().buildIndex == 0)
+                PlayBGM(_audioClips.MenuBGM);
         }
 
         #region Audio Controls
@@ -55,17 +57,10 @@ namespace AudioScripts
 
         #endregion
 
-        private void PlayBGM()
+        private void LoadClip(int clipIndex)
         {
             StopBGM();
-            
-            //Skip if it's not in the main menu
-            if(SceneManager.GetActiveScene().buildIndex == 0){  
-                PlayBGM(_audioClips.MenuBGM);
-                return;
-            }
-            
-            PlayBGM(BGM_Randomizer());
+            PlayBGM(BGM_Randomizer(clipIndex));
         }
 
         private void PlayDeathBGM()
@@ -77,21 +72,17 @@ namespace AudioScripts
         /// <summary>
         /// Returns randomized Audio clip
         /// </summary>
-        private AudioClip BGM_Randomizer()
+        private AudioClip BGM_Randomizer(int clipIndex)
         {
             AudioClip clip = null;
-            var clipIndex = Random.Range(1, 4);
-            
+
             switch (clipIndex)
             {
-                case 1:
+                case 0:
                     clip = _audioClips.FirstLevelBGM;
                     break;
-                case 2:
+                case 1:
                     clip = _audioClips.SecondLevelBGM;
-                    break;
-                case 3:
-                    clip = _audioClips.ThirdLevelBGM;
                     break;
             }
             
